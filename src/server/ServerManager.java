@@ -5,13 +5,30 @@ package server;
  *
  * @author Entidi (NTD - Tấn Đạt)
  */
-import Bot.NewBot;
+// import Bot.NewBot;
 import EMTI.FileRunner;
 import EMTI.Functions;
 import NTDManger.NTDManager;
 import models.Consign.ConsignShopManager;
+import models.DeathOrAliveArena.DeathOrAliveArenaManager;
+import models.ShenronEvent.ShenronEventManager;
 import jdbc.daos.HistoryTransactionDAO;
+import boss.AnTromManager;
 import boss.BossManager;
+import boss.BrolyManager;
+import boss.ChristmasEventManager;
+import boss.FinalBossManager;
+import boss.GasDestroyManager;
+import boss.HalloweenEventManager;
+import boss.HungVuongEventManager;
+import boss.LunarNewYearEventManager;
+import boss.OtherBossManager;
+import boss.RedRibbonHQManager;
+import boss.SkillSummonedManager;
+import boss.SnakeWayManager;
+import boss.TreasureUnderSeaManager;
+import boss.TrungThuEventManager;
+import boss.YardartManager;
 import consts.ConstDataEventNAP;
 import consts.ConstDataEventSM;
 
@@ -36,8 +53,11 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import jdbc.daos.EventDAO;
 import map.MapManager;
+import minigame.DecisionMaker.DecisionMaker;
+import minigame.LuckyNumber.LuckyNumber;
 import network.MessageSendCollect;
 import models.SuperRank.SuperRankManager;
+import models.The23rdMartialArtCongress.The23rdMartialArtCongressManager;
 import network.Message;
 import network.inetwork.ISessionAcceptHandler;
 import panel.PanelManager;
@@ -101,14 +121,50 @@ public class ServerManager {
         Thread.startVirtualThread(() -> SuperRankManager.gI());
         Logger.success("Đã khởi chạy thread Update Super Rank\n");
 
+        Thread.startVirtualThread(() -> The23rdMartialArtCongressManager.gI());
+        Logger.success("Đã khởi chạy thread DHVT23\n");
+
+        Thread.startVirtualThread(() -> AutoMaintenance.gI());
+        Logger.success("Đã khởi chạy thread Bảo Trì Tự Động\n");
+
+        Thread.startVirtualThread(() -> ShenronEventManager.gI());
+        Logger.success("Đã khởi chạy thread Shenron\n");
+
+        Thread.startVirtualThread(() -> DeathOrAliveArenaManager.gI());
+        Logger.success("Đã khởi chạy thread Võ Đài Sinh Tử\n");
+
         Logger.success("Đang tải boss...\n");
         BossManager.gI().loadBoss();
         Manager.MAPS.forEach(map.Map::initBoss);
         Logger.success("Đã tải xong boss\n");
+        EventManager.gI().init();
+        Logger.success("Đã khởi tạo sự kiện\n");
+        
+        Thread.startVirtualThread(() -> BossManager.gI().run());
+        Thread.startVirtualThread(() -> YardartManager.gI());
+        Thread.startVirtualThread(() -> FinalBossManager.gI());
+        Thread.startVirtualThread(() -> SkillSummonedManager.gI());
+        Thread.startVirtualThread(() -> BrolyManager.gI());
+        Thread.startVirtualThread(() -> AnTromManager.gI());
+        Thread.startVirtualThread(() -> OtherBossManager.gI());
+        Thread.startVirtualThread(() -> RedRibbonHQManager.gI());
+        Thread.startVirtualThread(() -> TreasureUnderSeaManager.gI());
+        Thread.startVirtualThread(() -> SnakeWayManager.gI());
+        Thread.startVirtualThread(() -> GasDestroyManager.gI());
+        Thread.startVirtualThread(() -> GasDestroyManager.gI());
+        Thread.startVirtualThread(() -> TrungThuEventManager.gI());
+        Thread.startVirtualThread(() -> HalloweenEventManager.gI());
+        Thread.startVirtualThread(() -> ChristmasEventManager.gI());
+        Thread.startVirtualThread(() -> ChristmasEventManager.gI());
+        Thread.startVirtualThread(() -> HungVuongEventManager.gI());
+        Thread.startVirtualThread(() -> LunarNewYearEventManager.gI());
+        Thread.startVirtualThread(() -> LuckyNumber.gI());
+        Thread.startVirtualThread(() -> DecisionMaker.gI());
+        Thread.startVirtualThread(() -> DecisionMaker.gI());
 
-        Logger.success("Đang tạo bot pem\n");
-        NewBot.gI().runBot(0, null, 100);
-        Logger.success("Tạo thành công bot pem\n");
+        // Logger.success("Đang tạo bot pem\n");
+        // NewBot.gI().runBot(0, null, 100);
+        // Logger.success("Tạo thành công bot pem\n");
 
         // Logger.success("Đang tạo bot săn boss\n");
         // NewBot.gI().runBot(2 , null , 10);
