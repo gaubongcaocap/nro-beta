@@ -1041,17 +1041,17 @@ public class Controller implements IMessageHandler {
     }
 
     private void sendThongBaoServer(Player player) {
-        Service.gI().sendThongBaoFromAdmin(player, "|0|❤️Nro XXX vừa ra mắt tặng người chơi vô vàn phần quà :\n"
+        Service.gI().sendThongBaoFromAdmin(player, "|0|Server đang trong giai đoạn Test\n"
                 // + "• >Nhập giftcode tại nhà : \n|4|"
                 // + "       - test\n"
                 // + "       - \n"
                 // + "       - \n"
 
-                + "• >️Mở thành viên và nhận giftcode tại website http://160.191.244.129/\n|7|"
+                + "Mở thành viên và nhận giftcode tại website http://160.191.244.129/\n|7|"
                 // + "• >️Đua top sức mạnh và nạp tại NPC ĐẠI THIÊN SỨ ở các làng nhé!!!\n|0|"
                 // + "• >Đội ngũ admin tuy không đẳng cấp lắm nhưng sẽ cố gắng lắng nghe người chơi nhất có thể :3\n"
                 // + "--> \n|4|"
-                + "Trò chơi chưa hoàn thiện nên cần nhiều góp ý từ ae, mong có thể cùng mọi người phát triển game ❤️❤️❤️\n"
+                // + "Trò chơi chưa hoàn thiện nên cần nhiều góp ý từ ae, mong có thể cùng mọi người phát triển game ❤️❤️❤️\n"
                 // + "Link tải game: "
                 );
     }

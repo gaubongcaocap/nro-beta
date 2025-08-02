@@ -40,23 +40,14 @@ public class OngGohan extends Npc {
         if (canOpenNpc(player)) {
             if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
                 this.createOtherMenu(player, ConstNpc.BASE_MENU,
-                        "\n\b|7|Con đang có :" + player.getSession().cash + " VND\n|0|"
-                        + "\nDùng COIN, VND hãy qua NPC BARDOCK hoặc QUY LÃO, Poc ở đảo Kame nhé!!!"
-                        + "\n Con có thể nhận quà nạp mốc, đua top sự kiện tại Quy Lão Kame\n"
-                        + "Code tân thủ:\n|4|"
-                        + "• giftcode : \n"
-                        + "       - duatoptest\n"
-                        + "       -\n"
-                        + "       -\n"
-                       
-                        + "Mở thành viên tại Bardock làng , nhận đệ tử miễn phí\n|1|"
-                        + "Lưu ý: Chỉ giao dịch nạp tiền qua duy nhất qua admin key vàng"
-                        + "\nmọi rủi ro tự chịu nếu không chấp hành.",
+                        "\nXin chào ta có thể giúp gì cho con!!!"
+                        + "\nServer Free 100% lên web để mở thành viên."
+                         + "\n\b|7|Con đang có :" + player.getSession().cash + " VND\n|0|"
+                        + "GIFTCODE: test1 ~ test16 ",
                         "GiftCode",
                         "Nạp tiền",
                         "Xóa đệ",
                         "Nhận ngọc\nMiễn phí",
-                        
                         "Hỗ trợ\nNhiệm vụ",
                         "Hộp thư",
                         "Nhận đệ tử",
