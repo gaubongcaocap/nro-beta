@@ -1041,13 +1041,13 @@ public class Controller implements IMessageHandler {
     }
 
     private void sendThongBaoServer(Player player) {
-        Service.gI().sendThongBaoFromAdmin(player, "|0|Server đang trong giai đoạn Test\n"
+        Service.gI().sendThongBaoFromAdmin(player, "Server đang trong giai đoạn Test"
                 // + "• >Nhập giftcode tại nhà : \n|4|"
                 // + "       - test\n"
                 // + "       - \n"
                 // + "       - \n"
 
-                + "Mở thành viên và nhận giftcode tại website http://160.191.244.129/\n|7|"
+                + "\nMở thành viên và nhận giftcode tại website http://javhd.pro"
                 // + "• >️Đua top sức mạnh và nạp tại NPC ĐẠI THIÊN SỨ ở các làng nhé!!!\n|0|"
                 // + "• >Đội ngũ admin tuy không đẳng cấp lắm nhưng sẽ cố gắng lắng nghe người chơi nhất có thể :3\n"
                 // + "--> \n|4|"

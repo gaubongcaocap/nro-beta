@@ -261,16 +261,16 @@ public class TopService {
                     msg.writer().writeUTF(getTimeLeft(top.getLasttime()));
                 }
                 case 4 -> {
-                    msg.writer().writeUTF("" + Util.numberToMoney(top.getCash()) + " VNĐ");
-                    msg.writer().writeUTF("" + top.getCash() + " VNĐ");
+                    msg.writer().writeUTF("" + Util.numberToMoney(top.getCash()) + " Coin");
+                    msg.writer().writeUTF("" + top.getCash() + " Coin");
                 }
                 case 5 -> {
                     msg.writer().writeUTF("Đã thử thách " + top.getDivdst() + " Lần");
                     msg.writer().writeUTF(getTimeLeft(top.getLasttime()));
                 }
 //                case 6 -> {
-//                    msg.writer().writeUTF("" + Util.numberToMoney(top.getCash()) + " VNĐ");
-//                    msg.writer().writeUTF("" + top.getCash() + " VNĐ");
+//                    msg.writer().writeUTF("" + Util.numberToMoney(top.getCash()) + " Coin");
+//                    msg.writer().writeUTF("" + top.getCash() + " Coin");
 //                }
             }
         }
@@ -340,16 +340,16 @@ public class TopService {
                         msg.writer().writeUTF(getTimeLeft(top.getLasttime()));
                     }
                     case 4 -> {
-                        msg.writer().writeUTF("" + Util.numberToMoney(top.getCash()) + " VNĐ");
-                        msg.writer().writeUTF("" + top.getCash() + " VNĐ");
+                        msg.writer().writeUTF("" + Util.numberToMoney(top.getCash()) + " Coin");
+                        msg.writer().writeUTF("" + top.getCash() + " Coin");
                     }
                     case 5 -> {
                         msg.writer().writeUTF("Đã thử thách " + top.getDivdst() + " Lần");
                         msg.writer().writeUTF(getTimeLeft(top.getLasttime()));
                     }
 //                    case 6 -> {
-//                        msg.writer().writeUTF("" + Util.numberToMoney(top.getCash()) + " VNĐ");
-//                        msg.writer().writeUTF("" + top.getCash() + " VNĐ");
+//                        msg.writer().writeUTF("" + Util.numberToMoney(top.getCash()) + " Coin");
+//                        msg.writer().writeUTF("" + top.getCash() + " Coin");
 //                    }
                 }
             }

@@ -197,7 +197,7 @@ public class Input {
                         int idacc = Integer.parseInt(text[0].trim());
                         int addcash = Integer.parseInt(text[1].trim());
                         if (PlayerDAO.addcash(idacc, addcash)) {
-                            Service.gI().sendThongBao(player, "Bạn đã buff cho " + idacc + " " + addcash + " VNĐ");
+                            Service.gI().sendThongBao(player, "Bạn đã buff cho " + idacc + " " + addcash + " Coin");
                             if (Client.gI().getPlayerByUser(idacc) != null) {
                                 Client.gI().getPlayerByUser(idacc).getSession().cash += addcash;
                                 Service.gI().sendThongBao(Client.gI().getPlayerByUser(idacc),
@@ -727,9 +727,9 @@ public class Input {
     }
 
     public void createFormBuffVND(Player player) {
-        createForm(player, BUFFVND, "Buff VNĐ",
+        createForm(player, BUFFVND, "Buff Coin",
                 new SubInput("id acc người chơi", NUMERIC),
-                new SubInput("VNĐ CẦN BUFF", ANY));
+                new SubInput("Coin CẦN BUFF", ANY));
     }
 
     public static class SubInput {

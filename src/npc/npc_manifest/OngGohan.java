@@ -68,7 +68,7 @@ public class OngGohan extends Npc {
                         String npcSay = "Số dư của con là: " + Util.mumberToLouis(player.getSession().cash) + " Coin dùng để nạp qua đơn vị khác\n"
                                 + "Ta đang giữ giúp con " + Util.mumberToLouis(player.getSession().goldBar) + " thỏi vàng";
                         createOtherMenu(player, ConstNpc.NAP_TIEN, npcSay,
-                                "Nạp VNĐ",
+                                "Nạp Coin",
                                 "Nạp vàng",
                                 "Nhận\nThỏi vàng",
                                 "Đóng");
