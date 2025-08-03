@@ -5,69 +5,8 @@ package npc;
  *
  * @author Entidi (NTD - Tấn Đạt)
  */
-import npc.npc_manifest.ToriBot;
-import npc.npc_manifest.Bulma;
-import npc.npc_manifest.Cui;
-import npc.npc_manifest.BillBiNgo;
-import npc.npc_manifest.OngGohan;
-import npc.npc_manifest.RongOmega;
-import npc.npc_manifest.Potage;
-import npc.npc_manifest.GokuSSJ2;
-import npc.npc_manifest.DaiThienSu;
-import npc.npc_manifest.OngMoori;
-import npc.npc_manifest.DrDrief;
-import npc.npc_manifest.Whis;
-import npc.npc_manifest.Kibit;
-import npc.npc_manifest.HoaHong;
-import npc.npc_manifest.ToSuKaio;
-import npc.npc_manifest.ThuongDe;
-import npc.npc_manifest.Dende;
-import npc.npc_manifest.Bardock;
-import npc.npc_manifest.LyTieuNuong;
-import npc.npc_manifest.Calick;
-import npc.npc_manifest.BulmaTuongLai;
-import npc.npc_manifest.Babiday;
-import npc.npc_manifest.KyGui;
-import npc.npc_manifest.BulmaTho;
-import npc.npc_manifest.TruongLaoGuru;
-import npc.npc_manifest.Rong4Sao;
-import npc.npc_manifest.BaHatMit;
-import npc.npc_manifest.ThanVuTru;
-import npc.npc_manifest.Rong1Sao;
-import npc.npc_manifest.BoMong;
-import npc.npc_manifest.VuaVegeta;
-import npc.npc_manifest.Rong2Sao;
-import npc.npc_manifest.QuocVuong;
-import npc.npc_manifest.Fide;
-import npc.npc_manifest.MrPoPo;
-import npc.npc_manifest.Karin;
-import npc.npc_manifest.Rong5Sao;
-import npc.npc_manifest.Jaco;
-import npc.npc_manifest.Rong6Sao;
-import npc.npc_manifest.Rong3Sao;
-import npc.npc_manifest.DocNhan;
-import npc.npc_manifest.Vados;
-import npc.npc_manifest.DuongTang;
-import npc.npc_manifest.TrongTai;
-import npc.npc_manifest.Appule;
-import npc.npc_manifest.QuaTrung;
-import npc.npc_manifest.Bill;
-import npc.npc_manifest.Osin;
-import npc.npc_manifest.Cargo;
-import npc.npc_manifest.OngParagus;
-import npc.npc_manifest.GhiDanh;
-import npc.npc_manifest.Tapion;
-import npc.npc_manifest.LinhCanh;
-import npc.npc_manifest.GiuMaDauBo;
-import npc.npc_manifest.Uron;
-import npc.npc_manifest.QuyLaoKame;
-import npc.npc_manifest.DauThan;
-import npc.npc_manifest.QuocVuongTranhNgoc;
-import npc.npc_manifest.Rong7Sao;
-import npc.npc_manifest.Santa;
-import npc.npc_manifest.RuongDo;
-import npc.npc_manifest.GokuSSJ;
 import boss.BossID;
+import boss.boss_manifest.MajinBuu12H.Cadic;
 import models.Consign.ConsignShopService;
 import services.ClanService;
 import services.Service;
@@ -105,10 +44,8 @@ import utils.Logger;
 import utils.Util;
 import models.SuperDivineWater.SuperDivineWaterService;
 import models.ShenronEvent.ShenronEventService;
-import npc.npc_manifest.Berry;
-import npc.npc_manifest.CayNeu;
-import npc.npc_manifest.DuaHau;
-import npc.npc_manifest.HungVuong;
+import npc.npc_manifest.*;
+
 import services.func.SummonDragonNamek;
 
 public class NpcFactory {
@@ -475,24 +412,24 @@ public class NpcFactory {
                                 break;
                         }
                     } case 671 -> {
-                        // switch (select) {
-                        //     case 0 -> {
-                        //         long[] time = new long[]{900000, 1800000, 3600000, 86400000, 259200000, 604800000, 1296000000};
-                        //         var bb = ItemService.gI().getTemplate(player.LearnSkill.ItemTemplateSkillId);
-                        //         String[] subName = bb.name.split("");
-                        //         byte level = Byte.parseByte(subName[subName.length - 1]);
-                        //         player.LearnSkill.Time = time[level - 1] + System.currentTimeMillis();
-                        //         player.nPoint.tiemNang -= player.LearnSkill.Potential;
-                        //         Service.gI().point(player);
-                        //         Service.gI().ClosePanel(player);
-                        //         NpcService.gI().createTutorial(player, NpcService.gI().getAvatar(13 + player.gender), "Con đã học thành công, hãy cố gắng chờ đợi nha");
-                        //         break;
-                        //     }
-                        //     case 1 -> {
+                        switch (select) {
+                            case 0 -> {
+                                long[] time = new long[]{900000, 1800000, 3600000, 86400000, 259200000, 604800000, 1296000000};
+                                var bb = ItemService.gI().getTemplate(player.LearnSkill.ItemTemplateSkillId);
+                                String[] subName = bb.name.split("");
+                                byte level = Byte.parseByte(subName[subName.length - 1]);
+                                player.LearnSkill.Time = time[level - 1] + System.currentTimeMillis();
+                                player.nPoint.tiemNang -= player.LearnSkill.Potential;
+                                Service.gI().point(player);
+                                Service.gI().ClosePanel(player);
+                                NpcService.gI().createTutorial(player, NpcService.gI().getAvatar(13 + player.gender), "Con đã học thành công, hãy cố gắng chờ đợi nha");
+                                break;
+                            }
+                            case 1 -> {
 
-                        //         break;
-                        //     }
-                        // }
+                                break;
+                            }
+                        }
                     }
                     case ConstNpc.IGNORE_MENU -> {
                     }

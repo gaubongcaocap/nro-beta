@@ -81,7 +81,7 @@ public class TransactionService implements Runnable {
                 case ACCEPT_TRADE:
                     // Kiểm tra trạng thái session của người chơi
                     if (!pl.getSession().actived) {
-                        Service.gI().sendThongBao(pl, "Truy Cập: " + ServerManager.DOMAIN + "\n Để Mở Thành Viên");
+                        // Service.gI().sendThongBao(pl, "Truy Cập: " + ServerManager.DOMAIN + "\n Để Mở Thành Viên");
                         return;
                     }
 

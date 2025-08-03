@@ -166,42 +166,42 @@ public class Pet extends Player {
                 return "Sư phụ ơi con lên cấp rồi";
         }
     }
-// public void fusionGogeta(boolean porata4) {
-//        if (this.isDie()) {
-//            Service.gI().sendThongBao(master, "Đệ cu chết rồi hợp thể chóa giề");
-//            return;
-//        }
-//        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
-//            if (porata4) {
-//                master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE_GOGETA;
-//            } else {
-//                master.fusion.lastTimeFusion = System.currentTimeMillis();
-//                master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE;
-//                ItemTimeService.gI().sendItemTime(master, master.gender == ConstPlayer.NAMEC ? 3901 : 3790,
-//                        Fusion.TIME_FUSION / 1000);
-//            }
-//            this.status = FUSION;
-//            ChangeMapService.gI().exitMap(this);
-//            fusionEffect(master.fusion.typeFusion);
-//            Service.gI().Send_Caitrang(master);
-//            master.nPoint.calPoint();
-//            master.nPoint.setFullHpMp();
-//            Service.gI().point(master);
-//            if (master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-//                Item item = master.inventory.itemsBody.get(5);
-//                Item petItem = this.inventory.itemsBody.get(5);
-//                boolean hasItem = item.isNotNullItem() && (item.template.id == 1693 || item.template.id == 1553);
-//                boolean sameItem = item.isNotNullItem() && petItem.isNotNullItem() && item.template.id == petItem.template.id;
-//                if (hasItem && !sameItem) {
-//                    System.out.println("ok hopthe");
-//                    SkillService.gI().sendPlayerPrepareBom(master, 2000);
-//                }
-//            }
-//        } else {
-//            Service.gI().sendThongBao(this.master, "Vui lòng đợi "
-//                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
-//        }
-//    }
+
+    public void fusionGogeta(boolean porata) {
+        if (this.isDie()) {
+            Service.gI().sendThongBao(master, "Đệ cu chết rồi hợp thể chóa giề");
+            return;
+        }
+        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+            if (porata) {
+                master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE_GOGETA;
+            } else {
+                master.fusion.lastTimeFusion = System.currentTimeMillis();
+                master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE;
+                ItemTimeService.gI().sendItemTime(master, master.gender == ConstPlayer.NAMEC ? 3901 : 3790,
+                        Fusion.TIME_FUSION / 1000);
+            }
+            this.status = FUSION;
+            ChangeMapService.gI().exitMap(this);
+            fusionEffect(master.fusion.typeFusion);
+            Service.gI().Send_Caitrang(master);
+            master.nPoint.calPoint();
+            master.nPoint.setFullHpMp();
+            Service.gI().point(master);
+            if (master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
+                Item item = master.inventory.itemsBody.get(5);
+                Item petItem = this.inventory.itemsBody.get(5);
+                boolean hasItem = item.isNotNullItem() && (item.template.id == 1693 || item.template.id == 1553);
+                boolean sameItem = item.isNotNullItem() && petItem.isNotNullItem() && item.template.id == petItem.template.id;
+                if (hasItem && !sameItem) {
+                    SkillService.gI().sendPlayerPrepareBom(master, 2000);
+                }
+            }
+        } else {
+            Service.gI().sendThongBao(this.master, "Vui lòng đợi "
+                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+        }
+    }
 
     public void fusion2(boolean porata) {
         if (this.isDie()) {
@@ -260,7 +260,7 @@ public class Pet extends Player {
             boolean hasItem = item.isNotNullItem() && (item.template.id == 1693 || item.template.id == 1553);
             boolean sameItem = item.isNotNullItem() && petItem.isNotNullItem() && item.template.id == petItem.template.id;
             if (hasItem && !sameItem) {
-                System.out.println(" ok hopthe");
+                System.out.println("ok hopthe");
                 SkillService.gI().sendPlayerPrepareBom(master, 2000);
             }
         }

@@ -383,20 +383,20 @@ public class ServerManager {
             });
         }
 
-        if (System.getProperty("os.name").toLowerCase().contains("linux")) {
-            Thread.startVirtualThread(() -> {
-                try {
-                    String[] command = { "/bin/bash", "-c",
-                            "cd ./ && nohup java -server -Xms512M -Xmx1536M -XX:MaxHeapFreeRatio=50 -jar VOZ_3_5.jar </dev/null >nohup.out 2>nohup.err &"
-                    };
-                    Process process = new ProcessBuilder(command).start();
-                    process.waitFor();
-                    Logger.success("SUCCESSFULLY RUN!\n");
-                } catch (Exception e) {
-                    Logger.error("Lỗi khi chạy lại ứng dụng trên Linux!\n");
-                }
-            });
-        }
+        // if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+        //     Thread.startVirtualThread(() -> {
+        //         try {
+        //             String[] command = { "/bin/bash", "-c",
+        //                     "cd ./ && nohup java -server -Xms512M -Xmx1536M -XX:MaxHeapFreeRatio=50 -jar VOZ_3_5.jar </dev/null >nohup.out 2>nohup.err &"
+        //             };
+        //             Process process = new ProcessBuilder(command).start();
+        //             process.waitFor();
+        //             Logger.success("SUCCESSFULLY RUN!\n");
+        //         } catch (Exception e) {
+        //             Logger.error("Lỗi khi chạy lại ứng dụng trên Linux!\n");
+        //         }
+        //     });
+        // }
 
         System.exit(0);
     }

@@ -75,9 +75,7 @@ public class ConstDataEventSM {
         if (System.currentTimeMillis() >= startEvent.getTimeInMillis()
                 && System.currentTimeMillis() <= endEvents.getTimeInMillis()) {
             if (isTraoQua && System.currentTimeMillis() + 60000 >= endEvents.getTimeInMillis()) {
-                String sql = "SELECT id, name, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player WHERE create_time > '2025-"
-                        + MONTH_OPEN + "-" + DATE_OPEN + " " + HOUR_OPEN + ":" + MIN_OPEN
-                        + ":00' ORDER BY CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 10;";
+                String sql = "SELECT id, name, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player WHERE create_time > '2025-" + MONTH_OPEN + "-" + DATE_OPEN + " " + HOUR_OPEN + ":" + MIN_OPEN + ":00' ORDER BY CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 10;";
                 List<Integer> AccIdPlayer = new ArrayList<>();
                 NDVResultSet rs = null;
                 try {

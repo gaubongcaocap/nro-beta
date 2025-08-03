@@ -56,8 +56,7 @@ public class ShopDAO {
 
     private static void loadShopTab(Connection con, Shop shop) {
         try {
-            PreparedStatement ps = con
-                    .prepareStatement("select * from tab_shop where shop_id = ? order by tab_index asc");
+            PreparedStatement ps = con.prepareStatement("select * from tab_shop where shop_id = ? order by tab_index asc");
             ps.setInt(1, shop.id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -98,8 +97,7 @@ public class ShopDAO {
                     ItemShop itemShop = new ItemShop();
                     itemShop.tabShop = tabShop;
                     itemShop.id = tabShop.itemShops.size() + 1;
-                    itemShop.temp = ItemService.gI()
-                            .getTemplate(Short.parseShort(String.valueOf(dataObject.get("temp_id"))));
+                    itemShop.temp = ItemService.gI().getTemplate(Short.parseShort(String.valueOf(dataObject.get("temp_id"))));
                     itemShop.isNew = Boolean.parseBoolean(String.valueOf(dataObject.get("is_new")));
                     itemShop.cost = Integer.parseInt(String.valueOf(dataObject.get("cost")));
                     itemShop.iconSpec = Integer.parseInt(String.valueOf(dataObject.get("item_spec")));
@@ -107,8 +105,7 @@ public class ShopDAO {
                     JSONArray options = (JSONArray) dataObject.get("options");
                     for (int j = 0; j < options.size(); j++) {
                         JSONObject opt = (JSONObject) options.get(j);
-                        itemShop.options.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get("id"))),
-                                Integer.parseInt(String.valueOf(opt.get("param")))));
+                        itemShop.options.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get("id"))), Integer.parseInt(String.valueOf(opt.get("param")))));
                     }
                     boolean isSell = Boolean.parseBoolean(String.valueOf(dataObject.get("is_sell")));
                     if (isSell) {
@@ -127,28 +124,26 @@ public class ShopDAO {
         }
     }
 
-    // private static void loadItemShopOption(Connection con, ItemShop itemShop) {
-    // try {
-    // PreparedStatement ps = con.prepareStatement("select * from item_shop_option
-    // where item_shop_id = ?");
-    // ps.setInt(1, itemShop.id);
-    // ResultSet rs = ps.executeQuery();
-    // while (rs.next()) {
-    // itemShop.options.add(new Item.ItemOption(rs.getInt("option_id"),
-    // rs.getInt("param")));
-    // }
-    // try {
-    // if (rs != null) {
-    // rs.close();
-    // }
-    // if (ps != null) {
-    // ps.close();
-    // }
-    // } catch (SQLException ex) {
-    // }
-    // } catch (Exception e) {
-    // Logger.logException(ShopDAO.class, e);
-    // }
-    // }
+//    private static void loadItemShopOption(Connection con, ItemShop itemShop) {
+//        try {
+//            PreparedStatement ps = con.prepareStatement("select * from item_shop_option where item_shop_id = ?");
+//            ps.setInt(1, itemShop.id);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                itemShop.options.add(new Item.ItemOption(rs.getInt("option_id"), rs.getInt("param")));
+//            }
+//            try {
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//                if (ps != null) {
+//                    ps.close();
+//                }
+//            } catch (SQLException ex) {
+//            }
+//        } catch (Exception e) {
+//            Logger.logException(ShopDAO.class, e);
+//        }
+//    }
 
 }

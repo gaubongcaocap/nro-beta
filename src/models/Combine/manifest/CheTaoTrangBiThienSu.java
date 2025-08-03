@@ -114,9 +114,17 @@ public class CheTaoTrangBiThienSu {
                         for (int i = 0; i < bonus2; i++) {
                             doThienSu.itemOptions.add(new Item.ItemOption(ops[i], Util.nextInt(1, 5)));
                         }
-                        ServerNotify.gI().notify("Whis: " + player.name + " đã chế tạo thành công " + doThienSu.template.name + " với " + bonus2 + " dòng chỉ số thưởng, mọi người đều kinh ngạc.");
+
+                        String message = "Whis: " + player.name + " đã chế tạo thành công " + doThienSu.template.name + " với " + bonus2 + " dòng chỉ số thưởng, mọi người đều kinh ngạc.";
+                        ServerNotify.gI().notify(message);
+
+                        //ChatGlobalService.gI().autoChatGlobal(player, "[Hệ thống] " + message);
+
                     } else {
-                        ServerNotify.gI().notify("Whis: " + player.name + " đã chế tạo thành công " + doThienSu.template.name + ", mọi người đều trầm trồ.");
+                        String message = "Whis: " + player.name + " đã chế tạo thành công " + doThienSu.template.name + ", mọi người đều trầm trồ.";
+                        ServerNotify.gI().notify(message);
+
+                        //ChatGlobalService.gI().autoChatGlobal(player, "[Hệ thống] " + message);
                     }
                     InventoryService.gI().subQuantityItemsBag(player, manhThienSu, 999);
                     CombineService.gI().sendEffectCombineItem(player, (byte) 7, (short) doThienSu.template.iconID, (short) -1);

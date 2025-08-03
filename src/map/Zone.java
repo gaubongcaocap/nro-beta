@@ -442,8 +442,7 @@ public class Zone {
                 TranhNgocService.getInstance().pickBall(player, itemMap);
                 return;
             }
-            int playerId = Math.abs(
-                    itemMap.playerId > 100_000_000 ? 1_000_000_000 - (int) itemMap.playerId : (int) itemMap.playerId);
+            int playerId = Math.abs(itemMap.playerId > 100_000_000 ? 1_000_000_000 - (int) itemMap.playerId : (int) itemMap.playerId);
             if (playerId == player.id || itemMap.playerId == player.id || itemMap.playerId == -1) {
                 Item item = ItemService.gI().createItemFromItemMap(itemMap);
                 if (item.template.id == 648) {
@@ -461,11 +460,7 @@ public class Zone {
                         msg.writer().writeShort(itemMapId);
                         switch (itemType) {
                             case 9, 10, 34 -> {
-                                msg.writer()
-                                        .writeUTF(item.quantity > Short.MAX_VALUE
-                                                ? "Bạn vừa nhận được " + Util.chiaNho(item.quantity) + " "
-                                                        + item.template.name
-                                                : "");
+                                msg.writer().writeUTF(item.quantity > Short.MAX_VALUE ? "Bạn vừa nhận được " + Util.chiaNho(item.quantity) + " " + item.template.name : "");
                                 PlayerService.gI().sendInfoHpMpMoney(player);
                             }
                             default -> {
@@ -477,14 +472,13 @@ public class Zone {
                                     case 78 ->
                                         msg.writer().writeUTF("Wow, một cậu bé dễ thương!");
                                     default -> {
-                                        // if (item.template.type >= 0 && item.template.type < 5) {
-                                        // msg.writer().writeUTF(item.template.name + " ngon...");
-                                        // } else {
+//                                        if (item.template.type >= 0 && item.template.type < 5) {
+//                                            msg.writer().writeUTF(item.template.name + " ngon...");
+//                                        } else {
                                         msg.writer().writeUTF("Bạn nhận được " + item.template.name);
-                                        // }
+//                                        }
                                         if (item.template.id == 648) {
-                                            InventoryService.gI().subQuantityItemsBag(player,
-                                                    InventoryService.gI().findItemBag(player, 649), 1);
+                                            InventoryService.gI().subQuantityItemsBag(player, InventoryService.gI().findItemBag(player, 649), 1);
                                         }
                                         InventoryService.gI().sendItemBag(player);
                                     }
@@ -506,9 +500,7 @@ public class Zone {
                         Logger.logException(Zone.class, e);
                     }
                 } else {
-                    if (!ItemMapService.gI().isBlackBall(item.template.id)
-                            && !ItemMapService.gI().isNamecBall(item.template.id)
-                            && !ItemMapService.gI().isNamecBallStone(item.template.id)) {
+                    if (!ItemMapService.gI().isBlackBall(item.template.id) && !ItemMapService.gI().isNamecBall(item.template.id) && !ItemMapService.gI().isNamecBallStone(item.template.id)) {
                         String text = "Hành trang không còn chỗ trống, không thể nhặt thêm";
                         Service.gI().sendThongBao(player, text);
                         return;
@@ -547,8 +539,7 @@ public class Zone {
 
         // Lỗi
         for (Player pl : this.notBosses) {
-            if (pl != null && (pl.effectSkin == null || !pl.effectSkin.isVoHinh) && pl.maBuHold == null
-                    && !pl.isMabuHold) {
+            if (pl != null && (pl.effectSkin == null || !pl.effectSkin.isVoHinh) && pl.maBuHold == null && !pl.isMabuHold) {
                 plNotVoHinh.add(pl);
             }
         }
@@ -569,8 +560,7 @@ public class Zone {
                         for (int i = players.size() - 1; i >= 0; i--) {
                             Player pl = players.get(i);
                             if (!player.equals(pl) && (player instanceof NonInteractiveNPC
-                                    || player instanceof TrainingBoss
-                                            && ((TrainingBoss) player).playerAtt.equals(pl))) {
+                                    || player instanceof TrainingBoss && ((TrainingBoss) player).playerAtt.equals(pl))) {
                                 infoPlayer(pl, player);
                             }
                         }
@@ -778,11 +768,7 @@ public class Zone {
                     msg.writer().writeShort(mob.location.y);
                     msg.writer().writeByte(mob.status);
                     msg.writer().writeByte(mob.lvMob);
-                    msg.writer()
-                            .writeBoolean(mob.tempId == ConstMob.GAU_TUONG_CUOP || mob.tempId == ConstMob.KONG
-                                    || mob.tempId == ConstMob.GOZILLA
-                                    || mob.tempId >= ConstMob.VOI_CHIN_NGA && mob.tempId <= ConstMob.PIANO); // is
-                                                                                                             // bigboss
+                    msg.writer().writeBoolean(mob.tempId == ConstMob.GAU_TUONG_CUOP || mob.tempId == ConstMob.KONG || mob.tempId == ConstMob.GOZILLA || mob.tempId >= ConstMob.VOI_CHIN_NGA && mob.tempId <= ConstMob.PIANO); //is bigboss
                 }
             } catch (Exception e) {
                 msg.writer().writeByte(0);
@@ -828,16 +814,19 @@ public class Zone {
                 msg.writer().writeShort(0);
             }
 
-            /// eff item
-            try {
-                List<EffectMap> effectList = MapManager.getEffMap(this.map.mapId);
-                msg.writer().writeShort(effectList.size());
-                for (EffectMap e : effectList) {
-                    msg.writer().writeUTF(e.getKey());
-                    msg.writer().writeUTF(e.getValue());
-                }
-            } catch (Exception e) {
-                msg.writer().writeShort(0);
+//            // eff item
+//            try {
+//                final byte[] effItem = FileIO.readFile("data/map/eff_map/" + this.map.mapId);
+//                msg.writer().write(effItem);
+//            } catch (Exception e) {
+//                msg.writer().writeShort(0);
+//            }
+            // eff item
+            List<EffectMap> em = this.map.effMap;
+            msg.writer().writeShort(em.size());
+            for (EffectMap e : em) {
+                msg.writer().writeUTF(e.getKey());
+                msg.writer().writeUTF(e.getValue());
             }
             msg.writer().writeByte(this.map.bgType);
             msg.writer().writeByte(pl.iDMark.getIdSpaceShip());
@@ -896,8 +885,7 @@ public class Zone {
         }
         return null;
     }
-
-    public boolean isKhongCoTrongTaiTrongKhu() {
+     public boolean isKhongCoTrongTaiTrongKhu() {
         boolean no = true;
         for (Player pl : players) {
             if (pl.name.compareTo("Trọng Tài") == 0) {

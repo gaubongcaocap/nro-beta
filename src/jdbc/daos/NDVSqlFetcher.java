@@ -243,11 +243,11 @@ public class NDVSqlFetcher {
             } else {
                 player.inventory.coupon = 0;
             }
-            // if (dataArray.size() >= 5 && false) {
-            //     player.inventory.event = Integer.parseInt(String.valueOf(dataArray.get(4)));
-            // } else {
-            //     player.inventory.event = 0;
-            // }
+            if (dataArray.size() >= 5 && false) {
+                player.inventory.event = Integer.parseInt(String.valueOf(dataArray.get(4)));
+            } else {
+                player.inventory.event = 0;
+            }
             dataArray.clear();
 
             //data tọa độ
@@ -298,9 +298,10 @@ public class NDVSqlFetcher {
             player.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
             player.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
             player.nPoint.critg = Byte.parseByte(String.valueOf(dataArray.get(9)));
-            dataArray.get(10); //** Năng động
-            plHp = Long.parseLong(String.valueOf(dataArray.get(11)));
-            plMp = Long.parseLong(String.valueOf(dataArray.get(12)));
+            player.nPoint.critdragon = Byte.parseByte(String.valueOf(dataArray.get(10)));
+            dataArray.get(11); //** Năng động
+            plHp = Long.parseLong(String.valueOf(dataArray.get(12)));
+            plMp = Long.parseLong(String.valueOf(dataArray.get(13)));
             dataArray.clear();
 
             //data đậu thần

@@ -1,7 +1,7 @@
 package npc.npc_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstDailyGift;
 import consts.ConstMenu;
@@ -11,6 +11,7 @@ import item.Item;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import models.Combine.Combine;
 
 import models.Combine.CombineService;
 import models.Combine.manifest.CheTaoCuonSachCu;
@@ -35,6 +36,7 @@ public class BaHatMit extends Npc {
     public BaHatMit(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         super(mapId, status, cx, cy, tempId, avartar);
     }
+
 
     @Override
     public void openBaseMenu(Player player) {

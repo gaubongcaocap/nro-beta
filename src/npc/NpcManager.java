@@ -43,21 +43,19 @@ public class NpcManager {
                 if (npc.tempId == ConstNpc.QUA_TRUNG && player.mabuEgg == null && player.zone.map.mapId == (21 + player.gender)) {
                     continue;
                 }
-                if (npc.tempId == ConstNpc.DUA_HAU && player.timedua == null && player.zone.map.mapId == (21 + player.gender)) {
+                else if (npc.tempId == ConstNpc.DUA_HAU && player.timedua == null && player.zone.map.mapId == (21 + player.gender)) {
                     continue;
                 }
-                if (npc.tempId == ConstNpc.CALICK && TaskService.gI().getIdTask(player) < ConstTask.TASK_23_0) {
+                else if (npc.tempId == ConstNpc.CALICK && TaskService.gI().getIdTask(player) < ConstTask.TASK_23_0) {
                     continue;
                 }
-                if (npc.tempId == ConstNpc.QUOC_VUONG && player.nPoint.power < 17000000000L) {
+                else if (npc.tempId == ConstNpc.QUOC_VUONG && player.nPoint.power < 17000000000L) {
                     continue;
                 }
-                if (npc.tempId == ConstNpc.TORI_BOT && !player.clan.doanhTrai.isTimePicking) {
+                else if (npc.tempId == ConstNpc.TORI_BOT && !player.clan.doanhTrai.isTimePicking) {
                     continue;
                 }
-                if (npc.tempId == ConstNpc.BA_HAT_MIT && player.zone.map.mapId == 5 && ConstDataEventSM.isRunningSK) {
-                    continue;
-                }
+
                 list.add(npc);
             }
         }

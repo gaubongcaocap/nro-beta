@@ -90,10 +90,10 @@ public class OngGohan extends Npc {
                         Service.gI().sendThongBao(player, "Bạn vừa nhận " + Util.mumberToLouis(soLuongNgoc) + " ngọc xanh");
                         break;
                     case 6: // nhận đệ
-//                        if (!player.getSession().actived) {
-//                            Service.gI().sendThongBao(player, "Vui lòng mở thành viên trước");
-//                            return;
-//                        }
+                       if (!player.getSession().actived) {
+                           Service.gI().sendThongBao(player, "Vui lòng mở thành viên trước");
+                           return;
+                       }
                         if (player.pet == null) {
                             PetService.gI().createNormalPet(player);
                             Service.gI().sendThongBao(player, "Bạn vừa nhận được đệ tử");
@@ -108,13 +108,23 @@ public class OngGohan extends Npc {
                             player.playerTask.taskMain.index = 0;
                             TaskService.gI().sendNextTaskMain(player);
                             Service.gI().sendThongBao(player, "Bạn đã được hỗ trợ nhiệm vụ thành công");
-                        } else if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_18_0 && TaskService.gI().getIdTask(player) < ConstTask.TASK_20_0) {
+                        }else if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_12_0 && TaskService.gI().getIdTask(player) < ConstTask.TASK_14_0) {
+                            player.playerTask.taskMain.id = 13;
+                            player.playerTask.taskMain.index = 0;
+                            TaskService.gI().sendNextTaskMain(player);
+                            Service.gI().sendThongBao(player, "Bạn đã được hỗ trợ nhiệm vụ thành công");
+                        }else if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_15_0 && TaskService.gI().getIdTask(player) < ConstTask.TASK_17_0) {
+                            player.playerTask.taskMain.id = 16;
+                            player.playerTask.taskMain.index = 0;
+                            TaskService.gI().sendNextTaskMain(player);
+                            Service.gI().sendThongBao(player, "Bạn đã được hỗ trợ nhiệm vụ thành công");
+                        }else if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_18_0 && TaskService.gI().getIdTask(player) < ConstTask.TASK_20_0) {
                             player.playerTask.taskMain.id = 19;
                             player.playerTask.taskMain.index = 0;
                             TaskService.gI().sendNextTaskMain(player);
                             Service.gI().sendThongBao(player, "Bạn đã được hỗ trợ nhiệm vụ thành công");
                         } else {
-                            Service.gI().sendThongBao(player, "Chỉ hỗ trợ nhiệm vụ tàu pảy pảy và nhiệm vụ DHVT, Trung úy trắng");
+                            Service.gI().sendThongBao(player, "Chỉ hỗ trợ nhiệm vụ Bang Hội, nhiệm vụ DHVT, Trung úy trắng");
                         }
                         break;
                     case 5:

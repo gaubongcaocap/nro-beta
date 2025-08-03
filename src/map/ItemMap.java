@@ -76,7 +76,72 @@ public class ItemMap {
         this.lastTimeMoveToPlayer = System.currentTimeMillis();
         this.zone.addItem(this);
     }
+ public ItemMap(Zone zone, int tempId, int quantity, int x, int y, long playerId, int maxDaily) {
+        this.zone = zone;
 
+        // Kiểm tra giới hạn số lượng vật phẩm trong ngày
+        if (!canReceiveItem(playerId, tempId, maxDaily)) {
+          
+            return;
+        }
+
+        // Tạo vật phẩm và thêm vào zone
+        this.itemMapId = zone.countItemAppeaerd++;
+        if (zone.countItemAppeaerd >= 2000000000) {
+            zone.countItemAppeaerd = 0;
+        }
+        this.itemTemplate = ItemService.gI().getTemplate((short) tempId);
+        this.quantity = quantity;
+        this.x = x;
+        this.y = y;
+        this.playerId = playerId != -1 ? Math.abs(playerId) : playerId;
+        this.createTime = System.currentTimeMillis();
+        this.options = new ArrayList<>();
+        this.isBlackBall = ItemMapService.gI().isBlackBall(this.itemTemplate.id);
+        this.isNamecBall = ItemMapService.gI().isNamecBall(this.itemTemplate.id);
+        this.lastTimeMoveToPlayer = System.currentTimeMillis();
+
+        // Cập nhật số lượng vật phẩm đã nhận
+        updateDailyItemCount(playerId, tempId, quantity);
+
+        // Thêm vật phẩm vào zone
+        this.zone.addItem(this);
+    }
+ 
+    /**
+     * Cập nhật số lượng vật phẩm đã nhận trong ngày.
+     *
+     * @param playerId ID người chơi.
+     * @param tempId   ID loại vật phẩm.
+     * @param quantity Số lượng vật phẩm nhận thêm.
+     */
+    private void updateDailyItemCount(long playerId, int tempId, int quantity) {
+        dailyItemReceiveCount.putIfAbsent(playerId, new HashMap<>());
+        java.util.Map<Integer, Integer> playerItems = dailyItemReceiveCount.get(playerId);
+        int currentCount = playerItems.getOrDefault(tempId, 0);
+        playerItems.put(tempId, currentCount + quantity);
+    }
+     /**
+     * Reset số lượng vật phẩm đã nhận trong ngày (dùng vào cuối ngày).
+     */
+    public static void resetDailyItemCount() {
+        dailyItemReceiveCount.clear();
+        System.out.println("Đã reset số lượng vật phẩm nhận trong ngày.");
+    }
+    /**
+     * Kiểm tra xem người chơi có thể nhận thêm vật phẩm loại này không.
+     *
+     * @param playerId ID người chơi.
+     * @param tempId   ID loại vật phẩm.
+     * @param maxDaily Giới hạn tối đa trong ngày.
+     * @return true nếu người chơi chưa đạt giới hạn, ngược lại false.
+     */
+    private boolean canReceiveItem(long playerId, int tempId, int maxDaily) {
+        java.util.Map<Integer, Integer> playerItems = dailyItemReceiveCount.getOrDefault(playerId, new HashMap<>());
+        int receivedCount = playerItems.getOrDefault(tempId, 0);
+        return receivedCount < maxDaily;
+    }
+    
     public ItemMap(ItemMap itemMap) {
         this.zone = itemMap.zone;
         this.itemMapId = itemMap.itemMapId;
@@ -119,7 +184,7 @@ public class ItemMap {
                     this.playerId = -1;
                 }
             }
-            if ((Util.canDoWithTime(createTime, 50000) && isNotNullItem() && itemTemplate.type != 22 || Util.canDoWithTime(createTime, 180000)) && !this.isNamecBall) {
+            if ((Util.canDoWithTime(createTime, 50000) && isNotNullItem() && itemTemplate.type != 22 || Util.canDoWithTime(createTime, 1800000)) && !this.isNamecBall) {
                 if (this.zone != null && this.zone.map.mapId != 21 && this.zone.map.mapId != 22
                         && this.zone.map.mapId != 23 && this.itemTemplate.id != 78
                         && this.itemTemplate.id != 726 && !(MapService.gI().isMapDoanhTrai(this.zone.map.mapId) && this.itemTemplate.id >= 14 && this.itemTemplate.id <= 20)) {
@@ -205,13 +270,5 @@ public class ItemMap {
         this.zone = null;
         this.itemTemplate = null;
         this.options = null;
-    }
-
-    /**
-     * Reset số lượng vật phẩm đã nhận trong ngày (dùng vào cuối ngày).
-    */
-    public static void resetDailyItemCount() {
-        dailyItemReceiveCount.clear();
-        System.out.println("Đã reset số lượng vật phẩm nhận trong ngày.");
     }
 }

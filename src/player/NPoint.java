@@ -36,9 +36,12 @@ import power.PowerLimitManager;
 import utils.TimeUtil;
 
 public class NPoint {
-    public static final byte MAX_LIMIT = 13;
+
+    public static final byte MAX_LIMIT = 10;
+
     @Setter
     private Player player;
+
     public NPoint(Player player) {
         this.player = player;
         this.tlHp = new ArrayList<>();
@@ -49,9 +52,11 @@ public class NPoint {
         this.tlTNSM = new ArrayList<>();
         this.tlDameCrit = new ArrayList<>();
     }
+
     public boolean isCrit;
     public boolean isCrit100;
     public boolean isCritTele;
+
     private Intrinsic intrinsic;
     private int percentDameIntrinsic;
     public long dameAfter;
@@ -59,101 +64,131 @@ public class NPoint {
     /*-----------------------Chỉ số cơ bản------------------------------------*/
     public byte numAttack;
     public short stamina, maxStamina;
+
     public byte limitPower;
     public long power;
     public long tiemNang;
+
     public long hp, hpMax, hpg;
     public long mp, mpMax, mpg;
     public long dame, dameg;
     public int def, defg;
-    public int crit, critg , critdragon;
+    public int crit, critg, critdragon;
     public byte speed = 5;
+
     public boolean teleport;
+
     public boolean khangTDHS;
+
     public void initPowerLimit() {
         powerLimit = PowerLimitManager.getInstance().get(limitPower);
     }
+
     /**
      * Chỉ số cộng thêm
      */
     public int hpAdd, mpAdd, dameAdd, defAdd, critAdd, hpHoiAdd, mpHoiAdd;
+
     /**
      * //+#% sức đánh chí mạng
      */
     public List<Integer> tlDameCrit;
     public int tlSDCM;
+
     /**
      * Tỉ lệ hp, mp cộng thêm
      */
     public List<Integer> tlHp, tlMp;
+
     /**
      * Tỉ lệ giáp cộng thêm
      */
     public List<Integer> tlDef;
+
     /**
      * Tỉ lệ sức đánh/ sức đánh khi đánh quái
      */
     public List<Integer> tlDame, tlDameAttMob;
+
     /**
      * Lượng hp, mp hồi mỗi 30s, mp hồi cho người khác
      */
     public long hpHoi, mpHoi, mpHoiCute;
+
     /**
      * Tỉ lệ hp, mp hồi cộng thêm
      */
     public short tlHpHoi, tlMpHoi;
+
     /**
      * Tỉ lệ hp, mp hồi bản thân và đồng đội cộng thêm
      */
     public short tlHpHoiBanThanVaDongDoi, tlMpHoiBanThanVaDongDoi;
+
     /**
      * Tỉ lệ hút hp, mp khi đánh, hp khi đánh quái
      */
     public short tlHutHp, tlHutMp, tlHutHpMob;
+
     /**
      * Tỉ lệ hút hp, mp xung quanh mỗi 5s
      */
     public short tlHutHpMpXQ;
+
     /**
      * Tỉ lệ phản sát thương
      */
     public short tlPST;
+
     /**
      * Tỉ lệ tiềm năng sức mạnh
      */
     public List<Integer> tlTNSM;
+
     /**
      * Tỉ lệ vàng cộng thêm
      */
     public short tlGold;
+
     /**
      * Tỉ lệ né đòn
      */
     public short tlNeDon;
+
     public short tlBom;
+
     public short tlGiap;
+
     public short tlxgcc;
+
     public short tlxgc;
+
     public short tlchinhxac;
+
     public short tlTNSMPet;
     public short xChuong;
+
     public short setltdb;
     public short setTinhAn;
     public short setNhatAn;
     public short setNguyetAn;
+
     /**
      * Tỉ lệ sức đánh đẹp cộng thêm cho bản thân và người xung quanh
      */
     public int tlSexyDame;
+
     /**
      * Tỉ lệ giảm sức đánh
      */
     public short tlSubSD;
+
     public int voHieuChuong;
 
     /*------------------------Effect skin-------------------------------------*/
     public Item trainArmor;
     public boolean wearingTrainArmor;
+
     public boolean wearingVoHinh;
     public boolean isKhongLanh;
     public boolean islinhthuydanhbac;
@@ -169,7 +204,7 @@ public class NPoint {
     public boolean isBunmaTocMau;
     public boolean isTiecBaiBien;
     public short tlHpGiamODo;
-    public boolean isHoatiemthuongPhonghoaluan;
+
     public boolean isGogeta;
     public int tlSpeed;
     public int levelBT;
@@ -559,7 +594,7 @@ public class NPoint {
             case 116: //Kháng thái dương hạ san
                 this.khangTDHS = true;
                 break;
-
+            case 226:
             case 117: //Đẹp +#% SĐ cho mình và người xung quanh
                 if (io.param > this.tlSexyDame) {
                     this.tlSexyDame = io.param;
@@ -1058,7 +1093,7 @@ public class NPoint {
         }
         // xử lý gogeta
         if (this.isGogeta) {
-            mpMax += (mpMax * 15 / 100L);
+            mpMax += (mpMax * 5 / 100L);
         }
         // xử lý zamasu hợp thể
         if (this.iszamasuhopthe) {
@@ -1069,15 +1104,15 @@ public class NPoint {
             mpMax += 1_000_000;
         }
         if (this.player.itemTime != null && this.player.itemTime.isUseLoX15) {
-            mpMax -= (mpMax * 50 / 100L);
+            mpMax -= (mpMax * 85 / 100L);
         } else if (this.player.itemTime != null && this.player.itemTime.isUseLoX10) {
-            mpMax -= (mpMax * 40 / 100L);
+            mpMax -= (mpMax * 65 / 100L);
         } else if (this.player.itemTime != null && this.player.itemTime.isUseLoX7) {
-            mpMax -= (mpMax * 30 / 100L);
+            mpMax -= (mpMax * 45 / 100L);
         } else if (this.player.itemTime != null && this.player.itemTime.isUseLoX5) {
-            mpMax -= (mpMax * 20 / 100L);
+            mpMax -= (mpMax * 35 / 100L);
         } else if (this.player.itemTime != null && this.player.itemTime.isUseLoX2) {
-            mpMax -= (mpMax * 10 / 100L);
+            mpMax -= (mpMax * 25 / 100L);
         }
         // Xử lý rồng xương
         if (player.itemTime != null && player.itemTime.isUseRX) {
@@ -1251,6 +1286,7 @@ public class NPoint {
         if (this.player.rewardBlackBall.timeOutOfDateReward[0] > System.currentTimeMillis()) {
             dame += (dame * RewardBlackBall.R1S_2 / 100L);
         }
+
         // Xử lý set worldcup
         if (this.player.setClothes.worldcup == 2) {
             dame += (dame * 10 / 100L);
@@ -1267,7 +1303,7 @@ public class NPoint {
         if (this.player.setClothes.thouhangnga == 1){
             dame += (dame * 15 / 100L);
         }
-        // Xử lý set nail
+ // Xử lý set nail
         if (this.player.setClothes.nail >= 2) {
             this.tlDameCrit.add(20);
         }
@@ -1289,7 +1325,7 @@ public class NPoint {
         }
         //xử lý gogeta
         if (this.isGogeta) {
-            dame += (dame * 15 / 100L);
+            dame += (dame * 5 / 100L);
         }
         // xử lý zamasu
         if (this.iszamasuhopthe) {
@@ -1329,7 +1365,6 @@ public class NPoint {
 //        if (dame > 2_000_000_000) {
 //            dame = 2_000_000_000;
 //        }
-
         this.dame = dame;
     }
 
@@ -1350,8 +1385,8 @@ public class NPoint {
         if (this.player.effectSkill.isMonkey) {
             this.crit = 110;
         }
-        if (player.setClothes.thanVuTruKaio >= 2) {
-            this.crit += 20;
+        if (player.setClothes.thanVuTruKaio >= 1) {
+            this.crit += 10;
         }
         // Xử lý thức ăn 3
         if (this.player.itemTime != null && this.player.itemTime.isEatMeal3 && this.player.itemTime.iconMeal3 == 8244) {
@@ -1543,7 +1578,7 @@ public class NPoint {
                     percentDameIntrinsic = intrinsic.param1;
                 }
                 if (this.player.setClothes.nail == 5) {
-                    percentXDame = 100;
+                    percentXDame = 50;
                 }
                 percentDameSkill = skillSelect.damage;
                 break;
@@ -1572,7 +1607,7 @@ public class NPoint {
                 break;
             case Skill.TU_SAT:
                 percentDameSkill = skillSelect.damage;
-        		if (this.player.setClothes.cadicM == 4) {
+                if (this.player.setClothes.cadicM == 4) {
                     percentXDame = 20;
                 } else if (this.player.setClothes.cadicM == 5) {
                     percentXDame = 40;
@@ -1711,9 +1746,6 @@ public class NPoint {
             this.mp = 0;
         }
 
-//        if (this.mp > 2_000_000_000) {
-//            this.mp = 2_000_000_000;
-//        }
     }
 
     public long calSucManhTiemNang(long tiemNang) {
@@ -1816,6 +1848,7 @@ public class NPoint {
             if (MapService.gI().isMapBanDoKhoBau(this.player.zone.map.mapId)) {
                 tiemNang *= 2;
             }
+
             tiemNang *= Manager.RATE_EXP_SERVER;
             tiemNang = calSubTNSM(tiemNang);
             if (tiemNang <= 0) {

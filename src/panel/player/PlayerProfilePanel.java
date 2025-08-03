@@ -20,6 +20,7 @@ import java.util.List;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import org.json.simple.JSONObject;
 import panel.UIUtils;
 
 public class PlayerProfilePanel extends JPanel {
@@ -206,8 +207,7 @@ public class PlayerProfilePanel extends JPanel {
                 Item item = items.get(i);
                 if (item != null && item.template != null) {
                     String path = "data/icon/x4/" + item.template.iconID + ".png";
-                    new UIUtils();
-                    ImageIcon icon = UIUtils.getScaledIcon(path, 25, 25);
+                    ImageIcon icon = new UIUtils().getScaledIcon(path, 25, 25);
 
                     JLabel iconLabel = new JLabel(icon);
                     iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -445,8 +445,7 @@ public class PlayerProfilePanel extends JPanel {
                 Item item = items.get(i);
                 if (item != null && item.template != null) {
                     String path = "data/icon/x4/" + item.template.iconID + ".png";
-                    new UIUtils();
-                    ImageIcon scaledIcon = UIUtils.getScaledIcon(path, 24, 24);
+                    ImageIcon scaledIcon = new UIUtils().getScaledIcon(path, 24, 24);
 
                     JLabel iconLabel = new JLabel(scaledIcon);
                     iconLabel.setHorizontalAlignment(SwingConstants.CENTER);

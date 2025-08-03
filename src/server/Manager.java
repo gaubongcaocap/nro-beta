@@ -461,7 +461,8 @@ public final class Manager {
                     part.partDetails.add(new PartDetail(
                             Short.parseShort(String.valueOf(pd.get(0))),
                             Byte.parseByte(String.valueOf(pd.get(1))),
-                            Byte.parseByte(String.valueOf(pd.get(2)))));
+                            Byte.parseByte(String.valueOf(pd.get(2)))
+                    ));
                     pd.clear();
                 }
                 parts.add(part);

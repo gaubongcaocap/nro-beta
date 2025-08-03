@@ -1,9 +1,5 @@
 package network.session;
 
-
-
-
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -19,9 +15,7 @@ import network.server.EMTIServer;
 import network.server.EmtiSessionManager;
 import utils.StringUtil;
 
-
-
-public class Session
+public abstract class Session
         implements ISession {
 
     private static ISession I;
@@ -46,7 +40,12 @@ public class Session
             throw new Exception("Instance đã được khởi tạo!");
         }
         /*  36 */
-        I = new Session(host, port);
+        I = new Session(host, port) {
+            @Override
+            public void sendKey() throws Exception {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        };
         /*  37 */
         return I;
     }
@@ -114,7 +113,8 @@ public class Session
             /*  96 */
             this.socket.setReceiveBufferSize(1048576);
             /*  97 */
-        } catch (Exception exception) {   exception.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
 
@@ -265,21 +265,20 @@ public class Session
         EmtiSessionManager.gI().removeSession(this);
     }
 
-    public void sendKey() throws Exception {
-        /* 195 */
-        if (this.keyHandler == null) {
-            /* 196 */
-            throw new Exception("Key handler chưa được khởi tạo!");
-        }
-        /* 198 */
-        if (EMTIServer.gI().isRandomKey()) {
-            /* 199 */
-            this.KEYS = StringUtil.randomText(7).getBytes();
-        }
-        /* 201 */
-        this.keyHandler.sendKey(this);
-    }
-
+//    public void sendKey() throws Exception {
+//        /* 195 */
+//        if (this.keyHandler == null) {
+//            /* 196 */
+//            throw new Exception("Key handler chưa được khởi tạo!");
+//        }
+//        /* 198 */
+//        if (VOZServer.gI().isRandomKey()) {
+//            /* 199 */
+//            this.KEYS = StringUtil.randomText(7).getBytes();
+//        }
+//        /* 201 */
+//        this.keyHandler.sendKey(this);
+//    }
     public void setKey(Message message) throws Exception {
         /* 206 */
         if (this.keyHandler == null) {
@@ -381,7 +380,16 @@ public class Session
     }
 
     public void initThreadSession() {
-        this.tSender = new Thread((this.sender != null) ? (Runnable) this.sender.setSocket(this.socket) : (Runnable) (this.sender = new Sender(this, this.socket)), "Thread tsender");
-        this.tCollector = new Thread((this.collector != null) ? (Runnable) this.collector.setSocket(this.socket) : (Runnable) (this.collector = new Collector(this, this.socket)), "Thread collecter");
+        Runnable senderRunnable = (this.sender != null)
+                ? (Runnable) this.sender.setSocket(this.socket)
+                : (Runnable) (this.sender = new Sender(this, this.socket));
+
+        Runnable collectorRunnable = (this.collector != null)
+                ? (Runnable) this.collector.setSocket(this.socket)
+                : (Runnable) (this.collector = new Collector(this, this.socket));
+
+        this.tSender = Thread.ofVirtual().start(senderRunnable);
+        this.tCollector = Thread.ofVirtual().start(collectorRunnable);
     }
+
 }

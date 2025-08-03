@@ -51,7 +51,6 @@ public class SuperRank {
             if (rank == 1) {
                 BadgesTaskService.updateCountBagesTask(player, ConstTaskBadges.CAO_THU_SIEU_HANG, 1);
             }
-//            player.inventory.ruby += rw;
             rwThoiVang(player, rw);
         }
         lastTimeReward = TimeUtil.currentTimeMillisPlus11();
@@ -60,7 +59,6 @@ public class SuperRank {
     public void rwThoiVang(Player pl, int sl) {
         Item thoivang = ItemService.gI().createNewItem((short) 77);
         thoivang.quantity = sl;
-        //thoivang.addOptionParam(30, 1);
         if (InventoryService.gI().getCountEmptyBag(pl) <= 0) {
             pl.inventory.itemsMailBox.add(thoivang);
             NDVSqlFetcher.updateMailBox(pl);

@@ -324,7 +324,7 @@ public class Player implements Runnable {
     }
 
     public boolean isPl() {
-        return isPlayer && !isPet && !isBoss && !isNewPet && !isNewPet1 && !(this instanceof NonInteractiveNPC);
+        return isPlayer && !isPet && !isBoss && !isNewPet && !isNewPet1 && !isBot && !(this instanceof NonInteractiveNPC);
     }
 
     @Override
@@ -747,8 +747,7 @@ public class Player implements Runnable {
             }
         }
         for (Card card : this.Cards) {
-            if (card != null //                    && (card.Id == 956 || card.Id == 1142) && card.Level > 1
-                    ) {
+            if (card != null && (card.Id == 956 || card.Id == 1142) && card.Level > 1) {
                 RadarCard radarTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(r -> r.Id == card.Id).findFirst().orElse(null);
                 if (radarTemplate != null) {
                     return (byte) radarTemplate.AuraId;
@@ -1167,11 +1166,11 @@ public class Player implements Runnable {
             if (this.isBattu) {
                 return 0;
             }
-//            if (plAtt != null && this.isPet && ((Pet) this).master.id == plAtt.id) {
-//                if (this.effectSkill != null && !this.effectSkill.isHalloween) {
-//                    EffectSkillService.gI().setIsHalloween(this, -1, 1800000);
-//                }
-//            }
+            if (plAtt != null && this.isPet && ((Pet) this).master.id == plAtt.id) {
+                if (this.effectSkill != null && !this.effectSkill.isHalloween) {
+                    EffectSkillService.gI().setIsHalloween(this, -1, 1800000);
+                }
+            }
             if (plAtt != null && plAtt.playerSkill.skillSelect != null && !plAtt.isBoss && MapService.gI().isMapMaBu(this.zone.map.mapId)) {
                 switch (plAtt.playerSkill.skillSelect.template.id) {
                     case Skill.KAMEJOKO, Skill.MASENKO, Skill.ANTOMIC, Skill.DRAGON, Skill.DEMON, Skill.GALICK, Skill.LIEN_HOAN, Skill.KAIOKEN ->
@@ -1210,7 +1209,7 @@ public class Player implements Runnable {
                 switch (plAtt.playerSkill.skillSelect.template.id) {
                     case Skill.KAMEJOKO, Skill.MASENKO, Skill.ANTOMIC -> {
                         if (this.nPoint.voHieuChuong > 0) {
-                            services.PlayerService.gI().hoiPhuc(this, 0,Util.maxIntValue(damage * this.nPoint.voHieuChuong / 100));
+                            services.PlayerService.gI().hoiPhuc(this, 0, Util.maxIntValue(damage * this.nPoint.voHieuChuong / 100));
                             return 0;
                         }
                     }

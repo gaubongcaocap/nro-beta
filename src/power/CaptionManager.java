@@ -105,5 +105,4 @@ public class CaptionManager {
         }
         return 0;
     }
-
 }

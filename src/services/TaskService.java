@@ -246,6 +246,7 @@ public class TaskService {
                         || doneTask(player, ConstTask.TASK_24_0));
             case ConstNpc.BO_MONG:
                 return (doneTask(player, ConstTask.TASK_9_0)
+                        || doneTask(player, ConstTask.TASK_10_1)
                         || doneTask(player, ConstTask.TASK_10_2));
             case ConstNpc.DR_DRIEF:
             case ConstNpc.CARGO:
@@ -273,7 +274,7 @@ public class TaskService {
                         return doneTask(player, ConstTask.TASK_29_0);
                     }
                 }
-                return doneTask(player, ConstTask.TASK_9_3);
+                return doneTask(player, ConstTask.TASK_9_2);
             case ConstNpc.OSIN:
                 return doneTask(player, ConstTask.TASK_30_7);
         }
@@ -619,46 +620,22 @@ public class TaskService {
                                 list.add(pl);
                             }
                         }
-
                         if (list.size() >= NMEMBER_DO_TASK_TOGETHER) {
-                            // Nếu có người chơi cùng clan trong khu vực, mỗi người sẽ hoàn thành 2 nhiệm vụ
                             for (Player pl : list) {
                                 switch (mob.tempId) {
                                     case ConstMob.HEO_RUNG:
-                                        doneTask(pl, ConstTask.TASK_13_0); // Hoàn thành nhiệm vụ TASK_13_0
-                                        doneTask(pl, ConstTask.TASK_13_1); // Hoàn thành nhiệm vụ TASK_13_1 (nhiệm vụ kế
-                                                                           // tiếp)
+                                        doneTask(pl, ConstTask.TASK_13_0);
                                         break;
                                     case ConstMob.HEO_DA_XANH:
-                                        doneTask(pl, ConstTask.TASK_13_1); // Hoàn thành nhiệm vụ TASK_13_1
-                                        doneTask(pl, ConstTask.TASK_13_2); // Hoàn thành nhiệm vụ TASK_13_2 (nhiệm vụ kế
-                                                                           // tiếp)
+                                        doneTask(pl, ConstTask.TASK_13_1);
                                         break;
                                     case ConstMob.HEO_XAYDA:
-                                        doneTask(pl, ConstTask.TASK_13_2); // Hoàn thành nhiệm vụ TASK_13_2
-                                        doneTask(pl, ConstTask.TASK_13_3); // Hoàn thành nhiệm vụ TASK_13_3 (nhiệm vụ kế
-                                                                           // tiếp)
-                                        break;
-                                }
-                            }
-                        } else {
-                            // Nếu không có đủ người chơi cùng clan, chỉ hoàn thành 1 nhiệm vụ
-                            for (Player pl : list) {
-                                switch (mob.tempId) {
-                                    case ConstMob.HEO_RUNG:
-                                        doneTask(pl, ConstTask.TASK_13_0); // Hoàn thành nhiệm vụ TASK_13_0
-                                        break;
-                                    case ConstMob.HEO_DA_XANH:
-                                        doneTask(pl, ConstTask.TASK_13_1); // Hoàn thành nhiệm vụ TASK_13_1
-                                        break;
-                                    case ConstMob.HEO_XAYDA:
-                                        doneTask(pl, ConstTask.TASK_13_2); // Hoàn thành nhiệm vụ TASK_13_2
+                                        doneTask(pl, ConstTask.TASK_13_2);
                                         break;
                                 }
                             }
                         }
                     }
-
                     break;
                 case ConstMob.BULON:
                 case ConstMob.UKULELE:
@@ -671,47 +648,23 @@ public class TaskService {
                                 list.add(pl);
                             }
                         }
-
                         if (list.size() >= NMEMBER_DO_TASK_TOGETHER) {
-
                             for (Player pl : list) {
                                 switch (mob.tempId) {
                                     case ConstMob.BULON:
-                                        doneTask(pl, ConstTask.TASK_15_1); // Hoàn thành nhiệm vụ TASK_15_1
-                                        doneTask(pl, ConstTask.TASK_15_2); // Hoàn thành nhiệm vụ TASK_15_2 (nhiệm vụ kế
-                                                                           // tiếp)
+                                        doneTask(pl, ConstTask.TASK_15_1);
                                         break;
                                     case ConstMob.UKULELE:
-                                        doneTask(pl, ConstTask.TASK_15_2); // Hoàn thành nhiệm vụ TASK_15_2
-                                        doneTask(pl, ConstTask.TASK_15_3); // Hoàn thành nhiệm vụ TASK_15_3 (nhiệm vụ kế
-                                                                           // tiếp)
+                                        doneTask(pl, ConstTask.TASK_15_2);
                                         break;
                                     case ConstMob.QUY_MAP:
-                                        doneTask(pl, ConstTask.TASK_15_3); // Hoàn thành nhiệm vụ TASK_15_3
-                                        doneTask(pl, ConstTask.TASK_15_4); // Hoàn thành nhiệm vụ TASK_15_4 (nhiệm vụ kế
-                                                                           // tiếp)
-                                        break;
-                                }
-                            }
-                        } else {
-
-                            for (Player pl : list) {
-                                switch (mob.tempId) {
-                                    case ConstMob.BULON:
-                                        doneTask(pl, ConstTask.TASK_15_1); // Hoàn thành nhiệm vụ TASK_15_1
-                                        break;
-                                    case ConstMob.UKULELE:
-                                        doneTask(pl, ConstTask.TASK_15_2); // Hoàn thành nhiệm vụ TASK_15_2
-                                        break;
-                                    case ConstMob.QUY_MAP:
-                                        doneTask(pl, ConstTask.TASK_15_3); // Hoàn thành nhiệm vụ TASK_15_3
+                                        doneTask(pl, ConstTask.TASK_15_3);
                                         break;
                                 }
                             }
                         }
                     }
                     break;
-
                 case ConstMob.TAMBOURINE:
                     doneTask(player, ConstTask.TASK_17_2);
                     break;

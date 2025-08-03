@@ -45,9 +45,8 @@ public ItemInfoDialog(Frame owner, Item item, String source, String playerName, 
     sourceLabel.setForeground(new Color(255, 204, 102));
     sourceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    new UIUtils();
     // Icon vật phẩm
-    ImageIcon icon = UIUtils.getScaledIcon("data/icon/x4/" + item.template.iconID + ".png", 48, 48);
+    ImageIcon icon = new UIUtils().getScaledIcon("data/icon/x4/" + item.template.iconID + ".png", 48, 48);
     JLabel iconLabel = new JLabel(icon);
     iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     iconLabel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));

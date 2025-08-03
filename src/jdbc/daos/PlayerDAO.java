@@ -41,7 +41,7 @@ public class PlayerDAO {
         try {
             JSONArray dataArray = new JSONArray();
 			int greenGem = (Manager.TEST) ? 1000000000 : 10000;
-            dataArray.add(2000); //vàng
+            dataArray.add(2000000000); //vàng
             dataArray.add(greenGem); //ngọc xanh
             dataArray.add(0); //hồng ngọc
             dataArray.add(0); //point
