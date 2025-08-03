@@ -46,6 +46,7 @@ import utils.TimeUtil;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import Bot.NewBot;
 import event.EventManager;
 import item.DailyResetScheduler;
 import java.io.DataOutputStream;

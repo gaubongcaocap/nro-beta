@@ -42,8 +42,8 @@ public class OngGohan extends Npc {
                 this.createOtherMenu(player, ConstNpc.BASE_MENU,
                         "\nXin chào ta có thể giúp gì cho con!!!"
                         + "\nServer Free 100% lên web để mở thành viên."
-                         + "\n\b|7|Con đang có :" + player.getSession().cash + " VND\n|0|"
-                        + "GIFTCODE: test1 ~ test16 ",
+                         + "\nCon đang có :" + player.getSession().cash + " Coin"
+                        + "\nGIFTCODE: test1 ~ test16 ",
                         "GiftCode",
                         "Nạp tiền",
                         "Xóa đệ",
@@ -65,7 +65,7 @@ public class OngGohan extends Npc {
                         Input.gI().createFormGiftCode(player);
                         break;
                     case 1: // nạp tiền
-                        String npcSay = "Số dư của con là: " + Util.mumberToLouis(player.getSession().cash) + " VND dùng để nạp qua đơn vị khác\n"
+                        String npcSay = "Số dư của con là: " + Util.mumberToLouis(player.getSession().cash) + " Coin dùng để nạp qua đơn vị khác\n"
                                 + "Ta đang giữ giúp con " + Util.mumberToLouis(player.getSession().goldBar) + " thỏi vàng";
                         createOtherMenu(player, ConstNpc.NAP_TIEN, npcSay,
                                 "Nạp VNĐ",
@@ -75,7 +75,7 @@ public class OngGohan extends Npc {
                         break;
                     case 2:// xóa đệ
                         this.createOtherMenu(player, 12456,
-                                "|0|Bạn muốn xóa đệ với giá 10K VND ?",
+                                "|0|Bạn muốn xóa đệ với giá 10K Coin ?",
                                 "Đồng ý", "Không");
                         break;
 
@@ -214,7 +214,7 @@ public class OngGohan extends Npc {
                 switch (select) {
                     case 0:
                         if (player.getSession().cash < 10000) {
-                             Service.gI().sendThongBao(player, "Xóa đệ cần 10K VND");
+                             Service.gI().sendThongBao(player, "Xóa đệ cần 10K Coin");
                             return;
                         }
                         if (player.pet != null) {

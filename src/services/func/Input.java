@@ -103,7 +103,7 @@ public class Input {
                 // int vnd = Integer.parseInt(text[0]);
                 // int coin = vnd * 9 / 10;
                 // if (player.getSession() != null && player.getSession().cash < vnd) {
-                // Service.gI().sendThongBao(player, "Bạn không đủ " + vnd + " VND");
+                // Service.gI().sendThongBao(player, "Bạn không đủ " + vnd + " Coin");
                 // return;
                 // }
                 // if (vnd < 0) {
@@ -114,7 +114,7 @@ public class Input {
                 // if (vnd >= 20000 && vnd <= 100000000) {
                 // PlayerDAO.subcash(player, vnd);
                 // PlayerDAO.addvnd(player, coin);
-                // Service.gI().sendThongBao(player, "Bạn đã nhận được " + coin + " VND");
+                // Service.gI().sendThongBao(player, "Bạn đã nhận được " + coin + " Coin");
                 // } else {
                 // Service.gI().sendThongBao(player, "Chọn 1 con số từ 20000 đến 100000000");
                 // }
@@ -214,7 +214,7 @@ public class Input {
                     int coin = Integer.parseInt(text[0]);
                     int sl = coin / 200;
                     if (player.getSession() != null && player.getSession().cash < coin) {
-                        Service.gI().sendThongBao(player, "Bạn không đủ " + coin + " VND");
+                        Service.gI().sendThongBao(player, "Bạn không đủ " + coin + " Coin");
                         return;
                     }
                     if (coin < 0) {
@@ -238,7 +238,7 @@ public class Input {
                     int coin = Integer.parseInt(text[0]);
                     int sl = coin;
                     if (player.getSession() != null && player.getSession().cash < coin) {
-                        Service.gI().sendThongBao(player, "Bạn không đủ " + coin + " VND");
+                        Service.gI().sendThongBao(player, "Bạn không đủ " + coin + " Coin");
                         return;
                     }
                     if (coin < 0) {
@@ -261,7 +261,7 @@ public class Input {
                     int coin = Integer.parseInt(text[0]);
                     int sl = coin;
                     if (player.getSession() != null && player.getSession().cash < coin) {
-                        Service.gI().sendThongBao(player, "Bạn không đủ " + coin + " VND");
+                        Service.gI().sendThongBao(player, "Bạn không đủ " + coin + " Coin");
                         return;
                     }
                     if (coin < 0) {
@@ -686,26 +686,26 @@ public class Input {
 
     public void createFormDoiVND(Player pl) {
 
-        createForm(pl, DOI_VND, "Đổi VND --> VND < VND x 0.9 >",
-                new SubInput("Nhập số lượng VND muốn đổi ra VND", NUMERIC));
+        createForm(pl, DOI_VND, "Đổi Coin --> Coin < Coin x 0.9 >",
+                new SubInput("Nhập số lượng Coin muốn đổi ra Coin", NUMERIC));
     }
 
     public void createFormDoiThoiVang(Player pl) {
 
-        createForm(pl, DOI_THOI_VANG, "Đổi VND --> Thỏi vàng < Mỗi 20K được 100 thỏi >",
-                new SubInput("Nhập số lượng VND muốn đổi ra thỏi vàng", NUMERIC));
+        createForm(pl, DOI_THOI_VANG, "Đổi Coin --> Thỏi vàng < Mỗi 20K được 100 thỏi >",
+                new SubInput("Nhập số lượng Coin muốn đổi ra thỏi vàng", NUMERIC));
     }
 
     public void createFormDoiNgocXanh(Player pl) {
 
-        createForm(pl, DOI_NGOC_XANH, "Đổi VND --> Ngọc xanh < Mỗi 20K được 20.000 ngọc xanh >",
-                new SubInput("Nhập số lượng VND muốn đổi ra ngọc xanh", NUMERIC));
+        createForm(pl, DOI_NGOC_XANH, "Đổi Coin --> Ngọc xanh < Mỗi 20K được 20.000 ngọc xanh >",
+                new SubInput("Nhập số lượng Coin muốn đổi ra ngọc xanh", NUMERIC));
     }
 
     public void createFormDoiNgocHong(Player pl) {
 
-        createForm(pl, DOI_NGOC_HONG, "Đổi VND --> Ngọc hồng < Mỗi 20K được 20.000 ngọc hồng >",
-                new SubInput("Nhập số lượng VND muốn đổi ra ngọc hồng", NUMERIC));
+        createForm(pl, DOI_NGOC_HONG, "Đổi Coin --> Ngọc hồng < Mỗi 20K được 20.000 ngọc hồng >",
+                new SubInput("Nhập số lượng Coin muốn đổi ra ngọc hồng", NUMERIC));
     }
 
     public void createFormSelectOneNumberLuckyNumber(Player pl, boolean isGem) {

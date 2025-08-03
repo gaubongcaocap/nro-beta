@@ -895,7 +895,7 @@ public class Controller implements IMessageHandler {
                         byte type2 = _msg.reader().readByte();
                         short point2 = _msg.reader().readShort();
                         if (player != null && player.getSession().cash < 100000) {
-                            Service.gI().sendThongBaoOK(player, "Cần duy trì VND ở mức 100.000 để sử dụng chức năng này!");
+                            Service.gI().sendThongBaoOK(player, "Cần duy trì Coin ở mức 100.000 để sử dụng chức năng này!");
                             return;
                         }
                         if (player != null && player.pet != null) {

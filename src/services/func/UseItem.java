@@ -1854,63 +1854,63 @@ public class UseItem {
         int sotien = 500_000;
         PlayerDAO.sd(pl, sotien);
         PlayerDAO.sds(pl, sotien);
-        Service.gI().sendThongBao(pl, "bạn nhận được 500K VND");
+        Service.gI().sendThongBao(pl, "bạn nhận được 500K Coin");
         InventoryService.gI().subQuantityItemsBag(pl, item, 1);
     }
     private void hailit(Player pl , Item item) {
         int sotien = 200_000;
         PlayerDAO.sd(pl, sotien);
         PlayerDAO.sds(pl, sotien);
-        Service.gI().sendThongBao(pl, "bạn nhận được 200K VND");
+        Service.gI().sendThongBao(pl, "bạn nhận được 200K Coin");
         InventoryService.gI().subQuantityItemsBag(pl, item, 1);
     }
     private void motlit(Player pl , Item item) {
         int sotien = 100_000;
         PlayerDAO.sd(pl, sotien);
         PlayerDAO.sds(pl, sotien);
-        Service.gI().sendThongBao(pl, "bạn nhận được 100K VND");
+        Service.gI().sendThongBao(pl, "bạn nhận được 100K Coin");
         InventoryService.gI().subQuantityItemsBag(pl, item, 1);
     }
     private void namchuc(Player pl , Item item) {
         int sotien = 50_000;
         PlayerDAO.sd(pl, sotien);
         PlayerDAO.sds(pl, sotien);
-        Service.gI().sendThongBao(pl, "bạn nhận được 50K VND");
+        Service.gI().sendThongBao(pl, "bạn nhận được 50K Coin");
         InventoryService.gI().subQuantityItemsBag(pl, item, 1);
     }
     private void haichuc(Player pl , Item item) {
         int sotien = 20_000;
         PlayerDAO.sd(pl, sotien);
         PlayerDAO.sds(pl, sotien);
-        Service.gI().sendThongBao(pl, "bạn nhận được 20K VND");
+        Service.gI().sendThongBao(pl, "bạn nhận được 20K Coin");
         InventoryService.gI().subQuantityItemsBag(pl, item, 1);
     }
     private void motchuc(Player pl , Item item) {
         int sotien = 10_000;
         PlayerDAO.sd(pl, sotien);
         PlayerDAO.sds(pl, sotien);
-        Service.gI().sendThongBao(pl, "bạn nhận được 10K VND");
+        Service.gI().sendThongBao(pl, "bạn nhận được 10K Coin");
         InventoryService.gI().subQuantityItemsBag(pl, item, 1);
     }
     private void namcanh(Player pl , Item item) {
         int sotien = 5_000;
         PlayerDAO.sd(pl, sotien);
         PlayerDAO.sds(pl, sotien);
-        Service.gI().sendThongBao(pl, "bạn nhận được 5K VND");
+        Service.gI().sendThongBao(pl, "bạn nhận được 5K Coin");
         InventoryService.gI().subQuantityItemsBag(pl, item, 1);
     }
     private void haicanh(Player pl , Item item) {
         int sotien = 2_000;
         PlayerDAO.sd(pl, sotien);
         PlayerDAO.sds(pl, sotien);
-        Service.gI().sendThongBao(pl, "bạn nhận được 2K VND");
+        Service.gI().sendThongBao(pl, "bạn nhận được 2K Coin");
         InventoryService.gI().subQuantityItemsBag(pl, item, 1);
     }
     private void motcanh(Player pl , Item item) {
         int sotien = 1_000;
         PlayerDAO.sd(pl, sotien);
         PlayerDAO.sds(pl, sotien);
-        Service.gI().sendThongBao(pl, "bạn nhận được 1K VND");
+        Service.gI().sendThongBao(pl, "bạn nhận được 1K Coin");
         InventoryService.gI().subQuantityItemsBag(pl, item, 1);
     }
     // mở túi mù

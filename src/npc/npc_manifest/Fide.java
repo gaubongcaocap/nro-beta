@@ -26,8 +26,8 @@ public class Fide extends Npc {
             TaskService.gI().checkDoneTaskTalkNpc(player, this);
             if (mapId == 5) {
                 createOtherMenu(player, ConstNpc.BASE_MENU,
-                        "|0| Ta bán đồ cho người giàu, người có tiền không đó ???\n|4|"
-                        + "Số tiền ngươi đang có: " + player.getSession().cash + " VND",
+                        "Ta bán đồ cho người giàu, người có tiền không đó ???\n"
+                        + "Số tiền ngươi đang có: " + player.getSession().cash + " Coin",
                         "Cửa hàng", "Từ chối");
             } else if (mapId == ConstTranhNgocNamek.MAP_ID) {
                 if (player.iDMark.getTranhNgoc() == 1) {

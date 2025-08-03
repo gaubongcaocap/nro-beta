@@ -30,9 +30,9 @@ public class Bardock extends Npc {
                 switch (mapId) {
                     case 0,7,14 ->
                         this.createOtherMenu(player, ConstNpc.BASE_MENU,
-                                "|0|Đây là nơi ngươi có tiền là có thể đổi bất cứ thứ gì"
-                                + "\n|1| Nạp tiền hãy truy cập vào trang web: http://javhd.pro"
-                                    + " \n|7|Ngươi đang có :" + player.getSession().cash + " VND",
+                                "Đây là nơi ngươi có tiền là có thể đổi bất cứ thứ gì"
+                                + "\nNạp tiền hãy truy cập vào trang web: http://javhd.pro"
+                                    + " \nNgươi đang có " + player.getSession().cash + " Coin",
                                 "SHOP",
                                 "Nạp Tiền",
                                 " Mở thành viên",
@@ -57,9 +57,9 @@ public class Bardock extends Npc {
                     case 4:
                         if (player.getSession() != null) {
                             this.createOtherMenu(player, 777,
-                                    "|0|Có tiền rồi đổi thôi!\n"
-                                    + "|6|Có thể nhận mốc nạp khi nạp ở quy lão Kame nha"
-                                    + " \n|7|Bạn đang có :" + player.getSession().cash + " VND",
+                                    "Có tiền rồi đổi thôi!\n"
+                                    + "Có thể nhận mốc nạp khi nạp ở quy lão Kame nha"
+                                    + " \nBạn đang có :" + player.getSession().cash + " Coin",
                                     // "Đổi thỏi vàng");
                            "Đổi thỏi vàng", "Đổi ngọc xanh", "Đổi hồng ngọc");
                         }
@@ -68,21 +68,22 @@ public class Bardock extends Npc {
                         NpcService.gI().createBigMessage(player, avartar, "Nhớ đăng nhập xong sau đó bấm NẠP!!!", (byte) 1, "NẠP", "http://javhd.pro");
                         break;
                     case 3:
-                        if (player.getSession() != null) {                            this.createOtherMenu(player, 13000,
-                                    "|1|Đại ca vừa trúng số à !!!!\n|3|"
-                                    + "Đổi đệ thì tháo cái đồ đệ ra, mất tự chịu nha!\n|7|"
+                        if (player.getSession() != null) {                            
+                            this.createOtherMenu(player, 13000,
+                                    "Đại ca vừa trúng số à !!!!\n"
+                                    + "Đổi đệ thì tháo cái đồ đệ ra, mất tự chịu nha!\n"
                                     + "Thông tin từng loại đệ:\n|2|"
                                     + "Fide nhí: +5%  chỉ số khi hợp thể\n|2|"
                                     + "Cell nhí: +10% chỉ số khi hợp thể\n|2|"
                                     + "Bưu nhí:  +15% chỉ số khi hợp thể\n|2|"
                                     + "Adr bãi biển: +20% chỉ số khi hợp thể\n|2|"
                                     + "Bưu gầy: +25% chỉ số khi hợp thể\n|2|"
-                                    + "Berrus nhí: +30% chỉ số khi hợp thể\n|1|"
-                                    + "Bạn đang có :" + player.getSession().cash + " VND\n|6|"
-                                    + "\nChỉ số hợp thể đệ hiện tại :\n|7|"
-                                    + "-HP:" + player.pointfusion.getHpFusion() + " ,KI:" + player.pointfusion.getMpFusion() + " ,DAME:" + player.pointfusion.getDameFusion() + "",
+                                    + "Berrus nhí: +30% chỉ số khi hợp thể\n"
+                                    + "Bạn đang có :" + player.getSession().cash + " Coin",
+                                    // + "\nChỉ số hợp thể đệ hiện tại :\n|7|"
+                                    // + "-HP:" + player.pointfusion.getHpFusion() + " ,KI:" + player.pointfusion.getMpFusion() + " ,DAME:" + player.pointfusion.getDameFusion() + "",
                                     // "Mua đệ\nFide nhí\n<" + cn.de31 + ">", "Mua đệ\nCell nhí\n<" + cn.de32 + ">", "Mua đệ\nBưu nhí\n<" + cn.de33 + ">");
-                                    "Mua đệ\nFide nhí\n<" + cn.de31 + ">", "Mua đệ\nCell nhí\n<" + cn.de32 + ">", "Mua đệ\nBưu nhí\n<" + cn.de33 + ">", "Mua đệ\nAdr bãi biển\n<" + cn.de34 + ">", "Mua đệ\nBưu gầy\n<" + cn.de35 + ">", "Mua đệ\nBerrus nhí\n<" + cn.de36 + ">");
+                                    "Mua đệ\nFide nhí\n" + cn.de31 + " Coin", "Mua đệ\nCell nhí\n" + cn.de32 + " Coin", "Mua đệ\nBưu nhí\n" + cn.de33 + " Coin", "Mua đệ\nAdr bãi biển\n" + cn.de34 + " Coin", "Mua đệ\nBưu gầy\n" + cn.de35 + " Coin", "Mua đệ\nBerrus nhí\n" + cn.de36 + " Coin");
                         }
 
                         Service.gI().sendThongBao(player, "Chức Năng chưa cập nhật ");
@@ -91,8 +92,8 @@ public class Bardock extends Npc {
                     case 2:
                         if (player.getSession() != null) {
                             this.createOtherMenu(player, 782,
-                                    "\b|2|Mở thành viên free khi bạn nạp từ 1k  \n \b|7|Bạn đã nạp :"
-                                    + "" + player.getSession().cash + " đồng\n|4|"
+                                    "Mở thành viên free khi bạn nạp tiền  \n Bạn đã nạp :"
+                                    + "" + player.getSession().cash + " Coin\n"
                                     ,
                                     "Mở", "Đóng");
                         }
@@ -100,10 +101,10 @@ public class Bardock extends Npc {
                     case 5:
                         if (player.getSession() != null) {
                             this.createOtherMenu(player, 888,
-                                    "|0|Lưu ý: Đổi Skill đệ bằng tiền nạp sẽ mất VND\n|7|"
-                                    + "Bạn có: " + player.getSession().cash + " VND",
+                                    "Lưu ý: Đổi Skill đệ bằng tiền nạp sẽ mất Coin\n"
+                                    + "Bạn có: " + player.getSession().cash + " Coin",
                                     //Menu CHọn
-                                    "Đổi skill 2-3\n <" + cn.skill23 + ">", "Đổi skill 2-4\n <" + cn.skill24 + ">");
+                                    "Đổi skill 2-3\n " + cn.skill23 + " Coin", "Đổi skill 2-4\n " + cn.skill24 + " Coin");
 
                         }
                         break;
@@ -123,7 +124,7 @@ public class Bardock extends Npc {
                             }
                         }
                         if (player.getSession() != null && player.getSession().cash < cn.de31) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de31 + " VND");
+                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de31 + " Coin");
                             return;
                         }
 
@@ -147,7 +148,7 @@ public class Bardock extends Npc {
                             }
                         }
                         if (player.getSession() != null && player.getSession().cash < cn.de32) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de32 + " VND");
+                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de32 + " Coin");
                             return;
                         }
 
@@ -171,7 +172,7 @@ public class Bardock extends Npc {
                             }
                         }
                         if (player.getSession() != null && player.getSession().cash < cn.de33) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de33 + " VND");
+                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de33 + " Coin");
                             return;
                         }
 
@@ -195,7 +196,7 @@ public class Bardock extends Npc {
                             }
                         }
                         if (player.getSession() != null && player.getSession().cash < cn.de34) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de34 + " VND");
+                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de34 + " Coin");
                             return;
                         }
 
@@ -219,7 +220,7 @@ public class Bardock extends Npc {
                             }
                         }
                         if (player.getSession() != null && player.getSession().cash < cn.de35) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de35 + " VND");
+                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de35 + " Coin");
                             return;
                         }
 
@@ -242,7 +243,7 @@ public class Bardock extends Npc {
                             }
                         }
                         if (player.getSession() != null && player.getSession().cash < cn.de36) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de36 + " VND");
+                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de36 + " Coin");
                             return;
                         }
 
@@ -259,7 +260,7 @@ public class Bardock extends Npc {
                 switch (select) {
                     case 0: //thay chiêu 2-3 đệ tử
                         if (player.getSession() != null && player.getSession().cash < cn.skill23) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.skill23 + " VND");
+                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.skill23 + " Coin");
                             return;
                         }
 
@@ -283,7 +284,7 @@ public class Bardock extends Npc {
                         break;
                     case 1: //thay chiêu 2-4 đệ tử
                         if (player.getSession() != null && player.getSession().cash < cn.skill24) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.skill24 + " VND");
+                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.skill24 + " Coin");
                             return;
                         }
 

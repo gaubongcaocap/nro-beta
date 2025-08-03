@@ -638,7 +638,7 @@ private void learnKyNang(Player pl, ItemShop is) {
                 Service.gI().sendThongBao(player, "Bạn đã đổi thành công " + ItemService.gI().createItemFromItemShop(is).template.name);
                 opendShop(player, shop.tagName, true);
             } else {
-                Service.gI().sendThongBao(player, "Bạn còn thiếu " + (pointExchange * 1000 - evPoint) + " VND");
+                Service.gI().sendThongBao(player, "Bạn còn thiếu " + (pointExchange * 1000 - evPoint) + " Coin");
             }
         }
     }

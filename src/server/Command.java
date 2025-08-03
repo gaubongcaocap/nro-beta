@@ -170,7 +170,7 @@ public class Command {
                         + "\nThreads: " + totalThreads 
                         + "\n" + SystemMetrics.ToString(),
                         "Ngọc rồng", "Đệ tử", "Bảo trì", "Tìm kiếm\nngười chơi",
-                        "Boss", "Call Broly", "Buff VND", "Buff\nhộp thư", "Đóng");
+                        "Boss", "Call Broly", "Buff Coin", "Buff\nhộp thư", "Đóng");
                 return true;
 
             } else if (text.equals("bfbot")) {
