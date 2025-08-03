@@ -734,7 +734,7 @@ public class UseItem {
                                 //UseItem.gI().namlit(pl,item);
                                 //break;
                             case 1733:
-                                UseItem.gI().hailit(pl,item);
+                                // UseItem.gI().hailit(pl,item);
                                 break;
                             case 1734:
                                 UseItem.gI().motlit(pl,item);
@@ -755,7 +755,7 @@ public class UseItem {
                                 UseItem.gI().haicanh(pl,item);
                                 break;
                             case 1740: //tiền
-                                UseItem.gI().motcanh(pl,item);
+                                // UseItem.gI().motcanh(pl,item);
                                 break;
                             case 1741://túi mù
                                 UseItem.gI().openRandomItem(pl, item);

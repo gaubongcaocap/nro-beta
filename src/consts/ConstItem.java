@@ -547,6 +547,8 @@ public class ConstItem {
     public static final int GIAP_TAP_LUYEN_CAP_1_534 = 534;
     public static final int GIAP_TAP_LUYEN_CAP_2_535 = 535;
     public static final int GIAP_TAP_LUYEN_CAP_3_536 = 536;
+    public static final int GIAP_TAP_LUYEN_CAP_4_1716 = 1716;
+
     public static final int CHU_GIAI = 537;
     public static final int CHU_KHAI = 538;
     public static final int CHU_PHONG = 539;
