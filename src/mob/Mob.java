@@ -770,7 +770,7 @@ public class Mob {
         }
 
         //Set kich hoat
-        if (Util.isTrue(1, 20) && MapService.gI().isMapUpSKH(mapid)) {
+        if (Util.isTrue(1, 100) && MapService.gI().isMapUpSKH(mapid)) {
             short itTemp = (short) ItemService.gI().randTempItemKichHoat(player.gender);
             ItemMap it = new ItemMap(zone, itTemp, 1, x, yEnd, player.id);
             List<Item.ItemOption> ops = ItemService.gI().getListOptionItemShop(itTemp);
@@ -785,7 +785,7 @@ public class Mob {
         }
 
         //Set kich hoat Vip
-        if (((Util.isTrue(1, 100)) || (Manager.TEST && Util.isTrue(5, 100)) || Util.isTrue(1, 100)) && MapService.gI().isMapUpSKH(mapid)) {
+        if (((Util.isTrue(1, 200)) || (Manager.TEST && Util.isTrue(5, 200)) || Util.isTrue(1, 200)) && MapService.gI().isMapUpSKH(mapid)) {
             short itTemp = (short) ItemService.gI().randTempItemKichHoat(player.gender);
             ItemMap it = new ItemMap(zone, itTemp, 1, x, yEnd, player.id);
             List<Item.ItemOption> ops = ItemService.gI().getListOptionItemShop(itTemp);
@@ -804,7 +804,7 @@ public class Mob {
         }
 
         //Sao pha le
-        if (Util.isTrue(1, 100) || (player.nPoint.isDoSPL && Util.isTrue(5, 100)) || (player.isActive() && Util.isTrue(1, 100))) {
+        if (Util.isTrue(1, 200) || (player.nPoint.isDoSPL && Util.isTrue(5, 200)) || (player.isActive() && Util.isTrue(1, 200))) {
             int rand = Util.nextInt(0, 6);
             ItemMap it = new ItemMap(zone, 441 + rand, 1, x, yEnd, player.id);
             it.options.add(new Item.ItemOption(95 + rand, (rand == 3 || rand == 4) ? 3 : 5));
@@ -812,7 +812,7 @@ public class Mob {
         }
 
         //Da nang cap
-        if (Util.isTrue(1, 100) || (Util.isTrue(5, 100) && MapService.gI().isMapTuongLai(mapid)) || (player.isActive() && Util.isTrue(5, 100))) {
+        if (Util.isTrue(1, 200) || (Util.isTrue(5, 200) && MapService.gI().isMapTuongLai(mapid)) || (player.isActive() && Util.isTrue(5, 200))) {
             int rand = Util.nextInt(0, 4);
             ItemMap it = new ItemMap(zone, 220 + rand, 1, x, yEnd, player.id);
             it.options.add(new Item.ItemOption(71 - rand, 0));
@@ -823,7 +823,7 @@ public class Mob {
             if (player.isPet) {
                 player = ((Pet) player).master;
             }
-            if (Util.isTrue(1, 100) || (player.isActive() && Util.isTrue(1, 100)) || (player.isAdmin() && Util.isTrue(10, 100))) {
+            if (Util.isTrue(1, 200) || (player.isActive() && Util.isTrue(1, 200)) || (player.isAdmin() && Util.isTrue(10, 100))) {
                 ItemMap it = ItemService.gI().randDoTL(this.zone, 1, x, yEnd, player.id);
                 list.add(it);
                
