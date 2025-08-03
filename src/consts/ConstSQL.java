@@ -5,7 +5,7 @@ public class ConstSQL {
     public static final String TOP_SM = "SELECT name, gender, items_body, CAST( JSON_EXTRACT(data_point, '$[1]') AS UNSIGNED) AS sm FROM player INNER JOIN account ON account.id = player.account_id WHERE account.ban = 0 ORDER BY CAST( JSON_EXTRACT(data_point, '$[1]') AS UNSIGNED) DESC LIMIT 20;";
     public static final String TOP_NAP = "SELECT name, gender, items_body,CAST( cash AS UNSIGNED) AS cash FROM account, player WHERE account.id = player.account_id ORDER BY cash DESC LIMIT 20;";
 
-    public static final String TOP_DUA_SM = "SELECT name, gender, items_body, CAST( JSON_EXTRACT(data_point, '$[1]') AS UNSIGNED) AS sm FROM player WHERE create_time > '2024-" + ConstDataEventSM.MONTH_OPEN + "-" + ConstDataEventSM.DATE_OPEN + " " + ConstDataEventSM.HOUR_OPEN + ":" + ConstDataEventSM.MIN_OPEN + ":00' ORDER BY CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 20;";
+    public static final String TOP_DUA_SM = "SELECT name, gender, items_body, CAST( JSON_EXTRACT(data_point, '$[1]') AS UNSIGNED) AS sm FROM player WHERE create_time > '2025-" + ConstDataEventSM.MONTH_OPEN + "-" + ConstDataEventSM.DATE_OPEN + " " + ConstDataEventSM.HOUR_OPEN + ":" + ConstDataEventSM.MIN_OPEN + ":00' ORDER BY CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 20;";
     public static final String TOP_DUA_NAP = "SELECT name, gender, items_body, CAST( danap AS UNSIGNED) AS danap FROM account, player WHERE account.id = player.account_id AND account.danap >= 100000 ORDER BY account.danap DESC LIMIT 10;";
     public static final String TOP_DUA_QUOC_VUONG = "SELECT name, gender, items_body, \n"
             + "  account.id as accountId, \n"

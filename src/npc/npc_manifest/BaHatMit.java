@@ -42,25 +42,25 @@ public class BaHatMit extends Npc {
             switch (this.mapId) {
                 case 5 ->
                     this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Chức năng\nPha lê", "Nâng SKH", "SHOP\nBà Hạt Mít","Đập Đồ");
-//                case 112 -> {
-//                    if (Util.isAfterMidnight(player.lastTimePKVoDaiSinhTu)) {
-//                        player.haveRewardVDST = false;
-//                        player.thoiVangVoDaiSinhTu = 0;
-//                    }
-//                    if (player.haveRewardVDST) {
-//                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Đây là phần thưởng cho con.", "1 ngọc bí\nbất kì", "1 bí ngô");
-//                        return;
-//                    }
-//                    if (DeathOrAliveArenaManager.gI().getVDST(player.zone) != null) {
-//                        if (DeathOrAliveArenaManager.gI().getVDST(player.zone).getPlayer().equals(player)) {
-//                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn hủy đăng ký thi đấu võ đài?", "Top 100", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
-//                            return;
-//                        }
-//                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn đăng ký thi đấu võ đài?\nnhiều phần thưởng giá trị đang đợi ngươi đó", "Top 100", "Bình chọn", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
-//                        return;
-//                    }
-//                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn đăng ký thi đấu võ đài?\nnhiều phần thưởng giá trị đang đợi ngươi đó", "Top 100", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
-//                }
+               case 112 -> {
+                   if (Util.isAfterMidnight(player.lastTimePKVoDaiSinhTu)) {
+                       player.haveRewardVDST = false;
+                       player.thoiVangVoDaiSinhTu = 0;
+                   }
+                   if (player.haveRewardVDST) {
+                       this.createOtherMenu(player, ConstNpc.BASE_MENU, "Đây là phần thưởng cho con.", "1 ngọc bí\nbất kì", "1 bí ngô");
+                       return;
+                   }
+                   if (DeathOrAliveArenaManager.gI().getVDST(player.zone) != null) {
+                       if (DeathOrAliveArenaManager.gI().getVDST(player.zone).getPlayer().equals(player)) {
+                           this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn hủy đăng ký thi đấu võ đài?", "Top 100", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
+                           return;
+                       }
+                       this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn đăng ký thi đấu võ đài?\nnhiều phần thưởng giá trị đang đợi ngươi đó", "Top 100", "Bình chọn", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
+                       return;
+                   }
+                   this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn đăng ký thi đấu võ đài?\nnhiều phần thưởng giá trị đang đợi ngươi đó", "Top 100", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
+               }
                 case 174 ->
                     this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Quay về", "Từ chối");
                 case 181 ->

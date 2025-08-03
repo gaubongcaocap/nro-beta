@@ -47,13 +47,13 @@ public class ConstDataEventSM {
 
     public static boolean initsukien = false;
 
-    public static final byte MONTH_OPEN = 2;
-    public static final byte DATE_OPEN = 15;
+    public static final byte MONTH_OPEN = 7;
+    public static final byte DATE_OPEN = 31;
     public static final byte HOUR_OPEN = 12;
     public static final byte MIN_OPEN = 00;
 
-    public static final byte MONTH_END = 2;
-    public static final byte DATE_END = 27;
+    public static final byte MONTH_END = 12;
+    public static final byte DATE_END = 31;
     public static final byte HOUR_END = 00;
     public static final byte MIN_END = 00;
 

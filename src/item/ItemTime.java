@@ -49,6 +49,8 @@ public class ItemTime {
     public boolean isUseCuongNo2;
     public boolean isUseAnDanh2;
 
+    public boolean isUserBanhChung;
+
     public boolean isUseBuax2DeTu;
 
     public long lastTimeBoHuyet;
@@ -56,6 +58,8 @@ public class ItemTime {
     public long lastTimeGiapXen;
     public long lastTimeCuongNo;
     public long lastTimeAnDanh;
+
+    public long lastTimeBanhChung;
 
     public long lastTimeBuax2DeTu;
 
@@ -249,6 +253,12 @@ public class ItemTime {
         if (isUseAnDanh2) {
             if (Util.canDoWithTime(lastTimeAnDanh2, TIME_ITEM)) {
                 isUseAnDanh2 = false;
+            }
+        }
+        if (isUserBanhChung) {
+            if (Util.canDoWithTime(lastTimeAnDanh2, TIME_ITEM)) {
+                isUserBanhChung = false;
+                Service.gI().point(player);
             }
         }
         if (isUseCMS) {

@@ -1227,6 +1227,11 @@ public class UseItem {
                 pl.itemTime.lastTimeLoX5 = System.currentTimeMillis();
                 pl.itemTime.isUseLoX5 = true;
                 break;
+            case 753:
+                pl.itemTime.lastTimeBanhChung = System.currentTimeMillis();
+                pl.itemTime.isUserBanhChung = true;
+                Service.gI().point(pl);
+                break;
             case 1728:
                 if (pl.itemTime.isUseLoX5 == true || pl.itemTime.isUseLoX2 == true || pl.itemTime.isUseLoX10 == true || pl.itemTime.isUseLoX15 == true) {
                     Service.gI().sendThongBao(pl, "Bạn đang sử dụng nước thánh rồi");
