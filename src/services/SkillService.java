@@ -1185,8 +1185,13 @@ public class SkillService {
     }
 
     public boolean canUseSkillWithCooldown(Player player) {
-        return Util.canDoWithTime(player.playerSkill.skillSelect.lastTimeUseThisSkill,
-                player.playerSkill.skillSelect.coolDown - 50);
+        if (player.playerSkill == null || player.playerSkill.skillSelect == null) {
+            return false;
+        }
+        return Util.canDoWithTime(
+            player.playerSkill.skillSelect.lastTimeUseThisSkill,
+            player.playerSkill.skillSelect.coolDown - 50
+        );
     }
 
     public void affterUseSkill(Player player, int skillId) {
