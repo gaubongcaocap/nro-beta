@@ -163,13 +163,18 @@ public class ServerManager {
         Thread.startVirtualThread(() -> DecisionMaker.gI());
         Thread.startVirtualThread(() -> DecisionMaker.gI());
 
-        // Logger.success("Đang tạo bot pem\n");
-        // NewBot.gI().runBot(0, null, 100);
-        // Logger.success("Tạo thành công bot pem\n");
+        // Khởi tạo bot săn boss, bot pem và bot shop. Có thể điều chỉnh số lượng tùy theo cấu hình.
+        Logger.success("Đang tạo bot săn boss");
+        NewBot.gI().runBot(2 , null , 10);
+        Logger.success("Tạo thành công bot săn boss");
 
-        // Logger.success("Đang tạo bot săn boss\n");
-        // NewBot.gI().runBot(2 , null , 10);
-        // Logger.success("Tạo thành công bot săn boss\n");
+        Logger.success("Đang tạo bot pem");
+        NewBot.gI().runBot(0, null, 100);
+        Logger.success("Tạo thành công bot pem");
+
+        Logger.success("Đang tạo bot shop");
+        // NewBot.gI().runBot(1, null, 10);
+        // Logger.success("Tạo thành công bot shop");
 
         EventManager.gI().init();
         Logger.success("Đã khởi tạo sự kiện\n");

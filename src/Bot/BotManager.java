@@ -8,8 +8,18 @@ public class BotManager implements Runnable {
 
     public static BotManager i;
     
-    public List<Bot> bot =  new ArrayList<>();
+    // Danh sách bot sử dụng CopyOnWriteArrayList để an toàn khi nhiều luồng thêm/xóa bot.
+    public List<Bot> bot =  new java.util.concurrent.CopyOnWriteArrayList<>();
     
+    private boolean started = false;
+    
+    public void start() {
+        if(!started) {
+            started = true;
+            Thread.startVirtualThread(this);
+        }
+    }
+
     
     public static BotManager gI(){
         if(i == null){
@@ -25,7 +35,12 @@ public class BotManager implements Runnable {
                 for (Bot bot : this.bot) {
                     bot.update();
                 }
-                Thread.sleep(150 - (System.currentTimeMillis() - st));
+                long delay = 150 - (System.currentTimeMillis() - st);
+                // Đảm bảo thời gian ngủ luôn dương để tránh ném IllegalArgumentException
+                if (delay < 10) {
+                    delay = 10;
+                }
+                Thread.sleep(delay);
             } catch (Exception ignored) {
             }
 

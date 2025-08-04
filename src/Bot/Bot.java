@@ -1,7 +1,11 @@
 package Bot;
 
 import consts.ConstPlayer;
+
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+
 import map.Map;
 import map.Zone;
 import models.Template.SkillTemplate;
@@ -29,6 +33,9 @@ public class Bot extends Player {
     public ShopBot shop;
     public Sanb boss;
     public Mobb mo1;
+
+    private long lastTimeIncrease;
+
 
     // private Player plAttack;
 
@@ -149,19 +156,19 @@ public class Bot extends Player {
     @Override
     public void update() {
         super.update();
-        this.increasePoint();
-        switch (this.type) {
-            case 0:
-                this.mo1.update();
-                break;
-            case 1:
-                this.shop.update();
-                break;
-            case 2:
-                this.boss.update();
-                break;
+
+        if (System.currentTimeMillis() - lastTimeIncrease > 30000) {
+            increasePoint();
+            lastTimeIncrease = System.currentTimeMillis();
         }
-        if (this.isDie()) {
+
+        switch (type) {
+            case 0 -> mo1.update();
+            case 1 -> shop.update();
+            case 2 -> boss.update();
+        }
+        // Hồi sinh nếu chết
+        if (isDie()) {
             Service.gI().hsChar(this, nPoint.hpMax, nPoint.mpMax);
         }
     }
@@ -193,29 +200,24 @@ public class Bot extends Player {
     }
 
     private void increasePoint() {
-        long tiemNangUse = 0;
-        int point = 0;
-        if (this.nPoint != null) {
-            if (Util.isTrue(50, 100)) {
-                point = 100;
-                int pointHp = point * 20;
-                tiemNangUse = point * (2 * (this.nPoint.hpg + 1000) + pointHp - 20) / 2;
-                if (doUseTiemNang(tiemNangUse)) {
-                    this.nPoint.hpMax += point;
-                    this.nPoint.hpg += point;
-                    Service.gI().point(this);
+        if (nPoint != null) {
+            boolean tangHp = Util.isTrue(50, 100);
+            int point = tangHp ? 100 : 10;
+            long tienNang = tangHp
+                    ? point * (2 * (nPoint.hpg + 1000) + point * 20 - 20) / 2
+                    : point * (2 * nPoint.dameg + point - 1) / 2 * 100;
+
+            if (doUseTiemNang(tienNang)) {
+                if (tangHp) {
+                    nPoint.hpMax += point;
+                    nPoint.hpg += point;
+                } else {
+                    nPoint.dameg += point;
                 }
-            } else {
-                point = 10;
-                tiemNangUse = point * (2 * this.nPoint.dameg + point - 1) / 2 * 100;
-                if (doUseTiemNang(tiemNangUse)) {
-                    this.nPoint.dameg += point;
-                    Service.gI().point(this);
-                }
+                Service.gI().point(this);
             }
         }
     }
-
     private boolean doUseTiemNang(long tiemNang) {
         if (this.nPoint.tiemNang < tiemNang) {
             return false;

@@ -70,6 +70,39 @@ public class NewBot {
             "tampro2k", "vietdz123", "linhbluez", "cuongno1st", "traipvp88", "phongkingz"
     };
 
+    /**
+     * List of bot names loaded from an external text file.  If this list is
+     * non‑empty, {@link #Getname()} will randomly select a name from this
+     * list instead of using the hard coded FULL_NAMES array.  Names can be
+     * customised by editing the file located at {@code server_game/data/bot_names.txt}.
+     */
+    private static java.util.List<String> BOT_NAMES = new java.util.ArrayList<>();
+
+    // Static block to populate BOT_NAMES from file on class load.  The file
+    // should contain one name per line.  If the file does not exist or
+    // reading fails, BOT_NAMES will remain empty and FULL_NAMES will be used.
+    static {
+        try {
+            java.nio.file.Path path = java.nio.file.Paths.get("data/bot_names.txt");
+            if (java.nio.file.Files.exists(path)) {
+                BOT_NAMES = java.nio.file.Files.readAllLines(path);
+                // Remove empty lines and trim whitespace
+                java.util.Iterator<String> it = BOT_NAMES.iterator();
+                while (it.hasNext()) {
+                    String name = it.next();
+                    if (name == null || name.trim().isEmpty()) {
+                        it.remove();
+                    }
+                }
+                for (int i = 0; i < BOT_NAMES.size(); i++) {
+                    BOT_NAMES.set(i, BOT_NAMES.get(i).trim());
+                }
+            }
+        } catch (Exception ignored) {
+            // Fallback: BOT_NAMES remains empty
+        }
+    }
+
     public static NewBot gI() {
         if (i == null) {
             i = new NewBot();
@@ -105,6 +138,10 @@ public class NewBot {
 
     public String Getname() {
         Random rand = new Random();
+        // If BOT_NAMES has been populated from file, use it; otherwise fallback to FULL_NAMES
+        if (BOT_NAMES != null && !BOT_NAMES.isEmpty()) {
+            return BOT_NAMES.get(rand.nextInt(BOT_NAMES.size()));
+        }
         return FULL_NAMES[rand.nextInt(FULL_NAMES.length)];
     }
 
@@ -153,11 +190,18 @@ public class NewBot {
             b.nPoint.defg = 10;
 
             b.leakSkill();
+            // Thiết lập skill mặc định để tránh skillSelect null khi bot cập nhật
+            if (b.playerSkill != null && b.playerSkill.skills != null && !b.playerSkill.skills.isEmpty()) {
+                b.playerSkill.skillSelect = b.playerSkill.skills.get(0);
+            }
             b.joinMap();
-            if (shop != null)
-                shop.bot = b;
+
+            if (b.shop != null) {
+                b.shop.bot = b;  
+            }
+
             BotManager.gI().bot.add(b);
-            Thread.startVirtualThread(BotManager.gI());
+            BotManager.gI().start();
         }
     }
 
