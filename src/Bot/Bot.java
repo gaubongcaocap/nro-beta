@@ -66,7 +66,7 @@ public class Bot extends Player {
         int mapId = 0;
 
         if (this.type == 0) { // Dưới 10 tỷ
-            mapId = 0 + random.nextInt(22); 
+            mapId = 0 + random.nextInt(44); 
         } else if (power < 10_000_000_000L) { // Dưới 10 tỷ
             mapId = 62 + random.nextInt(15); // Random từ 62 đến 76
         } else if (power < 40_000_000_000L) { // 10 tỷ - 40 tỷ
