@@ -37,7 +37,7 @@ import utils.TimeUtil;
 
 public class NPoint {
 
-    public static final byte MAX_LIMIT = 10;
+    public static final byte MAX_LIMIT = 15;
 
     @Setter
     private Player player;
