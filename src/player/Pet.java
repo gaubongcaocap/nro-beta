@@ -818,7 +818,7 @@ public class Pet extends Player {
                 tn *= multiplier;
 
                 short amount = (short) Util.nextInt(1, tn);
-                byte type = Util.isTrue(30, 100) ? (byte) Util.nextInt(3, 4) : (byte) Util.nextInt(0, 1);
+                byte type = Util.isTrue(30, 100) ? (byte) Util.nextInt(3, 4): (byte) Util.nextInt(0, 2);
 
                 this.nPoint.increasePoint(type, amount, false);
                 lastTimeIncreasePoint = System.currentTimeMillis();
