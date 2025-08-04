@@ -15,6 +15,7 @@ import player.Pet;
 import player.Player;
 import skill.Skill;
 import server.ServerNotify;
+import services.ChatGlobalService;
 import services.EffectSkillService;
 import services.MapService;
 import services.PlayerService;
@@ -633,7 +634,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
             reward(plKill);
             String message = plKill.name + ": Đã tiêu diệt được " + this.name + " mọi người đều ngưỡng mộ.";
             ServerNotify.gI().notify(message);
-            // ChatGlobalService.gI().autoChatGlobal(plKill, "[Hệ thống] " + message);
+            ChatGlobalService.gI().autoChatGlobal(plKill, "[Hệ thống] " + message);
         }
 
         if (!plKill.isBot) {
