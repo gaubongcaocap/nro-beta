@@ -35,17 +35,43 @@ public class PlayerService {
         return i;
     }
 
+    /**
+     * Notify a player client about gained power or potential (TNSM).
+     *
+     * <p>The original implementation wrote the parameter as an {@code int},
+     * which silently overflowed if {@code param} exceeded {@link Integer#MAX_VALUE}.
+     * This caused large increases (e.g. billions) to wrap around so the client only
+     * displayed a truncated value until the next session refresh. To avoid this,
+     * split the total amount into multiple packets each no larger than
+     * {@code Integer.MAX_VALUE}. Each packet uses {@link Util#maxIntValue(double)}
+     * without pre‑casting to {@code int} so the encoding never overflows. The
+     * player's internal {@code nPoint} fields are updated by callers outside of
+     * this method, so the loop only affects the client UI.
+     *
+     * @param player the recipient player
+     * @param type   0 = only power, 1 = only potential, 2 = both
+     * @param param  total amount of power/potential gained
+     */
     public void sendTNSM(Player player, byte type, long param) {
-        if (param > 0) {
-            Message msg;
-            try {
-                msg = new Message(-3);
-                msg.writer().writeByte(type);// 0 là cộng sm, 1 cộng tn, 2 là cộng cả 2
-                msg.writeLongByEmti(Util.maxIntValue((int) param),cn.readInt);// số tn cần cộng
+        if (param <= 0 || player == null) {
+            return;
+        }
+        try {
+            // break large amounts into multiple messages to avoid 32‑bit overflow on the client
+            long remaining = param;
+            while (remaining > 0) {
+                long part = Math.min(remaining, Integer.MAX_VALUE);
+                Message msg = new Message(-3);
+                msg.writer().writeByte(type);
+                // Util.maxIntValue(double) will cap at Integer.MAX_VALUE when cn.readInt is true
+                // Avoid casting to int before passing so values up to Integer.MAX_VALUE are encoded correctly
+                msg.writeLongByEmti(Util.maxIntValue(part), cn.readInt);
                 player.sendMessage(msg);
                 msg.cleanup();
-            } catch (Exception e) {
+                remaining -= part;
             }
+        } catch (Exception e) {
+            // Swallow exceptions to avoid crashing caller; logging handled elsewhere
         }
     }
 

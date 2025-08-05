@@ -92,10 +92,10 @@ public class NDVSqlFetcher {
                 int secondsPass = (int) ((System.currentTimeMillis() - lastTimeLogout) / 1000);
                 long createTime = rs.getTimestamp("create_time").getTime();
                 int deltaTime = (int) ((System.currentTimeMillis() - createTime) / 1000);
-               if (!session.isAdmin) {
-                   Service.gI().sendThongBaoOK(session, "Server đang bảo trì");
+            //    if (!session.isAdmin) {
+                //    Service.gI().sendThongBaoOK(session, "Server đang bảo trì");
                 //    Service.gI().sendThongBaoOK(session, "Sever chỉ dành cho admin, vui lòng chọn sever khác");
-               } else
+            //    } else
                 if (rs.getBoolean("ban")) {
                     Service.gI().sendThongBaoOK(session, "Tài khoản này đang bị khóa. Liên hệ Admin để biết thêm thông tin");
                 } else if (secondsPass1 < Manager.SECOND_WAIT_LOGIN) {

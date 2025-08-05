@@ -51,6 +51,14 @@ public class Boss extends Player implements IBoss, IBossOutfit {
     protected int timeChatE;
     protected byte indexChatE;
 
+    /**
+     * Timestamp when this boss was set to {@link BossStatus#DIE}.
+     * Used to ensure bosses automatically leave the map shortly after death
+     * even if their chat or other transitions fail. Initialized to {@code 0}
+     * and set in {@link #die(Player)}.
+     */
+    protected long lastTimeDie;
+
     public int idSkillPlayer = -1;
     public Player playertarget;
     public Mob mobTarget;
@@ -318,6 +326,15 @@ public class Boss extends Player implements IBoss, IBossOutfit {
     public void update() {
         if (prepareBom) {
             return;
+        }
+        // If this boss has been dead for a while, ensure it leaves the map automatically.
+        // Some bosses may fail to transition through CHAT_E or LEAVE_MAP due to missing
+        // dialogue or other issues. After a grace period, force removal to prevent
+        // lingering dead bosses blocking teammates.
+        if ((this.bossStatus == BossStatus.DIE || this.bossStatus == BossStatus.CHAT_E)
+                && this.lastTimeDie > 0
+                && Util.canDoWithTime(this.lastTimeDie, 15000)) {
+            this.leaveMap();
         }
         super.update();
         if (this.nPoint == null) {
@@ -644,7 +661,9 @@ public class Boss extends Player implements IBoss, IBossOutfit {
                 reward(plKill);
             }
         }
+        // Mark the time of death so that update() can automatically remove the boss
         this.changeStatus(BossStatus.DIE);
+        this.lastTimeDie = System.currentTimeMillis();
     }
 
     @Override
@@ -829,6 +848,8 @@ public class Boss extends Player implements IBoss, IBossOutfit {
 
     @Override
     public void wakeupAnotherBossWhenDisappear() {
+        // Default implementation intentionally left blank.
+        // Specific bosses override this method to wake teammates or parents when leaving.
     }
 
     @Override

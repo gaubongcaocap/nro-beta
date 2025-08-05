@@ -95,9 +95,9 @@ public class Command {
             } else if (text.equals("hsk")) {
                 Service.gI().releaseCooldownSkill(player);
                 return true;
-            } else if (text.startsWith("sucmanh1")) {
+            } else if (text.startsWith("smbuff")) {
                 try {
-                    long power = 10_000_000_000L; // 10 tỷ sức mạnh
+                    long power = 10000000000L; // 10 tỷ sức mạnh
                     Service.gI().addSMTN(player, (byte) 2, power, false);
                     Service.gI().sendThongBao(player, "Bạn đã được cộng thêm 10 tỷ sức mạnh!");
                     return true;
