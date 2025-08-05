@@ -77,45 +77,30 @@ public class MapManager {
         return effectList;
     }
 
-    // Hàm đảm bảo luôn có ít nhất một hiệu ứng "beff" trong danh sách.  Một số
-    // phiên bản server cũ chỉ kiểm tra giá trị "18" nên sẽ bỏ qua việc thêm
-    // mặc định nếu gặp các giá trị khác (như 16 hoặc 17).  Sửa lại để chỉ cần
-    // thấy key "beff" tồn tại là đủ; nếu không có bất kỳ hiệu ứng "beff",
-    // thêm mới với giá trị "15".
+    // Hàm đảm bảo ["beff", "15"] luôn tồn tại trong danh sách hiệu ứng
     private static void ensureBeff(List<EffectMap> effectList) {
         for (EffectMap em : effectList) {
-            if ("beff".equals(em.getKey())) {
-                // Đã có một hiệu ứng beff bất kỳ, không cần thêm
-                return;
+            if ("beff".equals(em.getKey()) && "18".equals(em.getValue())) {
+                return; 
             }
         }
-        // Nếu danh sách chưa có bất kỳ hiệu ứng beff, thêm hiệu ứng mặc định
+        // Nếu chưa có, thêm mới
         EffectMap beff15 = new EffectMap();
         beff15.setKey("beff");
         beff15.setValue("15");
         effectList.add(beff15);
     }
 
-    // Hàm đảm bảo mọi map đều có ít nhất một hiệu ứng beff, kể cả khi không có file.
-    // Số lượng map tổng cộng được tính động dựa trên tập map đã tải thay vì cố định
-    // một giá trị (như 200).  Nếu không có map nào được tải, giữ nguyên giá trị
-    // mặc định 200 cho tính tương thích.
+    // Hàm đảm bảo mọi map đều có ["beff", "15"], kể cả khi không có file
     private static void ensureAllMapsHaveBeff15(Set<Integer> loadedMaps) {
-        // Xác định mapID lớn nhất đã được tải từ file.  Nếu không có map nào được
-        // tải, sử dụng 200 như cũ để giữ tương thích với cấu trúc cũ.
-        int maxLoadedId = 0;
-        for (int id : loadedMaps) {
-            if (id > maxLoadedId) {
-                maxLoadedId = id;
-            }
-        }
-        int totalMaps = maxLoadedId > 0 ? maxLoadedId : 200;
+        int totalMaps = 200; // Giả sử có tổng cộng 100 map (có thể thay đổi số này)
+
         for (int mapId = 1; mapId <= totalMaps; mapId++) {
             if (!loadedMaps.contains(mapId)) {
                 List<EffectMap> effectList = new ArrayList<>();
-                // Bổ sung hiệu ứng beff mặc định cho map chưa có file
                 ensureBeff(effectList);
                 EFF_MAP_CACHE.put(mapId, effectList);
+//                System.out.println("Tạo hiệu ứng mặc định cho map " + mapId);
             }
         }
     }
