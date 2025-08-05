@@ -142,12 +142,12 @@ public class Util {
     }
 
     public static long maxIntValue(double a) {
-        // if (cn.readInt) {
-        //     if (a > Integer.MAX_VALUE) {
-        //         a = Integer.MAX_VALUE;
-        //     }
-        //     return (long) a;
-        // }
+        if (cn.readInt) {
+            if (a > Integer.MAX_VALUE) {
+                a = Integer.MAX_VALUE;
+            }
+            return (int) a;
+        }
         return (long) a;
     }
 
