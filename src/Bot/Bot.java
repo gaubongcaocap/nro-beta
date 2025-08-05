@@ -2,16 +2,13 @@ package Bot;
 
 import consts.ConstPlayer;
 
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import map.Map;
 import map.Zone;
 import models.Template.SkillTemplate;
 import player.Player;
 import server.Manager;
-import static server.Manager.CLANS;
 import services.EffectSkillService;
 import services.MapService;
 import services.PlayerService;
@@ -54,10 +51,7 @@ public class Bot extends Player {
         this.isBot = true;
         this.flag_ = flag;
         this.itemTime.isUseTDLT = true;
-        if (!CLANS.isEmpty()) {
-            this.clan = CLANS.get(new Random().nextInt(CLANS.size()));
-        }
-
+        this.clan = null;
     }
 
     public int MapToPow() {

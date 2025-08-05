@@ -75,10 +75,33 @@ public class MapService {
     }
 
     //tilemap for paint
+    /**
+     * Đọc dữ liệu tile map từ file.  Kết quả sẽ được lưu vào bộ nhớ đệm để tái
+     * sử dụng cho các lần gọi tiếp theo nhằm giảm truy cập I/O.  Nếu một map đã
+     * được tải trước đó thì trả về bản sao của mảng từ cache.  Khi map chưa có
+     * trong cache, phương thức sẽ đọc dữ liệu từ file và lưu vào cache sau khi
+     * đọc xong.
+     *
+     * @param mapId id của map cần đọc
+     * @return ma trận tile của map hoặc null nếu xảy ra lỗi
+     */
     public int[][] readTileMap(int mapId) {
+        // Khởi tạo cache nếu chưa có
+        if (tileMapCache == null) {
+            tileMapCache = new java.util.HashMap<>();
+        }
+        // Nếu map đã có trong cache thì trả về một bản sao
+        int[][] cached = tileMapCache.get(mapId);
+        if (cached != null) {
+            // Tạo bản sao để đảm bảo dữ liệu trong cache không bị chỉnh sửa từ bên ngoài
+            int[][] clone = new int[cached.length][];
+            for (int i = 0; i < cached.length; i++) {
+                clone[i] = cached[i].clone();
+            }
+            return clone;
+        }
         int[][] tileMap = null;
-        try {
-            DataInputStream dis = new DataInputStream(new FileInputStream("data/map/tile_map_data/" + mapId));
+        try (DataInputStream dis = new DataInputStream(new FileInputStream("data/map/tile_map_data/" + mapId))) {
             dis.readByte();
             int w = dis.readByte();
             int h = dis.readByte();
@@ -88,11 +111,28 @@ public class MapService {
                     tileMap[i][j] = dis.readByte();
                 }
             }
-            dis.close();
+            // Lưu vào cache để tái sử dụng
+            tileMapCache.put(mapId, tileMap);
+            // Trả về bản sao của mảng mới đọc
+            int[][] clone = new int[tileMap.length][];
+            for (int i = 0; i < tileMap.length; i++) {
+                clone[i] = tileMap[i].clone();
+            }
+            return clone;
         } catch (Exception e) {
+            // Có thể ghi log nếu cần thiết
+            return tileMap;
         }
-        return tileMap;
     }
+
+    /**
+     * Bộ nhớ đệm cho tile map nhằm tránh đọc file nhiều lần.  Bởi vì dữ liệu
+     * tile map không thay đổi trong quá trình chạy server nên việc lưu vào
+     * cache sẽ giúp giảm độ trễ khi tải map và tiết kiệm tài nguyên I/O.  Sử
+     * dụng bản sao khi trả về để tránh việc sửa đổi dữ liệu bên ngoài làm hỏng
+     * cache.
+     */
+    private static java.util.Map<Integer, int[][]> tileMapCache;
 
     public Zone getMapCanJoin(Player player, int mapId, int zoneId) {
         if (isMapOffline(mapId)) {

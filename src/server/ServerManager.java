@@ -165,11 +165,11 @@ public class ServerManager {
 
         // Khởi tạo bot săn boss, bot pem và bot shop. Có thể điều chỉnh số lượng tùy theo cấu hình.
         Logger.success("Đang tạo bot săn boss");
-        NewBot.gI().runBot(2 , null , 100);
+        NewBot.gI().runBot(2 , null , 10);
         Logger.success("Tạo thành công bot săn boss");
 
         Logger.success("Đang tạo bot pem");
-        NewBot.gI().runBot(0, null, 1000);
+        NewBot.gI().runBot(0, null, 500);
         Logger.success("Tạo thành công bot pem");
 
         Logger.success("Đang tạo bot shop");

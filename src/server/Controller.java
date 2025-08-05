@@ -884,24 +884,43 @@ public class Controller implements IMessageHandler {
                 player = _session.player;
                 byte command = _msg.reader().readByte();
                 switch (command) {
-                    case 16:
+                    case 16: {
+                        // Sub command 16: increase player stat.  The client sends a type (0‑4) and the number of
+                        // points to add.  Some clients may send a zero value for point; treat it as 1 to ensure
+                        // the stat increase occurs.
                         byte type = _msg.reader().readByte();
                         short point = _msg.reader().readShort();
+                        if (point <= 0) {
+                            point = 1;
+                        }
                         if (player != null && player.nPoint != null) {
+                            // Initialize power limit before increasing points
+                            player.nPoint.initPowerLimit();
                             player.nPoint.increasePoint(type, point, false);
                         }
                         break;
-                    case 18:
+                    }
+                    case 18: {
+                        // Sub command 18: increase pet stat.  Similar to case 16 but for pets and requires a cash
+                        // threshold on the account.  Treat a zero point value as 1 to avoid ignoring the action.
                         byte type2 = _msg.reader().readByte();
                         short point2 = _msg.reader().readShort();
-                        if (player != null && player.getSession().cash < 100000) {
-                            Service.gI().sendThongBaoOK(player, "Cần duy trì Coin ở mức 100.000 để sử dụng chức năng này!");
-                            return;
+                        if (point2 <= 0) {
+                            point2 = 1;
                         }
-                        if (player != null && player.pet != null) {
-                            player.pet.nPoint.increasePoint(type2, point2, true);
+                        if (player != null) {
+                            if (player.getSession().cash < 100000) {
+                                Service.gI().sendThongBaoOK(player, "Cần duy trì Coin ở mức 100.000 để sử dụng chức năng này!");
+                                break;
+                            }
+                            if (player.pet != null) {
+                                // Initialize pet power limit before increasing points
+                                player.pet.nPoint.initPowerLimit();
+                                player.pet.nPoint.increasePoint(type2, point2, true);
+                            }
                         }
                         break;
+                    }
                     case 64:
                         int playerId = _msg.reader().readInt();
                         int menuId = _msg.reader().readShort();

@@ -9,10 +9,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 public class CaptionManager {
 
@@ -22,12 +23,7 @@ public class CaptionManager {
         return instance;
     }
 
-    /**
-     * List of loaded captions. Each caption corresponds to a power level and
-     * contains text for different planets. This field was previously
-     * annotated with Lombok's @Getter to generate an accessor. Since Lombok
-     * is not used, an explicit getter method is provided below.
-     */
+    @Getter
     private List<Caption> captions;
 
     public CaptionManager() {
@@ -73,16 +69,6 @@ public class CaptionManager {
         captions.remove(caption);
     }
 
-    /**
-     * Returns the list of captions. This method replaces the Lombok-generated
-     * getter that used to exist when the field was annotated with @Getter.
-     *
-     * @return list of all loaded captions
-     */
-    public List<Caption> getCaptions() {
-        return this.captions;
-    }
-
     public Caption find(int id) {
         for (Caption caption : captions) {
             if (caption.getId() == id) {
@@ -119,4 +105,5 @@ public class CaptionManager {
         }
         return 0;
     }
+
 }

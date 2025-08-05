@@ -1985,7 +1985,7 @@ public class NPoint {
             }
         }
         if (type == 3) {
-            tiemNangUse = 2 * (this.defg + 5) / 2 * 100000;
+            tiemNangUse = point * (2 * (defg+5)+(point-1))/2 * 100000;
             if ((this.defg + point) <= powerLimit.getDefense()) {
                 if (doUseTiemNang(tiemNangUse)) {
                     defg += point;
