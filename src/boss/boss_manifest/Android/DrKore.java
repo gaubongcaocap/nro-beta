@@ -38,9 +38,9 @@ public class DrKore extends Boss {
             plKill.id));
 
         int quantity = 1;
-        ItemMap item1743 = new ItemMap(this.zone, 1743, quantity, this.location.x,
+        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
                 this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1743);
+        Service.gI().dropItemMap(this.zone, item1173);
 
         // 80% cơ hội drop item phụ (thường hoặc hiếm)
         if (Util.isTrue(80, 100)) {

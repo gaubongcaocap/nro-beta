@@ -39,9 +39,9 @@ public class Android14 extends Boss {
                 this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
 
         int quantity = 1;
-        ItemMap item1743 = new ItemMap(this.zone, 1743, quantity, this.location.x,
+        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
                 this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1743);
+        Service.gI().dropItemMap(this.zone, item1173);
         
         if (Util.isTrue(80, 100)) {
             int[] items = Util.isTrue(50, 100) ? new int[]{18, 19, 20} : new int[]{1066, 1067, 1068, 1069, 1070, 1229};

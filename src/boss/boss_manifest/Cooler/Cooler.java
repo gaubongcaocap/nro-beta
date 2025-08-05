@@ -38,10 +38,9 @@ public class Cooler extends Boss {
             Service.gI().dropItemMap(this.zone, it);
         }
 
-        int quantity = Util.nextInt(4, 6);
-        ItemMap item1743 = new ItemMap(this.zone, 1743, quantity, this.location.x,
+       ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
                 this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1743);
+        Service.gI().dropItemMap(this.zone, item1173);
 
         if (Util.isTrue(50, 100)) {
             ItemMap item15 = new ItemMap(this.zone, 15, 1, this.location.x,

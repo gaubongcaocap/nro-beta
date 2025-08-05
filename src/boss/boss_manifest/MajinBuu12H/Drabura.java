@@ -156,9 +156,9 @@ public class Drabura extends Boss {
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
         // sự kiện
         int quantity = 1;
-        ItemMap item1743 = new ItemMap(this.zone, 1743, quantity, this.location.x,
+       ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
                 this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1743);
+        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override

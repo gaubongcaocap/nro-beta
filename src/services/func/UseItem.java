@@ -760,37 +760,39 @@ public class UseItem {
                             case 1741://túi mù
                                 UseItem.gI().openRandomItem(pl, item);
                                 break;
-                            case 1743:// túi sự kiện mở sv
-                                if (InventoryService.gI().getCountEmptyBag(pl) < 1) {
-                                    Service.gI().sendThongBaoOK(pl, "Cần 1 ô hành trang trống");
-                                    return;
-                                }
-                                int[] rewardItems = {1744, 1741, 674, 14, 15, 16, 17, 1142, 956, 457, 1045};
-                                int[] probabilities = {54, 5, 5, 1, 2, 3, 5, 5, 5, 10, 5}; // Tỷ lệ %
+                            case 1173:// túi sự kiện mở sv
+                                Service.gI().sendThongBaoOK(pl, "Tính năng đang được cập nhật");
 
-                                int randomPercent = Util.nextInt(1, 100);
-                                int cumulative = 0;
-                                int receivedItemId = 1744;
+                                // if (InventoryService.gI().getCountEmptyBag(pl) < 1) {
+                                //     Service.gI().sendThongBaoOK(pl, "Cần 1 ô hành trang trống");
+                                //     return;
+                                // }
+                                // int[] rewardItems = {1744, 1741, 674, 14, 15, 16, 17, 1142, 956, 457, 1045};
+                                // int[] probabilities = {54, 5, 5, 1, 2, 3, 5, 5, 5, 10, 5}; // Tỷ lệ %
 
-                                for (int i = 0; i < rewardItems.length; i++) {
-                                    cumulative += probabilities[i];
-                                    if (randomPercent <= cumulative) {
-                                        receivedItemId = rewardItems[i];
-                                        break;
-                                    }
-                                }
-                                Item rewardItem = ItemService.gI().createNewItem((short) receivedItemId);
+                                // int randomPercent = Util.nextInt(1, 100);
+                                // int cumulative = 0;
+                                // int receivedItemId = 1744;
 
-                                if (receivedItemId == 457) {
-                                    rewardItem.quantity = 10;
-                                }
+                                // for (int i = 0; i < rewardItems.length; i++) {
+                                //     cumulative += probabilities[i];
+                                //     if (randomPercent <= cumulative) {
+                                //         receivedItemId = rewardItems[i];
+                                //         break;
+                                //     }
+                                // }
+                                // Item rewardItem = ItemService.gI().createNewItem((short) receivedItemId);
 
-                                rewardItem.itemOptions.add(new Item.ItemOption(30, 1));
-                                InventoryService.gI().addItemBag(pl, rewardItem);
-                                InventoryService.gI().sendItemBag(pl);
-                                InventoryService.gI().subQuantityItemsBag(pl, item, 1);
-                                Service.gI().sendThongBao(pl, "Bạn đã nhận được " + rewardItem.template.name);
-                                break;
+                                // if (receivedItemId == 457) {
+                                //     rewardItem.quantity = 10;
+                                // }
+
+                                // rewardItem.itemOptions.add(new Item.ItemOption(30, 1));
+                                // InventoryService.gI().addItemBag(pl, rewardItem);
+                                // InventoryService.gI().sendItemBag(pl);
+                                // InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+                                // Service.gI().sendThongBao(pl, "Bạn đã nhận được " + rewardItem.template.name);
+                                // break;
 
                             case 1623:
                                 TaskService.gI().sendNextTaskMain(pl);
