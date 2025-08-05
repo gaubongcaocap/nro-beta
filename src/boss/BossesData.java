@@ -399,7 +399,7 @@ public class BossesData {
             ConstPlayer.XAYDA, //gender
             new short[]{189, 190, 191, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             122000, //dame
-            new long[]{250000000}, //hp
+            new long[]{2500000000L}, //hp
             new int[]{80}, //map join
             (int[][]) Util.addArray(FULL_MASENKO, FULL_LIENHOAN), //skill
             new String[]{"|-1|Ta sẽ cho các ngươi thấy đâu mới là sức mạnh của ta!!"}, //text chat 1
@@ -422,7 +422,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{255, 256, 257, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             12000, //dame
-            new long[]{200000000}, //hp
+            new long[]{2000000000L}, //hp
             new int[]{96, 94, 93}, //map join
             new int[][]{
                     {Skill.THOI_MIEN, 3, 10000},
@@ -455,7 +455,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{249, 250, 251, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             12200, //dame
-            new long[]{150000000}, //hp
+            new long[]{1500000000L}, //hp
             new int[]{96, 94, 93}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -542,7 +542,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{237, 238, 239, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             17022, //dame
-            new long[]{300000000}, //hp
+            new long[]{3000000000L}, //hp
             new int[]{97, 98, 99}, //map join
             (int[][]) Util.addArray(FULL_GALICK, FULL_KAMEJOKO), //skill
             new String[]{"|-1|Chào! Có Gôku ở đây không?",
@@ -574,7 +574,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{240, 241, 242, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             18000, //dame
-            new long[]{350000000}, //hp
+            new long[]{3500000000L}, //hp
             new int[]{97, 98, 99}, //map join
             (int[][]) Util.addArray(FULL_KAMEJOKO), //skill
             new String[]{}, //text chat 1
@@ -593,7 +593,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{243, 244, 245, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             12000, //dame
-            new long[]{500000000}, //hp
+            new long[]{5000000000L}, //hp
             new int[]{97, 98, 99}, //map join
             (int[][]) Util.addArray(FULL_LIENHOAN, FULL_MASENKO), //skill
             new String[]{}, //text chat 1
@@ -612,7 +612,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{228, 229, 230, -1, -1, -1},
             100000,
-            new long[]{700000000},
+            new long[]{7000000000L},
             new int[]{100},
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -651,7 +651,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{231, 232, 233, -1, -1, -1},
             100000,
-            new long[]{900000000},
+            new long[]{9000000000L},
             new int[]{100},
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -679,7 +679,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
             100000,
-            new long[]{1200000000},
+            new long[]{12000000000L},
             new int[]{100},
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -717,7 +717,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
             100000,
-            new long[]{1800000000},
+            new long[]{18000000000L},
             new int[]{103},
             new int[][]{
                     {Skill.KAMEJOKO, 7, 10000},
@@ -738,7 +738,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
             300000,
-            new long[]{2000000000},
+            new long[]{20000000000L},
             new int[]{103},
             new int[][]{
                     {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
@@ -861,7 +861,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{550, 551, 552, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             800000, //dame
-            new long[]{1500000000}, //hp
+            new long[]{15000000000L}, //hp
             new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
             (int[][]) Util.addArray(FULL_GALICK, FULL_KAMEJOKO), //skill
             new String[]{"|-1|Ta là Sôn Gô Ku",
@@ -886,7 +886,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{553, 551, 552, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             1000000, //dame
-            new long[]{2500000000L}, //hp
+            new long[]{90000000000L}, //hp
             new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
             new int[][]{
                     {Skill.THAI_DUONG_HA_SAN, 7, 30000},
@@ -913,7 +913,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{1254, 1255, 1256, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             800000, //dame
-            new long[]{1500000000}, //hp
+            new long[]{150000000000L}, //hp
             new int[]{155, 165}, //map join
             (int[][]) Util.addArray(FULL_GALICK, FULL_ANTOMIC, FULL_TDHS), //skill
             new String[]{}, //text chat 1
@@ -927,7 +927,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{1257, 1255, 1256, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             1000000, //dame
-            new long[]{2500000000L}, //hp
+            new long[]{350000000000L}, //hp
             new int[]{155, 165}, //map join
             (int[][]) Util.addArray(FULL_GALICK, FULL_ANTOMIC, FULL_TDHS), //skill
             new String[]{}, //text chat 1
@@ -2147,8 +2147,8 @@ public class BossesData {
             "Cooler", //name
             ConstPlayer.XAYDA, //gender
             new short[]{317, 318, 319, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            3200000, //dame
-            new long[]{1000000000}, //hp
+            32000000, //dame
+            new long[]{1000000000L}, //hp
             new int[]{110}, //map join
             (int[][]) Util.addArray(FULL_ANTOMIC, FULL_KAMEJOKO, FULL_MASENKO, FULL_GALICK), //skill
             new String[]{"|-1|Ta sẽ cho chúng bây biết sức mạnh thực sự của dân tộc Frost Demons"
@@ -2173,8 +2173,8 @@ public class BossesData {
             "Cooler 2", //name
             ConstPlayer.XAYDA, //gender
             new short[]{320, 321, 322, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            5000000, //dame
-            new long[]{1500000000}, //hp
+            50000000, //dame
+            new long[]{30000000000L}, //hp
             new int[]{110}, //map join
             (int[][]) Util.addArray(FULL_ANTOMIC, FULL_KAMEJOKO, FULL_MASENKO, FULL_GALICK), //skill
             new String[]{"|-1|Ta sẽ cho chúng bây biết sức mạnh thực sự của dân tộc Frost Demons"
@@ -2416,13 +2416,14 @@ public class BossesData {
             new String[]{}, //text chat 3
             REST_1_M
     );
+    
 
     public static final BossData GOLDEN_FRIEZA = new BossData(
             "Fide Vàng", //name
             ConstPlayer.XAYDA, //gender
             new short[]{502, 503, 504, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            300000, //dame
-            new long[]{100}, //hp
+            3000000, //dame
+            new long[]{30000000000L}, //hp
             new int[]{6}, //map join
             new int[][]{
                     {Skill.TAI_TAO_NANG_LUONG, 7, 10000},
