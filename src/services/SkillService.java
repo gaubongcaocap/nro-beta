@@ -1031,9 +1031,9 @@ public class SkillService {
         Skill skillSelect = plAtt.playerSkill.skillSelect;
         if (plAtt.isPl() && dameHit >= 250_000_000) {
             String message = plAtt.name + ": đã đánh 1 chiêu " + skillSelect.template.name
-                    + " với sát thương là " + Util.chiaNho(dameHit);
+                    + " với sát thương là " + Util.chiaNho(dameHit) + " . Quá là ghê gớm" ;
             ServerNotify.gI().notify(message);
-            ChatGlobalService.gI().autoChatGlobal(plAtt, "|5|[Hệ thống] " + message);
+            ChatGlobalService.gI().autoChatGlobal(plAtt, "[Hệ thống] " + message);
         }
         long damePST = plInjure.effectSkill != null && plInjure.effectSkill.isShielding && plInjure.iDMark != null ? plInjure.iDMark.getDamePST() : dameHit;
         phanSatThuong(plAtt, plInjure, miss ? 0 : damePST);
