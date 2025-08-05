@@ -451,63 +451,21 @@ public class Map implements Runnable {
         return false;
     }
 
-    /**
-     * Cache for map tile data to avoid repeated file I/O on map construction.
-     * Because the underlying tile map files are static resources, caching them
-     * greatly reduces latency when many zones or instances of the same map
-     * are created.  Each entry stores a copy of the map indices and the
-     * dimensions so that newly created maps can simply clone the data.
-     */
-    private static final java.util.Map<Integer, MapTileData> MAP_TILE_CACHE = new java.util.HashMap<>();
-
-    /**
-     * Internal record to store cached tile data.
-     */
-    private static final class MapTileData {
-        final int[] maps;
-        final int tmw;
-        final int tmh;
-        final int pxw;
-        final int pxh;
-
-        MapTileData(int[] maps, int tmw, int tmh, int pxw, int pxh) {
-            this.maps = maps;
-            this.tmw = tmw;
-            this.tmh = tmh;
-            this.pxw = pxw;
-            this.pxh = pxh;
-        }
-    }
-
     public final void readTileMap(int mapId) {
-        // Attempt to load from cache first
-        MapTileData cached = MAP_TILE_CACHE.get(mapId);
-        if (cached != null) {
-            this.tmw = cached.tmw;
-            this.tmh = cached.tmh;
-            this.pxw = cached.pxw;
-            this.pxh = cached.pxh;
-            // Clone the cached array to ensure modifications in this instance do not affect the cache
-            this.maps = cached.maps.clone();
-            this.types = new int[this.maps.length];
-            return;
-        }
-        // Otherwise read from file and populate the cache
-        try (DataInputStream dis = new DataInputStream(new FileInputStream("data/map/tile_map_data/" + mapId))) {
-            dis.readByte();
-            this.tmw = dis.readByte();
-            this.tmh = dis.readByte();
-            this.pxw = this.tmw * SIZE;
-            this.pxh = this.tmh * SIZE;
-            this.maps = new int[this.tmw * this.tmh];
-            for (int j = 0; j < this.maps.length; j++) {
-                this.maps[j] = dis.readByte();
+        try {
+            try ( DataInputStream dis = new DataInputStream(new FileInputStream("data/map/tile_map_data/" + mapId))) {
+                dis.readByte();
+                tmw = dis.readByte();
+                tmh = dis.readByte();
+                pxw = tmw * SIZE;
+                pxh = tmh * SIZE;
+                maps = new int[tmw * tmh];
+                for (int j = 0; j < maps.length; j++) {
+                    maps[j] = dis.readByte();
+                }
+                types = new int[maps.length];
             }
-            this.types = new int[this.maps.length];
-            // Store a copy in cache for future use
-            MAP_TILE_CACHE.put(mapId, new MapTileData(this.maps.clone(), this.tmw, this.tmh, this.pxw, this.pxh));
         } catch (IOException e) {
-            // Silently ignore errors; maps will remain uninitialized
         }
     }
 }
