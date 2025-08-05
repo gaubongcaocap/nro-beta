@@ -173,8 +173,8 @@ public class ServerManager {
         Logger.success("Tạo thành công bot pem");
 
         Logger.success("Đang tạo bot shop");
-        // NewBot.gI().runBot(1, null, 10);
-        // Logger.success("Tạo thành công bot shop");
+        NewBot.gI().runBot(1, null, 100);
+        Logger.success("Tạo thành công bot shop");
 
         EventManager.gI().init();
         Logger.success("Đã khởi tạo sự kiện\n");
