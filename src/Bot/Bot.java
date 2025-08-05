@@ -59,11 +59,13 @@ public class Bot extends Player {
         long power = this.nPoint.power;
         int mapId = 0;
 
-        if (this.type == 0) { // Dưới 10 tỷ
-            mapId = 0 + random.nextInt(44); 
-        } else if (power < 10_000_000_000L) { // Dưới 10 tỷ
+        if (this.type == 0 ) { // Dưới 10 tỷ
+            mapId = 0 + random.nextInt(103); 
+        } else if (this.type == 1) {
+            mapId = 0 + random.nextInt(21); 
+        } else if (power < 40_000_000_000L) { // Dưới 10 tỷ
             mapId = 62 + random.nextInt(15); // Random từ 62 đến 76
-        } else if (power < 40_000_000_000L) { // 10 tỷ - 40 tỷ
+        } else if (power < 100_000_000_000L) { // 10 tỷ - 40 tỷ
             if (Util.isTrue(50, 100)) {
                 mapId = 91 + random.nextInt(3); // 30% map từ 91 đến 93
             } else {
