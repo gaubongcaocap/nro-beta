@@ -169,7 +169,7 @@ public class ServerManager {
         Logger.success("Tạo thành công bot săn boss\n");
 
         Logger.success("Đang tạo bot pem\n");
-        NewBot.gI().runBot(0, null, 500);
+        NewBot.gI().runBot(0, null, 2000);
         Logger.success("Tạo thành công bot pem\n");
 
         // Logger.success("Đang tạo bot shop\n");
