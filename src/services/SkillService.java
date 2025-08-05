@@ -1029,7 +1029,7 @@ public class SkillService {
             return;
         }
         Skill skillSelect = plAtt.playerSkill.skillSelect;
-        if (plAtt.isPl() && dameHit >= 250_000_000) {
+        if (plAtt.isPl() && dameHit >= 550000000) {
             String message = plAtt.name + ": đã đánh 1 chiêu " + skillSelect.template.name
                     + " với sát thương là " + Util.chiaNho(dameHit) + " . Quá là ghê gớm" ;
             ServerNotify.gI().notify(message);

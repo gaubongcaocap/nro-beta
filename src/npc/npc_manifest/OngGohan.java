@@ -80,7 +80,7 @@ public class OngGohan extends Npc {
                         break;
 
                     case 3: // nhận ngọc
-                        if (player.inventory.gem >= 1000000) {
+                        if (player.inventory.gem >= 10000 || player.inventory.ruby >= 10000) {
                             Service.gI().sendThongBao(player, "Tiêu hết đi đã r nhận cu");
                             return;
                         }
