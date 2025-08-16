@@ -3,16 +3,20 @@ package boss.boss_manifest.GinyuForce;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
 import boss.BossID;
 import boss.BossStatus;
 import boss.BossesData;
-import map.ItemMap;
-import player.Player;
+
 import services.Service;
+import map.ItemMap;
+import java.util.Calendar;
+import java.util.Random;
+
+import player.Player;
 import utils.Util;
 
 public class SO4 extends Boss {
@@ -33,15 +37,13 @@ public class SO4 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        super.reward(plKill);
-        if (this.currentLevel == 1) {
-            return;
+        if (Util.isTrue(80, 100)) {
+            int[] items = Util.isTrue(50, 100) ? new int[] { 18, 19, 20 }
+                    : new int[] { 1066, 1067, 1068, 1069, 1070, 1229 };
+            int randomItem = items[new Random().nextInt(items.length)];
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, randomItem, 1,
+                    this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
-        // sự kiện
-        int quantity = 1;
-       ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override
@@ -81,4 +83,22 @@ public class SO4 extends Boss {
             }
         }
     }
+    
+//     @Override
+//    public synchronized long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
+//        Calendar calendar = Calendar.getInstance();
+//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//        
+//        // Trong khoảng 8-10h tối (20h-22h), boss không nhận sát thương
+//        if (hour >= 5 && hour < 6) {
+//            return 0;
+//        }
+//        
+//        this.nPoint.subHP(damage);
+//        if (isDie()) {
+//            this.setDie(plAtt);
+//            die(plAtt);
+//        }
+//        return damage;
+//    }
 }

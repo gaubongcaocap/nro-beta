@@ -3,7 +3,7 @@ package boss.boss_manifest.RedRibbonHQ;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstPlayer;
@@ -28,32 +28,28 @@ public class TrungUyThep extends Boss {
 
     public TrungUyThep(Zone zone, long dame, long hp) throws Exception {
         super(PHOBANDT, BossID.TRUNG_UY_THEP, new BossData(
-                "Trung uý Thép", // name
-                ConstPlayer.TRAI_DAT, // gender
-                new short[] { 129, 130, 131, -1, -1, -1 }, // outfit {head, body, leg, bag, aura, eff}
-                ((dame)), // dame
-                new long[] { ((hp)) }, // hp
-                new int[] { 55 }, // map join
-                new int[][] {
-                        { Skill.DEMON, 3, 1 }, { Skill.DEMON, 6, 2 }, { Skill.DRAGON, 7, 3 }, { Skill.DRAGON, 1, 4 },
-                        { Skill.GALICK, 5, 5 }, // {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5,
-                                                // 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO,
-                                                // 2, 11}, {Skill.KAMEJOKO, 1, 12},
-                        { Skill.ANTOMIC, 1, 13 }, { Skill.ANTOMIC, 2, 14 }, { Skill.ANTOMIC, 3, 15 },
-                        { Skill.ANTOMIC, 4, 16 }, { Skill.ANTOMIC, 5, 17 }, { Skill.ANTOMIC, 6, 19 },
-                        { Skill.ANTOMIC, 7, 20 },
-                        { Skill.MASENKO, 1, 21 }, { Skill.MASENKO, 5, 22 }, { Skill.MASENKO, 6, 23 },
-                        { Skill.KAMEJOKO, 7, 1000 }, },
-                new String[] {}, // text chat 1
-                new String[] { "|-1|Nếu bọn mi muốn lên tiếp tầng lầu trên",
-                        "|-1|Phải bước qua xác chết của ta đã" }, // text chat 2
-                new String[] {}, // text chat 3
-                60));
+                "Trung uý Thép", //name
+                ConstPlayer.TRAI_DAT, //gender
+                new short[]{129, 130, 131, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+                ((dame)), //dame
+                new long[]{((hp))}, //hp
+                new int[]{55}, //map join
+                new int[][]{
+                    {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5}, //                    {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11}, {Skill.KAMEJOKO, 1, 12},
+                    {Skill.ANTOMIC, 1, 13}, {Skill.ANTOMIC, 2, 14}, {Skill.ANTOMIC, 3, 15}, {Skill.ANTOMIC, 4, 16}, {Skill.ANTOMIC, 5, 17}, {Skill.ANTOMIC, 6, 19}, {Skill.ANTOMIC, 7, 20},
+                    {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},
+                    {Skill.KAMEJOKO, 7, 1000},},
+                new String[]{}, //text chat 1
+                new String[]{"|-1|Nếu bọn mi muốn lên tiếp tầng lầu trên",
+                    "|-1|Phải bước qua xác chết của ta đã"}, //text chat 2
+                new String[]{}, //text chat 3
+                60
+        ));
 
         this.zone = zone;
     }
 
-    @Override
+   @Override
     public void reward(Player plKill) {
         // Xác suất rơi item 1560 (50%)
         if (Util.isTrue(80, 100)) {
@@ -63,7 +59,8 @@ public class TrungUyThep extends Boss {
                     1,
                     this.location.x,
                     this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
-                    plKill.id);
+                    plKill.id
+            );
             Service.gI().dropItemMap(this.zone, it);
         }
 
@@ -75,17 +72,11 @@ public class TrungUyThep extends Boss {
                     Util.nextInt(1, 2),
                     this.location.x,
                     this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
-                    plKill.id);
+                    plKill.id
+            );
             Service.gI().dropItemMap(this.zone, it);
         }
-        
-        // sự kiện
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
-
     @Override
     public void active() {
         super.active();
@@ -156,13 +147,11 @@ public class TrungUyThep extends Boss {
                 }
                 return;
             }
-            if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null
-                    && this.zone.equals(playerAtt.zone)) {
+            if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null && this.zone.equals(playerAtt.zone)) {
                 if (this.isDie()) {
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, playerAtt) <= this.getRangeCanAttackWithSkillSelect()) {
                     int x = playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80));
                     if (Util.isTrue(15, ConstRatio.PER100) && SkillUtil.isUseSkillChuong(this)) {

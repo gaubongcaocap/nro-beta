@@ -3,7 +3,7 @@ package boss.iboss;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import player.Player;

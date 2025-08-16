@@ -13,7 +13,6 @@ public class ResultSetImpl implements NDVResultSet {
     private Object[][] values;
     private int indexData = -1;
 
-    @SuppressWarnings("unchecked")
     public ResultSetImpl(ResultSet resultSet) throws Exception {
         try {
             resultSet.last();

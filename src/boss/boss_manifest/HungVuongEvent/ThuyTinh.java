@@ -3,11 +3,12 @@ package boss.boss_manifest.HungVuongEvent;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.*;
 import static boss.BossType.HUNGVUONG_EVENT;
+import consts.ConstPlayer;
 import item.Item;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import services.PlayerService;
 import services.Service;
 import services.SkillService;
 import services.func.ChangeMapService;
+import utils.SkillUtil;
 import utils.Util;
 
 public class ThuyTinh extends Boss {
@@ -118,7 +120,7 @@ public class ThuyTinh extends Boss {
 
     @Override
     public Player getPlayerAttack() {
-        List<Player> plNotVoHinh = new ArrayList<Player>();
+        List<Player> plNotVoHinh = new ArrayList();
         for (Player pl : this.zone.getNotBosses()) {
             if ((pl.effectSkin == null || !pl.effectSkin.isVoHinh) && pl.cFlag != this.cFlag) {
                 plNotVoHinh.add(pl);

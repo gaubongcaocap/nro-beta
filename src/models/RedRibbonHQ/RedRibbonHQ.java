@@ -3,7 +3,7 @@ package models.RedRibbonHQ;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import boss.Boss;
@@ -104,7 +104,7 @@ public class RedRibbonHQ implements Runnable {
             this.dispose();
             return;
         }
-        List<Player> plJoinDT = new ArrayList<Player> ();
+        List<Player> plJoinDT = new ArrayList();
         //Đưa thành viên vào doanh trại
         for (Player pl : player.zone.getPlayers()) {
             if (pl != null && !pl.equals(player) && pl.clan != null
@@ -216,7 +216,8 @@ public class RedRibbonHQ implements Runnable {
             }
         }
         Thread.ofVirtual()
-                .name("Doanh Trại: " + this.clan.name);
+                .name("Doanh Trại: " + this.clan.name)
+                .start(this);
 
     }
 
@@ -369,8 +370,8 @@ public class RedRibbonHQ implements Runnable {
                     long bossMaxHealth = (long) (hp * 1.1);
                     bossDamage = Util.maxIntValue(bossDamage);
                     bossMaxHealth = Util.maxIntValue(bossMaxHealth);
-                    boss.nPoint.hpMax =  bossMaxHealth;
-                    boss.nPoint.dame =  bossDamage;
+                    boss.nPoint.hpMax = bossMaxHealth;
+                    boss.nPoint.dame = bossDamage;
                     boss.nPoint.hp = boss.nPoint.hpMax;
                 } catch (Exception exception) {
                 }
@@ -381,8 +382,8 @@ public class RedRibbonHQ implements Runnable {
                     long bossMaxHealth = (long) (hp * 1.15);
                     bossDamage = Util.maxIntValue(bossDamage);
                     bossMaxHealth = Util.maxIntValue(bossMaxHealth);
-                    boss.nPoint.hpMax =  bossMaxHealth;
-                    boss.nPoint.dame =  bossDamage;
+                    boss.nPoint.hpMax = bossMaxHealth;
+                    boss.nPoint.dame = bossDamage;
                     boss.nPoint.hp = boss.nPoint.hpMax;
                 } catch (Exception exception) {
                 }
@@ -397,8 +398,8 @@ public class RedRibbonHQ implements Runnable {
                         bossDamage /= 10;
                         bossMaxHealth /= 10;
                     }
-                    boss.nPoint.hpMax =  bossMaxHealth;
-                    boss.nPoint.dame =  bossDamage;
+                    boss.nPoint.hpMax = bossMaxHealth;
+                    boss.nPoint.dame = bossDamage;
                     boss.nPoint.hp = boss.nPoint.hpMax;
                 } catch (Exception exception) {
                 }
@@ -410,8 +411,8 @@ public class RedRibbonHQ implements Runnable {
                     long bossMaxHealth = (long) (hp * 1.3);
                     bossDamage = Util.maxIntValue(bossDamage);
                     bossMaxHealth = Util.maxIntValue(bossMaxHealth);
-                    boss.nPoint.hpMax =  bossMaxHealth;
-                    boss.nPoint.dame =  bossDamage;
+                    boss.nPoint.hpMax = bossMaxHealth;
+                    boss.nPoint.dame = bossDamage;
                     boss.nPoint.hp = boss.nPoint.hpMax;
                 } catch (Exception exception) {
                 }

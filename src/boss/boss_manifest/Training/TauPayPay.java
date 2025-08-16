@@ -1,7 +1,7 @@
 package boss.boss_manifest.Training;
 
 /*
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;
@@ -11,6 +11,7 @@ import consts.ConstPlayer;
 import consts.ConstTask;
 import network.Message;
 import player.Player;
+import services.EffectSkillService;
 import services.MapService;
 import services.Service;
 import services.TaskService;
@@ -108,7 +109,7 @@ public class TauPayPay extends TrainingBoss {
 
             if (this.nPoint.hp > 0 && this.nPoint.hp < this.nPoint.hpMax / 5) {
                 if (Util.canDoWithTime(lastTimeChat, 2000)) {
-                    String[] text = { "AAAAAAAAA", "ai da" };
+                    String[] text = {"AAAAAAAAA", "ai da"};
                     this.chat(text[Util.nextInt(text.length)]);
                 }
             }

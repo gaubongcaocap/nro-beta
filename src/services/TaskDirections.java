@@ -104,7 +104,7 @@ public class TaskDirections {
                             .mapToInt(Integer::parseInt)
                             .toArray();
                     int numNextMaps = array.length - 3;
-                    Arrays.copyOfRange(array, 3, 3 + numNextMaps);
+                    int[] nextMapIds = Arrays.copyOfRange(array, 3, 3 + numNextMaps);
                     LoadLinkMap(array[0], array[1]);
                 }
             } catch (Exception ex) {
@@ -253,7 +253,7 @@ public class TaskDirections {
                 point[0] = 0;
                 point[1] = 0;
             } else {
-                // int dir = wp.maxX > 100 ? 1 : -1;
+                int dir = wp.maxX > 100 ? 1 : -1;
 //            int x = wp.minX + (wp.maxX - wp.minX) / 2, y = wp.maxY - ((wp.minX <= 100) ? 48 : 24);
                 int mapWidth = player.zone.map.mapWidth;
                 int x_hint, y_hint;

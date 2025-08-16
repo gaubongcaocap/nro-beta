@@ -3,7 +3,7 @@ package boss.boss_manifest.MajinBuu12H;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -14,9 +14,11 @@ import static boss.BossType.FINAL;
 import consts.ConstPlayer;
 import map.ItemMap;
 import player.Player;
+import server.Manager;
 import services.Service;
 import utils.Util;
 
+import java.util.Random;
 import server.ServerNotify;
 import services.EffectSkillService;
 import services.SkillService;
@@ -42,11 +44,6 @@ public class Yacon extends Boss {
     public void reward(Player plKill) {
         plKill.fightMabu.changePoint((byte) 10);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-        // sự kiện
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override
@@ -58,8 +55,7 @@ public class Yacon extends Boss {
                 if (pl == null || pl.isDie()) {
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.canDoWithTime(this.lastTimeTanHinh, 10000) && Util.isTrue(5, 20)) {
                     if (SkillUtil.isUseSkillChuong(this)) {
                         this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)),
@@ -80,7 +76,7 @@ public class Yacon extends Boss {
                 }
                 if (Util.canDoWithTime(this.lastTimeTanHinh, 30000)) {
                     if (Util.isTrue(1, 10)) {
-                        String[] chat = { "Mi đâu rồi", "Đồ ăn gian!" };
+                        String[] chat = {"Mi đâu rồi", "Đồ ăn gian!"};
                         Service.gI().chat(pl, chat[Util.nextInt(chat.length)]);
                         this.lastTimeTanHinh = System.currentTimeMillis();
                     }

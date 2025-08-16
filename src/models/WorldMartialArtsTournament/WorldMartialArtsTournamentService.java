@@ -3,13 +3,24 @@ package models.WorldMartialArtsTournament;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstNpc;
 import consts.ConstTournament;
+import static consts.ConstTournament.NGOAI_HANG;
+import static consts.ConstTournament.NHI_DONG;
+import static consts.ConstTournament.SIEU_CAP_1;
+import static consts.ConstTournament.SIEU_CAP_2;
+import static consts.ConstTournament.SIEU_CAP_3;
+import static consts.ConstTournament.tournamentGems;
+import static consts.ConstTournament.tournamentGolds;
+import static consts.ConstTournament.tournamentNames;
+import item.Item;
 import java.util.ArrayList;
+import jdbc.daos.PlayerDAO;
 import npc.Npc;
 import player.Player;
+import services.InventoryService;
 import services.NpcService;
 import services.Service;
 import services.func.ChangeMapService;

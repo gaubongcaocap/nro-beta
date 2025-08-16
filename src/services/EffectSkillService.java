@@ -3,7 +3,7 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import mob.Mob;
@@ -91,6 +91,18 @@ public class EffectSkillService {
             msg.cleanup();
         } catch (Exception e) {
             utils.Logger.logException(EffectSkillService.class, e);
+        }
+    }
+    public void setBienHinh(Player player, long lastTimeBienHinh, int timeBienHinh) {
+        player.effectSkill.lastTimeBienHinh = lastTimeBienHinh;
+        player.effectSkill.timeBienHinh = timeBienHinh;
+        player.effectSkill.isBienHinh = true;
+    }
+
+    public void removeBienHinh(Player player) {
+        if (player.effectSkill != null) {
+            player.effectSkill.isBienHinh = false;
+            Service.gI().Send_Caitrang(player);
         }
     }
 
@@ -626,13 +638,13 @@ public class EffectSkillService {
 
     //hiệu ứng biến khỉ
     public void sendEffectMonkey(Player player) {
-        SkillUtil.getSkillbyId(player, Skill.BIEN_KHI);
+        Skill skill = SkillUtil.getSkillbyId(player, Skill.BIEN_KHI);
         Message msg;
         try {
             msg = new Message(-45);
             msg.writer().writeByte(6);
             msg.writer().writeInt((int) player.id);
-            msg.writer().writeShort(0);
+            msg.writer().writeShort(skill.skillId);
             Service.gI().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
@@ -672,6 +684,16 @@ public class EffectSkillService {
         for (int i = player.zone.getPlayers().size() - 1; i >= 0; i--) {
             Player pl = player.zone.getPlayers().get(i);
             Service.gI().playerInfoUpdate(player, pl, "!Tiểu đội trưởng", 180, 181, 182);
+        }
+    }
+
+    public void setIsBodyChangeGokuHuyDiet(Player player) {
+        player.effectSkill.isBodyChangeTechnique = true;
+        Service.gI().sendThongBao(player, "Bạn đã bị lây Sida");
+        PlayerService.gI().changeAndSendTypePK(player, 5);
+        for (int i = player.zone.getPlayers().size() - 1; i >= 0; i--) {
+            Player pl = player.zone.getPlayers().get(i);
+            Service.gI().playerInfoUpdate(player, pl, player.name + " Sida", 180, 181, 182);
         }
     }
 

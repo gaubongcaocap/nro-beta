@@ -74,7 +74,7 @@ public class NhapNgocRong {
                 return;
             }
             Item nr = ItemService.gI().createNewItem((short) (item.template.id - 1));
-            // nr.itemOptions.add(new Item.ItemOption(30,1));
+            nr.itemOptions.add(new Item.ItemOption(30,1));
             CombineService.gI().sendEffectCombineDB(player, nr.template.iconID);
             InventoryService.gI().addItemBag(player, nr);
             InventoryService.gI().subQuantityItemsBag(player, item, 7);

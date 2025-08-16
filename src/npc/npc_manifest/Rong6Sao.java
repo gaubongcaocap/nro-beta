@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 public class Rong6Sao extends Rong1Sao {

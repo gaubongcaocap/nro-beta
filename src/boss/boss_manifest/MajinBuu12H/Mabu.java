@@ -3,7 +3,7 @@ package boss.boss_manifest.MajinBuu12H;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -16,9 +16,11 @@ import consts.ConstPlayer;
 import item.Item;
 import map.ItemMap;
 import player.Player;
+import server.Manager;
 import services.Service;
 import utils.Util;
 
+import java.util.Random;
 import models.MajinBuu.MajinBuuService;
 import services.EffectSkillService;
 import services.ItemService;
@@ -45,27 +47,17 @@ public class Mabu extends Boss {
             plKill.timeGohome = 30;
         }
         for (int i = 0; i < Util.nextInt(2, 3); i++) {
-            ItemMap itemMap = new ItemMap(zone, 521, 1, this.location.x + (Util.nextInt(-50, 50) * i),
-                    this.zone.map.yPhysicInTop(this.location.x,
-                            this.location.y - 24),
-                    plKill.id);
+            ItemMap itemMap = new ItemMap(zone, 521, 1, this.location.x + (Util.nextInt(-50, 50) * i), this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             int param = plKill.fightMabu.pointPercent + 30;
             itemMap.options.add(new Item.ItemOption(1, param));
             Service.gI().dropItemMap(this.zone, itemMap);
         }
         plKill.fightMabu.changePoint((byte) 25);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-        // sự kiện
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
-
         if (Util.isTrue(3, 100)) {
-            ItemMap it = ItemService.gI().randQuanThanLinh(this.zone, 1, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x,
-                            this.location.y - 24),
-                    plKill.id);
+            ItemMap it = ItemService.gI().randQuanThanLinh(this.zone, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
     }
@@ -77,8 +69,7 @@ public class Mabu extends Boss {
         }
         ChangeMapService.gI().changeMap(this, this.zone, Util.nextInt(300, 400), 336);
         this.changeStatus(BossStatus.CHAT_S);
-        MajinBuuService.gI().getNpcBabiday(this.zone).npcChat(this.zone,
-                "Mabư ! Hãy theo lệnh ta, giết hết bọn chúng đi");
+        MajinBuuService.gI().getNpcBabiday(this.zone).npcChat(this.zone, "Mabư ! Hãy theo lệnh ta, giết hết bọn chúng đi");
     }
 
     private void petrifyPlayersInTheMap() {
@@ -107,8 +98,7 @@ public class Mabu extends Boss {
                 if (pl == null || pl.isDie()) {
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(5, 20)) {
                         if (SkillUtil.isUseSkillChuong(this)) {

@@ -3,7 +3,7 @@ package boss.boss_manifest.MajinBuu12H;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -13,9 +13,11 @@ import boss.BossesData;
 import static boss.BossType.FINAL;
 import map.ItemMap;
 import player.Player;
+import server.Manager;
 import services.Service;
 import utils.Util;
 
+import java.util.Random;
 import server.ServerNotify;
 import services.EffectSkillService;
 import services.TaskService;
@@ -37,11 +39,6 @@ public class BuiBui extends Boss {
     public void reward(Player plKill) {
         plKill.fightMabu.changePoint((byte) 10);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-        // sự kiện
-        int quantity = 1;
-       ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override

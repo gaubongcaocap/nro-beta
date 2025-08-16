@@ -3,7 +3,7 @@ package shop;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class TabShop {
     }
 
     public TabShop(TabShop tabShop, int gender) {
-        this.itemShops = new ArrayList<>();
+        this.itemShops = new ArrayList();
         this.shop = tabShop.shop;
         this.id = tabShop.id;
         this.name = tabShop.name;

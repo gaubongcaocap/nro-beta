@@ -3,7 +3,7 @@ package boss.boss_manifest.Broly;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.Boss;
 import boss.BrolyManager;
@@ -16,6 +16,7 @@ import consts.ConstPlayer;
 import map.Zone;
 import player.Player;
 import services.PetService;
+import services.PlayerService;
 import services.Service;
 import services.SkillService;
 import services.func.ChangeMapService;
@@ -26,7 +27,7 @@ import utils.Util;
 public class SuperBroly extends Boss {
 
     public SuperBroly() throws Exception {
-        super(BROLY, BossID.SUPER_BROLY, false, true, BossesData.SUPPER);
+        super(BROLY, BossID.SUPER_BROLY, false, true, BossesData.SUPER_BROLY);
     }
 
     public SuperBroly(Zone zone, int x, int y) throws Exception {
@@ -76,7 +77,7 @@ public class SuperBroly extends Boss {
     @Override
     public void reward(Player plKill) {
         if (plKill.pet == null) {
-            PetService.gI().createNormalPetSuperGender(plKill, this.pet.gender, this.pet.typePet);
+            PetService.gI().createNormalPet(plKill, this.pet.gender, this.pet.typePet);
             Service.gI().sendThongBao(plKill, "Bạn đã nhận được đệ tử\n Vui lòng thoát game vào lại");
         }
     }
@@ -102,7 +103,7 @@ public class SuperBroly extends Boss {
             super.joinMap();
         }
         if (this.pet == null) {
-            PetService.gI().createNormalPetSuper(this, Util.nextInt(0, 2), (byte) 0);
+            PetService.gI().createNormalPet(this, Util.nextInt(0, 2), (byte) Util.nextInt(0, 4));
         }
         // PlayerService.gI().changeAndSendTypePK(this.pet, ConstPlayer.PK_ALL);
         st = System.currentTimeMillis();

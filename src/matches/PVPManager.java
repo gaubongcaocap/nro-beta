@@ -3,7 +3,7 @@ package matches;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import player.Player;
@@ -25,7 +25,7 @@ public class PVPManager implements Runnable {
 
     public PVPManager() {
         this.pvps = new ArrayList<>();
-        Thread.ofVirtual().name("Update pvp");
+        Thread.ofVirtual().name("Update pvp").start(this);
     }
 
     public void removePVP(PVP pvp) {

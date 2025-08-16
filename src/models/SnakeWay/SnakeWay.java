@@ -3,7 +3,7 @@ package models.SnakeWay;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import boss.boss_manifest.SnakeWay.SAIBAMEN;
@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import server.Maintenance;
+import services.ClanService;
 import services.ItemMapService;
 import utils.TimeUtil;
 
@@ -187,7 +188,6 @@ public class SnakeWay implements Runnable {
                 }
             }
         }
-        new Thread(this, "Con Đường Rắn Độc: " + this.clan.name).start();
         Thread.ofVirtual()
                 .name("Con Đường Rắn Độc: " + this.clan.name)
                 .start(this);

@@ -3,7 +3,7 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstNpc;
@@ -79,37 +79,37 @@ public class IntrinsicService {
     }
 public void settltd(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.SET_TLTD, -1,
-                "chọn lẹ đi để tau đi chơi với ny", "Set\nThiên Xin Hăn", "Set\nGenki", "Set\nKamejoko", "Từ chối");
+                "Mày chọn gì thì chọn lẹ đi", "Set\nThiên Xin Hăn", "Set\nGenki", "Set\nKamejoko", "Từ chối");
 
     }
 
     public void settlnm(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.SET_TLNM, -1,
-                "chọn lẹ đi để tau đi chơi với ny", "Set\n Liên Hoàn", "Set\nỐc Tiêu", "Set\nPikkoro Daimao", "Từ chối");
+                "Mày chọn gì thì chọn lẹ đi", "Set\n Liên Hoàn", "Set\nỐc Tiêu", "Set\nPikkoro Daimao", "Từ chối");
 
     }
 
     public void settlxd(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.SET_TLXD, -1,
-                "chọn lẹ đi để tau đi chơi với ny", "Set\nKakarot", "Set\nCadic", "Set\nNappa", "Từ chối");
+                "Mày chọn gì thì chọn lẹ đi", "Set\nKakarot", "Set\nCadic", "Set\nNappa", "Từ chối");
 
     }
 
     public void sethdtd(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.SET_HDTD, -1,
-                "chọn lẹ đi để tau đi chơi với ny", "Set\nTien Xin Han", "Set\nGenki", "Set\nKamejoko", "Từ chối");
+                "Mày chọn gì thì chọn lẹ đi", "Set\nTien Xin Han", "Set\nGenki", "Set\nKamejoko", "Từ chối");
 
     }
 
     public void sethdnm(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.SET_HDNM, -1,
-                "chọn lẹ đi để tau đi chơi với ny", "Set\nLiên hoàn", "Set\nỐc Tiêu", "Set\nPikkoro Daimao","Từ chối");
+                "Mày chọn gì thì chọn lẹ đi", "Set\nLiên hoàn", "Set\nỐc Tiêu", "Set\nPikkoro Daimao","Từ chối");
 
     }
 
     public void sethdxd(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.SET_HDXD, -1,
-                "chọn lẹ đi để tau đi chơi với ny", "Set\nKakarot", "Set\nCadic", "Set\nNappa", "Từ chối");
+                "Mày chọn gì thì chọn lẹ đi", "Set\nKakarot", "Set\nCadic", "Set\nNappa", "Từ chối");
 
     }
     public void showMenu(Player player) {

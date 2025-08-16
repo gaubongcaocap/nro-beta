@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 public class OngParagus extends OngGohan {

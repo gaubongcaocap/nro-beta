@@ -3,7 +3,7 @@ package boss.boss_manifest.Training;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;

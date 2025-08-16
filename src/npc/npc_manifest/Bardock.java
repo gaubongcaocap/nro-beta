@@ -1,15 +1,17 @@
 package npc.npc_manifest;
 
+import consts.ConstNpc;
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
-import consts.ConstNpc;
+import consts.ConstTask;
 import consts.cn;
 import item.Item;
 import jdbc.daos.PlayerDAO;
 import npc.Npc;
 import player.Player;
+import services.InventoryService;
 import services.NpcService;
 import services.PetService;
 import services.Service;
@@ -26,22 +28,65 @@ public class Bardock extends Npc {
     @Override
     public void openBaseMenu(Player player) {
         if (canOpenNpc(player)) {
-            if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                switch (mapId) {
-                    case 0,7,14 ->
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU,
-                                "Đây là nơi ngươi có tiền là có thể đổi bất cứ thứ gì"
-                                + "\nNạp tiền hãy truy cập vào trang web: http://javhd.pro"
+            Item ThucAn = InventoryService.gI().findItem(player.inventory.itemsBag, 993);
+            int soLuong = 0;
+            if (ThucAn != null) {
+                soLuong = ThucAn.quantity;
+            }
+            int currentTask = TaskService.gI().getIdTask(player);
+
+            // Xử lý đối thoại riêng cho từng nhiệm vụ
+            if (currentTask == ConstTask.TASK_31_2) {
+                this.createOtherMenu(player, 1,
+                        "Tên tôi là Badock, người Xayda\n"
+                                + "Hành tinh của tôi vừa bị Fide phá hủy\n"
+                                + "Tôi không biết tại sao tôi thoát chết...và xuất hiện tại nơi này nữa\n"
+                                + "Tôi đang bị thương, cậu có thể giúp tôi hạ đám lính ngoài kia không?",
+                        "OK!");
+                return;
+            }
+            if (currentTask == ConstTask.TASK_31_4) {
+                this.createOtherMenu(player, 2,
+                        "Cảm ơn cậu đã giúp đỡ\n"
+                                + "Lúc rơi xuống đây tôi có gặp một cậu bé tên Berry\n"
+                                + "Nhưng do đám lính kia mà chúng tôi dã lạc nhau\n"
+                                + "Cậu có thể giúp tôi tìm Bery không?",
+                        "OK!");
+                return;
+            }
+            if (currentTask == ConstTask.TASK_31_6) {
+                this.createOtherMenu(player, 8,
+                        "Mơn cậu lần nữa\n"
+                                + "Hiện tại trong hang không còn gì để ăn\n"
+                                + "Cậu có thể giúp tôi kiếm thêm một chút lương thực được không",
+                        "OK!");
+                return;
+            }
+
+            if (currentTask == ConstTask.TASK_31_7 && soLuong >= 99) {
+                this.createOtherMenu(player, 2,
+                        "Mơn cậu thêm lần nữa\n"
+                                + "Với số thức ăn này tôi sẽ sớm bình phục\n"
+                                + "Ngoài kia bọn lính đang ức hiếp cư dân hành tinh này\n"
+                                + "Mong cậu có thể ra sức cứu giúp họ thêm lần nữa",
+                        "OK!");
+                return;
+            }
+
+            switch (mapId) {
+                case 0, 7, 14 ->
+                    this.createOtherMenu(player, ConstNpc.BASE_MENU,
+                            "Đây là nơi ngươi có tiền là có thể đổi bất cứ thứ gì"
+                                    + "\nNạp tiền hãy truy cập vào trang web: http://javhd.pro"
                                     + " \nNgươi đang có " + player.getSession().cash + " Coin",
-                                "SHOP",
-                                "Nạp Tiền",
-                                " Mở thành viên",
-                                "Đổi đệ VIP",
-                                "Đổi thỏi vàng",
-                                "Đổi skill đệ tử");
-                    default ->
-                        super.openBaseMenu(player);
-                }
+                            "Shop\nLinh tinh",
+                            "Nạp Tiền",
+                            "Mở thành\nViên",
+                            "Đổi đệ VIP",
+                            "Đổi thỏi\nVàng",
+                            "Đổi skill\nĐệ tử");
+                default ->
+                    super.openBaseMenu(player);
             }
         }
     }
@@ -49,6 +94,13 @@ public class Bardock extends Npc {
     @Override
     public void confirmMenu(Player player, int select) {
         if (canOpenNpc(player)) {
+            int menuId = player.iDMark.getIndexMenu();
+            if (menuId == 1 || menuId == 4 || menuId == 8) {
+                TaskService.gI().checkDoneTask31(player);
+            }
+            if (menuId == 2) {
+                TaskService.gI().checkDoneTask31_7(player);
+            }
             if (player.iDMark.isBaseMenu()) {
                 switch (select) {
                     case 0:
@@ -58,43 +110,40 @@ public class Bardock extends Npc {
                         if (player.getSession() != null) {
                             this.createOtherMenu(player, 777,
                                     "Có tiền rồi đổi thôi!\n"
-                                    + "Có thể nhận mốc nạp khi nạp ở quy lão Kame nha"
-                                    + " \nBạn đang có :" + player.getSession().cash + " Coin",
+                                            + "Có thể nhận mốc nạp khi nạp ở quy lão Kame nha"
+                                            + " \nBạn đang có :" + player.getSession().cash + " Coin",
                                     // "Đổi thỏi vàng");
-                           "Đổi thỏi vàng", "Đổi ngọc xanh", "Đổi hồng ngọc");
+                                    "Đổi thỏi vàng", "Đổi ngọc xanh", "Đổi hồng ngọc");
                         }
                         break;
                     case 1:
-                        NpcService.gI().createBigMessage(player, avartar, "Nhớ đăng nhập xong sau đó bấm NẠP!!!", (byte) 1, "NẠP", "http://javhd.pro");
+                        NpcService.gI().createBigMessage(player, avartar, "Nhớ đăng nhập xong sau đó bấm NẠP!!!",
+                                (byte) 1, "NẠP", "http://javhd.pro");
                         break;
                     case 3:
-                        if (player.getSession() != null) {                            
+                        if (player.getSession() != null) {
                             this.createOtherMenu(player, 13000,
-                                    "Đại ca vừa trúng số à !!!!\n"
-                                    + "Đổi đệ thì tháo cái đồ đệ ra, mất tự chịu nha!\n"
-                                    + "Thông tin từng loại đệ:\n|2|"
-                                    + "Fide nhí: +5%  chỉ số khi hợp thể\n|2|"
-                                    + "Cell nhí: +10% chỉ số khi hợp thể\n|2|"
-                                    + "Bưu nhí:  +15% chỉ số khi hợp thể\n|2|"
-                                    + "Adr bãi biển: +20% chỉ số khi hợp thể\n|2|"
-                                    + "Bưu gầy: +25% chỉ số khi hợp thể\n|2|"
-                                    + "Berrus nhí: +30% chỉ số khi hợp thể\n"
-                                    + "Bạn đang có :" + player.getSession().cash + " Coin",
-                                    // + "\nChỉ số hợp thể đệ hiện tại :\n|7|"
-                                    // + "-HP:" + player.pointfusion.getHpFusion() + " ,KI:" + player.pointfusion.getMpFusion() + " ,DAME:" + player.pointfusion.getDameFusion() + "",
-                                    // "Mua đệ\nFide nhí\n<" + cn.de31 + ">", "Mua đệ\nCell nhí\n<" + cn.de32 + ">", "Mua đệ\nBưu nhí\n<" + cn.de33 + ">");
-                                    "Mua đệ\nFide nhí\n" + cn.de31 + " Coin", "Mua đệ\nCell nhí\n" + cn.de32 + " Coin", "Mua đệ\nBưu nhí\n" + cn.de33 + " Coin", "Mua đệ\nAdr bãi biển\n" + cn.de34 + " Coin", "Mua đệ\nBưu gầy\n" + cn.de35 + " Coin", "Mua đệ\nBerrus nhí\n" + cn.de36 + " Coin");
+                                    "Đổi đệ bằng điểm Thành Tích\n"
+                                            + "Bạn đang có " + player.event.getKillBossPoint() + " Điểm Thành Tích"
+                                    + "\nChỉ số hợp thể đệ hiện tại :\n"
+                                    + "HP: " + player.pointfusion.getHpFusion() + "%, KI: " + player.pointfusion.getMpFusion() + "%, Sức Đánh: " + player.pointfusion.getDameFusion() + "%",
+                                    "Thông tin\nĐệ tử",
+                                    cn.petBuuNhiNm + "\n" + cn.de38 + " Điểm",
+                                    cn.petFideNhiNm + "\n" + cn.de39 + " Điểm",
+                                    cn.petCellNhiNm + "\n" + cn.de40 + " Điểm",
+                                    cn.petAndroidNm + "\n" + cn.de41 + " Điểm",
+                                    cn.petBuuGayNm + "\n" + cn.de42 + " Điểm",
+                                    cn.petBerrusNhiNm + "\n" + cn.de43 + " Điểm",
+                                    cn.petBlackNm + "\n" + cn.de44 + " Điểm",
+                                    cn.petBerrusNm + "\n" + cn.de45 + " Điểm"
+                                    );
                         }
-
-                        Service.gI().sendThongBao(player, "Chức Năng chưa cập nhật ");
                         break;
-
                     case 2:
                         if (player.getSession() != null) {
                             this.createOtherMenu(player, 782,
-                                    "Mở thành viên free khi bạn nạp tiền  \n Bạn đã nạp :"
-                                    + "" + player.getSession().cash + " Coin\n"
-                                    ,
+                                    "Mở thành viên free khi bạn nạp tiền  \nBạn đã nạp :"
+                                            + "" + player.getSession().cash + " Coin\n",
                                     "Mở", "Đóng");
                         }
                         break;
@@ -102,163 +151,45 @@ public class Bardock extends Npc {
                         if (player.getSession() != null) {
                             this.createOtherMenu(player, 888,
                                     "Lưu ý: Đổi Skill đệ bằng tiền nạp sẽ mất Coin\n"
-                                    + "Bạn có: " + player.getSession().cash + " Coin",
-                                    //Menu CHọn
-                                    "Đổi skill 2-3\n " + cn.skill23 + " Coin", "Đổi skill 2-4\n " + cn.skill24 + " Coin");
-
+                                            + "\nBạn có: " + player.getSession().cash + " Coin",
+                                    // Menu CHọn
+                                    "Đổi skill 2-3\n " + cn.skill23 + " Coin",
+                                    "Đổi skill 2-4\n " + cn.skill24 + " Coin");
                         }
                         break;
-
                 }
             } else if (player.iDMark.getIndexMenu() == 13000) {
                 switch (select) {
                     case 0:
-                        if (player.pet == null) {
-                            Service.gI().sendThongBao(player, "Ngươi cần phải có đệ mới sử dụng được chức năng này?");
-                            return;
-                        }
-                        for (Item item : player.pet.inventory.itemsBody) {
-                            if (item.isNotNullItem()) {
-                                Service.gI().sendThongBao(player, "Cần bỏ đồ đệ tử đang mặc để sử dụng chức năng?");
-                                return;
-                            }
-                        }
-                        if (player.getSession() != null && player.getSession().cash < cn.de31) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de31 + " Coin");
-                            return;
-                        }
-
-                        if (PlayerDAO.subcash(player, cn.de31)) {
-                            PetService.gI().createPetFideNhi(player, player.pet != null, player.gender);
-                            Service.gI().sendThongBao(player, "Bạn đã nhận được đệ Fide Nhí");
-                        } else {
-                            Service.gI().sendThongBao(player, "Đã có lỗi xảy ra !!");
-                        }
-
+                        NpcService.gI().createTutorial(player, tempId, this.avartar, ConstNpc.HUONG_DAN_DOI_DETU_VIP);
                         break;
                     case 1:
-                        if (player.pet == null) {
-                            Service.gI().sendThongBao(player, "Ngươi cần phải có đệ mới sử dụng được chức năng này?");
-                            return;
-                        }
-                        for (Item item : player.pet.inventory.itemsBody) {
-                            if (item.isNotNullItem()) {
-                                Service.gI().sendThongBao(player, "Cần bỏ đồ đệ tử đang mặc để sử dụng chức năng?");
-                                return;
-                            }
-                        }
-                        if (player.getSession() != null && player.getSession().cash < cn.de32) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de32 + " Coin");
-                            return;
-                        }
-
-                        if (PlayerDAO.subcash(player, cn.de32)) {
-                            PetService.gI().createPetCellNhi(player, player.pet != null, player.gender);
-                            Service.gI().sendThongBao(player, "Bạn đã nhận được đệ Cell Nhí");
-                        } else {
-                            Service.gI().sendThongBao(player, "Đã có lỗi xảy ra !!");
-                        }
+                        ProcessBuyPet(player, cn.de38, select, cn.petBuuNhiNm);
                         break;
                     case 2:
-                        if (player.pet == null) {
-                            Service.gI().sendThongBao(player, "Ngươi cần phải có đệ mới sử dụng được chức năng này?");
-                            return;
-                        }
-
-                        for (Item item : player.pet.inventory.itemsBody) {
-                            if (item.isNotNullItem()) {
-                                Service.gI().sendThongBao(player, "Cần bỏ đồ đệ tử đang mặc để sử dụng chức năng?");
-                                return;
-                            }
-                        }
-                        if (player.getSession() != null && player.getSession().cash < cn.de33) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de33 + " Coin");
-                            return;
-                        }
-
-                        if (PlayerDAO.subcash(player, cn.de33)) {
-                            PetService.gI().createPetBuuNhi(player, player.pet != null, player.gender);
-                            Service.gI().sendThongBao(player, "Bạn đã nhận được đệ Bưu Nhí");
-                        } else {
-                            Service.gI().sendThongBao(player, "Đã có lỗi xảy ra !!");
-                        }
-
+                        ProcessBuyPet(player, cn.de39, select, cn.petFideNhiNm);
                         break;
                     case 3:
-                        if (player.pet == null) {
-                            Service.gI().sendThongBao(player, "Ngươi cần phải có đệ mới sử dụng được chức năng này?");
-                            return;
-                        }
-                        for (Item item : player.pet.inventory.itemsBody) {
-                            if (item.isNotNullItem()) {
-                                Service.gI().sendThongBao(player, "Cần bỏ đồ đệ tử đang mặc để sử dụng chức năng?");
-                                return;
-                            }
-                        }
-                        if (player.getSession() != null && player.getSession().cash < cn.de34) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de34 + " Coin");
-                            return;
-                        }
-
-                        if (PlayerDAO.subcash(player, cn.de34)) {
-                            PetService.gI().createPetAdrBeach(player, player.pet != null, player.gender);
-                            Service.gI().sendThongBao(player, "Bạn đã nhận được đệ Adr Bãi biển");
-                        } else {
-                            Service.gI().sendThongBao(player, "Đã có lỗi xảy ra !!");
-                        }
-
+                        ProcessBuyPet(player, cn.de40, select, cn.petCellNhiNm);
                         break;
                     case 4:
-                        if (player.pet == null) {
-                            Service.gI().sendThongBao(player, "Ngươi cần phải có đệ mới sử dụng được chức năng này?");
-                            return;
-                        }
-                        for (Item item : player.pet.inventory.itemsBody) {
-                            if (item.isNotNullItem()) {
-                                Service.gI().sendThongBao(player, "Cần bỏ đồ đệ tử đang mặc để sử dụng chức năng?");
-                                return;
-                            }
-                        }
-                        if (player.getSession() != null && player.getSession().cash < cn.de35) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de35 + " Coin");
-                            return;
-                        }
-
-                        if (PlayerDAO.subcash(player, cn.de35)) {
-                            PetService.gI().createPetMabuGay(player, player.pet != null, player.gender);
-                            Service.gI().sendThongBao(player, "Bạn đã nhận được đệ Bưu Gầy");
-                        } else {
-                            Service.gI().sendThongBao(player, "Đã có lỗi xảy ra !!");
-                        }
+                        ProcessBuyPet(player, cn.de42, select, cn.petBuuGayNm);
                         break;
                     case 5:
-                        if (player.pet == null) {
-                            Service.gI().sendThongBao(player, "Ngươi cần phải có đệ mới sử dụng được chức năng này?");
-                            return;
-                        }
-                        for (Item item : player.pet.inventory.itemsBody) {
-                            if (item.isNotNullItem()) {
-                                Service.gI().sendThongBao(player, "Cần bỏ đồ đệ tử đang mặc để sử dụng chức năng?");
-                                return;
-                            }
-                        }
-                        if (player.getSession() != null && player.getSession().cash < cn.de36) {
-                            Service.gI().sendThongBao(player, "Bạn không đủ " + cn.de36 + " Coin");
-                            return;
-                        }
-
-                        if (PlayerDAO.subcash(player, cn.de36)) {
-                            PetService.gI().createPetBerrusNhi(player, player.pet != null, player.gender);
-                            Service.gI().sendThongBao(player, "Bạn đã nhận được đệ Berrus");
-                        } else {
-                            Service.gI().sendThongBao(player, "Đã có lỗi xảy ra !!");
-                        }
+                        ProcessBuyPet(player, cn.de43, select, cn.petAndroidNm);
                         break;
-
+                    case 6:
+                        ProcessBuyPet(player, cn.de43, select, cn.petBerrusNhiNm);
+                        break;
+                    case 7:
+                        ProcessBuyPet(player, cn.de44, select, cn.petBlackNm);
+                    case 8:
+                        ProcessBuyPet(player, cn.de45, select, cn.petBerrusNm);
+                        break;
                 }
             } else if (player.iDMark.getIndexMenu() == 888) {
                 switch (select) {
-                    case 0: //thay chiêu 2-3 đệ tử
+                    case 0: // thay chiêu 2-3 đệ tử
                         if (player.getSession() != null && player.getSession().cash < cn.skill23) {
                             Service.gI().sendThongBao(player, "Bạn không đủ " + cn.skill23 + " Coin");
                             return;
@@ -282,7 +213,7 @@ public class Bardock extends Npc {
                             }
                         }
                         break;
-                    case 1: //thay chiêu 2-4 đệ tử
+                    case 1: // thay chiêu 2-4 đệ tử
                         if (player.getSession() != null && player.getSession().cash < cn.skill24) {
                             Service.gI().sendThongBao(player, "Bạn không đủ " + cn.skill24 + " Coin");
                             return;
@@ -324,18 +255,21 @@ public class Bardock extends Npc {
             } else if (player.iDMark.getIndexMenu() == 782) {
                 switch (select) {
                     case 0:
-                       if (player.getSession() != null && player.getSession().actived) {
-                           Service.gI().sendThongBao(player, "Bạn đã mở thành viên rồi");
-                           return;
-                       }
+                        if (player.getSession() != null && player.getSession().actived) {
+                            Service.gI().sendThongBao(player, "Bạn đã mở thành viên rồi");
+                            return;
+                        }
                         if (player.getSession() != null && player.getSession().danap < 1000) {
-                            NpcService.gI().createBigMessage(player, avartar, "Bạn chưa nạp 1K, bạn có muốn nạp để mở thành viên không ?!!!", (byte) 1, "NẠP", "http://160.191.244.129/");
+                            NpcService.gI().createBigMessage(player, avartar,
+                                    "Bạn chưa nạp 1K, bạn có muốn nạp để mở thành viên không ?!!!", (byte) 1, "NẠP",
+                                    "http://160.191.244.129/");
                             return;
                         }
                         if (PlayerDAO.updateActive(player, 1)) {
                             Service.gI().sendThongBao(player, "Bạn đã mở thành viên thành công");
                         } else {
-                            Service.gI().sendThongBao(player, "Đã có lỗi xẩy ra khi kích hoạt tài khoản, vui long liên hệ admin nếu bị trừ tiền mà không kích hoạt được, chụp lại thông báo này");
+                            Service.gI().sendThongBao(player,
+                                    "Đã có lỗi xẩy ra khi kích hoạt tài khoản, vui long liên hệ admin nếu bị trừ tiền mà không kích hoạt được, chụp lại thông báo này");
                         }
 
                         break;
@@ -349,6 +283,63 @@ public class Bardock extends Npc {
                 }
             }
 
+        }
+    }
+
+    private void ProcessBuyPet(Player player, int point, int typePet, String petNm) {
+        if (player.pet == null) {
+            Service.gI().sendThongBao(player, "Mày cần phải có đệ mới sử dụng được chức năng này");
+            return;
+        }
+        for (Item item : player.pet.inventory.itemsBody) {
+            if (item.isNotNullItem()) {
+                Service.gI().sendThongBao(player, "Cần bỏ đồ đệ tử đang mặc để sử dụng chức năng");
+                return;
+            }
+        }
+        if (player.getSession() != null && player.getSession().cash < point) {
+            Service.gI().sendThongBao(player, "Mày không đủ " + point + " điểm, lười săn boss mà đòi có điểm à");
+            return;
+        }
+
+        int killPoint = player.event.getKillBossPoint();
+
+        if (point > 0) {
+            if (killPoint >= point) {
+                player.event.subKillBossPoint(point);
+                switch (typePet) {
+                    case 1:
+                        PetService.gI().createPetBuuNhi(player, player.pet != null, player.gender);
+                        break;
+                    case 2:
+                        PetService.gI().createPetFideNhi(player, player.pet != null, player.gender);
+                        break;
+                    case 3:
+                        PetService.gI().createPetCellNhi(player, player.pet != null, player.gender);
+                        break;
+                    case 4:
+                        PetService.gI().createPetAdrBeach(player, player.pet != null, player.gender);
+                    case 5:
+                        PetService.gI().createPetMabuGay(player, player.pet != null, player.gender);
+                        break;
+                    case 6:
+                        PetService.gI().createPetBerrusNhi(player, player.pet != null, player.gender);
+                        break;
+                    case 7:
+                        PetService.gI().createBlackPet(player, player.pet != null, player.gender);
+                        break;
+                    case 8:
+                        PetService.gI().createBeerusPet(player, player.pet != null, player.gender);
+                        break;
+                    default:
+                        break;
+                }
+
+                Service.gI().sendThongBao(player, "Mày đã cứu được " + petNm);
+
+            } else {
+                Service.gI().sendThongBao(player, "Bạn còn thiếu " + (point - killPoint) + " điểm");
+            }
         }
     }
 }

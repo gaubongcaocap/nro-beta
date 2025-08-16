@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import lombok.Setter;
@@ -147,7 +147,23 @@ public class EffectSkill {
     public int timeDameBuff;
     public int tileDameBuff;
 
+    public boolean isBienHinh;
+    public long lastTimeBienHinh;
+    public int timeBienHinh;
+
+    // bien super ssj
+    public boolean isTranformation;
+    public byte levelTranformation = 0;
+    public long lastTimeTranformation;
+    public int timeTranformation;
+
+    public boolean isEvolution;
+    public byte levelEvolution;
+    public long lastTimeEvolution;
+    public int timeEvolution;
+
     public boolean isBodyChangeTechnique;
+
 
     public EffectSkill(Player player) {
         this.player = player;

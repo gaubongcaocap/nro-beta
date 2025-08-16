@@ -26,33 +26,29 @@ public class AnTromTV extends Boss {
 
     public AnTromTV() throws Exception {
         super(ANTROM, BossID.AN_TROM_TV, new BossData(
-                // "Ăn trộm TV",
+                //            "Ăn trộm TV",
                 "Ăn Trộm TV",
                 ConstPlayer.TRAI_DAT,
-                new short[] { 618, 619, 620, 132, -1, -1 },
-                // new short[]{657, 658, 659, 50, -1, 5},
+                new short[]{618, 619, 620, 132, -1, -1},
+                //            new short[]{657, 658, 659, 50, -1, 5},
                 1,
-                new long[] { 100 },
-                new int[] { 5, 7, 0, 14 },
-                new int[][] {
-                        { Skill.DRAGON, 7, 1000 },
-                        { Skill.GALICK, 7, 1000 }, { Skill.LIEN_HOAN, 7, 1000 },
-                        { Skill.THOI_MIEN, 3, 50000 },
-                        { Skill.DICH_CHUYEN_TUC_THOI, 3, 50000 } },
-                new String[] { "|-1|Tới giờ làm việc, lụm lụm", "|-1|Cảm giác mình vào phải khu người nghèo :))" }, // text
-                                                                                                                    // chat
-                                                                                                                    // 1
-                new String[] { "|-1|Ái chà vàng vàng", "|-1|Không làm vẫn có ăn :))",
-                        "|-2|Giám ăn trộm giữa ban ngày thế à", "|-2|Cút ngay không là ăn đòn" }, // text chat 2
-                new String[] { "|-1|Híc lần sau ta sẽ cho ngươi phá sản",
-                        "|-2|Chừa thói ăn trộm nghe chưa" }, // text chat 3
+                new long[]{100},
+                new int[]{5, 7, 0, 14},
+                new int[][]{
+                    {Skill.DRAGON, 7, 1000},
+                    {Skill.GALICK, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.THOI_MIEN, 3, 50000},
+                    {Skill.DICH_CHUYEN_TUC_THOI, 3, 50000}},
+                new String[]{"|-1|Tới giờ làm việc, lụm lụm", "|-1|Cảm giác mình vào phải khu người nghèo :))"}, //text chat 1
+                new String[]{"|-1|Ái chà vàng vàng", "|-1|Không làm vẫn có ăn :))", "|-2|Giám ăn trộm giữa ban ngày thế à", "|-2|Cút ngay không là ăn đòn"}, //text chat 2
+                new String[]{"|-1|Híc lần sau ta sẽ cho ngươi phá sản",
+                    "|-2|Chừa thói ăn trộm nghe chưa"}, //text chat 3
                 600));
     }
 
     @Override
     public Zone getMapJoin() {
-        int mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0,
-                this.data[this.currentLevel].getMapJoin().length - 1)];
+        int mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0, this.data[this.currentLevel].getMapJoin().length - 1)];
         return MapService.gI().getMapById(mapId).zones.get(0);
     }
 
@@ -72,8 +68,7 @@ public class AnTromTV extends Boss {
                 this.setDie(plAtt);
                 die(plAtt);
             }
-            this.playerSkill.skillSelect = this.playerSkill.skills
-                    .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+            this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
             SkillService.gI().useSkill(this, plAtt, null, -1, null);
             return damage;
         } else {
@@ -112,8 +107,7 @@ public class AnTromTV extends Boss {
                         if (thoivang.quantity > 0) {
                             goldAnTrom += stolenGold;
                             Service.gI().stealMoney(pl, -stolenGold);
-                            ItemMap itemMap = new ItemMap(this.zone, 457, stolenGold,
-                                    (this.location.x + pl.location.x) / 2, this.location.y, this.id);
+                            ItemMap itemMap = new ItemMap(this.zone, 457, stolenGold, (this.location.x + pl.location.x) / 2, this.location.y, this.id);
                             Service.gI().dropItemMap(this.zone, itemMap);
                             Service.gI().sendToAntherMePickItem(this, itemMap.itemMapId);
                             this.zone.removeItemMap(itemMap);
@@ -149,8 +143,7 @@ public class AnTromTV extends Boss {
         if (goldAnTrom != 0) {
             int goldReward = (int) (goldAnTrom * 1 / 10);
             for (byte i = 0; i < 5; i++) {
-                ItemMap it = new ItemMap(this.zone, 457, goldReward, this.location.x + i * 3,
-                        this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
+                ItemMap it = new ItemMap(this.zone, 457, goldReward, this.location.x + i * 3, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
                 it.options.add(new Item.ItemOption(30, 1));
                 Service.gI().dropItemMap(this.zone, it);
             }
@@ -166,10 +159,9 @@ public class AnTromTV extends Boss {
         this.nPoint.hp = this.nPoint.hpMax;
         this.nPoint.dameg = this.nPoint.hpMax / 10;
         goldAnTrom = 0;
-        this.joinMap2(); // To change body of generated methods, choose Tools | Templates.
+        this.joinMap2(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
-
     private long st;
 
     @Override

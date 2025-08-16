@@ -3,11 +3,14 @@ package boss.boss_manifest.LunarNewYearEvent;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.*;
 import static boss.BossType.TET_EVENT;
+import java.util.ArrayList;
+import java.util.List;
+import map.Zone;
 import player.Player;
 import server.Client;
 import services.EffectSkillService;
@@ -32,7 +35,7 @@ public class LanCon extends Boss {
     public void joinMap() {
         if (zoneFinal != null) {
             joinMapByZone(zoneFinal);
-            this.notifyJoinMap();
+            // this.notifyJoinMap();
             this.changeStatus(BossStatus.CHAT_S);
             this.wakeupAnotherBossWhenAppear();
             return;
@@ -48,26 +51,16 @@ public class LanCon extends Boss {
         }
         if (this.zone != null) {
             try {
-                int zoneid = 0;
-                // Check trong khu lớn hơn 10 người chuyển sang khu n + 1
-                while (zoneid < this.zone.map.zones.size() && this.zone.map.zones.get(zoneid).getNumOfPlayers() > 10) {
-                    zoneid++;
-                }
-                // Check trong khu có boss sẽ chuyển sang khu n + 1
-                while (zoneid < this.zone.map.zones.size() && BossManager.gI().checkBosses(this.zone.map.zones.get(zoneid), BossID.ONG_GIA_NOEL)) {
-                    zoneid++;
-                }
-                if (zoneid < this.zone.map.zones.size()) {
-                    this.zone = this.zone.map.zones.get(zoneid);
-                } else {
-                    this.leaveMapNew();
-                    return;
-                }
+                // Chọn một khu vực ngẫu nhiên trong danh sách zones của bản đồ
+                int zoneid = Util.nextInt(0, this.zone.map.zones.size() - 1);
+                this.zone = this.zone.map.zones.get(zoneid);  // Chuyển boss đến khu vực ngẫu nhiên
+
+                // Thực hiện thay đổi bản đồ
                 ChangeMapService.gI().changeMap(this, this.zone, Util.nextInt(100, 500), this.zone.map.yPhysicInTop(this.location.x,
                         this.location.y - 24));
-                this.changeStatus(BossStatus.CHAT_S);
+                this.changeStatus(BossStatus.ACTIVE);
                 st = System.currentTimeMillis();
-                timeLeave = Util.nextInt(100000, 300000);
+                timeLeave = Util.nextInt(1000000, 3000000);
             } catch (Exception e) {
                 Logger.error(this.data[0].getName() + ": Lỗi đang tiến hành REST\n");
                 this.changeStatus(BossStatus.REST);
@@ -97,7 +90,10 @@ public class LanCon extends Boss {
     @Override
     public void autoLeaveMap() {
         if (Util.canDoWithTime(st, timeLeave)) {
-            this.leaveMapNew();
+            Player pl = Client.gI().getPlayer(playerId);
+            if (pl == null || !this.zone.equals(pl.zone)) {
+                this.leaveMapNew(); 
+            }
         }
     }
 
@@ -195,10 +191,11 @@ public class LanCon extends Boss {
                 }
                 damage = 1;
             }
-            if (damage > 500_000) {
-                damage = 500_000;
+            if (damage > 50_000) {
+                damage = 50_000;
             }
 
+            // Kiểm tra nếu damage >= HP hoặc người chơi chat "thang"
             if (damage >= this.nPoint.hp) {
                 this.changeToTypeNonPK();
                 this.playerId = Math.abs(plAtt.id);

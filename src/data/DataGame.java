@@ -3,8 +3,13 @@ package data;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
+import encrypt.IconEncrypt;
+import encrypt.ImageUtil;
+import static encrypt.ImageUtil.encryptImage;
+import static encrypt.ImageUtil.encryptString;
+import static encrypt.ImageUtil.generateRandomKey;
 import models.Template.HeadAvatar;
 import models.Template.MapTemplate;
 
@@ -32,6 +37,7 @@ import utils.Logger;
 import models.Template.BgItem;
 import power.Caption;
 import power.CaptionManager;
+import utils.Util;
 
 public class DataGame {
 
@@ -155,7 +161,7 @@ public class DataGame {
                     msg.writer().writeByte(skillTemp.type);
                     msg.writer().writeShort(skillTemp.iconId);
                     msg.writer().writeUTF(skillTemp.damInfo);
-                    msg.writer().writeUTF("NroPrime");
+                    msg.writer().writeUTF("NroLegion");
                     if (skillTemp.id != 0) {
                         msg.writer().writeByte(skillTemp.skillss.size());
                         for (Skill skill : skillTemp.skillss) {
@@ -211,8 +217,18 @@ public class DataGame {
     }
 
     public static void sendDataImageVersion(MySession session) {
+        Message msg;
         try {
-
+//            msg = new Message(-111);
+//            msg.writer().writeShort(0);
+//            msg.writer().writeUTF("NguyenDucVuEntertainment");
+//            msg.writer().writeByte(0);
+//            msg.writer().writeUTF("NroLegion");
+//            msg.writer().writeByte(1);
+//            msg.writer().writeUTF("VuDangCapVaiLonRaMaBanDeoBietThoiDitMeBan");
+//            msg.writer().writeByte(2);
+//            session.doSendMessage(msg);
+//            msg.cleanup();
         } catch (Exception e) {
             Logger.logException(DataGame.class, e);
         }

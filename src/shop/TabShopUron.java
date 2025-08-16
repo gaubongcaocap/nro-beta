@@ -4,6 +4,7 @@ import player.Player;
 import services.InventoryService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TabShopUron extends TabShop {
 
@@ -17,7 +18,6 @@ public class TabShopUron extends TabShop {
 
         int dauCanBuyId = idDauCanBuy(player);
 
-        // Ki?m tra n?u ngu?i choi c� b�ng tai
         boolean hasBongTai = InventoryService.gI().findItemBongTai(player);
 
         for (ItemShop itemShop : tabShop.itemShops) {

@@ -18,14 +18,12 @@ public class SystemMetrics {
     }
 
     // Lấy thông tin về CPU
-    @SuppressWarnings("deprecation")
     public static String getCpuInfo() {
         OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
         int availableProcessors = osBean.getAvailableProcessors(); // Số lõi CPU
         double systemCpuLoad = osBean.getSystemCpuLoad() * 100;  // Tỷ lệ sử dụng CPU
         return String.format("Available Processors: %d\nCPU Load: %.2f%%", availableProcessors, systemCpuLoad);
     }
-
 
     // Phương thức chuyển đổi các thông tin hệ thống thành chuỗi
     public static String ToString() {

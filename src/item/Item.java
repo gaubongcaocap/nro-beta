@@ -136,6 +136,13 @@ public class Item {
         return this.template.level == 15;
     }
 
+    public boolean isVND() {
+        if (isNotNullItem()) {
+            return this.template.type == 38;
+        }
+        return false;
+    }
+
     public boolean isDTL() {
         return this.template.level == 13;
     }
@@ -243,6 +250,10 @@ public class Item {
     public boolean isDaPhaLeMoi() {
         return template != null && template.id >= 1416 && template.id <= 1422 || template.id == 964 || template.id == 965
                 || template.id >= 1426 && template.id <= 1434;
+    }
+
+    public boolean isNgocRongVIP() {
+        return template != null && template.id >= 1787 && template.id <= 1793 ;
     }
 
     public boolean isDaPhaLeCu() {
@@ -414,6 +425,21 @@ public class Item {
                 new ItemOption(153, 5);
             case 1434 ->
                 new ItemOption(160, 5);
+
+            case 1787 ->
+                new ItemOption(108, 4);
+            case 1788 ->
+                new ItemOption(94, 4);
+            case 1789 ->
+                new ItemOption(50, 6);
+            case 1790 ->
+                new ItemOption(81, 10);
+            case 1791 ->
+                new ItemOption(80, 10);
+            case 1792 ->
+                new ItemOption(103, 10);
+            case 1793 ->
+                new ItemOption(77, 10);
             default ->
                 itemOptions.get(0);
         };

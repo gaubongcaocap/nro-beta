@@ -3,7 +3,7 @@ package boss.boss_manifest.TaoPaiPai;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -21,7 +21,7 @@ public class TaoPaiPai extends Boss {
     }
 
     @Override
-    public synchronized long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
+    public synchronized long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {               
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1)) {
                 this.chat("Xí hụt");

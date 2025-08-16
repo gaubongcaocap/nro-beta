@@ -3,7 +3,7 @@ package boss.boss_manifest.Yardart;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;

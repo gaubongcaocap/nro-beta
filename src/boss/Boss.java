@@ -3,9 +3,10 @@ package boss;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstPlayer;
+import item.Item;
 import boss.iboss.IBossOutfit;
 import network.Message;
 import java.util.List;
@@ -15,7 +16,6 @@ import player.Pet;
 import player.Player;
 import skill.Skill;
 import server.ServerNotify;
-import services.ChatGlobalService;
 import services.EffectSkillService;
 import services.MapService;
 import services.PlayerService;
@@ -27,9 +27,10 @@ import utils.Logger;
 import utils.SkillUtil;
 import utils.Util;
 import boss.iboss.IBoss;
-import java.io.IOException;
 import static event.EventManager.LUNNAR_NEW_YEAR;
+import java.io.IOException;
 import map.ItemMap;
+import services.ChatGlobalService;
 
 public class Boss extends Player implements IBoss, IBossOutfit {
 
@@ -50,14 +51,6 @@ public class Boss extends Player implements IBoss, IBossOutfit {
     protected long lastTimeChatE;
     protected int timeChatE;
     protected byte indexChatE;
-
-    /**
-     * Timestamp when this boss was set to {@link BossStatus#DIE}.
-     * Used to ensure bosses automatically leave the map shortly after death
-     * even if their chat or other transitions fail. Initialized to {@code 0}
-     * and set in {@link #die(Player)}.
-     */
-    protected long lastTimeDie;
 
     public int idSkillPlayer = -1;
     public Player playertarget;
@@ -86,14 +79,15 @@ public class Boss extends Player implements IBoss, IBossOutfit {
     public boolean isNotifyDisabled;
     public boolean isZone01SpawnDisabled;
 
+    private long lastTimeCheck;
+
     public Boss(int id, boolean isNotifyDisabled, boolean isZone01SpawnDisabled, BossData... data) throws Exception {
         this(id, data);
         this.isNotifyDisabled = isNotifyDisabled;
         this.isZone01SpawnDisabled = isZone01SpawnDisabled;
     }
 
-    public Boss(BossType bossType, int id, boolean isNotifyDisabled, boolean isZone01SpawnDisabled, BossData... data)
-            throws Exception {
+    public Boss(BossType bossType, int id, boolean isNotifyDisabled, boolean isZone01SpawnDisabled, BossData... data) throws Exception {
         this(bossType, id, data);
         this.isNotifyDisabled = isNotifyDisabled;
         this.isZone01SpawnDisabled = isZone01SpawnDisabled;
@@ -225,7 +219,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
         this.indexChatE = 0;
     }
 
-    // .outfit.
+    //.outfit.
     @Override
     public short getHead() {
         if (effectSkill != null && effectSkill.isBinh) {
@@ -276,8 +270,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
     }
 
     public Zone getMapJoin() {
-        int mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0,
-                this.data[this.currentLevel].getMapJoin().length - 1)];
+        int mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0, this.data[this.currentLevel].getMapJoin().length - 1)];
         Zone map = MapService.gI().getMapWithRandZone(mapId);
         return map;
     }
@@ -300,8 +293,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
             this.lastTimeTargetPlayer = System.currentTimeMillis();
             this.timeTargetPlayer = Util.nextInt(5000, 7000);
         }
-        if (this.playerTarger != null && this.playerTarger.isPet && ((Pet) this.playerTarger).master != null
-                && ((Pet) this.playerTarger).master.equals(this)) {
+        if (this.playerTarger != null && this.playerTarger.isPet && ((Pet) this.playerTarger).master != null && ((Pet) this.playerTarger).master.equals(this)) {
             this.playerTarger = null;
         }
         return this.playerTarger;
@@ -327,22 +319,19 @@ public class Boss extends Player implements IBoss, IBossOutfit {
         if (prepareBom) {
             return;
         }
-        // If this boss has been dead for a while, ensure it leaves the map automatically.
-        // Some bosses may fail to transition through CHAT_E or LEAVE_MAP due to missing
-        // dialogue or other issues. After a grace period, force removal to prevent
-        // lingering dead bosses blocking teammates.
-        if ((this.bossStatus == BossStatus.DIE || this.bossStatus == BossStatus.CHAT_E)
-                && this.lastTimeDie > 0
-                && Util.canDoWithTime(this.lastTimeDie, 15000)) {
-            this.leaveMap();
-        }
         super.update();
         if (this.nPoint == null) {
             return;
         }
+
+        // --- Dynamic difficulty tick mỗi 2 giây ---
+        if (Util.canDoWithTime(this.lastTimeCheck, 2000)) {
+            this.lastTimeCheck = System.currentTimeMillis();
+            BossDifficulty.gI().tick(this);
+        }
+
         this.nPoint.mp = this.nPoint.mpg;
-        if (this.effectSkill == null || this.effectSkill.isHaveEffectSkill()
-                || (this.newSkill != null && this.newSkill.isStartSkillSpecial)) {
+        if (this.effectSkill == null || this.effectSkill.isHaveEffectSkill() || (this.newSkill != null && this.newSkill.isStartSkillSpecial)) {
             return;
         }
         switch (this.bossStatus) {
@@ -417,6 +406,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
             this.currentLevel = 0;
         }
         this.initBase();
+        BossDifficulty.gI().resetBaseForLevel(this);
         this.changeToTypeNonPK();
     }
 
@@ -425,6 +415,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
         if (zoneFinal != null) {
             joinMapByZone(zoneFinal);
             this.notifyJoinMap();
+            BossDifficulty.gI().applyOnJoin(this, this.zone);
             this.changeStatus(BossStatus.CHAT_S);
             this.wakeupAnotherBossWhenAppear();
             return;
@@ -446,13 +437,11 @@ public class Boss extends Player implements IBoss, IBossOutfit {
                 if (this.currentLevel == 0) {
                     if (this.parentBoss == null) {
                         int zoneid = 0;
-                        // this.zone.map.mapId == 80 || this.zone.map.mapId == 103 ||
-                        // this.zone.map.mapId == 97 || this.zone.map.mapId == 102
+                        //this.zone.map.mapId == 80 || this.zone.map.mapId == 103 || this.zone.map.mapId == 97 || this.zone.map.mapId == 102
                         // Chỉ cho boss xuất hiện từ khu 2 trở lên ở map thường
                         if (this.isZone01SpawnDisabled && this.zone.map.zones.size() > 2) {
                             zoneid = Util.nextInt(2, this.zone.map.zones.size() - 1);
-                            while (zoneid < this.zone.map.zones.size()
-                                    && !this.zone.map.zones.get(zoneid).getBosses().isEmpty()) {
+                            while (zoneid < this.zone.map.zones.size() && !this.zone.map.zones.get(zoneid).getBosses().isEmpty()) {
                                 zoneid++;
                             }
 
@@ -466,13 +455,11 @@ public class Boss extends Player implements IBoss, IBossOutfit {
                             }
                         } else {
                             // Check trong khu lớn hơn 10 người chuyển sang khu n + 1
-                            while (zoneid < this.zone.map.zones.size()
-                                    && this.zone.map.zones.get(zoneid).getNumOfPlayers() > 10) {
+                            while (zoneid < this.zone.map.zones.size() && this.zone.map.zones.get(zoneid).getNumOfPlayers() > 10) {
                                 zoneid++;
                             }
                             // Check trong khu có boss sẽ chuyển sang khu n + 1
-                            while (zoneid < this.zone.map.zones.size()
-                                    && !this.zone.map.zones.get(zoneid).getBosses().isEmpty()) {
+                            while (zoneid < this.zone.map.zones.size() && !this.zone.map.zones.get(zoneid).getBosses().isEmpty()) {
                                 zoneid++;
                             }
                             if (zoneid < this.zone.map.zones.size()) {
@@ -481,8 +468,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
                                 this.zone = this.zone.map.zones.get(0);
                             }
                         }
-                        int x = this.zone.map.mapWidth > 100 ? Util.nextInt(100, this.zone.map.mapWidth - 100)
-                                : Util.nextInt(100);
+                        int x = this.zone.map.mapWidth > 100 ? Util.nextInt(100, this.zone.map.mapWidth - 100) : Util.nextInt(100);
                         int y = this.zone.map.yPhysicInTop(x, 100);
                         ChangeMapService.gI().changeMap(this, this.zone, x, y);
                     } else {
@@ -496,6 +482,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
                 }
                 Service.gI().sendFlagBag(this);
                 this.notifyJoinMap();
+                BossDifficulty.gI().applyOnJoin(this, this.zone);
                 this.changeStatus(BossStatus.CHAT_S);
             } catch (Exception e) {
                 this.changeStatus(BossStatus.REST);
@@ -515,13 +502,16 @@ public class Boss extends Player implements IBoss, IBossOutfit {
             int x = this.zone.map.mapWidth > 100 ? Util.nextInt(100, this.zone.map.mapWidth - 100) : Util.nextInt(100);
             int y = this.zone.map.yPhysicInTop(x, 100);
             ChangeMapService.gI().changeMap(this, this.zone, x, y);
+            BossDifficulty.gI().applyOnJoin(this, this.zone);
         }
     }
 
     protected void notifyJoinMap() {
         if (canSendNotify()) {
-            String message = "BOSS " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName;
-            ServerNotify.gI().notify(message);
+            if(!"Sói hẹc quyn".equals(this.name)) {
+                String message = "BOSS " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName;
+                ServerNotify.gI().notify(message);
+            }
         }
     }
 
@@ -574,8 +564,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
         if (!Util.canDoWithTime(this.lastTimeChatM, this.timeChatM)) {
             return;
         }
-        String textChat = this.data[this.currentLevel].getTextM()[Util.nextInt(0,
-                this.data[this.currentLevel].getTextM().length - 1)];
+        String textChat = this.data[this.currentLevel].getTextM()[Util.nextInt(0, this.data[this.currentLevel].getTextM().length - 1)];
         int prefix = Integer.parseInt(textChat.substring(1, textChat.lastIndexOf("|")));
         textChat = textChat.substring(textChat.lastIndexOf("|") + 1);
         this.chat(prefix, textChat);
@@ -602,8 +591,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
                 if (pl == null || pl.isDie()) {
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(5, 20)) {
                         if (SkillUtil.isUseSkillChuong(this)) {
@@ -638,8 +626,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
         int skillId = this.playerSkill.skillSelect.template.id;
         if (skillId == Skill.KAMEJOKO || skillId == Skill.MASENKO || skillId == Skill.ANTOMIC) {
             return Skill.RANGE_ATTACK_CHIEU_CHUONG;
-        } else if (skillId == Skill.DRAGON || skillId == Skill.DEMON || skillId == Skill.GALICK
-                || skillId == Skill.LIEN_HOAN || skillId == Skill.KAIOKEN) {
+        } else if (skillId == Skill.DRAGON || skillId == Skill.DEMON || skillId == Skill.GALICK || skillId == Skill.LIEN_HOAN || skillId == Skill.KAIOKEN) {
             return Skill.RANGE_ATTACK_CHIEU_DAM;
         }
         return 500;
@@ -651,19 +638,9 @@ public class Boss extends Player implements IBoss, IBossOutfit {
             reward(plKill);
             String message = plKill.name + ": Đã tiêu diệt được " + this.name + " mọi người đều ngưỡng mộ.";
             ServerNotify.gI().notify(message);
-            ChatGlobalService.gI().autoChatGlobal(plKill, "[Hệ thống] " + message);
+            //ChatGlobalService.gI().autoChatGlobal(plKill, "[Hệ thống] " + message);
         }
-
-        if (!plKill.isBot) {
-            reward(plKill);
-        } else {
-            if (plKill != null && !plKill.isBot) {
-                reward(plKill);
-            }
-        }
-        // Mark the time of death so that update() can automatically remove the boss
         this.changeStatus(BossStatus.DIE);
-        this.lastTimeDie = System.currentTimeMillis();
     }
 
     @Override
@@ -673,6 +650,11 @@ public class Boss extends Player implements IBoss, IBossOutfit {
 
         // Thêm 1 điểm sự kiện Bà Hạt Mít cho người chơi
         plKill.event.addEventPointBHM(1);
+
+        int pt = Util.nextInt(1, 5);
+
+        // Thêm 1 điểm săn boss cho người chơi
+        plKill.event.addKillBossPoint(pt);
 
         // Tính toán vị trí rơi vật phẩm
         int x = this.location.x;
@@ -690,7 +672,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
         }
 
         // Gửi thông báo mặc định (tuỳ chọn)
-        Service.gI().sendThongBao(plKill, "Bạn đã tiêu diệt được " + this.name + " và nhận 1 điểm Bà Hạt Mít");
+        Service.gI().sendThongBao(plKill, "Bạn nhận 1 điểm Chân Mệnh và "+ pt + " điểm Thành Tích");
     }
 
     @Override
@@ -779,8 +761,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
     public void moveTo(int x, int y) {
         byte dir = (byte) (this.location.x - x < 0 ? 1 : -1);
         byte move = (byte) Util.nextInt(40, 60);
-        PlayerService.gI().playerMove(this, this.location.x + (dir == 1 ? move : -move),
-                y + (Util.isTrue(3, 10) ? -50 : 0));
+        PlayerService.gI().playerMove(this, this.location.x + (dir == 1 ? move : -move), y + (Util.isTrue(3, 10) ? -50 : 0));
     }
 
     public void chat(String text) {
@@ -871,7 +852,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
                 prepareBom = true;
                 this.nPoint.hp = 1;
                 long lastTime = System.currentTimeMillis();
-                // gồng tự sát
+                //gồng tự sát
                 Service.gI().chat(Boss.this, "Rồi, rồi, mày xong rồi!");
                 Message msg;
                 try {
@@ -894,7 +875,7 @@ public class Boss extends Player implements IBoss, IBossOutfit {
                         }
                         List<Player> playersMap = Boss.this.zone.getNotBosses();
                         if (!MapService.gI().isMapOffline(Boss.this.zone.map.mapId)) {
-                            // Sử dụng vòng for lặp ngược để hạn chế lỗi đồng bộ
+                            //Sử dụng vòng for lặp ngược để hạn chế lỗi đồng bộ
                             for (int i = playersMap.size() - 1; i >= 0; i--) {
                                 Player pl = playersMap.get(i);
                                 if (!Boss.this.equals(pl)) {
@@ -916,5 +897,4 @@ public class Boss extends Player implements IBoss, IBossOutfit {
             die(plAtt);
         }
     }
-
 }

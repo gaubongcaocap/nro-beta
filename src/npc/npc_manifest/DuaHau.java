@@ -5,9 +5,13 @@ package npc.npc_manifest;
  * @author YourSoulMatee
  */
 import consts.ConstNpc;
+import consts.ConstPlayer;
 import npc.Npc;
 import player.Player;
+import services.NpcService;
 import services.Service;
+import services.TaskService;
+import shop.ShopService;
 
 public class DuaHau extends Npc {
 

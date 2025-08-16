@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstNpc;
@@ -25,6 +25,8 @@ public class GokuSSJ extends Npc {
                             "Chuẩn");
                 case 131 ->
                     this.createOtherMenu(player, ConstNpc.BASE_MENU, "Đây là đâu? Xong cmnr", "Bó tay", "Về chỗ cũ");
+                case 164 ->
+                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Mày sợ nơi này rồi à !!!", "Đưa tao về", "Muốn ở lại");
                 default ->
                     super.openBaseMenu(player);
             }
@@ -43,6 +45,16 @@ public class GokuSSJ extends Npc {
                     } else if (this.mapId == 80) {
                         if (select == 0) {
                             ChangeMapService.gI().changeMapBySpaceShip(player, 131, -1, 870);
+                        }
+                    } else if (this.mapId == 164) {
+                        if (select == 0) {
+                            if (player.gender == 0) {
+                                ChangeMapService.gI().changeMapBySpaceShip(player, 21, 582, 336);
+                            } else if (player.gender == 1) {
+                                ChangeMapService.gI().changeMapBySpaceShip(player, 22, 582, 336);
+                            } else {
+                                ChangeMapService.gI().changeMapBySpaceShip(player, 23, 582, 336);
+                            }
                         }
                     }
                 }

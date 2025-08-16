@@ -55,6 +55,22 @@ public class PlayerEvent {
         this.eventPointBHM = eventPointBHM;
     }
 
+    public int getVnd() {
+        return vnd;
+    }
+
+    public void setVnd(int vnd) {
+        this.vnd = vnd;
+    }
+
+    public int getKillBossPoint() {
+        return killBossPoint;
+    }
+
+    public void setKillBossPoint(int killBossPoint) {
+        this.killBossPoint = killBossPoint;
+    }
+
     public int getEventPointNHS() {
         return eventPointNHS;
     }
@@ -139,6 +155,8 @@ public class PlayerEvent {
     private int mocNapDaNhan;
     private int eventPoint;
     private int eventPointBHM;
+    private int killBossPoint;
+    private int vnd;
     private int eventPointNHS;
     private int eventPointQuai;
     private int eventPointQuyLao;
@@ -154,6 +172,13 @@ public class PlayerEvent {
         this.player = player;
     }
 
+    public void addKillBossPoint(int num) {
+        killBossPoint += num;
+    }
+
+    public void subKillBossPoint(int num) {
+        killBossPoint -= num;
+    }
 
     public void addEventPoint(int num) {
         eventPoint += num;

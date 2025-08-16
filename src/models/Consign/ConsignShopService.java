@@ -3,7 +3,7 @@ package models.Consign;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstNpc;
 import item.Item;
@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import jdbc.daos.NDVSqlFetcher;
 import utils.Logger;
 
 public class ConsignShopService {
@@ -79,7 +80,6 @@ public class ConsignShopService {
         return listSort;
     }
 
-    @SuppressWarnings("rawtypes")
     private boolean SubThoiVang(Player pl, int quatity) {
         Iterator var3 = pl.inventory.itemsBag.iterator();
 
@@ -90,15 +90,15 @@ public class ConsignShopService {
             }
 
             item = (Item) var3.next();
-        } while (!item.isNotNullItem() || item.template.id != 190 || item.quantity < quatity);
+        } while (!item.isNotNullItem() || item.template.id != 457 || item.quantity < quatity);
 
         InventoryService.gI().subQuantityItemsBag(pl, item, quatity);
         return true;
     }
 
     public void buyItem(Player pl, int id) {
-        if (pl.getSession().actived && pl.nPoint.power < 45000000000L) {
-            Service.gI().sendThongBao(pl, "Yêu cầu Kích hoạt tài khoản và sức mạnh lớn hơn 45 tỷ");
+        if (pl.getSession().actived && pl.nPoint.power < 17000000000L) {
+            Service.gI().sendThongBao(pl, "Yêu cầu Kích hoạt tài khoản và sức mạnh lớn hơn 17 tỷ");
             this.openShopKyGui(pl);
             return;
         }
@@ -293,7 +293,7 @@ public class ConsignShopService {
                 if (it.goldSell > 0) {
                     pl.inventory.gold += it.goldSell - it.goldSell * 5 / 100;
                 } else if (it.gemSell > 0) {
-                    pl.inventory.gem += it.gemSell - it.gemSell * 50 / 100;
+                    pl.inventory.gem += it.gemSell - it.gemSell * 5 / 100;
                 }
                 if (ConsignShopManager.gI().listItem.remove(it)) {
                     Service.gI().sendMoney(pl);

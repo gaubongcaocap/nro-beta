@@ -2,9 +2,10 @@ package event.event_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
+import consts.ConstNpc;
 import event.Event;
 import jdbc.daos.EventDAO;
 

@@ -3,7 +3,7 @@ package boss.boss_manifest.Training;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstRatio;
@@ -105,8 +105,7 @@ public abstract class TrainingBoss extends Boss {
     @Override
     public void attack() {
         try {
-            if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null
-                    && this.zone.equals(playerAtt.zone)) {
+            if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null && this.zone.equals(playerAtt.zone)) {
                 if (this.isDie()) {
                     return;
                 }
@@ -114,14 +113,10 @@ public abstract class TrainingBoss extends Boss {
                 tanHinh();
                 bayLungTung();
                 buffPea();
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, playerAtt) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(15, ConstRatio.PER100) && SkillUtil.isUseSkillChuong(this)) {
-                        goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)),
-                                Util.nextInt(10) % 2 == 0 ? playerAtt.location.y
-                                        : playerAtt.location.y - Util.nextInt(0, 50),
-                                false);
+                        goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)), Util.nextInt(10) % 2 == 0 ? playerAtt.location.y : playerAtt.location.y - Util.nextInt(0, 50), false);
                     }
                     SkillService.gI().useSkill(this, playerAtt, null, -1, null);
                     checkPlayerDie(playerAtt);
@@ -174,14 +169,14 @@ public abstract class TrainingBoss extends Boss {
                 damage = 1;
             }
 
-            // if (damage > this.nPoint.hpMax / 10) {
-            // damage = this.nPoint.hpMax / 10;
-            // }
+//            if (damage > this.nPoint.hpMax / 10) {
+//                damage = this.nPoint.hpMax / 10;
+//            }
             this.nPoint.subHP(damage);
 
             if (this.nPoint.hp > 0 && this.nPoint.hp < this.nPoint.hpMax / 5) {
                 if (Util.canDoWithTime(lastTimeChat, 2000)) {
-                    String[] text = { "AAAAAAAAA", "ai da" };
+                    String[] text = {"AAAAAAAAA", "ai da"};
                     this.chat(text[Util.nextInt(text.length)]);
                 }
             }

@@ -1,7 +1,7 @@
 package npc.npc_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstMap;
@@ -9,6 +9,7 @@ import consts.ConstNpc;
 import npc.Npc;
 import player.Player;
 import services.NpcService;
+import services.Service;
 import services.func.ChangeMapService;
 import utils.Logger;
 import utils.TimeUtil;

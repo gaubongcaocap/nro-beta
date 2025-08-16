@@ -3,7 +3,7 @@ package boss.boss_manifest.DestronGas;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstPlayer;

@@ -3,11 +3,12 @@ package boss.boss_manifest.Cell;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
 import boss.BossID;
+import boss.BossManager;
 import boss.BossStatus;
 import boss.BossesData;
 import map.ItemMap;
@@ -16,7 +17,6 @@ import services.Service;
 import services.TaskService;
 import services.func.ChangeMapService;
 import utils.Util;
-import static event.EventManager.LUNNAR_NEW_YEAR;
 
 public class XENCON3 extends Boss {
 
@@ -28,25 +28,17 @@ public class XENCON3 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] itemRan = new int[] { 380, 381, 382, 383, 384, 385 };
+        int[] itemRan = new int[]{380, 381, 382, 383, 384, 385};
         int itemId = itemRan[2];
         if (Util.isTrue(15, 100)) {
             ItemMap it = new ItemMap(this.zone, itemId, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
-        // Nếu sự kiện LUNNAR_NEW_YEAR đang diễn ra, 100% rơi vật phẩm ID 1475
-        if (LUNNAR_NEW_YEAR) {
-            ItemMap lunarItemMap;
-            lunarItemMap = new ItemMap(this.zone, 1475, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
-            Service.gI().dropItemMap(zone, lunarItemMap);
-        }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
         if (Util.isTrue(5, 50)) {
             for (int i = 0; i < Util.nextInt(25, 50); i++) {
-                ItemMap it = new ItemMap(this.zone, 1229, 1, this.location.x + Util.nextInt(-15, 15),
-                        this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
+                ItemMap it = new ItemMap(this.zone, 1229, 1, this.location.x + Util.nextInt(-15, 15), this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
                 Service.gI().dropItemMap(this.zone, it);
             }
         }
@@ -70,9 +62,7 @@ public class XENCON3 extends Boss {
             return;
         }
         for (Boss boss : this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel]) {
-            if ((boss.id == BossID.XEN_CON_2 || boss.id == BossID.XEN_CON_1 || boss.id == BossID.XEN_CON_4
-                    || boss.id == BossID.XEN_CON_5 || boss.id == BossID.XEN_CON_6 || boss.id == BossID.XEN_CON_7)
-                    && !boss.isDie()) {
+            if ((boss.id == BossID.XEN_CON_2 || boss.id == BossID.XEN_CON_1 || boss.id == BossID.XEN_CON_4 || boss.id == BossID.XEN_CON_5 || boss.id == BossID.XEN_CON_6 || boss.id == BossID.XEN_CON_7) && !boss.isDie()) {
                 return;
             }
         }
@@ -85,7 +75,7 @@ public class XENCON3 extends Boss {
         this.lastZone = null;
         this.lastTimeRest = System.currentTimeMillis();
         this.changeStatus(BossStatus.REST);
-        // BossManager.gI().removeBoss(this);
+//        BossManager.gI().removeBoss(this);
     }
 
     @Override

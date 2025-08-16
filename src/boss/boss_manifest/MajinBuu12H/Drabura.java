@@ -3,7 +3,7 @@ package boss.boss_manifest.MajinBuu12H;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -11,14 +11,17 @@ import boss.BossID;
 import boss.BossStatus;
 import boss.BossesData;
 import static boss.BossType.FINAL;
+import consts.ConstPlayer;
 import java.util.ArrayList;
 import java.util.List;
 import map.ItemMap;
 import player.Player;
+import server.Manager;
 import services.EffectSkillService;
 import services.Service;
 import utils.Util;
 
+import java.util.Random;
 import server.ServerNotify;
 import services.SkillService;
 import services.TaskService;
@@ -61,7 +64,7 @@ public class Drabura extends Boss {
 
     @Override
     public Player getPlayerAttack() {
-        List<Player> plNotVoHinh = new ArrayList<Player>();
+        List<Player> plNotVoHinh = new ArrayList();
         for (Player pl : this.zone.getNotBosses()) {
             if ((pl.effectSkin == null || !pl.effectSkin.isVoHinh) && pl.cFlag != this.cFlag) {
                 plNotVoHinh.add(pl);
@@ -127,8 +130,7 @@ public class Drabura extends Boss {
                     }
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(5, 20)) {
                         if (SkillUtil.isUseSkillChuong(this)) {
@@ -154,11 +156,6 @@ public class Drabura extends Boss {
     public void reward(Player plKill) {
         plKill.fightMabu.changePoint((byte) 10);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-        // sự kiện
-        int quantity = 1;
-       ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override

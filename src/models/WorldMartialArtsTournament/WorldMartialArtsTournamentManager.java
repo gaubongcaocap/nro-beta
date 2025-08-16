@@ -2,7 +2,7 @@ package models.WorldMartialArtsTournament;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import consts.ConstTournament;
@@ -157,7 +157,7 @@ public class WorldMartialArtsTournamentManager implements Runnable {
                     }
                 }
 
-                if (listReg.size() % 2 != 0) {
+         if (listReg.size() % 2 != 0) {
                     Player plHup = getPlayerById(listReg.remove(listReg.size() - 1));
                     if (plHup != null) {
                         listWait.add(plHup.id);
@@ -165,6 +165,7 @@ public class WorldMartialArtsTournamentManager implements Runnable {
                         TaskService.gI().checkDoneTaskDHVT(plHup);
                     }
                 }
+
                 for (int i = 0; i < listReg.size() - 1; i += 2) {
                     Player p1 = getPlayerById(listReg.get(i));
                     Player p2 = getPlayerById(listReg.get(i + 1));

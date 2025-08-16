@@ -2,11 +2,14 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import clan.Clan;
 import consts.ConstNpc;
-// import item.Item;
+import consts.mocnap;
+import item.Item;
+import jdbc.DBConnecter;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,16 +17,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jdbc.DBConnecter;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 import models.TreasureUnderSea.TreasureUnderSea;
 import models.TreasureUnderSea.TreasureUnderSeaService;
 import npc.Npc;
 import static npc.NpcFactory.PLAYERID_OBJECT;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
+
 import player.Archivement;
 import player.Player;
+import server.Maintenance;
 import services.InventoryService;
 import services.ItemService;
 import services.NpcService;
@@ -43,21 +49,11 @@ public class QuyLaoKame extends Npc {
 
     @Override
     public void openBaseMenu(Player player) {
-        // Item ruacon = InventoryService.gI().findItemBag(player, 874);
         if (canOpenNpc(player)) {
             ArrayList<String> menu = new ArrayList<>();
-//            if (!player.canReward) {
             menu.add("Nói\nchuyện");
-            menu.add("Học Skill\nnăng mới");
             menu.add("Quà Mốc Nạp");
             menu.add("Hộp Thư");
-//                menu.add("Bảng\n Xếp hạng\nNhiệm vụ");
-//                if (ruacon != null && ruacon.quantity >= 1) {
-//                    menu.add("Giao\nRùa con");
-//                }
-//            } else {
-//                menu.add("Giao\nLân con");
-//            }
             String[] menus = menu.toArray(String[]::new);
             if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
                 this.createOtherMenu(player, ConstNpc.BASE_MENU, "Con muốn hỏi gì nào?", menus);
@@ -93,18 +89,11 @@ public class QuyLaoKame extends Npc {
                                     "Chào con, ta rất vui khi gặp con\nCon muốn làm gì nào ?", menus);
                         }
                         case 1 -> {
-//                            ShopService.gI().opendShop(player, "SKILL_NEW", true);
-                            Service.gI().sendThongBao(player, "Chưa mở");
-                        }
-                        case 2 -> {
                             this.createOtherMenu(player, 1115, "Nạp đạt mốc nhận quà he :3", "Xem quà mốc nạp", "Nhận quà mốc nạp", "Đóng");
                         }
-                        case 3 -> {
+                        case 2 -> {
                             this.createOtherMenu(player, ConstNpc.MAIL_BOX,
-                                    "|0|Tình yêu như một dây đàn\n"
-                                    + "Tình vừa được thì đàn đứt dây\n"
-                                    + "Đứt dây này anh thay dây khác\n"
-                                    + "Mất em rồi anh biết thay ai?",
+                                    "Nhớ nhận thư hằng ngày nhé",
                                     "Hòm Thư\n(" + (player.inventory.itemsMailBox.size()
                                     - InventoryService.gI().getCountEmptyListItem(player.inventory.itemsMailBox))
                                     + " món)",
@@ -139,61 +128,17 @@ public class QuyLaoKame extends Npc {
                         case 2:
                             break;
                     }
-
                 }
-
                 case 1115 -> {
                     switch (select) {
                         case 0:
-
                             JSONArray dataArray;
                             JSONObject dataObject;
                             PreparedStatement ps = null;
                             ResultSet rs = null;
                             StringBuilder sb = new StringBuilder();
-                            // sb.append("|0|__Reset mỗi thứ 2 đầu tuần__\n");
                             sb.append("|0|__Đang cập nhật__\n");
-                            try ( Connection con2 = DBConnecter.getConnectionServer()) {
-                                ps = con2.prepareStatement("SELECT * FROM moc_nap");
-                                rs = ps.executeQuery();
-
-                                // while (rs.next()) {
-                                //     dataArray = (JSONArray) JSONValue.parse(rs.getString("detail"));
-                                //     // sb.append("◥_____________________◤\n|7|");
-                                //     sb.append("✎▶Mốc Nạp ").append(Archivement.GIADOLACHIADOI[rs.getInt("id") - 1])
-                                //             .append("◀\n|0|");
-                                //     sb.append("◢¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯◣\n|0|");
-
-                                //     for (int i = 0; i < dataArray.size(); i++) {
-                                //         dataObject = (JSONObject) JSONValue.parse(String.valueOf(dataArray.get(i)));
-                                //         int tempid = Integer.parseInt(String.valueOf(dataObject.get("temp_id")));
-                                //         int quantity = Integer.parseInt(String.valueOf(dataObject.get("quantity")));
-                                //         JSONArray optionsArray = (JSONArray) dataObject.get("options");
-
-                                //         sb.append("▷ x").append(quantity).append(" ")
-                                //                 .append(ItemService.gI().getTemplate(tempid).name).append("\n|4|");
-
-                                //         if (optionsArray != null) {
-                                //             for (int j = 0; j < optionsArray.size(); j++) {
-                                //                 JSONObject optionObject = (JSONObject) optionsArray.get(j);
-                                //                 int optionId = Integer.parseInt(String.valueOf(optionObject.get("id")));
-                                //                 int param = Integer.parseInt(String.valueOf(optionObject.get("param")));
-
-                                //                 String optionTemplateName = ItemService.gI().getItemOptionTemplate(optionId).name;
-                                //                 String formattedOption = optionTemplateName.replace("#", String.valueOf(param));
-
-                                //                 sb.append(formattedOption).append("\n");
-                                //             }
-                                //         }
-                                //         sb.append("\n|0|");
-                                //     }
-                                // }
-                            } catch (SQLException ex) {
-                                Logger.getLogger(QuyLaoKame.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-
                             Service.gI().sendThongBaoFromAdmin(player, sb.toString());
-
                             break;
                         case 1:
                             if (player.getSession().actived) {
@@ -211,7 +156,9 @@ public class QuyLaoKame extends Npc {
                         case 0 ->
                             NpcService.gI().createTutorial(player, tempId, avartar, player.playerTask.taskMain.subTasks.get(player.playerTask.taskMain.index).name);
                         case 1 ->
-                            Service.gI().sendThongBao(player, "Bạn đã học hết các kỹ năng");
+                            {
+                                
+                            }
                         case 2 -> {
                             Clan clan = player.clan;
                             if (clan != null && select == 2) {

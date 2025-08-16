@@ -3,11 +3,13 @@ package skill;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import java.util.ArrayList;
 import java.util.List;
+
+import consts.Cmd;
 import player.Player;
 import services.Service;
 import network.Message;
@@ -45,6 +47,18 @@ public class PlayerSkill {
             msg.cleanup();
             msg = Service.gI().messageSubCommand((byte) 61);
             msg.writer().writeUTF("OSkill");
+            msg.writer().writeInt(skillShortCut.length);
+            msg.writer().write(skillShortCut);
+            player.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+        }
+    }
+
+    public void sendSkillShortCutNew() {
+        Message msg;
+        try {
+            msg = Service.gI().messageSubCommand(Cmd.CHANGE_ONSKILL);
             msg.writer().writeInt(skillShortCut.length);
             msg.writer().write(skillShortCut);
             player.sendMessage(msg);
@@ -97,12 +111,12 @@ public class PlayerSkill {
             case Skill.SUPER_KAME:
             case Skill.LIEN_HOAN_CHUONG:
                 return 9;
-            case Skill.SUPER_SAIYAN:
-            case Skill.SUPER_NAMEC:
-            case Skill.SUPER_TRAI_DAT:
+            case Skill.SUPER_TRANFORMATION:
                 return 10;
+            case Skill.EVOLUTION:
+                return 11;
             default:
-                return 10;
+                return 11;
         }
     }
 

@@ -3,7 +3,7 @@ package boss.boss_manifest.MajinBuu12H;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -11,17 +11,22 @@ import boss.BossID;
 import boss.BossStatus;
 import boss.BossesData;
 import static boss.BossType.FINAL;
+import consts.ConstPlayer;
 import java.util.ArrayList;
 import java.util.List;
+import map.ItemMap;
 import player.Player;
+import server.Manager;
 import services.EffectSkillService;
 import services.Service;
 import utils.Util;
 
+import java.util.Random;
 import server.ServerNotify;
 import services.PlayerService;
 import services.SkillService;
 import services.func.ChangeMapService;
+import utils.SkillUtil;
 
 public class Goku extends Boss {
 
@@ -54,9 +59,8 @@ public class Goku extends Boss {
         this.zone = this.parentBoss.zoneFinal;
         this.nPoint.hp /= 4;
         ChangeMapService.gI().changeMap(this, this.zone, Util.nextInt(300, 400), 336);
-        // ChangeMapService.gI().changeMap(this, this.zone,
-        // this.parentBoss.location.x + Util.nextInt(-100, 100),
-        // this.parentBoss.location.y);
+//        ChangeMapService.gI().changeMap(this, this.zone,
+//                this.parentBoss.location.x + Util.nextInt(-100, 100), this.parentBoss.location.y);
         Service.gI().changeFlag(this, 9);
         this.changeStatus(BossStatus.CHAT_S);
     }
@@ -74,7 +78,7 @@ public class Goku extends Boss {
 
     @Override
     public Player getPlayerAttack() {
-        List<Player> plNotVoHinh = new ArrayList<Player>();
+        List<Player> plNotVoHinh = new ArrayList();
         for (Player pl : this.zone.getNotBosses()) {
             if (pl != null && (pl.effectSkin == null || !pl.effectSkin.isVoHinh) && pl.cFlag != this.cFlag) {
                 plNotVoHinh.add(pl);
@@ -92,14 +96,14 @@ public class Goku extends Boss {
         return null;
     }
 
-    // private void petrifyPlayersInTheMap() {
-    // for (Player pl : this.zone.getNotBosses()) {
-    // if (Util.isTrue(1, 10)) {
-    // this.chat("phẹt");
-    // EffectSkillService.gI().setIsStone(pl, 16000);
-    // }
-    // }
-    // }
+    private void petrifyPlayersInTheMap() {
+        for (Player pl : this.zone.getNotBosses()) {
+            if (Util.isTrue(1, 10)) {
+                this.chat("phẹt");
+                EffectSkillService.gI().setIsStone(pl, 16000);
+            }
+        }
+    }
 
     @Override
     public void afk() {
@@ -148,7 +152,7 @@ public class Goku extends Boss {
         }
         if (Util.canDoWithTime(this.lastTimeAttack, 100)) {
             if (Util.canDoWithTime(lastTimePetrify, 10000)) {
-                // petrifyPlayersInTheMap();
+//                petrifyPlayersInTheMap();
                 this.lastTimePetrify = System.currentTimeMillis();
             }
             this.lastTimeAttack = System.currentTimeMillis();
@@ -165,8 +169,7 @@ public class Goku extends Boss {
                     }
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 int dis = Util.getDistance(this, pl);
                 if (dis > 450) {
                     move(pl.location.x - 24, pl.location.y);

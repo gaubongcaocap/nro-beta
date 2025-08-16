@@ -3,7 +3,7 @@ package services.func;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import item.Item;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class LuckyRound {
     public static final byte USING_TICKET = 1;
 
     private static final byte PRICE_GEM = 4;
-    private static final int PRICE_GOLD = 250000;
+    private static final int PRICE_GOLD = 25000;
     private static final int PRICE_TICKET = 1;
     private static final int TICKET = 457;
 

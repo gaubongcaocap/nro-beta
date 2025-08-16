@@ -3,7 +3,7 @@ package models.Consign;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import jdbc.DBConnecter;
@@ -66,5 +66,6 @@ public void save() {
         e.printStackTrace(); // In ra lỗi nếu có
     }
 }
+
 
 }

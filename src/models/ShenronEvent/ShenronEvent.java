@@ -3,7 +3,7 @@ package models.ShenronEvent;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import network.Message;
@@ -112,7 +112,7 @@ public class ShenronEvent {
                 msg.writer().writeShort(player.zone.map.bgId);
                 msg.writer().writeByte(player.zone.zoneId);
                 msg.writer().writeInt((int) player.id);
-                msg.writer().writeUTF("TanDat");
+                msg.writer().writeUTF("");
                 msg.writer().writeShort(player.location.x);
                 msg.writer().writeShort(player.location.y);
                 msg.writer().writeByte(type);

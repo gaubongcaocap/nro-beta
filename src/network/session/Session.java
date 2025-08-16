@@ -265,20 +265,6 @@ public abstract class Session
         EmtiSessionManager.gI().removeSession(this);
     }
 
-//    public void sendKey() throws Exception {
-//        /* 195 */
-//        if (this.keyHandler == null) {
-//            /* 196 */
-//            throw new Exception("Key handler chưa được khởi tạo!");
-//        }
-//        /* 198 */
-//        if (VOZServer.gI().isRandomKey()) {
-//            /* 199 */
-//            this.KEYS = StringUtil.randomText(7).getBytes();
-//        }
-//        /* 201 */
-//        this.keyHandler.sendKey(this);
-//    }
     public void setKey(Message message) throws Exception {
         /* 206 */
         if (this.keyHandler == null) {

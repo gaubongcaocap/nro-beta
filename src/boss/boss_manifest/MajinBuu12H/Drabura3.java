@@ -3,7 +3,7 @@ package boss.boss_manifest.MajinBuu12H;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -14,10 +14,12 @@ import static boss.BossType.FINAL;
 import consts.ConstPlayer;
 import map.ItemMap;
 import player.Player;
+import server.Manager;
 import services.EffectSkillService;
 import services.Service;
 import utils.Util;
 
+import java.util.Random;
 import server.ServerNotify;
 import services.PlayerService;
 import services.SkillService;
@@ -44,9 +46,8 @@ public class Drabura3 extends Boss {
         this.lastTimeJoin = System.currentTimeMillis();
         this.zone = this.parentBoss.zoneFinal;
         ChangeMapService.gI().changeMap(this, this.zone, Util.nextInt(300, 400), 336);
-        // ChangeMapService.gI().changeMap(this, this.zone,
-        // this.parentBoss.location.x + Util.nextInt(-100, 100),
-        // this.parentBoss.location.y);
+//        ChangeMapService.gI().changeMap(this, this.zone,
+//                this.parentBoss.location.x + Util.nextInt(-100, 100), this.parentBoss.location.y);
         Service.gI().changeFlag(this, 10);
         this.changeStatus(BossStatus.CHAT_S);
     }
@@ -64,11 +65,6 @@ public class Drabura3 extends Boss {
     public void reward(Player plKill) {
         plKill.fightMabu.changePoint((byte) 20);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-        // sự kiện
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override
@@ -144,8 +140,7 @@ public class Drabura3 extends Boss {
                 if (pl == null || pl.isDie()) {
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(5, 20)) {
                         if (SkillUtil.isUseSkillChuong(this)) {

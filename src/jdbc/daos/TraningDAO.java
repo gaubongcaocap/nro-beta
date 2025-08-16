@@ -2,7 +2,7 @@ package jdbc.daos;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import jdbc.DBConnecter;
 import org.json.simple.JSONArray;
@@ -10,7 +10,6 @@ import player.Player;
 
 public class TraningDAO {
 
-    @SuppressWarnings("unchecked")
     public static void updatePlayer(Player player) {
         if (player != null && player.iDMark.isLoadedAllDataPlayer()) {
             try {

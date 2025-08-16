@@ -3,7 +3,7 @@ package boss.boss_manifest.MajinBuu12H;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -11,17 +11,22 @@ import boss.BossID;
 import boss.BossStatus;
 import boss.BossesData;
 import static boss.BossType.FINAL;
+import consts.ConstPlayer;
 import java.util.ArrayList;
 import java.util.List;
+import map.ItemMap;
 import player.Player;
+import server.Manager;
 import services.EffectSkillService;
 import services.Service;
 import utils.Util;
 
+import java.util.Random;
 import server.ServerNotify;
 import services.PlayerService;
 import services.SkillService;
 import services.func.ChangeMapService;
+import utils.SkillUtil;
 
 public class Cadic extends Boss {
 
@@ -71,7 +76,7 @@ public class Cadic extends Boss {
 
     @Override
     public Player getPlayerAttack() {
-        List<Player> plNotVoHinh = new ArrayList<Player>();
+        List<Player> plNotVoHinh = new ArrayList();
         for (Player pl : this.zone.getNotBosses()) {
             if (pl != null && (pl.effectSkin == null || !pl.effectSkin.isVoHinh) && pl.cFlag != this.cFlag) {
                 plNotVoHinh.add(pl);
@@ -89,14 +94,14 @@ public class Cadic extends Boss {
         return null;
     }
 
-    // private void petrifyPlayersInTheMap() {
-    // for (Player pl : this.zone.getNotBosses()) {
-    // if (Util.isTrue(1, 10)) {
-    // this.chat("phẹt");
-    // EffectSkillService.gI().setIsStone(pl, 16000);
-    // }
-    // }
-    // }
+    private void petrifyPlayersInTheMap() {
+        for (Player pl : this.zone.getNotBosses()) {
+            if (Util.isTrue(1, 10)) {
+                this.chat("phẹt");
+                EffectSkillService.gI().setIsStone(pl, 16000);
+            }
+        }
+    }
 
     @Override
     public void afk() {
@@ -128,7 +133,7 @@ public class Cadic extends Boss {
         }
         if (Util.canDoWithTime(this.lastTimeAttack, 100)) {
             if (Util.canDoWithTime(lastTimePetrify, 10000)) {
-                // petrifyPlayersInTheMap();
+//                petrifyPlayersInTheMap();
                 this.lastTimePetrify = System.currentTimeMillis();
             }
             this.lastTimeAttack = System.currentTimeMillis();
@@ -145,8 +150,7 @@ public class Cadic extends Boss {
                     }
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 int dis = Util.getDistance(this, pl);
                 if (dis > 450) {
                     move(pl.location.x - 24, pl.location.y);

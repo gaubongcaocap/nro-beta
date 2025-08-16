@@ -3,7 +3,7 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import models.Template;
 import models.Template.ItemOptionTemplate;
@@ -176,8 +176,6 @@ public class ItemService {
                 case 531:
                 case 536:
                     return 30;
-                case 1733:
-                    return 40;
                 default:
                     return 0;
             }
@@ -195,7 +193,6 @@ public class ItemService {
                 case 535:
                 case 531:
                 case 536:
-                case 1733:
                     return true;
                 default:
                     return false;
@@ -883,12 +880,15 @@ public class ItemService {
                 } else if (Util.isTrue(50, 100)) {
                     op1 = 127;
                     op2 = 139;
-                } else if (Util.isTrue(30, 100)) { // Xác suất cực thấp cho {250, 253}
+                } else if (Util.isTrue(1, 100)) { // Xác suất cực thấp cho {250, 253}
                     op1 = 250;
                     op2 = 253;
-                } else {
+                } else if (Util.isTrue(30, 100)) { // Xác suất cực thấp cho {129, 141}
                     op1 = 129;
                     op2 = 141;
+                } else {
+                    op1 = 128;
+                    op2 = 140; // Giá trị mặc định an toàn
                 }
             }
 
@@ -902,58 +902,31 @@ public class ItemService {
                 } else if (Util.isTrue(30, 100)) {
                     op1 = 251;
                     op2 = 254;
-                } else {
+                }  else {
                     op1 = 132;
                     op2 = 144;
                 }
             }
             default -> {
-                if (Util.isTrue(70, 100)) {
+                if (Util.isTrue(80, 100)) {
                     op1 = 134;
                     op2 = 137;
-                } else if (Util.isTrue(40, 5000)) {
+                } else if (Util.isTrue(1, 5000)) {
                     op1 = 135;
                     op2 = 138;
-                } else {
+                } else if (Util.isTrue(1, 10000)) {
                     op1 = 133;
                     op2 = 136;
+                } else {
+                    op1 = 134;
+                    op2 = 137;
                 }
             }
+
         }
         return new int[]{op1, op2};
     }
 
-    public int[] randOptionItemKichHoatNew(byte gender) {
-        int op1, op2, op3, op4;  // Khởi tạo op3, op4 với giá trị mặc định
-        switch (gender) {
-            case 0 -> {  // Giới tính Nam
-                {
-                    op1 = 245;
-                    op2 = 246;
-                    op3 = 247;
-                    op4 = 248;
-                }
-            }
-            case 1 -> {
-                {
-                    op1 = 237;
-                    op2 = 238;
-                    op3 = 239;
-                    op4 = 240;
-                }
-            }
-            default -> {
-                {
-                    op1 = 241;
-                    op2 = 242;
-                    op3 = 243;
-                    op4 = 244;
-                }
-            }
-        }
-        return new int[]{op1, op2, op3, op4};  // Trả về mảng chứa 4 giá trị
-    }
-    
     public ItemMap randDoTL(Zone zone, int quantity, int x, int y, long id) {
         short idTempTL;
         short[] ao = {555, 557, 559};
@@ -961,7 +934,7 @@ public class ItemService {
         short[] gang = {562, 564, 566};
         short[] giay = {563, 565, 567};
         short[] nhan = {561};
-        short[] options = {30, 34, 35, 36, 86, 87};
+        short[] options = {86, 87};
         /// Lựa chọn ngẫu nhiên trang bị
         if (Util.isTrue(10, 100)) {  // Nhẫn (10%)
             idTempTL = nhan[0];
@@ -1554,8 +1527,8 @@ public class ItemService {
             }
         }
     }
-
-    public void settllh(Player player) {
+    
+     public void settllh(Player player) {
         for (int i = 0; i < 1; i++) {
             Item hq = InventoryService.gI().findItem(player.inventory.itemsBag, 1703 + i);
 
@@ -1585,7 +1558,7 @@ public class ItemService {
 
     public void settlpico(Player player) {
         for (int i = 0; i < 1; i++) {
-            Item hq = InventoryService.gI().findItem(player.inventory.itemsBag, 1703 + i);
+            Item hq = InventoryService.gI().findItem(player.inventory.itemsBag, 1778 + i);
 
             int[] dotl = new int[]{557, 558, 564, 565, 561};
 
@@ -1622,7 +1595,7 @@ public class ItemService {
             ao.itemOptions.add(new Item.ItemOption(131, 0));
             ao.itemOptions.add(new Item.ItemOption(143, 0));
             ao.itemOptions.add(new Item.ItemOption(30, 0));
-            if (InventoryService.gI().getCountEmptyBag(player) > 4) {
+            if (InventoryService.gI().getCountEmptyBag(player) > 1) {
                 InventoryService.gI().addItemBag(player, ao);
                 InventoryService.gI().sendItemBag(player);
                 Service.gI().sendThongBao(player, "Bạn đã nhận được món Thần Linh ");
@@ -1645,7 +1618,7 @@ public class ItemService {
             ao.itemOptions.add(new Item.ItemOption(132, 0));
             ao.itemOptions.add(new Item.ItemOption(144, 0));
             ao.itemOptions.add(new Item.ItemOption(30, 0));
-            if (InventoryService.gI().getCountEmptyBag(player) > 1) {
+            if (InventoryService.gI().getCountEmptyBag(player) >1) {
                 InventoryService.gI().addItemBag(player, ao);
                 InventoryService.gI().sendItemBag(player);
                 Service.gI().sendThongBao(player, "Bạn đã nhận được món Thần Linh ");
@@ -1803,7 +1776,7 @@ public class ItemService {
         }
     }
 
-    public void sethdpico(Player player) {
+    public void sethdlh(Player player) {
         for (int i = 0; i < 1; i++) {
             Item hq = InventoryService.gI().findItem(player.inventory.itemsBag, 1704 + i);
             int[] dohd = new int[]{652, 653, 659, 660, 656};
@@ -1811,8 +1784,8 @@ public class ItemService {
             int ramdom = new Random().nextInt(dohd.length);
 
             Item ao = ItemService.gI().otphd((short) dohd[ramdom]);
-            ao.itemOptions.add(new Item.ItemOption(130, 0));
-            ao.itemOptions.add(new Item.ItemOption(142, 0));
+            ao.itemOptions.add(new Item.ItemOption(251, 0));
+            ao.itemOptions.add(new Item.ItemOption(254, 0));
             ao.itemOptions.add(new Item.ItemOption(30, 0));
             if (InventoryService.gI().getCountEmptyBag(player) > 1) {
                 InventoryService.gI().addItemBag(player, ao);
@@ -1826,16 +1799,16 @@ public class ItemService {
         }
     }
 
-    public void sethdlh(Player player) {
+    public void sethdpico(Player player) {
         for (int i = 0; i < 1; i++) {
-            Item hq = InventoryService.gI().findItem(player.inventory.itemsBag, 1704 + i);
+            Item hq = InventoryService.gI().findItem(player.inventory.itemsBag, 1779 + i);
             int[] dohd = new int[]{652, 653, 659, 660, 656};
 
             int ramdom = new Random().nextInt(dohd.length);
 
             Item ao = ItemService.gI().otphd((short) dohd[ramdom]);
-            ao.itemOptions.add(new Item.ItemOption(251, 0));
-            ao.itemOptions.add(new Item.ItemOption(254, 0));
+            ao.itemOptions.add(new Item.ItemOption(130, 0));
+            ao.itemOptions.add(new Item.ItemOption(142, 0));
             ao.itemOptions.add(new Item.ItemOption(30, 0));
             if (InventoryService.gI().getCountEmptyBag(player) > 1) {
                 InventoryService.gI().addItemBag(player, ao);
@@ -1883,7 +1856,7 @@ public class ItemService {
             ao.itemOptions.add(new Item.ItemOption(132, 0));
             ao.itemOptions.add(new Item.ItemOption(144, 0));
             ao.itemOptions.add(new Item.ItemOption(30, 0));
-            if (InventoryService.gI().getCountEmptyBag(player) > 4) {
+            if (InventoryService.gI().getCountEmptyBag(player) > 1) {
                 InventoryService.gI().addItemBag(player, ao);
                 InventoryService.gI().sendItemBag(player);
                 Service.gI().sendThongBao(player, "Bạn đã nhận được món Hủy DIệt ");
@@ -1964,5 +1937,35 @@ public class ItemService {
         }
     }
 
+    public int[] randOptionItemKichHoatNew(byte gender) {
+        int op1, op2, op3, op4;  // Khởi tạo op3, op4 với giá trị mặc định
+        switch (gender) {
+            case 0 -> {  // Giới tính Nam
+                {
+                    op1 = 245;
+                    op2 = 246;
+                    op3 = 247;
+                    op4 = 248;
+                }
+            }
+            case 1 -> {
+                {
+                    op1 = 237;
+                    op2 = 238;
+                    op3 = 239;
+                    op4 = 240;
+                }
+            }
+            default -> {
+                {
+                    op1 = 241;
+                    op2 = 242;
+                    op3 = 243;
+                    op4 = 244;
+                }
+            }
+        }
+        return new int[]{op1, op2, op3, op4};  // Trả về mảng chứa 4 giá trị
+    }
 
 }

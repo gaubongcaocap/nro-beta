@@ -3,9 +3,10 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
+import EMTI.Functions;
 import player.Player;
 import network.Message;
 import utils.Logger;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
 import server.Maintenance;
 
 public class ChatGlobalService implements Runnable {
@@ -70,17 +70,17 @@ public class ChatGlobalService implements Runnable {
         }
         if (player.inventory.gem >= 5) {
             if (player.isAdmin() || Util.canDoWithTime(player.iDMark.getLastTimeChatGlobal(), 30000)) {
-                if (player.isAdmin() || player.nPoint.power > 1500000) {
-                    player.inventory.subGem(1);
+                if (player.isAdmin() || player.nPoint.power > 2000000000) {
+                    player.inventory.subGemAndRuby(50);
                     Service.gI().sendMoney(player);
                     player.iDMark.setLastTimeChatGlobal(System.currentTimeMillis());
                     waitingChat.add(new ChatGlobal(player, text.length() > 100 ? text.substring(0, 100) : text));
                 } else {
-                    Service.gI().sendThongBao(player, "Sức mạnh phải ít nhất 1tr5 sức mạnh mới có thể chat thế giới");
+                    Service.gI().sendThongBao(player, "Sức mạnh phải ít nhất 2tỷ mới có thể chat thế giới");
                 }
             } else {
                 Service.gI().sendThongBao(player, "Không thể chat thế giới lúc này, vui lòng đợi "
-                        + TimeUtil.getTimeLeft(player.iDMark.getLastTimeChatGlobal(), 15));
+                        + TimeUtil.getTimeLeft(player.iDMark.getLastTimeChatGlobal(), 10));
             }
         } else {
             Service.gI().sendThongBao(player, "Không đủ ngọc chat thế giới");
@@ -124,7 +124,7 @@ public class ChatGlobalService implements Runnable {
             msg.writer().writeShort(chat.head);
             msg.writer().writeShort(-1);
             msg.writer().writeShort(chat.body);
-            msg.writer().writeShort(chat.bag); // bag
+            msg.writer().writeShort(chat.bag); //bag
             msg.writer().writeShort(chat.leg);
             msg.writer().writeByte(0);
             Service.gI().sendMessAllPlayer(msg);
@@ -172,10 +172,10 @@ public class ChatGlobalService implements Runnable {
         public ChatGlobal(Player player, String text) {
             if (!player.isAdmin()) {
                 this.playerName = player.name;
-            } else if (player.name.equals("Ngọc Rồng Online")) {
-                this.playerName = player.name + " - Founder";
-            } else {
+            } else if (player.name.equals("Tấn Đạt")) {
                 this.playerName = player.name + " - Quản Trị Viên";
+            } else {
+                this.playerName = player.name + " - Mod";
             }
             this.playerId = (int) player.id;
             this.head = player.getHead();
@@ -200,10 +200,11 @@ public class ChatGlobalService implements Runnable {
             return;
         }
 
+  
         if (player == null) {
             waitingChat.add(new ChatGlobal(message.length() > 100 ? message.substring(0, 100) : message));
         } else {
-
+      
             waitingChat.add(new ChatGlobal(player, message.length() > 100 ? message.substring(0, 100) : message));
         }
     }

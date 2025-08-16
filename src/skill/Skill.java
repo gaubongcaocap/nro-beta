@@ -3,7 +3,7 @@ package skill;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import models.Template.SkillTemplate;
@@ -43,11 +43,9 @@ public class Skill {
     public static final byte LIEN_HOAN_CHUONG = 25;
     public static final byte MA_PHONG_BA = 26;
     
-    public static final byte SUPER_TRAI_DAT = 27;
-    public static final byte SUPER_NAMEC = 28;
-    public static final byte SUPER_SAIYAN = 29;
-    public static final byte GONG = 30;
-    public static final byte PHAN_THAN = 31;
+    public static final byte SUPER_TRANFORMATION = 27;
+    public static final byte EVOLUTION = 28;
+    public static final byte PHAN_THAN = 29;
 
     public SkillTemplate template;
 
@@ -56,7 +54,7 @@ public class Skill {
     public int point;
 
     public long powRequire;
-
+    
     public long lastTimeUseThisSkillbot;
 
     public int coolDown;

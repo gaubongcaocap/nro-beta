@@ -2,13 +2,15 @@ package Bot;
 
 import consts.ConstPlayer;
 
+import java.util.List;
 import java.util.Random;
-
 import map.Map;
 import map.Zone;
+import models.MapBot;
 import models.Template.SkillTemplate;
 import player.Player;
 import server.Manager;
+import static server.Manager.CLANS;
 import services.EffectSkillService;
 import services.MapService;
 import services.PlayerService;
@@ -33,12 +35,16 @@ public class Bot extends Player {
 
     private long lastTimeIncrease;
 
+    private MapBot mapBot;
+
+    public Bot(MapBot mapBot) {
+        this.mapBot = mapBot;
+    }
 
     // private Player plAttack;
-
-    // private int[] TraiDat = new int[] { 1, 2, 3, 4, 6, 29, 30, 28, 27, 42 };
-    // private int[] Namec = new int[] { 8, 9, 10, 11, 12, 13, 33, 34, 32, 31 };
-    // private int[] XayDa = new int[] { 15, 16, 17, 18, 19, 20, 37, 36, 35, 44, 52 };
+    private int[] TraiDat = new int[]{1, 2, 3, 4, 6, 29, 30, 28, 27, 42};
+    private int[] Namec = new int[]{8, 9, 10, 11, 12, 13, 33, 34, 32, 31};
+    private int[] XayDa = new int[]{15, 16, 17, 18, 19, 20, 37, 36, 35, 44, 52};
 
     public Bot(short head, short body, short leg, int type, String name, ShopBot shop, short flag) {
         this.head_ = head;
@@ -59,21 +65,24 @@ public class Bot extends Player {
         long power = this.nPoint.power;
         int mapId = 0;
 
-        if (this.type == 0 ) { // Dưới 10 tỷ
-            mapId = 0 + random.nextInt(44); 
-        } else if (this.type == 1) {
-            mapId = 0 + random.nextInt(21); 
-        } else if (power < 40_000_000_000L) { // Dưới 10 tỷ
-            mapId = 62 + random.nextInt(15); // Random từ 62 đến 76
-        } else if (power < 100_000_000_000L) { // 10 tỷ - 40 tỷ
-            if (Util.isTrue(50, 100)) {
-                mapId = 91 + random.nextInt(3); // 30% map từ 91 đến 93
-            } else {
-                mapId = 95 + random.nextInt(5); // 30% map từ 95 đến 99
-            }
-        } else { // Trên 40 tỷ
-            mapId = 104 + random.nextInt(6); // Random từ 104 đến 109
-        }
+        int randomIndex = random.nextInt(Manager.mapBot.size());  // Lấy ngẫu nhiên chỉ số trong dãy
+        mapId = Manager.mapBot.get(randomIndex) ; 
+
+        // if (this.type == 0 ) { // Dưới 10 tỷ
+        //     mapId = 0 + random.nextInt(44); 
+        // } else if (this.type == 1) {
+        //     mapId = 0 + random.nextInt(20); 
+        // } else if (power < 40_000_000_000L) { // Dưới 10 tỷ
+        //     mapId = 62 + random.nextInt(15); // Random từ 62 đến 76
+        // } else if (power < 100_000_000_000L) { // 10 tỷ - 40 tỷ
+        //     if (Util.isTrue(50, 100)) {
+        //         mapId = 91 + random.nextInt(3); // 30% map từ 91 đến 93
+        //     } else {
+        //         mapId = 95 + random.nextInt(5); // 30% map từ 95 đến 99
+        //     }
+        // } else { // Trên 40 tỷ
+        //     mapId = 104 + random.nextInt(6); // Random từ 104 đến 109
+        // }
 
         return mapId;
     }
@@ -188,13 +197,17 @@ public class Bot extends Player {
     }
 
     public boolean UseLastTimeSkill() {
-        if (this.playerSkill.skillSelect.lastTimeUseThisSkillbot < (System.currentTimeMillis()
-                - this.playerSkill.skillSelect.coolDown)) {
-            this.playerSkill.skillSelect.lastTimeUseThisSkillbot = System.currentTimeMillis();
-            return true;
-        } else {
+        // Nếu chưa có kỹ năng thì không tung skill
+        if (this.playerSkill == null || this.playerSkill.skillSelect == null) {
             return false;
         }
+        long now = System.currentTimeMillis();
+        if (this.playerSkill.skillSelect.lastTimeUseThisSkillbot < 
+            (now - this.playerSkill.skillSelect.coolDown)) {
+            this.playerSkill.skillSelect.lastTimeUseThisSkillbot = now;
+            return true;
+        }
+        return false;
     }
 
     private void increasePoint() {
@@ -216,6 +229,7 @@ public class Bot extends Player {
             }
         }
     }
+
     private boolean doUseTiemNang(long tiemNang) {
         if (this.nPoint.tiemNang < tiemNang) {
             return false;

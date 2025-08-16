@@ -1,12 +1,15 @@
 package boss.boss_manifest.Cumber;
 
+import java.util.Random;
+
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.*;
 import consts.ConstPlayer;
+import consts.ConstTask;
 import consts.ConstTaskBadges;
 import item.Item;
 import map.ItemMap;
@@ -26,47 +29,24 @@ public class Cumber extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        // Cập nhật số lần giết boss trong nhiệm vụ huy hiệu
         BadgesTaskService.updateCountBagesTask(plKill, ConstTaskBadges.TRUM_SAN_BOSS, 1);
-
         if (Util.isTrue(3, 100)) {
-            ItemMap it = ItemService.gI().randDoTLBoss(this.zone, 1, this.location.x,
+            ItemMap it = ItemService.gI().randDoTL(this.zone, 1, this.location.x,
                     this.zone.map.yPhysicInTop(this.location.x,
                             this.location.y - 24),
                     plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
-
-        // Xác suất rơi item 674
-        if (Util.isTrue(30, 100)) { // 30% rơi item 674 x2
-            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 674, 2, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
-        } else if (Util.isTrue(50, 100)) { // 50% rơi item 674 x1
-            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 674, 1, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
-        } else if (Util.isTrue(10, 100)) { // 10% rơi item 674 x3
-            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 674, 3, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
-        }
-
-        // Nếu boss có head ID là 1311, rơi item 1274 với các thuộc tính đặc biệt
         if (super.head == 1311) {
-            ItemMap it = new ItemMap(this.zone, 1274, 1,
-                    this.location.x + Util.nextInt(-15, 15),
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
-                    plKill.id);
-
-            // Thêm các option cho vật phẩm
-            it.options.add(new Item.ItemOption(50, 20));
+            ItemMap it = new ItemMap(this.zone, 1274, 1, this.location.x + Util.nextInt(-15, 15),
+                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
+            it.options.add(new Item.ItemOption(50, 30));
             it.options.add(new Item.ItemOption(77, 20));
             it.options.add(new Item.ItemOption(103, 20));
-            it.options.add(new Item.ItemOption(117, 15));
+            it.options.add(new Item.ItemOption(14, 15));
             it.options.add(new Item.ItemOption(93, Util.nextInt(1, 5)));
-
-            // Thả vật phẩm xuống bản đồ
             Service.gI().dropItemMap(this.zone, it);
         }
-
         if (Util.isTrue(20, 50)) {
             for (int i = 0; i < Util.nextInt(5, 10); i++) {
                 ItemMap it = new ItemMap(this.zone, 1229, 1, this.location.x + Util.nextInt(-15, 15),
@@ -74,19 +54,20 @@ public class Cumber extends Boss {
                 Service.gI().dropItemMap(this.zone, it);
             }
         }
-
         if (Util.isTrue(1, 50)) {
 
             ItemMap it = new ItemMap(this.zone, 1438, 1, this.location.x + Util.nextInt(-15, 15),
                     this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
-
         }
 
-
-       ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
+        if (Util.isTrue(50, 100)) {
+            int[] items = Util.isTrue(50, 100) ? new int[] { 18, 19, 20 }
+                    : new int[] { 1066, 1067, 1068, 1069, 1070, 1229 };
+            int randomItem = items[new Random().nextInt(items.length)];
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, randomItem, 1,
+                    this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+        }
     }
 
     @Override
@@ -96,7 +77,6 @@ public class Cumber extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            // giảm 50% st phải nhận khi nhận sát thương (cumber2)
             if (this.currentLevel != 0) {
                 damage /= 2;
             }

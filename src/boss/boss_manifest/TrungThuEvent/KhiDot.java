@@ -3,7 +3,7 @@ package boss.boss_manifest.TrungThuEvent;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.*;
@@ -54,7 +54,7 @@ public class KhiDot extends Boss {
 
     @Override
     public void joinMap() {
-        super.joinMap(); // To change body of generated methods, choose Tools | Templates.
+        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
 

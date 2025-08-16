@@ -3,7 +3,7 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import item.Item;
 import item.Item.ItemOption;
@@ -326,18 +326,17 @@ public class InventoryService {
             case 32:
                 index = 6;
                 break;
-            case 23:
-            case 24:
-                index = 9;
+            case 21:
+//            case 27:
+                index = 7;
                 break;
             case 11:
                 index = 8;
                 break;
-            case 21:
-                index = 7;
+            case 23:
+            case 24:
+                index = 9;
                 break;
-
-
 //            case 75:
 //            case 72:
 //                index = 10;
@@ -765,13 +764,11 @@ public class InventoryService {
                 return true;
         }
 
-        //mở rộng hành trang - rương đồ
-        //if (item.template.id == 1627) {
-        //    player.inventory.itemsBag.add(ItemService.gI().createItemNull());
-        //    Service.gI().sendThongBaoOK(player, "Hành trang của bạn đã được mở rộng thêm 1 ô");
-        //    return true;
-        //} 
-        if (item.template.id == 517) {
+        if (item.template.id == 1627) {
+            player.inventory.itemsBag.add(ItemService.gI().createItemNull());
+            Service.gI().sendThongBaoOK(player, "Hành trang của bạn đã được mở rộng thêm 1 ô");
+            return true;
+        } else if (item.template.id == 517) {
             player.inventory.itemsBag.add(ItemService.gI().createItemNull());
             Service.gI().sendThongBaoOK(player, "Hành trang của bạn đã được mở rộng thêm 1 ô");
             return true;
@@ -780,9 +777,7 @@ public class InventoryService {
             Service.gI().sendThongBaoOK(player, "Rương đồ của bạn đã được mở rộng thêm 1 ô");
             return true;
         }
-               InventoryService.gI().sendItemBag(player);
         return addItemList(player.inventory.itemsBag, item);
-   
     }
 
     public boolean addItemBox(Player player, Item item) {
@@ -819,7 +814,7 @@ public class InventoryService {
                 }
 
                 //========================ITEM TĂNG SỐ LƯỢNG========================
-                if (itemAdd.template.id == 1705 || itemAdd.template.id == 457|| itemAdd.template.id == 1741 || itemAdd.template.id == 1045||itemAdd.template.id == 1142) {
+                if (itemAdd.template.id == 1744 || itemAdd.template.id == 457|| itemAdd.template.id == 1741 || itemAdd.template.id == 1045||itemAdd.template.id == 1142) {
                     it.quantity += itemAdd.quantity;
                     itemAdd.quantity = 0;
                     return true;
@@ -1070,6 +1065,16 @@ public class InventoryService {
         return true;
     }
 
+    public boolean fullSetThienSu(Player player) {
+        for (int i = 0; i < 5; i++) {
+            Item item = player.inventory.itemsBody.get(i);
+            if (item == null || item.template == null || item.template.level != 15) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean x99ThucAn(Player player) {
         Item doAn = player.inventory.itemsBag.stream().filter(it -> it != null && it.template != null && (it.template.id == 663 || it.template.id == 664 || it.template.id == 665 || it.template.id == 666 || it.template.id == 667) && it.quantity >= 99).findFirst().orElse(null);
         return doAn != null;
@@ -1077,6 +1082,10 @@ public class InventoryService {
 
     public boolean canOpenBillShop(Player player) {
         return fullSetThan(player) && x99ThucAn(player);
+    }
+
+    public boolean canOpenBerryShop(Player player) {
+        return fullSetThienSu(player);
     }
 
     public boolean optionCanUpgrade(int id) {

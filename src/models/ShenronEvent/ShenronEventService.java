@@ -3,7 +3,7 @@ package models.ShenronEvent;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstNpc;

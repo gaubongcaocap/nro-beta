@@ -3,7 +3,7 @@ package boss.boss_manifest.RedRibbonHQ;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstPlayer;
@@ -24,27 +24,23 @@ public class NinjaClone extends Boss {
 
     public NinjaClone(Zone zone, Boss boss, long dame, long hp, int id) throws Exception {
         super(PHOBANDT, id, new BossData(
-                "Ninja Áo Tím", // name
-                ConstPlayer.TRAI_DAT, // gender
-                new short[] { 123, 124, 125, -1, -1, -1 }, // outfit {head, body, leg, bag, aura, eff}
-                ((dame)), // dame
-                new long[] { ((hp)) }, // hp
-                new int[] { 54 }, // map join
-                new int[][] {
-                        { Skill.DEMON, 3, 1 }, { Skill.DEMON, 6, 2 }, { Skill.DRAGON, 7, 3 }, { Skill.DRAGON, 1, 4 },
-                        { Skill.GALICK, 5, 5 },
-                        { Skill.KAMEJOKO, 7, 6 }, { Skill.KAMEJOKO, 6, 7 }, { Skill.KAMEJOKO, 5, 8 },
-                        { Skill.KAMEJOKO, 4, 9 }, { Skill.KAMEJOKO, 3, 10 }, { Skill.KAMEJOKO, 2, 11 },
-                        { Skill.KAMEJOKO, 1, 12 },
-                        { Skill.ANTOMIC, 1, 13 }, { Skill.ANTOMIC, 2, 14 }, { Skill.ANTOMIC, 3, 15 },
-                        { Skill.ANTOMIC, 4, 16 }, { Skill.ANTOMIC, 5, 17 }, { Skill.ANTOMIC, 6, 19 },
-                        { Skill.ANTOMIC, 7, 20 },
-                        { Skill.MASENKO, 1, 21 }, { Skill.MASENKO, 5, 22 }, { Skill.MASENKO, 6, 23 }, },
-                new String[] {}, // text chat 1
-                new String[] { "|-1|Ta sẽ xé xác ngươi ra thành trăm mảnh",
-                        "|-1|Ha ha ha" }, // text chat 2
-                new String[] {}, // text chat 3
-                60));
+                "Ninja Áo Tím", //name
+                ConstPlayer.TRAI_DAT, //gender
+                new short[]{123, 124, 125, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+                ((dame)), //dame
+                new long[]{((hp))}, //hp
+                new int[]{54}, //map join
+                new int[][]{
+                    {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
+                    {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11}, {Skill.KAMEJOKO, 1, 12},
+                    {Skill.ANTOMIC, 1, 13}, {Skill.ANTOMIC, 2, 14}, {Skill.ANTOMIC, 3, 15}, {Skill.ANTOMIC, 4, 16}, {Skill.ANTOMIC, 5, 17}, {Skill.ANTOMIC, 6, 19}, {Skill.ANTOMIC, 7, 20},
+                    {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},},
+                new String[]{}, //text chat 1
+                new String[]{"|-1|Ta sẽ xé xác ngươi ra thành trăm mảnh",
+                    "|-1|Ha ha ha"}, //text chat 2
+                new String[]{}, //text chat 3
+                60
+        ));
         this.zone = zone;
         this.boss = boss;
     }
@@ -52,17 +48,10 @@ public class NinjaClone extends Boss {
     @Override
     public void reward(Player plKill) {
         if (Util.isTrue(100, 100)) {
-            ItemMap it = new ItemMap(this.zone, Util.nextInt(16, 20), 1, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x,
-                            this.location.y - 24),
-                    plKill.id);
+            ItemMap it = new ItemMap(this.zone, Util.nextInt(16, 20), 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
-        // sự kiện
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override

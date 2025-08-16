@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import services.Service;
@@ -14,17 +14,21 @@ public class RewardBlackBall {
 
     private static final int TIME_REWARD = 79200000;
 
-
+    public static final int R1S_1 = 15;
     public static final int R1S_2 = 15;
     public static final int R2S_1 = 20;
-
+    public static final int R2S_2 = 20;
     public static final int R3S_1 = 10;
-
-
+    public static final int R3S_2 = 10;
+    public static final int R4S_1 = 35;
     public static final int R4S_2 = 35;
     public static final int R5S_1 = 15;
+    public static final int R5S_2 = 15;
+    public static final int R5S_3 = 15;
     public static final int R6S_1 = 20;
+    public static final int R6S_2 = 20;
     public static final int R7S_1 = 14;
+    public static final int R7S_2 = 14;
 
     public static final int TIME_WAIT = 3600000;
     public static long time8h;

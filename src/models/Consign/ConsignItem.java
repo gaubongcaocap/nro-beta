@@ -3,7 +3,7 @@ package models.Consign;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import item.Item.ItemOption;

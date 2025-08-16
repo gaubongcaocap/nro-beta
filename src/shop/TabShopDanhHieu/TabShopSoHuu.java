@@ -8,6 +8,7 @@ import shop.TabShop;
 import task.Badges.BadgesTaskService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TabShopSoHuu extends TabShop {
 

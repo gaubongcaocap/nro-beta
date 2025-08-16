@@ -1,12 +1,13 @@
 package npc.npc_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstNpc;
 import npc.Npc;
 import player.Player;
+import services.NpcService;
 import services.TaskService;
 import services.func.ChangeMapService;
 

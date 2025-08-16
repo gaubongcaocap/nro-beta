@@ -1,16 +1,29 @@
 package boss.miniboss;
 
+/*
+ * @Author: NgocRongWhis
+ * @Description: Ngọc Rồng Whis - Máy Chủ Chuẩn Teamobi 2024
+ * @Group Zalo: https://zalo.me/g/qabzvn331
+ */
+
+
 import boss.*;
+import java.util.ArrayList;
+import java.util.List;
+import map.Zone;
 import player.Player;
 import services.func.ChangeMapService;
+import utils.Logger;
 import utils.Util;
 
 public class SoiHecQuyn extends Boss {
 
+    private long lastTimeDrop;
     private long st;
-    private int timeLeave = 300000;
+    private int timeLeave=300000;
     private boolean Gwen_KiemTraNhatXuong = false;
     private long Gwen_ThoiGianNhatXuong = 0;
+    private long lastTimRestPawn;
 
     public SoiHecQuyn() throws Exception {
         super(BossID.SOI_HEC_QUYN1, BossesData.SOI_HEC_QUYN);
@@ -22,6 +35,7 @@ public class SoiHecQuyn extends Boss {
         st = System.currentTimeMillis();
     }
 
+
     @Override
     public void chatM() {
         if (this.data[this.currentLevel].getTextM().length == 0) {
@@ -30,8 +44,7 @@ public class SoiHecQuyn extends Boss {
         if (!Util.canDoWithTime(this.lastTimeChatM, this.timeChatM)) {
             return;
         }
-        String textChat = this.data[this.currentLevel].getTextM()[Util.nextInt(0,
-                this.data[this.currentLevel].getTextM().length - 1)];
+        String textChat = this.data[this.currentLevel].getTextM()[Util.nextInt(0, this.data[this.currentLevel].getTextM().length - 1)];
         int prefix = Integer.parseInt(textChat.substring(1, textChat.lastIndexOf("|")));
         textChat = textChat.substring(textChat.lastIndexOf("|") + 1);
         this.chat(prefix, textChat);
@@ -79,8 +92,7 @@ public class SoiHecQuyn extends Boss {
                 if (pl == null || pl.location == null) {
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(5, 20) && Util.getDistance(this, pl) > 50) {
                         if (Util.isTrue(5, 20)) {
@@ -108,6 +120,7 @@ public class SoiHecQuyn extends Boss {
             }
         }
     }
+
 
     @Override
     public synchronized long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {

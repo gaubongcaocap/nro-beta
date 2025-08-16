@@ -3,7 +3,7 @@ package boss.boss_manifest.SnakeWay;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import consts.ConstPlayer;
@@ -35,20 +35,21 @@ public class CADICH extends Boss {
         super(PHOBANCDRD, BossID.CADICH, new BossData(
                 "Cađích",
                 ConstPlayer.XAYDA,
-                new short[] { 645, 646, 647, -1, -1, -1 },
+                new short[]{645, 646, 647, -1, -1, -1},
                 ((10000 + dame)),
-                new long[] { ((500000 + hp)) },
-                new int[] { 144 },
-                new int[][] {
-                        { Skill.GALICK, 7, 1000 },
-                        { Skill.MASENKO, 1, 1000 },
-                        { Skill.ANTOMIC, 1, 1000 },
-                        { Skill.KAMEJOKO, 4, 1000 },
-                        { Skill.BIEN_KHI, 1, 1000 } }, // skill
-                new String[] { "|-1|Vĩnh biệt chú mày nhé, Na đíc" },
-                new String[] {},
-                new String[] { "|-1|Tốt lắm phi thuyền đã đến đón ta" },
-                60));
+                new long[]{((500000 + hp))},
+                new int[]{144},
+                new int[][]{
+                    {Skill.GALICK, 7, 1000},
+                    {Skill.MASENKO, 1, 1000},
+                    {Skill.ANTOMIC, 1, 1000},
+                    {Skill.KAMEJOKO, 4, 1000},
+                    {Skill.BIEN_KHI, 1, 1000}},//skill
+                new String[]{"|-1|Vĩnh biệt chú mày nhé, Na đíc"},
+                new String[]{},
+                new String[]{"|-1|Tốt lắm phi thuyền đã đến đón ta"},
+                60
+        ));
         this.zone = zone;
         this.clan = clan;
     }
@@ -66,11 +67,6 @@ public class CADICH extends Boss {
                     this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it2);
         }
-        // sự kiện
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override
@@ -127,7 +123,7 @@ public class CADICH extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage / 4;
+                damage = damage;
             }
             if (damage >= this.nPoint.hp) {
                 this.effectSkill.removeSkillEffectWhenDie();
@@ -144,8 +140,7 @@ public class CADICH extends Boss {
 
     @Override
     public void attack() {
-        if (!gongBienKhi && !this.effectSkill.isCharging && Util.canDoWithTime(this.lastTimeAttack, 100)
-                && this.typePk == ConstPlayer.PK_ALL) {
+        if (!gongBienKhi && !this.effectSkill.isCharging && Util.canDoWithTime(this.lastTimeAttack, 100) && this.typePk == ConstPlayer.PK_ALL) {
             this.lastTimeAttack = System.currentTimeMillis();
             try {
                 Player pl = getPlayerAttack();

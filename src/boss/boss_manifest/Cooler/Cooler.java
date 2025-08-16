@@ -1,21 +1,24 @@
 package boss.boss_manifest.Cooler;
 
+import java.util.Random;
+
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.Boss;
 import boss.BossID;
 import boss.BossesData;
 import consts.ConstTaskBadges;
+import item.Item;
 import map.ItemMap;
 import player.Player;
 import services.EffectSkillService;
 import services.Service;
 import utils.Util;
+
 import services.ItemService;
-import services.TaskService;
 import task.Badges.BadgesTaskService;
 
 public class Cooler extends Boss {
@@ -28,7 +31,6 @@ public class Cooler extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
         BadgesTaskService.updateCountBagesTask(plKill, ConstTaskBadges.TRUM_SAN_BOSS, 1);
         if (Util.isTrue(5, 100)) {
             ItemMap it = ItemService.gI().randDoTLBoss(this.zone, 1, this.location.x,
@@ -37,23 +39,20 @@ public class Cooler extends Boss {
                     plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
-
-       ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
-
-        if (Util.isTrue(50, 100)) {
-            ItemMap item15 = new ItemMap(this.zone, 15, 1, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-            Service.gI().dropItemMap(this.zone, item15);
-        }
-
         if (Util.isTrue(5, 50)) {
             for (int i = 0; i < Util.nextInt(25, 50); i++) {
                 ItemMap it = new ItemMap(this.zone, 1229, 1, this.location.x + Util.nextInt(-15, 15),
                         this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
                 Service.gI().dropItemMap(this.zone, it);
             }
+        }
+
+        if (Util.isTrue(50, 100)) {
+            int[] items = Util.isTrue(50, 100) ? new int[] { 18, 19, 20 }
+                    : new int[] { 1066, 1067, 1068, 1069, 1070, 1229 };
+            int randomItem = items[new Random().nextInt(items.length)];
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, randomItem, 1,
+                    this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
     }
 
@@ -92,6 +91,8 @@ public class Cooler extends Boss {
     public void joinMap() {
         super.joinMap();
         st = System.currentTimeMillis();
+        // System.out.println("Cooler join map" + this.zone.map.mapId + " Zone: " +
+        // this.zone.zoneId);
     }
 
     @Override

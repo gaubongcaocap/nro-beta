@@ -3,7 +3,7 @@ package event.ievent;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 public interface IEvent {

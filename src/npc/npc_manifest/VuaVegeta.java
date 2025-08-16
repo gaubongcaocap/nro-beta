@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import clan.Clan;
@@ -66,7 +66,7 @@ public class VuaVegeta extends Npc {
                     case 0 ->
                         NpcService.gI().createTutorial(player, tempId, avartar, player.playerTask.taskMain.subTasks.get(player.playerTask.taskMain.index).name);
                     case 1 ->
-                        Service.gI().sendThongBao(player, "Bạn đã học hết các kỹ năng");
+                        Service.gI().sendThongBao(player, "Giàu thì tự mua sách mà học đi");
                     case 2 -> {
                         Clan clan = player.clan;
                         if (clan != null) {

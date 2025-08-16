@@ -1,16 +1,15 @@
 package boss.boss_manifest.Android;
 
-import java.util.Random;
-
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
 import boss.BossID;
 import boss.BossesData;
+import java.util.Random;
 import map.ItemMap;
 import player.Player;
 import skill.Skill;
@@ -25,49 +24,16 @@ public class DrKore extends Boss {
         super(BossID.DR_KORE, BossesData.DR_KORE);
     }
 
-    @Override
+  @Override
     public void reward(Player plKill) {
-        // Cập nhật nhiệm vụ giết boss
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-
-        // Drop vàng (ID 190), số lượng ngẫu nhiên từ 20.000–30.000
-        Service.gI().dropItemMap(this.zone, new ItemMap(
-            this.zone, 190, Util.nextInt(200000, 3000001),
-            this.location.x,
-            this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
-            plKill.id));
-
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
-
-        // 80% cơ hội drop item phụ (thường hoặc hiếm)
+        Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 190, Util.nextInt(20000, 30001),
+                this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         if (Util.isTrue(80, 100)) {
-            int[] items = Util.isTrue(50, 100)
-                ? new int[]{18, 19, 20} // Thường
-                : new int[]{1066, 1067, 1068, 1069, 1070, 1229}; // Hiếm
-
+            int[] items = Util.isTrue(50, 100) ? new int[]{18, 19, 20} : new int[]{1066, 1067, 1068, 1069, 1070, 1229};
             int randomItem = items[new Random().nextInt(items.length)];
-
-            Service.gI().dropItemMap(this.zone, new ItemMap(
-                this.zone, randomItem, 1,
-                this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
-                plKill.id));
-        }
-
-        // 10% cơ hội mưa quà (drop nhiều item 1229)
-        if (Util.isTrue(5, 50)) {
-            int dropCount = Util.nextInt(25, 50);
-            for (int i = 0; i < dropCount; i++) {
-                int offsetX = this.location.x + Util.nextInt(-15, 15);
-                Service.gI().dropItemMap(this.zone, new ItemMap(
-                    this.zone, 1229, 1,
-                    offsetX,
-                    this.zone.map.yPhysicInTop(offsetX, this.location.y - 24),
-                    plKill.id));
-            }
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, randomItem, 1,
+                    this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
     }
 
@@ -113,6 +79,8 @@ public class DrKore extends Boss {
                 case Skill.KAMEJOKO:
                 case Skill.MASENKO:
                 case Skill.ANTOMIC:
+                case Skill.LIEN_HOAN:
+                case Skill.DE_TRUNG:
                     PlayerService.gI().hoiPhuc(this, damage, 0);
                     if (Util.isTrue(1, 5)) {
                         this.chat("Hấp thụ.. các ngươi nghĩ sao vậy?");

@@ -47,12 +47,10 @@ public class TopPowerManager {
     player.id = rs.getInt("id");
     player.name = rs.getString("name");
     
-    // L?y gi� tr? t? c?t 'head'
-    player.head = (short) rs.getInt("head"); // �?m b?o t�n c?t d�ng
+    player.head = (short) rs.getInt("head"); 
     player.gender = (byte) rs.getInt("gender");
     player.nPoint.power = rs.getLong("power");
     
-    // Ti?n h�nh x? l� data_point v� c�c th�ng tin kh�c
     extractDataPoint(rs.getString("data_point"), player);
     extractItemsBody(rs.getString("items_body"), player);
     
@@ -60,16 +58,12 @@ public class TopPowerManager {
 }
 
 
-private void extractDataPoint(String dataPoint, Player player) {
-    try {
-        JSONArray dataArray = (JSONArray) JSONValue.parse(dataPoint);
-        if (dataArray != null && dataArray.size() > 11) {
-            player.nPoint.power = Long.parseLong(dataArray.get(11).toString());
+    private void extractDataPoint(String dataPoint, Player player) {
+        String[] data = dataPoint.replace("[", "").replace("]", "").split(",");
+        if (data.length >= 2) {
+            player.nPoint.power = Long.parseLong(data[1]); 
         }
-    } catch (Exception e) {
-        System.err.println("L?i khi parse dataPoint: " + e.getMessage());
     }
-}
 
     private void extractItemsBody(String itemsBody, Player player) {
         JSONArray dataArray = (JSONArray) JSONValue.parse(itemsBody);
@@ -83,15 +77,16 @@ private void extractDataPoint(String dataPoint, Player player) {
     }
 
     private Item createItemFromDataObject(String itemData) {
-        JSONArray dataObject = (JSONArray) JSONValue.parse(itemData);
+        JSONValue jv = new JSONValue();
+        JSONArray dataObject = (JSONArray) jv.parse(itemData);
         short tempId = Short.parseShort(String.valueOf(dataObject.get(0)));
         Item item;
         if (tempId != -1) {
             item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataObject.get(1))));
-            JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataObject.get(2)).replaceAll("\"", ""));
+            JSONArray options = (JSONArray) jv.parse(String.valueOf(dataObject.get(2)).replaceAll("\"", ""));
 
             for (Object option : options) {
-                JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
+                JSONArray opt = (JSONArray) jv.parse(String.valueOf(option));
                 item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
                         Integer.parseInt(String.valueOf(opt.get(1)))));
             }

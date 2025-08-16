@@ -3,7 +3,7 @@ package matches.pvp;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import EMTI.Functions;
@@ -32,9 +32,9 @@ public class TraThu extends PVP {
         }
         Service.gI().sendThongBao(p2, "Có người đang đến tìm bạn để trả thù");
         Service.gI().chat(p1, "Mày tới số rồi con ạ!");
-        new Thread(() -> {
+        Thread.startVirtualThread(() -> {
             try {
-               Functions.sleep(3000);
+                Functions.sleep(3000);
             } catch (Exception e) {
             }
             super.start();

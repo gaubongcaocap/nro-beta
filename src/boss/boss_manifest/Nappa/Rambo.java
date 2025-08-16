@@ -1,17 +1,21 @@
 package boss.boss_manifest.Nappa;
 
+import services.Service;
+import map.ItemMap;
+import java.util.Random;
+
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
 import boss.BossID;
 import boss.BossStatus;
 import boss.BossesData;
-import utils.Util;
 import player.Player;
+import utils.Util;
 
 public class Rambo extends Boss {
 
@@ -29,9 +33,12 @@ public class Rambo extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        super.reward(plKill);
-        if (this.currentLevel == 1) {
-            return;
+        if (Util.isTrue(50, 100)) {
+            int[] items = Util.isTrue(50, 100) ? new int[] { 18, 19, 20 }
+                    : new int[] { 1066, 1067, 1068, 1069, 1070, 1229 };
+            int randomItem = items[new Random().nextInt(items.length)];
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, randomItem, 1,
+                    this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
     }
 

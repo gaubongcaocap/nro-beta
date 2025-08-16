@@ -1,5 +1,6 @@
 package models.Combine.manifest;
 
+import consts.ConstFont;
 import consts.ConstNpc;
 import item.Item;
 import models.Combine.CombineService;
@@ -18,10 +19,7 @@ import utils.Util;
 public class NangCapKichHoatVip {
 
     public static boolean isDoThienSu(Item item) {
-        if (item.template.id >= 1048 && item.template.id <= 1062) {
-            return true;
-        }
-        return false;
+        return item.template.id >= 1048 && item.template.id <= 1062;
     }
 
     public static void showInfoCombine(Player player) {
@@ -31,7 +29,7 @@ public class NangCapKichHoatVip {
             for (Item item : player.combine.itemsCombine) {
                 if (isDoThienSu(item)) {
                     trangBiThienSu = item;
-                } else if (item.template.id == 1732) {
+                } else if (item.template.id == 1777) {
                     daKichHoatVip = item;
                 }
             }
@@ -62,7 +60,7 @@ public class NangCapKichHoatVip {
             for (Item item : player.combine.itemsCombine) {
                 if (isDoThienSu(item)) {
                     trangBiThienSu = item;
-                } else if (item.template.id == 1732) {
+                } else if (item.template.id == 1777) {
                     daKichHoatVip = item;
                 }
             }

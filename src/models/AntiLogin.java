@@ -5,7 +5,7 @@ import utils.Util;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 public class AntiLogin {
 

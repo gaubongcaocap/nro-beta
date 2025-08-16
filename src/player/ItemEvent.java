@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import utils.Util;
@@ -13,20 +13,8 @@ public class ItemEvent {
     public Player player;
 
     public long lastTVGSTime;
-    public long lastItemChuongDong;
-    public long lastItemBanhQuy;
-    public long lastItemCaTuyet;
-    public long lastItemKeoDuong;
-    public long lastItemKeoNguoiTuyet;
-    public long lastItemManhVo;
 
-    public int remainingChuongDongCount;
-    public int remainingBanhQuyCount;
-    public int remainingCaTuyetCount;
-    public int remainingKeoDuongCount;
-    public int remainingKeoNguoiTuyetCount;
     public int remainingTVGSCount;
-    public int remainingManhVo;
 
     public long lastHHTime;
 
@@ -71,18 +59,6 @@ public class ItemEvent {
             return true;
         } else if (remainingBNCount > 0) {
             remainingBNCount--;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean canDropManhVo(int maxCount) {
-        if (Util.isAfterMidnight(lastItemManhVo)) {
-            remainingManhVo = maxCount;
-            lastItemManhVo = System.currentTimeMillis();
-            return true;
-        } else if (remainingManhVo > 0) {
-            remainingManhVo--;
             return true;
         }
         return false;

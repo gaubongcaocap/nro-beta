@@ -3,7 +3,7 @@ package boss.boss_manifest.RedRibbonHQ;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstPlayer;
@@ -25,34 +25,30 @@ public class NinjaAoTim extends Boss {
 
     public NinjaAoTim(Zone zone, Clan clan, long dame, long hp) throws Exception {
         super(PHOBANDT, BossID.NINJA_AO_TIM, new BossData(
-                "Ninja Áo Tím", // name
-                ConstPlayer.TRAI_DAT, // gender
-                new short[] { 123, 124, 125, -1, -1, -1 }, // outfit {head, body, leg, bag, aura, eff}
-                ((dame)), // dame
-                new long[] { ((hp)) }, // hp
-                new int[] { 54 }, // map join
-                new int[][] {
-                        { Skill.DEMON, 3, 1 }, { Skill.DEMON, 6, 2 }, { Skill.DRAGON, 7, 3 }, { Skill.DRAGON, 1, 4 },
-                        { Skill.GALICK, 5, 5 },
-                        { Skill.KAMEJOKO, 7, 6 }, { Skill.KAMEJOKO, 6, 7 }, { Skill.KAMEJOKO, 5, 8 },
-                        { Skill.KAMEJOKO, 4, 9 }, { Skill.KAMEJOKO, 3, 10 }, { Skill.KAMEJOKO, 2, 11 },
-                        { Skill.KAMEJOKO, 1, 12 },
-                        { Skill.ANTOMIC, 1, 13 }, { Skill.ANTOMIC, 2, 14 }, { Skill.ANTOMIC, 3, 15 },
-                        { Skill.ANTOMIC, 4, 16 }, { Skill.ANTOMIC, 5, 17 }, { Skill.ANTOMIC, 6, 19 },
-                        { Skill.ANTOMIC, 7, 20 },
-                        { Skill.MASENKO, 1, 21 }, { Skill.MASENKO, 5, 22 }, { Skill.MASENKO, 6, 23 },
-                        { Skill.KAMEJOKO, 7, 1000 }, },
-                new String[] {}, // text chat 1
-                new String[] { "|-1|Ta sẽ xé xác ngươi ra thành trăm mảnh",
-                        "|-1|Ha ha ha" }, // text chat 2
-                new String[] {}, // text chat 3
-                60));
+                "Ninja Áo Tím", //name
+                ConstPlayer.TRAI_DAT, //gender
+                new short[]{123, 124, 125, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+                ((dame)), //dame
+                new long[]{((hp))}, //hp
+                new int[]{54}, //map join
+                new int[][]{
+                    {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
+                    {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11}, {Skill.KAMEJOKO, 1, 12},
+                    {Skill.ANTOMIC, 1, 13}, {Skill.ANTOMIC, 2, 14}, {Skill.ANTOMIC, 3, 15}, {Skill.ANTOMIC, 4, 16}, {Skill.ANTOMIC, 5, 17}, {Skill.ANTOMIC, 6, 19}, {Skill.ANTOMIC, 7, 20},
+                    {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},
+                    {Skill.KAMEJOKO, 7, 1000},},
+                new String[]{}, //text chat 1
+                new String[]{"|-1|Ta sẽ xé xác ngươi ra thành trăm mảnh",
+                    "|-1|Ha ha ha"}, //text chat 2
+                new String[]{}, //text chat 3
+                60
+        ));
 
         this.zone = zone;
         this.clan = clan;
     }
 
-    @Override
+   @Override
     public void reward(Player plKill) {
         // Xác suất rơi item 1560 (50%)
         if (Util.isTrue(50, 100)) {
@@ -62,7 +58,8 @@ public class NinjaAoTim extends Boss {
                     1,
                     this.location.x,
                     this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
-                    plKill.id);
+                    plKill.id
+            );
             Service.gI().dropItemMap(this.zone, it);
         }
 
@@ -74,15 +71,10 @@ public class NinjaAoTim extends Boss {
                     Util.nextInt(1, 2),
                     this.location.x,
                     this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
-                    plKill.id);
+                    plKill.id
+            );
             Service.gI().dropItemMap(this.zone, it);
         }
-
-        // sự kiện
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override
@@ -118,19 +110,13 @@ public class NinjaAoTim extends Boss {
             if (this.nPoint.hp <= this.nPoint.hpMax / 2 && !this.calledNinja) {
                 if (Util.isTrue(4, 5)) {
                     try {
-                        clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10,
-                                this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM1));
-                        clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10,
-                                this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM2));
-                        clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10,
-                                this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM3));
-                        clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10,
-                                this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM4));
+                        clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10, this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM1));
+                        clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10, this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM2));
+                        clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10, this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM3));
+                        clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10, this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM4));
                         if (Util.isTrue(1, 2)) {
-                            clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10,
-                                    this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM5));
-                            clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10,
-                                    this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM6));
+                            clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10, this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM5));
+                            clan.doanhTrai.bosses.add(new NinjaClone(this.zone, this, this.nPoint.dame / 10, this.nPoint.hpMax / 10, BossID.NINJA_AO_TIM6));
                         }
                     } catch (Exception ex) {
                     }

@@ -3,7 +3,7 @@ package map;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 public class WayPoint {

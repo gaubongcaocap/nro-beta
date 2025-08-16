@@ -19,10 +19,11 @@ import models.Template.*;
 import clan.Clan;
 import clan.ClanMember;
 import consts.ConstSQL;
-
+import encrypt.ImageUtil;
 import models.GiftCode.GiftCode;
 import models.GiftCode.GiftCodeManager;
 import intrinsic.Intrinsic;
+import item.Item;
 import item.Item.ItemOption;
 import map.WayPoint;
 import npc.Npc;
@@ -35,30 +36,26 @@ import task.Badges.BadgesTaskTemplate;
 import task.SideTaskTemplate;
 import task.SubTaskMain;
 import task.TaskMain;
+import services.ItemService;
+import services.MapService;
 import utils.Logger;
+import utils.Util;
 import power.CaptionManager;
 import power.PowerLimitManager;
 import task.ClanTaskTemplate;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import java.util.*;
 import matches.TOP;
 import npc.NonInteractiveNPC;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+
+import Bot.Bot;
 
 public final class Manager {
 
@@ -116,31 +113,32 @@ public final class Manager {
     public static List<TOP> topWHIS;
     public static long timeRealTop = 0;
 
-    public static final short[][] doshoptd = { { 0, 33, 3, 34, 136, 137, 138, 139, 230, 231, 232, 233 },
-            { 6, 35, 9, 36, 140, 141, 142, 143, 242, 243, 244, 245 },
-            { 27, 30, 39, 40, 148, 149, 150, 151, 266, 267, 268, 269 },
-            { 12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281 } };
+    public static List<Integer> mapBot = new ArrayList<Integer>();
+
+    public static final short[][] doshoptd = {{0, 33, 3, 34, 136, 137, 138, 139, 230, 231, 232, 233},
+    {6, 35, 9, 36, 140, 141, 142, 143, 242, 243, 244, 245},
+    {27, 30, 39, 40, 148, 149, 150, 151, 266, 267, 268, 269},
+    {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281}};
 
     public static final short[][] doshopnm = {
-            { 1, 41, 4, 42, 152, 153, 154, 155, 234, 235, 236, 237 },
-            { 7, 43, 10, 44, 156, 157, 158, 159, 246, 247, 248, 249 },
-            { 22, 46, 25, 45, 160, 161, 162, 163, 258, 259, 260, 261 },
-            { 28, 47, 31, 48, 164, 165, 166, 167, 270, 271, 272, 273 },
-            { 12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281 }
+        {1, 41, 4, 42, 152, 153, 154, 155, 234, 235, 236, 237},
+        {7, 43, 10, 44, 156, 157, 158, 159, 246, 247, 248, 249},
+        {22, 46, 25, 45, 160, 161, 162, 163, 258, 259, 260, 261},
+        {28, 47, 31, 48, 164, 165, 166, 167, 270, 271, 272, 273},
+        {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281}
     };
     public static final short[][] doshopxd = {
-            { 2, 49, 5, 50, 168, 169, 170, 171, 238, 239, 240, 241 },
-            { 8, 51, 11, 52, 172, 173, 174, 175, 250, 251, 252, 253 },
-            { 23, 53, 26, 54, 176, 177, 178, 179, 262, 263, 264, 265 },
-            { 29, 55, 32, 56, 180, 181, 182, 183, 274, 275, 276, 277 },
-            { 12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281 }
+        {2, 49, 5, 50, 168, 169, 170, 171, 238, 239, 240, 241},
+        {8, 51, 11, 52, 172, 173, 174, 175, 250, 251, 252, 253},
+        {23, 53, 26, 54, 176, 177, 178, 179, 262, 263, 264, 265},
+        {29, 55, 32, 56, 180, 181, 182, 183, 274, 275, 276, 277},
+        {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281}
     };
 
-    public static final short[][] trangBiKichHoat = { { 0, 6, 21, 27 }, { 1, 7, 22, 28 }, { 2, 8, 23, 29 } };
-    public static final short[][] trangBiKichHoatVip = { { 555, 556, 562, 563 }, { 557, 558, 564, 565 },
-            { 559, 560, 566, 567 } };
+    public static final short[][] trangBiKichHoat = {{0, 6, 21, 27}, {1, 7, 22, 28}, {2, 8, 23, 29}};
+    public static final short[][] trangBiKichHoatVip = {{555, 556, 562, 563}, {557, 558, 564, 565}, {559, 560, 566, 567}};
     public static String TIME_VIP_START = "15/02/2025";
-    public static String TIME_VIP_END = "15/03/2025";
+    public static String TIME_VIP_END = "15/03/2026";
 
     public static Manager gI() {
         if (instance == null) {
@@ -160,6 +158,7 @@ public final class Manager {
         NpcFactory.createNpcConMeo();
         NpcFactory.createNpcRongThieng();
         initMap();
+        System.out.println("Finish connect Server: " + DBConnecter.DB_DATA);
     }
 
     private void initMap() {
@@ -212,6 +211,7 @@ public final class Manager {
             loadBadgesTemplates(con);
             loadTopRankings(con);
             loadMount();
+            loadMapBot(con);
             PowerLimitManager.getInstance().load();
             CaptionManager.getInstance().load();
         } catch (Exception e) {
@@ -219,6 +219,18 @@ public final class Manager {
             System.exit(0);
         }
         Logger.log(Logger.PURPLE, "Total database loading time: " + (System.currentTimeMillis() - st) + " (ms)\n");
+    }
+
+    private void loadMapBot(Connection con) throws SQLException {
+        try (PreparedStatement ps = con.prepareStatement("select id from map_template where bot_map = 1"); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id"); 
+                    mapBot.add(id);
+                }
+                mapBot.add(0);
+            }
+        }
     }
 
     // ---------- Các hàm load dữ liệu từ DB ----------

@@ -3,7 +3,7 @@ package models.SuperRank;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import EMTI.Functions;
@@ -23,6 +23,7 @@ import services.ChatGlobalService;
 import services.PlayerService;
 import services.Service;
 import services.func.ChangeMapService;
+import utils.TimeUtil;
 import utils.Util;
  
 @Data
@@ -73,7 +74,9 @@ public final class SuperRank implements Runnable {
         if (player.zone.zoneId != zone.zoneId) {
             ChangeMapService.gI().changeZone(player, zone.zoneId);
         }
-        Thread.ofVirtual().name("Super Rank");
+        Thread.ofVirtual()
+                .name("Super Rank")
+                .start(this);
 
     }
 

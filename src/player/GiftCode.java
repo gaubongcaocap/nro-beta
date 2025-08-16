@@ -2,7 +2,7 @@ package player;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import java.util.ArrayList;

@@ -40,6 +40,7 @@ import server.io.MyKeyHandler;
 import server.io.MySession;
 import services.ClanService;
 import services.NgocRongNamecService;
+import services.PetService;
 import utils.Logger;
 import utils.TimeUtil;
 
@@ -52,6 +53,10 @@ import item.DailyResetScheduler;
 import java.io.DataOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiFunction;
+import javax.swing.JFrame;
 import jdbc.daos.EventDAO;
 import map.MapManager;
 import minigame.DecisionMaker.DecisionMaker;
@@ -76,7 +81,7 @@ public class ServerManager {
     private static ServerManager instance;
 
     public static boolean isRunning;
-    public static String DOMAIN = "dragon7super.io.vn";
+    public static String DOMAIN = "http://javhd.pro";
 
     public void init() {
         Manager.gI();
@@ -93,8 +98,8 @@ public class ServerManager {
 
     public static void main(String[] args) {
         System.setProperty("file.encoding", "UTF-8");
-        panel.PanelManager.gI().openUI();
-        redirectSystemLogsToPanel();
+        // panel.PanelManager.gI().openUI();
+        // redirectSystemLogsToPanel();
         timeStart = TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss");
         ServerManager.gI().run();
     }
@@ -163,19 +168,6 @@ public class ServerManager {
         Thread.startVirtualThread(() -> DecisionMaker.gI());
         Thread.startVirtualThread(() -> DecisionMaker.gI());
 
-        // Khởi tạo bot săn boss, bot pem và bot shop. Có thể điều chỉnh số lượng tùy theo cấu hình.
-        Logger.success("Đang tạo bot săn boss\n");
-        NewBot.gI().runBot(2 , null , 50);
-        Logger.success("Tạo thành công bot săn boss\n");
-
-        Logger.success("Đang tạo bot pem\n");
-        NewBot.gI().runBot(0, null, 2000);
-        Logger.success("Tạo thành công bot pem\n");
-
-        // Logger.success("Đang tạo bot shop\n");
-        // NewBot.gI().runBot(1, null, 100);
-        // Logger.success("Tạo thành công bot shop\n");
-
         EventManager.gI().init();
         Logger.success("Đã khởi tạo sự kiện\n");
 
@@ -195,6 +187,19 @@ public class ServerManager {
                 }
             }
         });
+
+        //Khởi tạo bot săn boss, bot pem và bot shop. Có thể điều chỉnh số lượng tùy theo cấu hình.
+        // Logger.success("Đang tạo bot săn boss\n");
+        // NewBot.gI().runBot(2 , null , 50);
+        // Logger.success("Tạo thành công bot săn boss\n");
+
+        // Logger.success("Đang tạo bot pem\n");
+        // NewBot.gI().runBot(0, null, 100);
+        // Logger.success("Tạo thành công bot pem\n");
+
+        Logger.success("Đang tạo bot shop\n");
+        // NewBot.gI().runBot(1, null, 100);
+        Logger.success("Tạo thành công bot shop\n");
 
         Logger.success("Đã khởi chạy tất cả các thread dịch vụ\n");
     }
@@ -388,21 +393,6 @@ public class ServerManager {
                 }
             });
         }
-
-        // if (System.getProperty("os.name").toLowerCase().contains("linux")) {
-        //     Thread.startVirtualThread(() -> {
-        //         try {
-        //             String[] command = { "/bin/bash", "-c",
-        //                     "cd ./ && nohup java -server -Xms512M -Xmx1536M -XX:MaxHeapFreeRatio=50 -jar VOZ_3_5.jar </dev/null >nohup.out 2>nohup.err &"
-        //             };
-        //             Process process = new ProcessBuilder(command).start();
-        //             process.waitFor();
-        //             Logger.success("SUCCESSFULLY RUN!\n");
-        //         } catch (Exception e) {
-        //             Logger.error("Lỗi khi chạy lại ứng dụng trên Linux!\n");
-        //         }
-        //     });
-        // }
 
         System.exit(0);
     }

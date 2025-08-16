@@ -85,7 +85,7 @@ public class LuckyNumberService {
         LuckyNumber.DATA_REWARD_PLAYER_WIN.add(data);
     }
 
-    public static List<Integer> listNumberSelect(Player pl) {
+    public static List listNumberSelect(Player pl) {
         List<Integer> listData = new ArrayList<>();
         for (LuckNumberData data : minigame.LuckyNumber.LuckyNumber.players) {
             if (data.id == pl.id) {

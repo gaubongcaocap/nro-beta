@@ -43,7 +43,7 @@ public class RockPaperScissorsService {
     public static void hoaKeoBuaBao(Npc npc, Player player) {
         String ketQuaPlayer = convertNumberToString(player.iDMark.getKeoBuaBaoPlayer());
         String ketQuaServer = convertNumberToString(player.iDMark.getKeoBuaBaoServer());
-        // String money = Util.numberFormatLouis(player.iDMark.getMoneyKeoBuaBao());
+        String money = Util.numberFormatLouis(player.iDMark.getMoneyKeoBuaBao());
         npc.createOtherMenu(player, LyTieuNuong.ConstMiniGame.MENU_PLAY_KEO_BUA_BAO,
                 ConstFont.BOLD_BLUE + "Bạn ra cái <" + ketQuaPlayer + ">\n"
                 + "Tôi ra cái <" + ketQuaServer + ">\n"

@@ -3,7 +3,7 @@ package boss.boss_manifest.DestronGas;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstPlayer;
@@ -25,25 +25,25 @@ public class DrLychee extends Boss {
     private final int level;
     private Clan clan;
 
-    private static final int[][] FULL_DEMON = new int[][] { { Skill.DEMON, 1 }, { Skill.DEMON, 2 }, { Skill.DEMON, 3 },
-            { Skill.DEMON, 4 }, { Skill.DEMON, 5 }, { Skill.DEMON, 6 }, { Skill.DEMON, 7 } };
+    private static final int[][] FULL_DEMON = new int[][]{{Skill.DEMON, 1}, {Skill.DEMON, 2}, {Skill.DEMON, 3}, {Skill.DEMON, 4}, {Skill.DEMON, 5}, {Skill.DEMON, 6}, {Skill.DEMON, 7}};
 
     public DrLychee(Zone zone, Clan clan, int level, long dame, long hp) throws Exception {
         super(PHOBANKGHD, BossID.DR_LYCHEE, new BossData(
                 "Dr Lychee",
                 ConstPlayer.TRAI_DAT,
-                new short[] { 742, 743, 744, -1, -1, -1 },
+                new short[]{742, 743, 744, -1, -1, -1},
                 ((10000 + dame)),
-                new long[] { ((1000000 + hp)) },
-                new int[] { 148 },
+                new long[]{((1000000 + hp))},
+                new int[]{148},
                 (int[][]) Util.addArray(FULL_DEMON),
-                new String[] { "|-1|Ta đợi các ngươi mãi",
-                        "|-1|Bọn xayda các ngươi mau đền tội đi" },
-                new String[] { "|-1|Đại bác báo thù...",
-                        "|-1|Heyyyyyyyy Yaaaaa" },
-                new String[] { "|-1|Các ngươi khá lắm",
-                        "|-1|Hatchiyack sẽ báo thù cho ta" },
-                60));
+                new String[]{"|-1|Ta đợi các ngươi mãi",
+                    "|-1|Bọn xayda các ngươi mau đền tội đi"},
+                new String[]{"|-1|Đại bác báo thù...",
+                    "|-1|Heyyyyyyyy Yaaaaa"},
+                new String[]{"|-1|Các ngươi khá lắm",
+                    "|-1|Hatchiyack sẽ báo thù cho ta"},
+                60
+        ));
         this.zone = zone;
         this.level = level;
         this.clan = clan;
@@ -84,8 +84,7 @@ public class DrLychee extends Boss {
             return 0;
         }
     }
-
-    @Override
+   @Override
     public void reward(Player plKill) {
         dropCt(0);
         for (int i = 0; i < this.zone.getNumOfPlayers(); i++) {
@@ -95,7 +94,7 @@ public class DrLychee extends Boss {
         }
     }
 
-    private void dropCt(int x) {
+        private void dropCt(int x) {
         ItemMap it = new ItemMap(zone, 738, 1, this.location.x + x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), -1);
         it.options.clear();
@@ -103,9 +102,9 @@ public class DrLychee extends Boss {
         if (level >= 0 && level <= 9) {
             ParamMax = 14;
         } else if (level <= 110) {
-            ParamMax = 14 + (level / 10); // Cứ tăng 1 mỗi 10 cấp độ
+            ParamMax = 14 + (level / 10);  // Cứ tăng 1 mỗi 10 cấp độ
         } else {
-            ParamMax = 26; // Với level 110 trở lên
+            ParamMax = 26;  // Với level 110 trở lên
         }
 
         if (ParamMax < 3) {
@@ -121,7 +120,6 @@ public class DrLychee extends Boss {
         it.options.add(new Item.ItemOption(30, 0));
         Service.gI().dropItemMap(this.zone, it);
     }
-
     @Override
     public void joinMap() {
         ChangeMapService.gI().changeMap(this, this.zone, 480, 295);
@@ -147,7 +145,8 @@ public class DrLychee extends Boss {
                     clan,
                     level,
                     bossDamage,
-                    bossMaxHealth));
+                    bossMaxHealth
+            ));
         } catch (Exception ex) {
         }
         ChangeMapService.gI().exitMap(this);

@@ -3,11 +3,14 @@ package utils;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.BossManager;
 import consts.cn;
 import item.Item;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import map.ItemMap;
 import map.Zone;
 
@@ -18,10 +21,6 @@ import java.util.*;
 import mob.Mob;
 import npc.Npc;
 import player.Player;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;

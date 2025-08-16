@@ -2,9 +2,10 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstNpc;
+import consts.ConstTask;
 import item.Item;
 import map.Map;
 import npc.Npc;
@@ -12,7 +13,10 @@ import player.Player;
 import services.InventoryService;
 import services.ItemService;
 import services.MapService;
+import services.NpcService;
 import services.Service;
+import services.TaskService;
+import services.func.ChangeMapService;
 import utils.Util;
 
 public class HoaHong extends Npc {

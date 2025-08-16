@@ -3,7 +3,7 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstMap;
 import map.Map;
@@ -48,22 +48,21 @@ public class MapService {
     public int[][] readTileIndexTileType(int tileTypeFocus) {
         int[][] tileIndexTileType = null;
         try {
-            try (DataInputStream dis = new DataInputStream(new FileInputStream("data/map/tile_set_info"))) {
-                int numTileMap = dis.readByte();
-                tileIndexTileType = new int[numTileMap][];
-                for (int i = 0; i < numTileMap; i++) {
-                    int numTileOfMap = dis.readByte();
-                    for (int j = 0; j < numTileOfMap; j++) {
-                        int tileType = dis.readInt();
-                        int numIndex = dis.readByte();
+            DataInputStream dis = new DataInputStream(new FileInputStream("data/map/tile_set_info"));
+            int numTileMap = dis.readByte();
+            tileIndexTileType = new int[numTileMap][];
+            for (int i = 0; i < numTileMap; i++) {
+                int numTileOfMap = dis.readByte();
+                for (int j = 0; j < numTileOfMap; j++) {
+                    int tileType = dis.readInt();
+                    int numIndex = dis.readByte();
+                    if (tileType == tileTypeFocus) {
+                        tileIndexTileType[i] = new int[numIndex];
+                    }
+                    for (int k = 0; k < numIndex; k++) {
+                        int typeIndex = dis.readByte();
                         if (tileType == tileTypeFocus) {
-                            tileIndexTileType[i] = new int[numIndex];
-                        }
-                        for (int k = 0; k < numIndex; k++) {
-                            int typeIndex = dis.readByte();
-                            if (tileType == tileTypeFocus) {
-                                tileIndexTileType[i][k] = typeIndex;
-                            }
+                            tileIndexTileType[i][k] = typeIndex;
                         }
                     }
                 }
@@ -75,33 +74,10 @@ public class MapService {
     }
 
     //tilemap for paint
-    /**
-     * Đọc dữ liệu tile map từ file.  Kết quả sẽ được lưu vào bộ nhớ đệm để tái
-     * sử dụng cho các lần gọi tiếp theo nhằm giảm truy cập I/O.  Nếu một map đã
-     * được tải trước đó thì trả về bản sao của mảng từ cache.  Khi map chưa có
-     * trong cache, phương thức sẽ đọc dữ liệu từ file và lưu vào cache sau khi
-     * đọc xong.
-     *
-     * @param mapId id của map cần đọc
-     * @return ma trận tile của map hoặc null nếu xảy ra lỗi
-     */
     public int[][] readTileMap(int mapId) {
-        // Khởi tạo cache nếu chưa có
-        if (tileMapCache == null) {
-            tileMapCache = new java.util.HashMap<>();
-        }
-        // Nếu map đã có trong cache thì trả về một bản sao
-        int[][] cached = tileMapCache.get(mapId);
-        if (cached != null) {
-            // Tạo bản sao để đảm bảo dữ liệu trong cache không bị chỉnh sửa từ bên ngoài
-            int[][] clone = new int[cached.length][];
-            for (int i = 0; i < cached.length; i++) {
-                clone[i] = cached[i].clone();
-            }
-            return clone;
-        }
         int[][] tileMap = null;
-        try (DataInputStream dis = new DataInputStream(new FileInputStream("data/map/tile_map_data/" + mapId))) {
+        try {
+            DataInputStream dis = new DataInputStream(new FileInputStream("data/map/tile_map_data/" + mapId));
             dis.readByte();
             int w = dis.readByte();
             int h = dis.readByte();
@@ -111,28 +87,11 @@ public class MapService {
                     tileMap[i][j] = dis.readByte();
                 }
             }
-            // Lưu vào cache để tái sử dụng
-            tileMapCache.put(mapId, tileMap);
-            // Trả về bản sao của mảng mới đọc
-            int[][] clone = new int[tileMap.length][];
-            for (int i = 0; i < tileMap.length; i++) {
-                clone[i] = tileMap[i].clone();
-            }
-            return clone;
+            dis.close();
         } catch (Exception e) {
-            // Có thể ghi log nếu cần thiết
-            return tileMap;
         }
+        return tileMap;
     }
-
-    /**
-     * Bộ nhớ đệm cho tile map nhằm tránh đọc file nhiều lần.  Bởi vì dữ liệu
-     * tile map không thay đổi trong quá trình chạy server nên việc lưu vào
-     * cache sẽ giúp giảm độ trễ khi tải map và tiết kiệm tài nguyên I/O.  Sử
-     * dụng bản sao khi trả về để tránh việc sửa đổi dữ liệu bên ngoài làm hỏng
-     * cache.
-     */
-    private static java.util.Map<Integer, int[][]> tileMapCache;
 
     public Zone getMapCanJoin(Player player, int mapId, int zoneId) {
         if (isMapOffline(mapId)) {
@@ -428,6 +387,7 @@ public class MapService {
         addListMapCapsule(pl, list, getMapCanJoin(pl, 21 + pl.gender, 0));
         addListMapCapsule(pl, list, getMapCanJoin(pl, 47, 0));
         addListMapCapsule(pl, list, getMapCanJoin(pl, 45, 0));
+        addListMapCapsule(pl, list, getMapCanJoin(pl, 48, 0));
         addListMapCapsule(pl, list, getMapCanJoin(pl, 0, 0));
         addListMapCapsule(pl, list, getMapCanJoin(pl, 7, 0));
         addListMapCapsule(pl, list, getMapCanJoin(pl, 14, 0));
@@ -507,6 +467,10 @@ public boolean isAllMap(int mapId) {
 
     public boolean isMapMaBu(int mapId) {
         return mapId >= 114 && mapId <= 120;
+    }
+    
+    public boolean isMapLuyenTap2(int mapId) {
+        return mapId == ConstMap.MAP_LUYEN_TAP;
     }
 
     public boolean isHome(int mapId) {

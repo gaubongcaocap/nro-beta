@@ -3,7 +3,7 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import player.NPoint;
@@ -13,6 +13,7 @@ import player.Player;
 public class OpenPowerService {
 
     public static final int COST_SPEED_OPEN_LIMIT_POWER = 500000000;
+    public static final int COST_SPEED_OPEN_LIMIT_POWER_PET = 500;
 
     private static OpenPowerService i;
 

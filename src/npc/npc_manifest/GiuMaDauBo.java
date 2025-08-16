@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstNpc;
@@ -20,7 +20,7 @@ public class GiuMaDauBo extends Npc {
     public void openBaseMenu(Player player) {
         if (canOpenNpc(player)) {
             this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi đang muốn tìm mảnh vỡ và mảnh hồn bông tai Porata trong truyền thuyết, ta sẽ đưa ngươi đến đó ?",
-                    "OK", "Đóng");
+                    "Khiêu chiến\nBoss", "Điểm danh\n+1 Capsule\nBang", "OK", "Đóng");
         }
     }
 
@@ -28,10 +28,9 @@ public class GiuMaDauBo extends Npc {
     public void confirmMenu(Player player, int select) {
         if (canOpenNpc(player)) {
             switch (select) {
-                case 1 -> {
-                    // Code xử lý khi chọn option 1 (nếu có)
-                }
                 case 0 -> {
+                }
+                case 2 -> {
                     // Kiểm tra nếu sức mạnh của người chơi đạt 5 tỷ trở lên
                     if (player.nPoint.power >= 5_000_000_000L) {
                         player.type = 5;
@@ -44,7 +43,6 @@ public class GiuMaDauBo extends Npc {
                     }
                 }
                 default -> {
-                    // Code xử lý khi không có lựa chọn hợp lệ
                 }
             }
         }

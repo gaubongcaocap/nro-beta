@@ -3,7 +3,7 @@ package intrinsic;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import services.IntrinsicService;

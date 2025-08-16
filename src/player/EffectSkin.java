@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import item.Item;
 import mob.Mob;
@@ -118,7 +118,7 @@ public class EffectSkin {
             updateHoaDa();
             updateLamCham();
             updateXChuong();
-//            updateHalloween();
+            updateHalloween();
             updateCTDietQuy();
             updateBunmaTocMau();
             updateTiecbaiBien();
@@ -568,26 +568,26 @@ public class EffectSkin {
         }
     }
 
-//    private void updateHalloween() {
-//        try {
-//            if (this.player.effectSkill != null && this.player.effectSkill.isHalloween) {
-//                if (Util.canDoWithTime(lastTimeHalloween, 10000)) {
-//                    List<Player> playersMap = this.player.zone.getNotBosses();
-//                    for (int i = playersMap.size() - 1; i >= 0; i--) {
-//                        Player pl = playersMap.get(i);
-//                        if (pl != null && pl.nPoint != null && !this.player.equals(pl) && pl.effectSkill != null && !pl.effectSkill.isHalloween && !pl.isPet && !pl.isDie()
-//                                && Util.getDistance(this.player, pl) <= 200) {
-//                            EffectSkillService.gI().setIsHalloween(pl, -1, 1800000);
-//                        }
-//
-//                    }
-//                    this.lastTimeHalloween = System.currentTimeMillis();
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void updateHalloween() {
+        try {
+            if (this.player.effectSkill != null && this.player.effectSkill.isHalloween) {
+                if (Util.canDoWithTime(lastTimeHalloween, 10000)) {
+                    List<Player> playersMap = this.player.zone.getNotBosses();
+                    for (int i = playersMap.size() - 1; i >= 0; i--) {
+                        Player pl = playersMap.get(i);
+                        if (pl != null && pl.nPoint != null && !this.player.equals(pl) && pl.effectSkill != null && !pl.effectSkill.isHalloween && !pl.isPet && !pl.isDie()
+                                && Util.getDistance(this.player, pl) <= 200) {
+                            EffectSkillService.gI().setIsHalloween(pl, -1, 1800000);
+                        }
+
+                    }
+                    this.lastTimeHalloween = System.currentTimeMillis();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     //giáp tập luyện
     private void updateTrainArmor() {

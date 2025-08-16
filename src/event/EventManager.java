@@ -2,7 +2,7 @@ package event;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import event.event_manifest.TopUp;

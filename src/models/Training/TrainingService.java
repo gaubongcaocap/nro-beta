@@ -3,7 +3,7 @@ package models.Training;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -110,20 +110,13 @@ public class TrainingService {
 
     public int getTnsmMoiPhut(Player player) {
         return switch (player.levelLuyenTap) {
-            case 0 ->
-                20;
-            case 1 ->
-                40;
-            case 2 ->
-                80;
-            case 3 ->
-                160;
-            case 4 ->
-                320;
-            case 5 ->
-                640;
-            default ->
-                player.tnsmLuyenTap > 1280 ? player.tnsmLuyenTap : 1280;
+            case 0 -> 20;
+            case 1 -> 40;
+            case 2 -> 80;
+            case 3 -> 160;
+            case 4 -> 320;
+            case 5 -> 640;
+            default -> player.tnsmLuyenTap > 1280 ? player.tnsmLuyenTap : 1280;
         };
     }
 
@@ -205,4 +198,5 @@ public class TrainingService {
             player.lastTimeOffline = System.currentTimeMillis();
         }
     }
+
 }

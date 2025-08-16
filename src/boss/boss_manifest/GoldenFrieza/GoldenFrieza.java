@@ -3,7 +3,7 @@ package boss.boss_manifest.GoldenFrieza;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.*;
 import consts.ConstPlayer;
@@ -17,7 +17,6 @@ import utils.Util;
 
 import mob.Mob;
 import network.Message;
-import services.ItemService;
 import services.MapService;
 import services.PlayerService;
 import services.SkillService;
@@ -38,9 +37,19 @@ public class GoldenFrieza extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        if (Util.isTrue(50, 100)) {
-            ItemMap it = new ItemMap(this.zone, 629, 1, this.location.x + 5, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
+        if (Util.isTrue(10, 100)) { // 10% rơi item 1560, số lượng 1
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 1560, 1, this.location.x + 5,
+                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+        } else if (Util.isTrue(20, 90)) { // 20% rơi item 457, số lượng ngẫu nhiên 10-15
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 457, Util.nextInt(10, 15), this.location.x + 5,
+                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+        } else if (Util.isTrue(20, 70)) { // 20% rơi ngẫu nhiên item từ 555-567, số lượng 1
+            int randomItem = Util.nextInt(555, 567);
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, randomItem, 1, this.location.x + 5,
+                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+        } else { // 50% giữ nguyên cách cũ
+            ItemMap it = new ItemMap(this.zone, 629, 1, this.location.x + 5,
+                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
             it.options.add(new Item.ItemOption(50, Util.nextInt(20, 30)));
             it.options.add(new Item.ItemOption(77, Util.nextInt(20, 40)));
             it.options.add(new Item.ItemOption(103, Util.nextInt(20, 40)));
@@ -49,43 +58,10 @@ public class GoldenFrieza extends Boss {
             it.options.add(new Item.ItemOption(93, 7));
             Service.gI().dropItemMap(this.zone, it);
             for (int i = 0; i < Util.nextInt(3, 10); i++) {
-                Service.gI().dropItemMap(this.zone,
-                        new ItemMap(zone, 76, Util.nextInt(20000, 30000), this.location.x + i * 10,
-                                this.zone.map.yPhysicInTop(this.location.x,
-                                        this.location.y - 24),
-                                plKill.id));
-            }
-        } else {
-            for (int i = 0; i < Util.nextInt(3, 10); i++) {
-                Service.gI().dropItemMap(this.zone,
-                        new ItemMap(zone, 77, Util.nextInt(10, 20), this.location.x + i * 10,
-                                this.zone.map.yPhysicInTop(this.location.x,
-                                        this.location.y - 24),
-                                plKill.id));
-            }
-
-            short goldItemId = 190;
-            int goldQuantity = Util.nextInt(10_000_000, 20_000_000); // Từ 10 triệu đến 20 triệu.
-            Service.gI().dropItemMap(this.zone, new ItemMap(
-                    zone,
-                    goldItemId,
-                    goldQuantity,
-                    this.location.x + Util.nextInt(-30, 30),
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
-                    plKill.id));
-            if (Util.isTrue(3, 100)) {
-                ItemMap it = ItemService.gI().randDoTLBoss(this.zone, 1, this.location.x,
-                        this.zone.map.yPhysicInTop(this.location.x,
-                                this.location.y - 24),
-                        plKill.id);
-                Service.gI().dropItemMap(this.zone, it);
+                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 76, Util.nextInt(20000, 30000),
+                        this.location.x + i * 10, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
             }
         }
-        // sự kiện
-        int quantity = 1;
-       ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override
@@ -107,8 +83,8 @@ public class GoldenFrieza extends Boss {
                 }
                 damage = 1;
             }
-            if (damage > 1) {
-                damage = 1;
+            if (damage > 20_000_000) {
+                damage = 20_000_000;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -189,18 +165,15 @@ public class GoldenFrieza extends Boss {
                         if (pl == null || pl.isDie()) {
                             return;
                         }
-                        this.playerSkill.skillSelect = this.playerSkill.skills
-                                .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                        this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                         if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
                             if (Util.isTrue(5, 20)) {
                                 if (SkillUtil.isUseSkillChuong(this)) {
                                     this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)),
-                                            Util.nextInt(10) % 2 == 0 ? pl.location.y
-                                                    : pl.location.y - Util.nextInt(0, 70));
+                                            Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 70));
                                 } else {
                                     this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(10, 40)),
-                                            Util.nextInt(10) % 2 == 0 ? pl.location.y
-                                                    : pl.location.y - Util.nextInt(0, 50));
+                                            Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50));
                                 }
                             }
                             SkillService.gI().useSkill(this, pl, null, -1, null);
@@ -247,7 +220,7 @@ public class GoldenFrieza extends Boss {
                         for (Player pl : playersMap) {
                             if (!this.equals(pl)) {
                                 pl.injured(this, 2_100_000_000, true, false);
-                                // pl.setDie();
+//                            pl.setDie();
                                 PlayerService.gI().sendInfoHpMpMoney(pl);
                                 Service.gI().Send_Info_NV(pl);
                             }

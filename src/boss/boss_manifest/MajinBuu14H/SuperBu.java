@@ -3,7 +3,7 @@ package boss.boss_manifest.MajinBuu14H;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -16,9 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import map.ItemMap;
 import player.Player;
+import server.Manager;
 import services.*;
 import utils.Util;
 
+import java.util.Random;
 import server.ServerNotify;
 import services.func.ChangeMapService;
 import utils.SkillUtil;
@@ -56,8 +58,7 @@ public class SuperBu extends Boss {
                     timeUseSkill = Util.nextInt(5000, 10000);
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(5, 20)) {
                         if (SkillUtil.isUseSkillChuong(this)) {
@@ -82,24 +83,15 @@ public class SuperBu extends Boss {
     public void reward(Player plKill) {
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
         if (Util.isTrue(15, 100)) {
-            ItemMap it = ItemService.gI().randDoTLBoss(this.zone, 1, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x,
-                            this.location.y - 24),
-                    -1);
+            ItemMap it = ItemService.gI().randDoTL(this.zone, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), -1);
             Service.gI().dropItemMap(this.zone, it);
         }
-        if (Util.isTrue(10, 100)) {
-            ItemMap it = ItemService.gI().randQuanThanLinh(this.zone, 1, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x,
-                            this.location.y - 24),
-                    plKill.id);
+        if (Util.isTrue(3, 100)) {
+            ItemMap it = ItemService.gI().randQuanThanLinh(this.zone, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
-        // sự kiện
-        int quantity = Util.nextInt(5, 10);
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override

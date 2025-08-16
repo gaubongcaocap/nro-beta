@@ -2,7 +2,7 @@ package player;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstTaskBadges;
 import item.Item;
@@ -47,7 +47,7 @@ public class SuperRank {
     public void reward() {
         int rw = SuperRankService.gI().reward(rank);
         if (rw != -1) {
-            NpcService.gI().createTutorial(player, -1, "Bạn đang ở TOP " + rank + " võ đài Siêu Hạng, được thưởng " + rw + " ngọc");
+            NpcService.gI().createTutorial(player, -1, "Bạn đang ở TOP " + rank + " võ đài Siêu Hạng, được thưởng " + rw + " Thỏi vàng");
             if (rank == 1) {
                 BadgesTaskService.updateCountBagesTask(player, ConstTaskBadges.CAO_THU_SIEU_HANG, 1);
             }
@@ -57,8 +57,9 @@ public class SuperRank {
     }
 
     public void rwThoiVang(Player pl, int sl) {
-        Item thoivang = ItemService.gI().createNewItem((short) 77);
+        Item thoivang = ItemService.gI().createNewItem((short) 457);
         thoivang.quantity = sl;
+        thoivang.addOptionParam(30, 1);
         if (InventoryService.gI().getCountEmptyBag(pl) <= 0) {
             pl.inventory.itemsMailBox.add(thoivang);
             NDVSqlFetcher.updateMailBox(pl);

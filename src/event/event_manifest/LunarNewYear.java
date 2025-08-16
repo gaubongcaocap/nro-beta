@@ -2,9 +2,8 @@ package event.event_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author YourSoulMatee
  */
-
 import boss.BossID;
 import event.Event;
 import item.Item;

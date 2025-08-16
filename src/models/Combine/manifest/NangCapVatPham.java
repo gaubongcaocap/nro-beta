@@ -4,7 +4,9 @@ import consts.ConstFont;
 import consts.ConstNpc;
 import consts.ConstTaskBadges;
 import item.Item;
+import java.time.LocalDate;
 import models.Combine.CombineService;
+import models.Combine.CombineUtil;
 import player.Player;
 import server.ServerNotify;
 import services.ChatGlobalService;
@@ -156,7 +158,7 @@ public class NangCapVatPham {
         if (canUseDBV && useDBV && daBaoVe == null && daBaoVeKhoa == null) {
             return;
         }
-        if (Util.isTrue(getRatio(level), 100)) {
+        if (Util.isTrue(getRatio(level), 130)) {
             for (Item.ItemOption io : trangBi.itemOptions) {
                 if (io.isOptionCanUpgrade()) {
                     io.param += (io.param * 10 / 100);
@@ -169,16 +171,17 @@ public class NangCapVatPham {
             if (level > 1) {
                 Service.gI().chatJustForMe(player, player, player.name + ": Vừa nâng cấp thành công " + trangBi.template.name + " lên +" + (level + 1));
             }
+
             if (level > 5) {
                 ServerNotify.gI().notify(player.name + ": Vừa nâng cấp thành công " + trangBi.template.name + " lên +" + (level + 1));
             }
 
-            // Gửi thông báo chat thế giới
-            String message = player.name + ": Vừa nâng cấp thành công " + trangBi.template.name + " lên +" + (level + 1);
-            ChatGlobalService.gI().autoChatGlobal(player, "[Hệ thống] " + message);
 
-            if (level == 7) {
+            if (level >= 7) {
                 BadgesTaskService.updateCountBagesTask(player, ConstTaskBadges.THANH_DAP_DO_7, 1);
+	            // Gửi thông báo chat thế giới
+	            String message = player.name + ": Vừa nâng cấp thành công " + trangBi.template.name + " lên +" + (level + 1);
+	            ChatGlobalService.gI().autoChatGlobal(player, "[Hệ thống] " + message);
             }
         } else {
             if (canUseDBV) {
@@ -209,5 +212,4 @@ public class NangCapVatPham {
         Service.gI().sendMoney(player);
         CombineService.gI().reOpenItemCombine(player);
     }
-
 }

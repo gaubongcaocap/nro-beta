@@ -43,8 +43,8 @@ public class CombineService {
 
     private static final int COST = 500000000;
     private static final int TIME_COMBINE = 1500;
-    public static final byte MAX_STAR_ITEM = 8;
-    public static final byte MAX_LEVEL_ITEM = 8;
+    public static final byte MAX_STAR_ITEM = 9;
+    public static final byte MAX_LEVEL_ITEM = 9;
     private static final byte OPEN_TAB_COMBINE = 0;
     private static final byte REOPEN_TAB_COMBINE = 1;
     private static final byte combineSUCCESS = 2;
@@ -193,7 +193,7 @@ public class CombineService {
         }
         switch (player.combine.typeCombine) {
             case EP_SAO_TRANG_BI ->
-                EpSaoTrangBi.epSaoTrangBi(player);
+                EpSaoTrangBi.epSaoTrangBi(player, num);
             case PHA_LE_HOA_TRANG_BI ->
                 PhaLeHoaTrangBi.phaLeHoa(player, num);
             case NHAP_NGOC_RONG ->
@@ -441,8 +441,8 @@ public class CombineService {
         try {
             msg = new Message(-81);
             msg.writer().writeByte(0);
-            msg.writer().writeUTF("By NTDEntertainment");
-            msg.writer().writeUTF("Tấn Đạt - Đẳng Cấp Là Mãi Mãi");
+            msg.writer().writeUTF("By NguyenDucVuEntertainment");
+            msg.writer().writeUTF("NroLegion - Đẳng Cấp Là Mãi Mãi");
             msg.writer().writeShort(npcId);
             player.sendMessage(msg);
             msg.cleanup();

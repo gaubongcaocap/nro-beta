@@ -3,7 +3,7 @@ package matches;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 public enum TYPE_LOSE_PVP {

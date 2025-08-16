@@ -2,7 +2,7 @@ package mob.bigboss_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import mob.BigBoss;

@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import jdbc.NDVDB;
 import jdbc.daos.NDVSqlFetcher;
 
 import matches.TOP;
@@ -37,7 +38,7 @@ public class TopService {
     public void updateTop() {
         if (Manager.timeRealTop + (10 * 60 * 1000) < System.currentTimeMillis()) {
             Manager.timeRealTop = System.currentTimeMillis();
-            try ( Connection con = DBConnecter.getConnectionServer()) {
+            try (Connection con = DBConnecter.getConnectionServer()) {
                 Manager.topNV = Manager.realTop(ConstSQL.TOP_NV, con);
                 Manager.topDC = Manager.realTop(ConstSQL.TOP_DC, con);
                 Manager.topVDST = Manager.realTop(ConstSQL.TOP_VDST, con);

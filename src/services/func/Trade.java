@@ -3,25 +3,24 @@ package services.func;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
-import jdbc.daos.HistoryTransactionDAO;
+import Bot.Bot;
 import item.Item;
 import player.Inventory;
 import player.Player;
 import network.Message;
 import services.ItemService;
-import services.PlayerService;
 import services.Service;
-import services.InventoryService;
 import utils.Logger;
 import utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import Bot.Bot;
+import jdbc.daos.HistoryTransactionDAO;
 import server.ServerManager;
+import services.InventoryService;
+import services.PlayerService;
 
 public class Trade {
 
@@ -87,7 +86,6 @@ public class Trade {
             }
         }
     }
-
     public void addItemBot(Item it){
         itemsTrade2.add(it);
     }

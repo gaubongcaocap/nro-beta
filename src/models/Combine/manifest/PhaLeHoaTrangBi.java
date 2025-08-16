@@ -16,23 +16,25 @@ public class PhaLeHoaTrangBi {
     private static float getRatio(int star) {
         return switch (star) {
             case 0 ->
-                50;
+                80;
             case 1 ->
-                20;
+                50;
             case 2 ->
-                10;
+                20;
             case 3 ->
-                5;
+                10;
             case 4 ->
-                3;
+                5;
             case 5 ->
                 2;
             case 6 ->
-                1;
+                1f;
             case 7 ->
                 0.5f;
             case 8 ->
-                0.2f;
+                0.1f;
+            case 9 ->
+                0.07f;
             default ->
                 0;
         };
@@ -74,23 +76,23 @@ public class PhaLeHoaTrangBi {
     private static int getGem(int star) {
         return switch (star) {
             case 0 ->
-                1;
-            case 1 ->
-                2;
-            case 2 ->
-                3;
-            case 3 ->
-                4;
-            case 4 ->
                 5;
-            case 5 ->
-                6;
-            case 6 ->
+            case 1 ->
                 7;
-            case 7 ->
-                8;
-            case 8 ->
+            case 2 ->
                 9;
+            case 3 ->
+                11;
+            case 4 ->
+                13;
+            case 5 ->
+                15;
+            case 6 ->
+                17;
+            case 7 ->
+                20;
+            case 8 ->
+                30;
             default ->
                 0;
         };
@@ -132,7 +134,7 @@ public class PhaLeHoaTrangBi {
             return;
         }
         CombineService.gI().baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, text.toString(),
-                "Nâng cấp\n" + gem + " ngọc\nx100 lần", "Nâng cấp\n" + gem + " ngọc\nx10 lần", "Nâng cấp\n" + gem + " ngọc", "Từ chối");
+                "Nâng cấp\n500 lần","Nâng cấp\n100 lần", "Nâng cấp\n10 lần", "Nâng cấp\n1 lần", "Từ chối");
     }
 
     public static void phaLeHoa(Player player, int... numm) {
@@ -143,10 +145,12 @@ public class PhaLeHoaTrangBi {
         if (!player.combine.itemsCombine.isEmpty()) {
             Item item = player.combine.itemsCombine.get(0);
             if (item == null || !item.isNotNullItem() || item.isHaveOption(93) || !item.canPhaLeHoa()) {
+                Service.gI().sendDialogMessage(player, "Vui lòng chọn vật phẩm có thể pha lê hóa");
                 return;
             }
             int star = item.getOptionParam(107);
             if (star >= CombineService.MAX_STAR_ITEM) {
+                Service.gI().sendDialogMessage(player, "Trang bị đã đạt giới hạn, không thể pha lê hóa");
                 return;
             }
             int gold = getGold(star);
@@ -178,17 +182,18 @@ public class PhaLeHoaTrangBi {
                     break;
                 }
             }
+
             if (success) {
                 item.addOptionParam(107, 1);
-                if (star > 4) {
+                if (star + 1 == 9) {
                     String message = "Chúc mừng " + player.name + " vừa pha lê hóa thành công "
-                            + item.template.name + " lên " + (star + 1) + " sao pha lê";
+                            + item.template.name + " lên " + (star + 1) + " sao pha lê. Mọi người đều ngưỡng mộ";
 
                     // Gửi thông báo server
                     ServerNotify.gI().notify(message);
 
                     // Gửi chat thế giới
-                    ChatGlobalService.gI().autoChatGlobal(player, "[Hệ thống] " + message);
+                    //ChatGlobalService.gI().autoChatGlobal(player, "[Hệ thống] " + message);
                 }
                 if (n > 1) {
                     Service.gI().sendServerMessage(player, "Thành công sau " + num + " lần nâng cấp.");

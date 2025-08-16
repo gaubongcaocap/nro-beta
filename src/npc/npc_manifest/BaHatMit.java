@@ -37,32 +37,31 @@ public class BaHatMit extends Npc {
         super(mapId, status, cx, cy, tempId, avartar);
     }
 
-
     @Override
     public void openBaseMenu(Player player) {
         if (canOpenNpc(player)) {
             switch (this.mapId) {
                 case 5 ->
                     this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Chức năng\nPha lê", "Nâng SKH", "SHOP\nBà Hạt Mít","Đập Đồ");
-               case 112 -> {
-                   if (Util.isAfterMidnight(player.lastTimePKVoDaiSinhTu)) {
-                       player.haveRewardVDST = false;
-                       player.thoiVangVoDaiSinhTu = 0;
-                   }
-                   if (player.haveRewardVDST) {
-                       this.createOtherMenu(player, ConstNpc.BASE_MENU, "Đây là phần thưởng cho con.", "1 ngọc bí\nbất kì", "1 bí ngô");
-                       return;
-                   }
-                   if (DeathOrAliveArenaManager.gI().getVDST(player.zone) != null) {
-                       if (DeathOrAliveArenaManager.gI().getVDST(player.zone).getPlayer().equals(player)) {
-                           this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn hủy đăng ký thi đấu võ đài?", "Top 100", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
-                           return;
-                       }
-                       this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn đăng ký thi đấu võ đài?\nnhiều phần thưởng giá trị đang đợi ngươi đó", "Top 100", "Bình chọn", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
-                       return;
-                   }
-                   this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn đăng ký thi đấu võ đài?\nnhiều phần thưởng giá trị đang đợi ngươi đó", "Top 100", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
-               }
+//                case 112 -> {
+//                    if (Util.isAfterMidnight(player.lastTimePKVoDaiSinhTu)) {
+//                        player.haveRewardVDST = false;
+//                        player.thoiVangVoDaiSinhTu = 0;
+//                    }
+//                    if (player.haveRewardVDST) {
+//                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Đây là phần thưởng cho con.", "1 ngọc bí\nbất kì", "1 bí ngô");
+//                        return;
+//                    }
+//                    if (DeathOrAliveArenaManager.gI().getVDST(player.zone) != null) {
+//                        if (DeathOrAliveArenaManager.gI().getVDST(player.zone).getPlayer().equals(player)) {
+//                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn hủy đăng ký thi đấu võ đài?", "Top 100", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
+//                            return;
+//                        }
+//                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn đăng ký thi đấu võ đài?\nnhiều phần thưởng giá trị đang đợi ngươi đó", "Top 100", "Bình chọn", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
+//                        return;
+//                    }
+//                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn đăng ký thi đấu võ đài?\nnhiều phần thưởng giá trị đang đợi ngươi đó", "Top 100", "Đồng ý\n" + player.thoiVangVoDaiSinhTu + " thỏi vàng", "Từ chối", "Về\nđảo rùa");
+//                }
                 case 174 ->
                     this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Quay về", "Từ chối");
                 case 181 ->
@@ -159,15 +158,15 @@ public class BaHatMit extends Npc {
                         }
                         case ConstMenu.SHOP_BHM -> {
                             switch (select) {
-//                                case 0: //Nhận chân mệnh
-//                                    if (player.event.getEventPointBHM() >= 1000) {
+                               case 0: //Nhận chân mệnh
+                                   if (player.event.getEventPointBHM() >= 1000) {
 //                                         Item item
-//                                    }
-//                                    Service.gI().sendThongBao(player, "Chưa mở");
-//                                    break;
-//                                case 1: //Nâng cấp chân mệnh
-//                                    CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_CHAN_MENH);
-//                                    break;
+                                   }
+                                   Service.gI().sendThongBao(player, "Chưa mở");
+                                   break;
+                               case 1: //Nâng cấp chân mệnh
+                                   CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_CHAN_MENH);
+                                   break;
                                 case 2: //Tẩy đồ
                                     ShopService.gI().opendShop(player, "SHOP_BHM", false);
                                     break;
@@ -228,11 +227,24 @@ public class BaHatMit extends Npc {
                                 case CombineService.PHA_LE_HOA_TRANG_BI -> {
                                     switch (select) {
                                         case 0 ->
-                                            CombineService.gI().startCombine(player, 100);
+                                            CombineService.gI().startCombine(player, 500);
                                         case 1 ->
-                                            CombineService.gI().startCombine(player, 10);
+                                            CombineService.gI().startCombine(player, 100);
                                         case 2 ->
+                                            CombineService.gI().startCombine(player, 10);
+                                        case 3 ->
+                                            CombineService.gI().startCombine(player, 1);
+                                        case 4 ->
                                             CombineService.gI().startCombine(player);
+                                    }
+                                }
+
+                                case CombineService.EP_SAO_TRANG_BI -> {
+                                    switch (select) {
+                                        case 0 ->
+                                            CombineService.gI().startCombine(player, 7);
+                                        case 1 ->
+                                            CombineService.gI().startCombine(player, 1);
                                     }
                                 }
 
@@ -242,7 +254,6 @@ public class BaHatMit extends Npc {
                                         CombineService.DANH_BONG_SAO_PHA_LE,
                                         CombineService.CUONG_HOA_LO_SAO_PHA_LE,
                                         CombineService.TAO_DA_HEMATITE,
-                                        CombineService.EP_SAO_TRANG_BI,
                                         CombineService.DAP_DO_AO_HOA,
                                         CombineService.PS_HOA_TRANG_BI,
                                         CombineService.TAY_PS_HOA_TRANG_BI,

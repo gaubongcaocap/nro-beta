@@ -3,6 +3,8 @@ package Bot;
 import java.util.Random;
 import models.Template;
 import server.Manager;
+import services.Service;
+import skill.Skill;
 import utils.Util;
 
 public class NewBot {
@@ -70,17 +72,8 @@ public class NewBot {
             "tampro2k", "vietdz123", "linhbluez", "cuongno1st", "traipvp88", "phongkingz"
     };
 
-    /**
-     * List of bot names loaded from an external text file.  If this list is
-     * non‑empty, {@link #Getname()} will randomly select a name from this
-     * list instead of using the hard coded FULL_NAMES array.  Names can be
-     * customised by editing the file located at {@code server_game/data/bot_names.txt}.
-     */
     private static java.util.List<String> BOT_NAMES = new java.util.ArrayList<>();
 
-    // Static block to populate BOT_NAMES from file on class load.  The file
-    // should contain one name per line.  If the file does not exist or
-    // reading fails, BOT_NAMES will remain empty and FULL_NAMES will be used.
     static {
         try {
             java.nio.file.Path path = java.nio.file.Paths.get("data/bot_names.txt");
@@ -158,6 +151,7 @@ public class NewBot {
     public void runBot(int type, ShopBot shop, int slot) {
         LoadPart();
         for (int i = 0; i < slot; i++) {
+            long actualPower;
             int gender = rand.nextInt(3);
             int partIndex = getIndex(gender);
             short head = (short) PARTBOT[partIndex][0];
@@ -172,29 +166,32 @@ public class NewBot {
             b.mo1 = new Mobb(b);
             b.boss = new Sanb(b);
 
-            long congThem = rand.nextInt(500_000);
+            long congThem = rand.nextInt(41211);
             long basePower = switch (i % 3) {
                 case 0 -> 1_000_000L + congThem * Util.nextInt(1, 10);
-                case 1 -> 2_000_000_000L + congThem * Util.nextInt(1, 20);
-                default -> 4_000_000_000L + congThem * Util.nextInt(1, 40);
+                case 1 -> 2_000_000_000L + congThem * Util.nextInt(1, 16);
+                default -> 4_000_000_000L + congThem * Util.nextInt(1, 23);
             };
 
-            double factor = basePower / 1_000_000.0;
+            double factor = basePower / 11125512.0;
             b.nPoint.power = basePower;
             b.nPoint.tiemNang = basePower * 2;
-            b.nPoint.dameg = (long) (1_000 * factor);
-            b.nPoint.mpg = b.nPoint.mpMax = b.nPoint.mp = (long) (10_000 * factor);
-            b.nPoint.hpg = b.nPoint.hpMax = b.nPoint.hp = (long) (10_000 * factor);
+            b.nPoint.dameg = (long) (1016 * factor);
+            b.nPoint.mpg = b.nPoint.mpMax = b.nPoint.mp = (long) (81259 * factor);
+            b.nPoint.hpg = b.nPoint.hpMax = b.nPoint.hp = (long) (51261 * factor);
             b.nPoint.maxStamina = b.nPoint.stamina = 10_000;
             b.nPoint.critg = 10;
             b.nPoint.defg = 10;
 
             b.leakSkill();
-            // Thiết lập skill mặc định để tránh skillSelect null khi bot cập nhật
-            if (b.playerSkill != null && b.playerSkill.skills != null && !b.playerSkill.skills.isEmpty()) {
-                b.playerSkill.skillSelect = b.playerSkill.skills.get(0);
+            if (b.playerSkill.skills.isEmpty()) {
+                // tạo skill mặc định tuỳ theo gender hoặc class
+                Skill basic = new Skill(Manager.NCLASS.get(b.gender).skillTemplatess.get(0).skillss.get(0));
+                b.playerSkill.skills.add(basic);
             }
+            b.playerSkill.skillSelect = b.playerSkill.skills.get(0);
             b.joinMap();
+            Service.gI().Send_Caitrang(b);
 
             if (b.shop != null) {
                 b.shop.bot = b;  

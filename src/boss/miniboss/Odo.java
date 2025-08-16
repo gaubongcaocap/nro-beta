@@ -7,7 +7,7 @@ import boss.BossStatus;
 import consts.ConstPlayer;
 import java.util.List;
 import map.ItemMap;
-import player.Player;
+  import player.Player;
 import services.PlayerService;
 import services.Service;
 import services.SkillService;
@@ -25,26 +25,27 @@ public class Odo extends Boss {
         super(BossID.O_DO1, new BossData(
                 "Ở Dơ " + Util.nextInt(1, 49),
                 ConstPlayer.TRAI_DAT,
-                new short[] { 400, 401, 402, -1, -1, -1 },
+                new short[]{400, 401, 402, -1, -1, -1},
                 1000,
-                new long[] { 500000 },
-                new int[] { 5, 7, 0, 14 },
-                new int[][] {
-                        { Skill.DRAGON, 7, 10000 } },
-                new String[] {}, // text chat 1
-                new String[] {}, // text chat 2
-                new String[] {},
+                new long[]{500000},
+                new int[]{5, 7, 0, 14},
+                new int[][]{
+                    {Skill.DRAGON, 7, 10000}},
+                new String[]{}, //text chat 1
+                new String[]{}, //text chat 2
+                new String[]{},
                 600000));
     }
+
 
     @Override
     public synchronized long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
-            //
+//       
             if (damage >= 50000) {
                 damage = 50000;
             }
-            // this.nPoint.dame = (int) damage / Util.nextInt(500, 1000);
+//            this.nPoint.dame = (int) damage / Util.nextInt(500, 1000);
             this.nPoint.subHP(damage);
             return (int) damage;
         } else {
@@ -67,7 +68,7 @@ public class Odo extends Boss {
                             subHp = (int) (pl.nPoint.hp - 1);
                         }
                         this.chat("Bùm Bùm");
-                        // Service.gI().chat(pl, textOdo[Util.nextInt(0, textOdo.length - 1)]);
+//                        Service.gI().chat(pl, textOdo[Util.nextInt(0, textOdo.length - 1)]);
                         PlayerService.gI().sendInfoHpMpMoney(pl);
                         pl.injured(null, subHp, true, false);
                     }
@@ -102,8 +103,7 @@ public class Odo extends Boss {
                 if (pl == null || pl.isDie()) {
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
 
                 if (Util.getDistance(this, pl) <= 40) {
                     if (Util.isTrue(5, 20)) {
@@ -141,10 +141,8 @@ public class Odo extends Boss {
     @Override
     public void reward(Player plKill) {
         for (byte i = 0; i < 5; i++) {
-            ItemMap it = new ItemMap(this.zone, 457, (int) 5, this.location.x + i * 3,
-                    this.zone.map.yPhysicInTop(this.location.x,
-                            this.location.y - 24),
-                    plKill.id);
+            ItemMap it = new ItemMap(this.zone, 457, (int) 5, this.location.x + i * 3, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
     }

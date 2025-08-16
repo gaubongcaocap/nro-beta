@@ -24,58 +24,50 @@ import player.Player;
 import utils.Logger;
 
 // su kien 1/6
-public class ConstDataEventSM {
+public class ConstDataEventSM {//Zalo: 0385436233
 
     public static ConstDataEventSM gI;
 
-    public static ConstDataEventSM gI() {
-        if (gI == null) {
+    public static ConstDataEventSM gI() {//Zalo: 0385436233
+        if (gI == null) {//Zalo: 0385436233
             gI = new ConstDataEventSM();
         }
         return gI;
     }
 
-    public static boolean isEventActive() {
+    public static boolean isEventActive() {//Zalo: 0385436233
         return false;
     }
 
     public static boolean isTraoQua = true;
-
     public static Calendar startEvent;
-
     public static Calendar endEvents;
-
     public static boolean initsukien = false;
-
-    public static final byte MONTH_OPEN = 7;
-    public static final byte DATE_OPEN = 31;
-    public static final byte HOUR_OPEN = 12;
+    public static final byte MONTH_OPEN = 0;
+    public static final byte DATE_OPEN = 0;
+    public static final byte HOUR_OPEN = 17;
     public static final byte MIN_OPEN = 00;
 
-    public static final byte MONTH_END = 12;
-    public static final byte DATE_END = 31;
-    public static final byte HOUR_END = 00;
-    public static final byte MIN_END = 00;
+    public static final byte MONTH_END = 1;
+    public static final byte DATE_END = 23;
+    public static final byte HOUR_END = 17;
+    public static final byte MIN_END = 0;
 
     public static boolean isActiveEvent() {
         if (!initsukien) {
             initsukien = true;
             startEvent = Calendar.getInstance();
 
-            // Thiết lập ngày và giờ bắt đầu
-            startEvent.set(2025, MONTH_OPEN - 1, DATE_OPEN, HOUR_OPEN, MIN_OPEN);
+            startEvent.set(2025, MONTH_OPEN-1 , DATE_OPEN, HOUR_OPEN, MIN_OPEN);
             System.out.println("Ngày bắt đầu sự kiện đua top sm: " + startEvent.getTime());
-
-            endEvents = Calendar.getInstance();
-            // Thiết lập ngày và giờ kết thúc
-            endEvents.set(2025, MONTH_END - 1, DATE_END, HOUR_END, MIN_END);
+            endEvents = Calendar.getInstance();      
+            endEvents.set(2025, MONTH_END-1 , DATE_END, HOUR_END, MIN_END);
             System.out.println("Ngày kết thúc sự kiện đua top sm: " + endEvents.getTime());
         }
-
-        if (System.currentTimeMillis() >= startEvent.getTimeInMillis()
-                && System.currentTimeMillis() <= endEvents.getTimeInMillis()) {
+        Calendar currentTime = Calendar.getInstance();
+        if (System.currentTimeMillis() >= startEvent.getTimeInMillis() && System.currentTimeMillis() <= endEvents.getTimeInMillis()) {
             if (isTraoQua && System.currentTimeMillis() + 60000 >= endEvents.getTimeInMillis()) {
-                String sql = "SELECT id, name, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player WHERE create_time > '2025-" + MONTH_OPEN + "-" + DATE_OPEN + " " + HOUR_OPEN + ":" + MIN_OPEN + ":00' ORDER BY CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 10;";
+                String sql = "SELECT id, name, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player WHERE create_time > '2024-" + MONTH_OPEN + "-" + DATE_OPEN + " " + HOUR_OPEN + ":" + MIN_OPEN + ":00' ORDER BY CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 10;";
                 List<Integer> AccIdPlayer = new ArrayList<>();
                 NDVResultSet rs = null;
                 try {
@@ -92,7 +84,7 @@ public class ConstDataEventSM {
                     TraoQuaSuKien(player, i + 1);
                     Logger.error("Đã trao quà sm " + (i + 1) + " SM cho: " + player.name + "\n");
                     try {
-                        // Thread.sleep(100);
+                        //Thread.sleep(100);
                         Functions.sleep(100);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -113,10 +105,9 @@ public class ConstDataEventSM {
         Item item = null;
         JSONArray dataArray;
         JSONObject dataObject;
-        try (Connection con2 = DBConnecter.getConnectionServer();
-                PreparedStatement ps = con2.prepareStatement("SELECT detail FROM moc_suc_manh_top WHERE id = ?")) {
+        try ( Connection con2 = DBConnecter.getConnectionServer();  PreparedStatement ps = con2.prepareStatement("SELECT detail FROM moc_suc_manh_top WHERE id = ?")) {
             ps.setInt(1, index);
-            try (ResultSet rs = ps.executeQuery()) {
+            try ( ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     dataArray = (JSONArray) JSONValue.parse(rs.getString("detail"));
                     for (int i = 0; i < dataArray.size(); i++) {

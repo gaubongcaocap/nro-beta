@@ -3,7 +3,7 @@ package boss.boss_manifest.Broly;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.Boss;
 import boss.BossData;
@@ -62,7 +62,7 @@ public class Broly extends Boss {
         this.nPoint.dame = this.nPoint.hpMax / 100;
         this.nPoint.crit = Util.nextInt(50);
         this.joinMap2(); //To change body of generated methods, choose Tools | Templates.
-        System.currentTimeMillis();
+        st = System.currentTimeMillis();
     }
 
     public void joinMap2() {
@@ -108,6 +108,7 @@ public class Broly extends Boss {
         }
     }
 
+    private long st;
 
     @Override
     public synchronized long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
@@ -189,12 +190,14 @@ public class Broly extends Boss {
         int y = this.location.y;
         if (this.nPoint.hpMax > 1000000) {
             try {
-                new SuperBroly(zone, x, y);
+                SuperBroly superBroly = new SuperBroly(zone, x, y);
                 System.out.println("Create Super suscess in map " + zone.map.mapName);
             } catch (Exception ex) {
                 Logger.getLogger(Broly.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+//        super.reward(plKill);
     }
 
     private void tangChiSo() {

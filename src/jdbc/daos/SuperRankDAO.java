@@ -122,7 +122,6 @@ public class SuperRankDAO {
     }
 
     // Cập nhật thông tin người chơi
-    @SuppressWarnings("unchecked")
     public static void updatePlayer(Player player) {
         if (player != null && player.iDMark.isLoadedAllDataPlayer()) {
             try {

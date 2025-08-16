@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import item.Item;
 
@@ -26,6 +26,7 @@ public class SetClothes {
     public byte picolo;
     public byte lienHoan;
     public byte nail;
+
     public byte kakarot;
     public byte cadic;
     public byte nappa;
@@ -60,7 +61,7 @@ public class SetClothes {
             }
         }
 
-        if (this.player.inventory.itemsBody.size() > 5) {
+         if (this.player.inventory.itemsBody.size() > 5) {
             Item ct = this.player.inventory.itemsBody.get(5);
             if (ct.isNotNullItem()) {
                 switch (ct.template.id) {
@@ -97,8 +98,7 @@ public class SetClothes {
             }
 
         }
-        
-        // ct bát giới + gậy
+
         Item ctItem = null;
         Item gay = null;
         for (int i = 0; i < this.player.inventory.itemsBody.size(); i++) {
@@ -330,6 +330,7 @@ public class SetClothes {
         this.ctBunmaTocMau = -1;
         this.ctTiecbaiBien = -1;
     }
+
 
     public boolean checkSetGod() {
         if (this.player.isBot) {

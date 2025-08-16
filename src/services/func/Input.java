@@ -3,10 +3,11 @@ package services.func;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
+import Bot.*;
 import clan.Clan;
-// import clan.ClanMember;
+import clan.ClanMember;
 import jdbc.DBConnecter;
 import consts.ConstNpc;
 import consts.ConstTaskBadges;
@@ -30,11 +31,13 @@ import services.NpcService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jdbc.NDVResultSet;
 import jdbc.daos.NDVSqlFetcher;
 import jdbc.daos.PlayerDAO;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
-import Bot.NewBot;
-import Bot.ShopBot;
 import player.Inventory;
 import server.Manager;
 import services.ClanService;
@@ -99,27 +102,27 @@ public class Input {
                 text[i] = msg.reader().readUTF();
             }
             switch (player.iDMark.getTypeInput()) {
-                // case DOI_VND: {
-                // int vnd = Integer.parseInt(text[0]);
-                // int coin = vnd * 9 / 10;
-                // if (player.getSession() != null && player.getSession().cash < vnd) {
-                // Service.gI().sendThongBao(player, "Bạn không đủ " + vnd + " Coin");
-                // return;
-                // }
-                // if (vnd < 0) {
-                // Service.gI().sendThongBao(player, "Bạn không được phép nhập số âm ");
-                // return;
-                // }
-                //
-                // if (vnd >= 20000 && vnd <= 100000000) {
-                // PlayerDAO.subcash(player, vnd);
-                // PlayerDAO.addvnd(player, coin);
-                // Service.gI().sendThongBao(player, "Bạn đã nhận được " + coin + " Coin");
-                // } else {
-                // Service.gI().sendThongBao(player, "Chọn 1 con số từ 20000 đến 100000000");
-                // }
-                // }
-                // break;
+//                case DOI_VND: {
+//                    int vnd = Integer.parseInt(text[0]);
+//                    int coin = vnd * 9 / 10;
+//                    if (player.getSession() != null && player.getSession().cash < vnd) {
+//                        Service.gI().sendThongBao(player, "Bạn không đủ " + vnd + " VND");
+//                        return;
+//                    }
+//                    if (vnd < 0) {
+//                        Service.gI().sendThongBao(player, "Bạn không được phép nhập số âm ");
+//                        return;
+//                    }
+//
+//                    if (vnd >= 20000 && vnd <= 100000000) {
+//                        PlayerDAO.subcash(player, vnd);
+//                        PlayerDAO.addvnd(player, coin);
+//                        Service.gI().sendThongBao(player, "Bạn đã nhận được " + coin + " VND");
+//                    } else {
+//                        Service.gI().sendThongBao(player, "Chọn 1 con số từ 20000 đến 100000000");
+//                    }
+//                }
+//                break;
                 case SEND_ITEM: {
                     String itemIds = text[1];
                     String option = text[2];
@@ -153,8 +156,7 @@ public class Input {
                                         pBuffItem.inventory.itemsMailBox.add(itembuff);
 
                                         if (NDVSqlFetcher.updateMailBox(pBuffItem)) {
-                                            Service.gI().sendThongBao(player, "Bạn vừa gửi " + itembuff.template.name
-                                                    + " thành công cho " + pBuffItem.name);
+                                            Service.gI().sendThongBao(player, "Bạn vừa gửi " + itembuff.template.name + " thành công cho " + pBuffItem.name);
                                         }
                                     }
                                 } else {
@@ -182,8 +184,7 @@ public class Input {
                                 }
                                 pBuffItem.inventory.itemsMailBox.add(itembuff);
                                 if (NDVSqlFetcher.updateMailBox(pBuffItem)) {
-                                    Service.gI().sendThongBao(player, "Bạn vừa gửi " + itembuff.template.name
-                                            + " thành công cho " + pBuffItem.name);
+                                    Service.gI().sendThongBao(player, "Bạn vừa gửi " + itembuff.template.name + " thành công cho " + pBuffItem.name);
                                 }
                             }
                         } else {
@@ -233,7 +234,7 @@ public class Input {
                         Service.gI().sendThongBao(player, "Chọn 1 con số từ 20000 đến 100000000");
                     }
                 }
-                    break;
+                break;
                 case DOI_NGOC_XANH: {
                     int coin = Integer.parseInt(text[0]);
                     int sl = coin;
@@ -256,7 +257,7 @@ public class Input {
                         Service.gI().sendThongBao(player, "Chọn 1 con số từ 20000 đến 100000000");
                     }
                 }
-                    break;
+                break;
                 case DOI_NGOC_HONG: {
                     int coin = Integer.parseInt(text[0]);
                     int sl = coin;
@@ -279,7 +280,7 @@ public class Input {
                         Service.gI().sendThongBao(player, "Chọn 1 con số từ 20000 đến 100000000");
                     }
                 }
-                    break;
+                break;
 
                 case GIVE_IT:
                     String name = text[0];
@@ -317,14 +318,14 @@ public class Input {
                     if (player.isAdmin()) {
                         Item item = ItemService.gI().createNewItem(((short) id));
                         List<Item.ItemOption> ops = ItemService.gI().getListOptionItemShop((short) id);
-                        if (!ops.isEmpty()) {
+                        if (!ops.isEmpty() && item.template.id != 933) {
                             item.itemOptions = ops;
                         }
                         item.quantity = q;
                         item.itemOptions.add(new Item.ItemOption(op, pr));
                         InventoryService.gI().addItemBag(player, item);
                         InventoryService.gI().sendItemBag(player);
-                        String thongBao = "Nhận " + item.template.name + "! Từ" + player.name;
+                        String thongBao = "Nhận " + item.template.name + "! Từ " + player.name;
                         Service.gI().sendThongBao(player, thongBao);
 
                         // Ghi thông báo vào file
@@ -339,15 +340,14 @@ public class Input {
                     break;
                 case GIFT_CODE:
                     GiftCodeService.gI().giftCode(player, text[0]);
-                    // String textLevel = text[0];
-                    // Input.gI().addItemGiftCodeToPlayer(player, textLevel);
+//                    String textLevel = text[0];
+//                    Input.gI().addItemGiftCodeToPlayer(player, textLevel);
                     break;
                 case FIND_PLAYER:
                     Player pl = Client.gI().getPlayer(text[0]);
                     if (pl != null) {
                         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_FIND_PLAYER, -1, "Ngài muốn..?",
-                                new String[] { "Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên", "Ban",
-                                        "Kick" },
+                                new String[]{"Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên", "Ban", "Kick"},
                                 pl);
                     } else {
                         Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline");
@@ -360,21 +360,18 @@ public class Input {
                             Service.gI().sendThongBao(player, "Tên nhân vật đã tồn tại");
                         } else {
                             plChanged.name = text[0];
-                            DBConnecter.executeUpdate("update player set name = ? where id = ?", plChanged.name,
-                                    plChanged.id);
+                            DBConnecter.executeUpdate("update player set name = ? where id = ?", plChanged.name, plChanged.id);
                             Service.gI().player(plChanged);
                             Service.gI().Send_Caitrang(plChanged);
                             Service.gI().sendFlagBag(plChanged);
                             Zone zone = plChanged.zone;
-                            ChangeMapService.gI().changeMap(plChanged, zone, plChanged.location.x,
-                                    plChanged.location.y);
-                            Service.gI().sendThongBao(plChanged,
-                                    "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
+                            ChangeMapService.gI().changeMap(plChanged, zone, plChanged.location.x, plChanged.location.y);
+                            Service.gI().sendThongBao(plChanged, "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
                             Service.gI().sendThongBao(player, "Đổi tên người chơi thành công");
                         }
                     }
                 }
-                    break;
+                break;
                 case CHANGE_NAME_BY_ITEM: {
                     if (player != null) {
                         if (DBConnecter.executeQuery("select * from player where name = ?", text[0]).next()) {
@@ -385,8 +382,7 @@ public class Input {
                         } else if (text[0].length() < 5) {
                             Service.gI().sendThongBaoOK(player, "Tên nhân vật quá ngắn");
                         } else if (text[0].length() > 10) {
-                            Service.gI().sendThongBaoOK(player,
-                                    "Tên nhân vật chỉ đồng ý các ký tự a-z, 0-9 và chiều dài từ 5 đến 10 ký tự");
+                            Service.gI().sendThongBaoOK(player, "Tên nhân vật chỉ đồng ý các ký tự a-z, 0-9 và chiều dài từ 5 đến 10 ký tự");
                         } else {
                             Item theDoiTen = InventoryService.gI().findItem(player.inventory.itemsBag, 2006);
                             if (theDoiTen == null) {
@@ -394,20 +390,18 @@ public class Input {
                             } else {
                                 InventoryService.gI().subQuantityItemsBag(player, theDoiTen, 1);
                                 player.name = text[0].toLowerCase();
-                                DBConnecter.executeUpdate("update player set name = ? where id = ?", player.name,
-                                        player.id);
+                                DBConnecter.executeUpdate("update player set name = ? where id = ?", player.name, player.id);
                                 Service.gI().player(player);
                                 Service.gI().Send_Caitrang(player);
                                 Service.gI().sendFlagBag(player);
                                 Zone zone = player.zone;
                                 ChangeMapService.gI().changeMap(player, zone, player.location.x, player.location.y);
-                                Service.gI().sendThongBao(player,
-                                        "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
+                                Service.gI().sendThongBao(player, "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
                             }
                         }
                     }
                 }
-                    break;
+                break;
                 case CHOOSE_LEVEL_BDKB:
                     int level = Integer.parseInt(text[0]);
                     if (level >= 1 && level <= 110) {
@@ -415,7 +409,7 @@ public class Input {
                         if (npc != null) {
                             npc.createOtherMenu(player, ConstNpc.MENU_ACCEPT_GO_TO_BDKB,
                                     "Con có chắc muốn đến\nhang kho báu cấp độ " + level + " ?",
-                                    new String[] { "Đồng ý", "Từ chối" }, level);
+                                    new String[]{"Đồng ý", "Từ chối"}, level);
                         }
                     } else {
                         Service.gI().sendThongBao(player, "Không thể thực hiện");
@@ -429,7 +423,7 @@ public class Input {
                         if (npc != null) {
                             npc.createOtherMenu(player, 2,
                                     "Cậu có chắc muốn đến\nDestron Gas cấp độ " + level + " ?",
-                                    new String[] { "Đồng ý", "Từ chối" }, level);
+                                    new String[]{"Đồng ý", "Từ chối"}, level);
                         }
                     }
                     break;
@@ -440,7 +434,7 @@ public class Input {
                         if (npc != null) {
                             npc.createOtherMenu(player, 3,
                                     "Con có chắc muốn đến\ncon đường rắn độc cấp độ " + level + " ?",
-                                    new String[] { "Đồng ý", "Từ chối" }, level);
+                                    new String[]{"Đồng ý", "Từ chối"}, level);
                         }
                     }
                     break;
@@ -487,8 +481,7 @@ public class Input {
                                 InventoryService.gI().sendItemBag(player);
                                 player.inventory.gold += cost;
                                 Service.gI().sendMoney(player);
-                                Service.gI().sendThongBao(player,
-                                        "Đã bán " + sltv + " Thỏi vàng thu được " + Util.numberToMoney(cost) + " vàng");
+                                Service.gI().sendThongBao(player, "Đã bán " + sltv + " Thỏi vàng thu được " + Util.numberToMoney(cost) + " vàng");
                                 TransactionService.gI().cancelTrade(player);
                             }
                         }
@@ -497,7 +490,7 @@ public class Input {
                 case BANGHOI:
                     Clan clan = player.clan;
                     if (clan != null) {
-                        // ClanMember cm = clan.getClanMember((int) player.id);
+                        ClanMember cm = clan.getClanMember((int) player.id);
                         if (clan.isLeader(player)) {
                             if (clan.canUpdateClan(player)) {
                                 String tenvt = text[0];
@@ -506,8 +499,7 @@ public class Input {
                                     clan.update();
                                     Service.gI().sendThongBao(player, "[" + tenvt + "] OK");
                                 } else {
-                                    Service.gI().sendThongBaoOK(player,
-                                            "Chỉ chấp nhận các ký tự a-z, 0-9 và chiều dài từ 2 đến 4 ký tự");
+                                    Service.gI().sendThongBaoOK(player, "Chỉ chấp nhận các ký tự a-z, 0-9 và chiều dài từ 2 đến 4 ký tự");
                                 }
                             }
                         }
@@ -532,7 +524,7 @@ public class Input {
                     int number = Integer.parseInt(text[0]);
                     LuckyNumberService.addNumber(player, number);
                 }
-                    break;
+                break;
                 case BOT_ITEM:
                     int slot = Integer.parseInt(text[0]);
                     int idBan = Integer.parseInt(text[1]);
@@ -598,17 +590,17 @@ public class Input {
             }
         }
     }
-
     public void createFormBotQuai(Player pl) {
         createForm(pl, BOT_PEM, "Buff Bot Quái",
                 new SubInput("số lượng bot", NUMERIC));
     }
-
+    
+    
     public void createFormBotBoss(Player pl) {
         createForm(pl, BOT_BOSS, "Buff Bot Boss",
                 new SubInput("số lượng bot", NUMERIC));
     }
-
+    
     public void createFormBotItem(Player pl) {
         createForm(pl, BOT_ITEM, "Buff Bot Item",
                 new SubInput("số lượng bot", NUMERIC),
@@ -624,13 +616,11 @@ public class Input {
     }
 
     public void createFormGiveItem(Player pl) {
-        createForm(pl, GIVE_IT, "Tặng vật phẩm", new SubInput("Tên", ANY), new SubInput("Id Item", ANY),
-                new SubInput("ID OPTION", ANY), new SubInput("PARAM", ANY), new SubInput("Số lượng", ANY));
+        createForm(pl, GIVE_IT, "Tặng vật phẩm", new SubInput("Tên", ANY), new SubInput("Id Item", ANY), new SubInput("ID OPTION", ANY), new SubInput("PARAM", ANY), new SubInput("Số lượng", ANY));
     }
 
     public void createFormGetItem(Player pl) {
-        createForm(pl, GET_IT, "Get vật phẩm", new SubInput("Id Item", ANY), new SubInput("ID OPTION", ANY),
-                new SubInput("PARAM", ANY), new SubInput("Số lượng", ANY));
+        createForm(pl, GET_IT, "Get vật phẩm", new SubInput("Id Item", ANY), new SubInput("ID OPTION", ANY), new SubInput("PARAM", ANY), new SubInput("Số lượng", ANY));
     }
 
     public void createFormGiftCode(Player pl) {
@@ -638,8 +628,7 @@ public class Input {
     }
 
     public void createFormMBV(Player pl) {
-        createForm(pl, MBV, "Đồ ngu! Đồ ăn hại! Cút mẹ mày đi!", new SubInput("Nhập Mã Bảo Vệ Đã Quên", NUMERIC),
-                new SubInput("Nhập Mã Bảo Vệ Mới", NUMERIC), new SubInput("Nhập Lại Mã Bảo Vệ Mới", NUMERIC));
+        createForm(pl, MBV, "Đồ ngu! Đồ ăn hại! Cút mẹ mày đi!", new SubInput("Nhập Mã Bảo Vệ Đã Quên", NUMERIC), new SubInput("Nhập Mã Bảo Vệ Mới", NUMERIC), new SubInput("Nhập Lại Mã Bảo Vệ Mới", NUMERIC));
     }
 
     public void createFormBangHoi(Player pl) {
@@ -743,104 +732,87 @@ public class Input {
         }
     }
 
-    // public void addItemGiftCodeToPlayer(Player p, final String giftcode) {
-    // try {
-    // final NDVResultSet red = DBConnecter.executeQuery("SELECT * FROM `giftcode`
-    // WHERE `code` LIKE '" + Util.strSQL(giftcode) + "' LIMIT 1;");
-    // if (red.first()) {
-    // String text = "Mã quà tặng" + ": " + giftcode + "\b- " + "Phần quà của bạn
-    // là:" + "\b";
-    // final byte type = red.getByte("type");
-    // int limit = red.getInt("limit");
-    // final boolean isDelete = red.getBoolean("Delete");
-    // final boolean isCheckbag = red.getBoolean("bagCount");
-    // final JSONArray listUser = (JSONArray)
-    // JSONValue.parseWithException(red.getString("listUser"));
-    // final JSONArray listItem = (JSONArray)
-    // JSONValue.parseWithException(red.getString("listItem"));
-    // final JSONArray option = (JSONArray)
-    // JSONValue.parseWithException(red.getString("itemoption"));
-    // if (limit == 0) {
-    // NpcService.gI().createTutorial(p, 24, "Số lượng mã quà tặng này đã hết.");
-    // } else {
-    // if (type == 1) {
-    // for (int i = 0; i < listUser.size(); ++i) {
-    // final int playerId = Integer.parseInt(listUser.get(i).toString());
-    // if (playerId == p.id) {
-    // NpcService.gI().createTutorial(p, 24, "Mỗi tài khoản chỉ được phép sử dụng mã
-    // quà tặng này 1 lần duy nhất.");
-    // return;
-    // }
-    // }
-    // } else if (type == 2) {
-    // if (!p.getSession().actived) { // Giả sử bạn có một hàm kiểm tra trạng thái
-    // mở thành viên
-    // NpcService.gI().createTutorial(p, 24, "Bạn cần mở thành viên để có thể sử
-    // dụng code này.");
-    // return;
-    // }
-    // }
-    // if (isCheckbag && listItem.size() >
-    // InventoryService.gI().getCountEmptyBag(p)) {
-    // NpcService.gI().createTutorial(p, 24, "Hành trang cần phải có ít nhất " +
-    // listItem.size() + " ô trống để nhận vật phẩm");
-    // } else {
-    // for (int i = 0; i < listItem.size(); ++i) {
-    // final JSONObject item = (JSONObject) listItem.get(i);
-    // final int idItem = Integer.parseInt(item.get("id").toString());
-    // final int quantity = Integer.parseInt(item.get("quantity").toString());
-    //
-    // if (idItem == -1) {
-    // p.inventory.gold = Math.min(p.inventory.gold + (long) quantity,
-    // Inventory.LIMIT_GOLD);
-    // text += quantity + " vàng\b";
-    // } else if (idItem == -2) {
-    // p.inventory.gem = Math.min(p.inventory.gem + quantity, 2000000000);
-    // text += quantity + " ngọc\b";
-    // } else if (idItem == -3) {
-    // p.inventory.ruby = Math.min(p.inventory.ruby + quantity, 2000000000);
-    // text += quantity + " ngọc khóa\b";
-    // } else {
-    // Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
-    // itemGiftTemplate.quantity = quantity;
-    // if (option != null) {
-    // for (int u = 0; u < option.size(); u++) {
-    // JSONObject jsonobject = (JSONObject) option.get(u);
-    // itemGiftTemplate.itemOptions.add(new
-    // Item.ItemOption(Integer.parseInt(jsonobject.get("id").toString()),
-    // Integer.parseInt(jsonobject.get("param").toString())));
-    //
-    // }
-    //
-    // }
-    // text += "x" + quantity + " " + itemGiftTemplate.template.name + "\b";
-    // InventoryService.gI().addItemBag(p, itemGiftTemplate);
-    // InventoryService.gI().sendItemBag(p);
-    // }
-    //
-    // if (i < listItem.size() - 1) {
-    // text += "";
-    // }
-    // }
-    // if (limit != -1) {
-    // --limit;
-    // }
-    // listUser.add(p.id);
-    // DBConnecter.executeUpdate("UPDATE `giftcode` SET `limit` = " + limit + ",
-    // `listUser` = '" + listUser.toJSONString() + "' WHERE `code` LIKE '" +
-    // Util.strSQL(giftcode) + "';");
-    // NpcService.gI().createTutorial(p, 24, text);
-    // }
-    // }
-    // } else {
-    // NpcService.gI().createTutorial(p, 24, "Mã quà tặng không tồn tại hoặc đã được
-    // sử dụng");
-    // }
-    // } catch (Exception e) {
-    //
-    // NpcService.gI().createTutorial(p, 24, "Có lỗi sảy ra hãy báo ngay cho QTV để
-    // khắc phục.");
-    // e.printStackTrace();
-    // }
-    // }
+//    public void addItemGiftCodeToPlayer(Player p, final String giftcode) {
+//        try {
+//            final NDVResultSet red = DBConnecter.executeQuery("SELECT * FROM `giftcode` WHERE `code` LIKE '" + Util.strSQL(giftcode) + "' LIMIT 1;");
+//            if (red.first()) {
+//                String text = "Mã quà tặng" + ": " + giftcode + "\b- " + "Phần quà của bạn là:" + "\b";
+//                final byte type = red.getByte("type");
+//                int limit = red.getInt("limit");
+//                final boolean isDelete = red.getBoolean("Delete");
+//                final boolean isCheckbag = red.getBoolean("bagCount");
+//                final JSONArray listUser = (JSONArray) JSONValue.parseWithException(red.getString("listUser"));
+//                final JSONArray listItem = (JSONArray) JSONValue.parseWithException(red.getString("listItem"));
+//                final JSONArray option = (JSONArray) JSONValue.parseWithException(red.getString("itemoption"));
+//                if (limit == 0) {
+//                    NpcService.gI().createTutorial(p, 24, "Số lượng mã quà tặng này đã hết.");
+//                } else {
+//                    if (type == 1) {
+//                        for (int i = 0; i < listUser.size(); ++i) {
+//                            final int playerId = Integer.parseInt(listUser.get(i).toString());
+//                            if (playerId == p.id) {
+//                                NpcService.gI().createTutorial(p, 24, "Mỗi tài khoản chỉ được phép sử dụng mã quà tặng này 1 lần duy nhất.");
+//                                return;
+//                            }
+//                        }
+//                    } else if (type == 2) {
+//                        if (!p.getSession().actived) { // Giả sử bạn có một hàm kiểm tra trạng thái mở thành viên
+//                            NpcService.gI().createTutorial(p, 24, "Bạn cần mở thành viên để có thể sử dụng code này.");
+//                            return;
+//                        }
+//                    }
+//                    if (isCheckbag && listItem.size() > InventoryService.gI().getCountEmptyBag(p)) {
+//                        NpcService.gI().createTutorial(p, 24, "Hành trang cần phải có ít nhất " + listItem.size() + " ô trống để nhận vật phẩm");
+//                    } else {
+//                        for (int i = 0; i < listItem.size(); ++i) {
+//                            final JSONObject item = (JSONObject) listItem.get(i);
+//                            final int idItem = Integer.parseInt(item.get("id").toString());
+//                            final int quantity = Integer.parseInt(item.get("quantity").toString());
+//
+//                            if (idItem == -1) {
+//                                p.inventory.gold = Math.min(p.inventory.gold + (long) quantity, Inventory.LIMIT_GOLD);
+//                                text += quantity + " vàng\b";
+//                            } else if (idItem == -2) {
+//                                p.inventory.gem = Math.min(p.inventory.gem + quantity, 2000000000);
+//                                text += quantity + " ngọc\b";
+//                            } else if (idItem == -3) {
+//                                p.inventory.ruby = Math.min(p.inventory.ruby + quantity, 2000000000);
+//                                text += quantity + " ngọc khóa\b";
+//                            } else {
+//                                Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
+//                                itemGiftTemplate.quantity = quantity;
+//                                if (option != null) {
+//                                    for (int u = 0; u < option.size(); u++) {
+//                                        JSONObject jsonobject = (JSONObject) option.get(u);
+//                                        itemGiftTemplate.itemOptions.add(new Item.ItemOption(Integer.parseInt(jsonobject.get("id").toString()), Integer.parseInt(jsonobject.get("param").toString())));
+//
+//                                    }
+//
+//                                }
+//                                text += "x" + quantity + " " + itemGiftTemplate.template.name + "\b";
+//                                InventoryService.gI().addItemBag(p, itemGiftTemplate);
+//                                InventoryService.gI().sendItemBag(p);
+//                            }
+//
+//                            if (i < listItem.size() - 1) {
+//                                text += "";
+//                            }
+//                        }
+//                        if (limit != -1) {
+//                            --limit;
+//                        }
+//                        listUser.add(p.id);
+//                        DBConnecter.executeUpdate("UPDATE `giftcode` SET `limit` = " + limit + ", `listUser` = '" + listUser.toJSONString() + "' WHERE `code` LIKE '" + Util.strSQL(giftcode) + "';");
+//                        NpcService.gI().createTutorial(p, 24, text);
+//                    }
+//                }
+//            } else {
+//                NpcService.gI().createTutorial(p, 24, "Mã quà tặng không tồn tại hoặc đã được sử dụng");
+//            }
+//        } catch (Exception e) {
+//
+//            NpcService.gI().createTutorial(p, 24, "Có lỗi sảy ra  hãy báo ngay cho QTV để khắc phục.");
+//            e.printStackTrace();
+//        }
+//    }
 }

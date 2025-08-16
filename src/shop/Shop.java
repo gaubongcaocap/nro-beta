@@ -3,7 +3,7 @@ package shop;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import player.Player;
@@ -43,7 +43,7 @@ public class Shop {
                 this.tabShops.add(new TabShopDanhHieu(tabShop, player));
             } else if (tabShop.id == 29) {
                 this.tabShops.add(new TabShopSoHuu(tabShop, player));
-            } else if (tabShop.id >= 31 && tabShop.id <= 33) {
+            } else if (tabShop.id == 53) {
                 this.tabShops.add(new TabShopHocKynang(tabShop, player));
             } else {
                 this.tabShops.add(new TabShop(tabShop, player.gender));

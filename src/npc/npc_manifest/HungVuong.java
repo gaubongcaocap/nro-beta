@@ -1,6 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package npc.npc_manifest;
 
 import consts.ConstNpc;
+import consts.ConstPlayer;
 import item.Item;
 import java.util.Calendar;
 import npc.Npc;
@@ -8,7 +13,10 @@ import npc.specialnpc.Timedua;
 import player.Player;
 import services.InventoryService;
 import services.ItemService;
+import services.NpcService;
 import services.Service;
+import services.TaskService;
+import shop.ShopService;
 
 public class HungVuong extends Npc {
 

@@ -3,7 +3,7 @@ package boss.boss_manifest.Black;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.*;
 import consts.ConstPlayer;
@@ -11,9 +11,14 @@ import consts.ConstTask;
 import consts.ConstTaskBadges;
 import map.ItemMap;
 import player.Player;
+import server.Manager;
 import services.*;
 import utils.Util;
+
+import java.util.Random;
 import task.Badges.BadgesTaskService;
+
+import utils.SkillUtil;
 
 public class BlackGoku extends Boss {
 
@@ -26,65 +31,45 @@ public class BlackGoku extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        // Cập nhật thành tích săn boss
         BadgesTaskService.updateCountBagesTask(plKill, ConstTaskBadges.TRUM_SAN_BOSS, 1);
-
-        // Kiểm tra nhiệm vụ TASK_31_0
-        if (TaskService.gI().getIdTask(plKill) == ConstTask.TASK_31_0) {
-            Service.gI().dropItemMap(this.zone, new ItemMap(zone, 992, 1, this.location.x, this.location.y, plKill.id));
-            TaskService.gI().doneTask(plKill, ConstTask.TASK_31_0);
-        }
-
-        // 5% rơi đồ Thần Linh từ boss (có option 207)
-        if (Util.isTrue(5, 100)) {
-            ItemMap itemBoss = ItemService.gI().randDoTLBoss(this.zone, 1, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-            Service.gI().dropItemMap(this.zone, itemBoss);
-        }
-
-        // Tầng drop item 674 (1–3 món)
-        if (Util.isTrue(5, 100)) {
-            for (int i = 0; i < 3; i++) {
-                Service.gI().dropItemMap(this.zone,
-                        new ItemMap(this.zone, 674, 1, this.location.x, this.location.y, plKill.id));
+        if (Util.isTrue(10, 100)) {
+            if (TaskService.gI().getIdTask(plKill) == ConstTask.TASK_31_0) {
+                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 992, 1, this.location.x, this.location.y, plKill.id));
             }
-        } else if (Util.isTrue(20, 100)) {
-            for (int i = 0; i < 2; i++) {
-                Service.gI().dropItemMap(this.zone,
-                        new ItemMap(this.zone, 674, 1, this.location.x, this.location.y, plKill.id));
-            }
-        } else if (Util.isTrue(30, 100)) {
-            Service.gI().dropItemMap(this.zone,
-                    new ItemMap(this.zone, 674, 1, this.location.x, this.location.y, plKill.id));
         }
-
-        // Mưa item 1229 (5% tỷ lệ, 25–50 viên)
+        if (Util.isTrue(5, 100)) {
+            ItemMap it = ItemService.gI().randDoTLBoss(this.zone, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
+            Service.gI().dropItemMap(this.zone, it);
+        }
         if (Util.isTrue(5, 50)) {
             for (int i = 0; i < Util.nextInt(25, 50); i++) {
-                ItemMap it = new ItemMap(this.zone, 1229, 1,
-                        this.location.x + Util.nextInt(-15, 15),
-                        this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
+                ItemMap it = new ItemMap(this.zone, 1229, 1, this.location.x + Util.nextInt(-15, 15), this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
                 Service.gI().dropItemMap(this.zone, it);
             }
         }
+        {
+            for (int i = 0; i < Util.nextInt(3, 10); i++) {
+                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 77, Util.nextInt(10, 20), this.location.x + i * 10, this.zone.map.yPhysicInTop(this.location.x,
+                        this.location.y - 24), plKill.id));
+            }
 
-        // Rơi đá ID 77 từ 3–10 viên
-        for (int i = 0; i < Util.nextInt(3, 10); i++) {
-            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 77, Util.nextInt(10, 20),
-                    this.location.x + i * 10,
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+            short goldItemId = 190;
+            int goldQuantity = Util.nextInt(10_000_000, 20_000_000); // Từ 10 triệu đến 20 triệu.
+            Service.gI().dropItemMap(this.zone, new ItemMap(
+                    zone,
+                    goldItemId,
+                    goldQuantity,
+                    this.location.x + Util.nextInt(-30, 30),
+                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
+                    plKill.id
+            ));
+            if (Util.isTrue(3, 100)) {
+                ItemMap it = ItemService.gI().randDoTLBoss(this.zone, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                        this.location.y - 24), plKill.id);
+                Service.gI().dropItemMap(this.zone, it);
+            }
         }
-
-        // Rơi vàng từ 10–20 triệu
-        int gold = Util.nextInt(10_000_000, 20_000_000);
-        Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 190, gold,
-                this.location.x + Util.nextInt(-30, 30),
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
-
-                
-        ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override
@@ -147,8 +132,7 @@ public class BlackGoku extends Boss {
                 if (pl == null || pl.isDie()) {
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 int dis = Util.getDistance(this, pl);
                 if (dis > 450) {
                     move(pl.location.x - 24, pl.location.y);

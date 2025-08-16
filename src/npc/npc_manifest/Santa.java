@@ -1,7 +1,7 @@
 package npc.npc_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstNpc;
 
@@ -26,9 +26,9 @@ public class Santa extends Npc {
             List<String> menu = new ArrayList<>(Arrays.asList(
                     "Cửa hàng",
                     "Mở rộng\nHành trang\nRương đồ",
-                    "Nhập mã\nquà tặng",
-                    "Cửa hàng\nHạn sử dụng",
-                    "Tiệm\nHớt tóc",
+                    // "Nhập mã\nquà tặng",
+                    // "Cửa hàng\nHạn sử dụng",
+                    // "Tiệm\nHớt tóc",
                     "Danh\nhiệu",
                     "Phụ kiện"
             ));
@@ -54,10 +54,10 @@ public class Santa extends Npc {
                             ShopService.gI().opendShop(player, "SANTA", false);
                         case 1 -> // Mở rộng hành trang
                             ShopService.gI().opendShop(player, "SANTA_MO_RONG_HANH_TRANG", false);
-                        case 2 -> // Nhập mã quà tặng
-                            Input.gI().createFormGiftCode(player);
-                        case 3 -> // Cửa hàng hạn sử dụng
-                            ShopService.gI().opendShop(player, "SANTA_HAN_SU_DUNG", false);
+                        // case 2 -> // Nhập mã quà tặng
+                        //     Input.gI().createFormGiftCode(player);
+                        // case 3 -> // Cửa hàng hạn sử dụng
+                        //     ShopService.gI().opendShop(player, "SANTA_HAN_SU_DUNG", false);
                         case 4 -> // Mua lại vật phẩm đã bán
                         {
                             if (!player.inventory.itemsDaBan.isEmpty()) {
@@ -66,15 +66,15 @@ public class Santa extends Npc {
                                 ShopService.gI().opendShop(player, "SANTA_HEAD", false);
                             }
                         }
-                        case 5 -> // Tiệm hớt tóc
-                        {
-                            if (!player.inventory.itemsDaBan.isEmpty()) {
-                                ShopService.gI().opendShop(player, "SANTA_HEAD", false);
-                            } else {
-                                ShopService.gI().opendShop(player, "SANTA_DANH_HIEU", false);
-                            }
-                        }
-                        case 6 -> // Danh hiệu
+                        // case 5 -> // Tiệm hớt tóc
+                        // {
+                        //     if (!player.inventory.itemsDaBan.isEmpty()) {
+                        //         ShopService.gI().opendShop(player, "SANTA_HEAD", false);
+                        //     } else {
+                        //         ShopService.gI().opendShop(player, "SANTA_DANH_HIEU", false);
+                        //     }
+                        // }
+                        case 2 -> // Danh hiệu
                         {
                             if (!player.inventory.itemsDaBan.isEmpty()) {
                                 ShopService.gI().opendShop(player, "SANTA_DANH_HIEU", false);
@@ -82,7 +82,7 @@ public class Santa extends Npc {
                                 ShopService.gI().opendShop(player, "SANTA_PHUKIEN", false);
                             }
                         }
-                        case 7 -> // shop phụ kiện
+                        case 3 -> // shop phụ kiện
                             ShopService.gI().opendShop(player, "SANTA_PHUKIEN", false);
                     }
                 }

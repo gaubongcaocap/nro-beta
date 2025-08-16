@@ -3,7 +3,7 @@ package utils;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import java.text.ParseException;
@@ -31,7 +31,7 @@ public class TimeUtil {
     public static final byte WEEK = 5;
     public static final byte MONTH = 6;
     public static final byte YEAR = 7;
-    
+
     public static String convertMillisecondToMinute(long time) {
         long minutes = TimeUnit.MILLISECONDS.toMinutes(time);
         return String.format("%02d phút", minutes);
@@ -46,7 +46,7 @@ public class TimeUtil {
         long days = TimeUnit.MILLISECONDS.toDays(time);
         return String.format("%02d ngày", days);
     }
- 
+    
     /**
      *
      * @param d1 thời gian bắt đầu

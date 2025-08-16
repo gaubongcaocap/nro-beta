@@ -3,11 +3,13 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
+import consts.ConstItem;
 import item.Item;
 import map.ItemMap;
+import mob.Mob;
 import player.Player;
 import utils.Util;
 
@@ -15,6 +17,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RewardService {
 
@@ -344,7 +348,7 @@ public class RewardService {
                     it.itemOptions.add(new Item.ItemOption(option[Util.nextInt(option.length)], Util.nextInt(1, 5)));
                 }
                 if (Util.isTrue(20, 100)) {
-                    it.itemOptions.add(new Item.ItemOption(108, Util.nextInt(1, 12  )));
+                    it.itemOptions.add(new Item.ItemOption(108, Util.nextInt(1, 12)));
                 }
                 if (Util.isTrue(20, 100)) {
                     it.itemOptions.add(new Item.ItemOption(option_v2[Util.nextInt(option_v2.length)], Util.nextInt(1, 2)));

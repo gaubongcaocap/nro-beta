@@ -3,7 +3,7 @@ package boss.boss_manifest.The23rdMartialArtCongress;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;
@@ -14,7 +14,7 @@ import player.Player;
 public class Pocolo extends The23rdMartialArtCongress {
 
     public Pocolo(Player player) throws Exception {
-        super(PHOBAN, BossID.PO_CO_LO, BossesData.POCOLO);
+        super(PHOBAN, BossID.JACKY_CHUN, BossesData.JACKY_CHUN);
         this.playerAtt = player;
     }
 }

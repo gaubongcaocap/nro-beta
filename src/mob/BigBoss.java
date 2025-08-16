@@ -2,7 +2,7 @@ package mob;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import utils.TimeUtil;

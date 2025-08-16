@@ -3,7 +3,7 @@ package jdbc.daos;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import item.Item;
@@ -90,9 +90,11 @@ public class ShopDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 JSONArray dataArray;
+                JSONValue jv = new JSONValue();
                 JSONObject dataObject;
-                dataArray = (JSONArray) JSONValue.parse(rs.getString("items"));
+                dataArray = (JSONArray) jv.parse(rs.getString("items"));
                 for (Object o : dataArray) {
+                    Item item = null;
                     dataObject = (JSONObject) o;
                     ItemShop itemShop = new ItemShop();
                     itemShop.tabShop = tabShop;

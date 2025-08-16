@@ -3,7 +3,7 @@ package models.DestronGas;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import boss.Boss;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import server.Maintenance;
+import services.ClanService;
 import services.ItemMapService;
 import utils.TimeUtil;
 
@@ -154,33 +155,25 @@ public class DestronGas implements Runnable {
             List<Mob> mobs = zone.mobs;
             for (int i = 0; i < mobs.size(); i++) {
                 Mob mob = mobs.get(i);
-                if (((i == 0) && zone.map.mapId == 147)
-                        || // Quái 76 xuất hiện thứ 1 ở Map 147 (Sa mạc)
-                        ((i == 7) && zone.map.mapId == 149)
-                        || // Quái 76 xuất hiện thứ 8 ở Map 149 (Thành phố Santa)
-                        ((i == 0) && zone.map.mapId == 151)
-                        || // Quái 76 xuất hiện thứ 1 ở Map 151 (Hành tinh bóng tối)
-                        ((i == 0) && zone.map.mapId == 152)
-                        || // Quái 76 xuất hiện thứ 1 ở Map 152 (Vùng đất băng giá)
-                        ((i == 33) && zone.map.mapId == 152)) { // Quái 76 xuất hiện thứ 34 ở Map 152 (Vùng đất băng giá)
-
+                if (((i == 5 || i == 10) && zone.map.mapId == 149) || ((i == 5 || i == 10 || i == 15)
+                        && zone.map.mapId == 147) || ((i == 5 || i == 10 || i == 15 || i == 20 || i == 25)
+                        && zone.map.mapId == 152) || (i == 5 && zone.map.mapId == 151)
+                        || ((i == 5 || i == 10) && zone.map.mapId == 148)) {
                     mob.lvMob = 1;
-                    mob.point.dame = (int) Math.min((long) level * 31 * 5 * mob.tempId * 10, 2_000_000_000);
-                    mob.point.maxHp = (int) Math.min((long) level * 3 * 6700 * mob.tempId * 10, 2_000_000_000);
+                    mob.point.dame = Util.maxIntValue(level * 31 * 5 * mob.tempId * 10);
+                    mob.point.maxHp = Util.maxIntValue(level * 3107 * 5 * mob.tempId * 10);
                     mob.hoiSinh();
                     mob.hoiSinhMobPhoBan();
                 } else {
                     mob.lvMob = mob.tempId == 76 ? 1 : 0;
-                    mob.point.dame = (int) Math.min((long) level * 31 * 5 * mob.tempId, 2_000_000_000);
-                    mob.point.maxHp = (int) Math.min((long) level * 5 * 45 * mob.tempId, 2_000_000_000);
+                    mob.point.dame = Util.maxIntValue(level * 31 * 5 * mob.tempId);
+                    mob.point.maxHp = Util.maxIntValue(level * 3107 * 5 * mob.tempId);
                     mob.hoiSinh();
                     mob.hoiSinhMobPhoBan();
                 }
             }
         }
-        Thread.ofVirtual()
-                .name("Khí Gas Hủy Diệt: " + this.clan.name);
-
+        new Thread(this, "Khí Gas Hủy Diệt: " + this.clan.name).start();
     }
 
     //kết thúc khí gas hủy diệt

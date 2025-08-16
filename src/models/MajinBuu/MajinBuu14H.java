@@ -3,7 +3,7 @@ package models.MajinBuu;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import EMTI.Functions;

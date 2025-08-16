@@ -3,10 +3,10 @@ package services.func;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
-import Bot.Bot;
 import EMTI.Functions;
+import Bot.Bot;
 import jdbc.DBConnecter;
 import jdbc.daos.PlayerDAO;
 import player.Player;
@@ -69,19 +69,12 @@ public class TransactionService implements Runnable {
                 pl.iDMark.setTransactionWP(false);
                 pl.iDMark.setTransactionWVP(false);
             }
-//            if (pl.iDMark.isTransactionWP()) {
-//                TransactionWPService.gI().controller(pl, action, msg);
-//            }
-//            if (pl.iDMark.isTransactionWVP()) {
-//                TransactionWVPService.gI().controller(pl, action, msg, plMap);
-//                return;
-//            }
             switch (action) {
                 case SEND_INVITE_TRADE:
                 case ACCEPT_TRADE:
                     // Kiểm tra trạng thái session của người chơi
                     if (!pl.getSession().actived) {
-                        // Service.gI().sendThongBao(pl, "Truy Cập: " + ServerManager.DOMAIN + "\n Để Mở Thành Viên");
+                        Service.gI().sendThongBao(pl, "Truy Cập: " + ServerManager.DOMAIN + "\n Để Mở Thành Viên");
                         return;
                     }
 
@@ -255,7 +248,6 @@ public class TransactionService implements Runnable {
         return PLAYER_TRADE.get(player) != null;
     }
 
-    @SuppressWarnings("rawtypes")
     @Override
     public void run() {
         while (!Maintenance.isRunning) {

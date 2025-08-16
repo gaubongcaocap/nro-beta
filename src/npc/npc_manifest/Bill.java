@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstNpc;
@@ -28,10 +28,31 @@ public class Bill extends Npc {
                 createOtherMenu(player, ConstNpc.BASE_MENU,
                         "...",
                         "Về\nthánh địa\nKaio", "Từ chối");
-            } else {
+            }
+            if (this.mapId == 5) {
                 createOtherMenu(player, ConstNpc.BASE_MENU,
-                        "Chưa tới giờ thi đấu, xem hướng dẫn để biết thêm chi tiết",
-                        "Nói\nchuyện", "Hướng\ndẫn\nthêm", "Từ chối");
+                        "|5|zalo: @Huyền Sumo\n"
+                                + "\nNâng cấp lục căn "
+                        // + "\nLuyện Khí đan: " + player.TamkjllDauLaDaiLuc[0]
+                        // + "\nTrúc Cơ Đan: " + player.TamkjllDauLaDaiLuc[1]
+                        // + "\nNguyên Anh Đan: " + player.TamkjllDauLaDaiLuc[2]
+                        // + "\nHoá Thần Đan: " + player.TamkjllDauLaDaiLuc[3]
+                        // + "\nHư Vô Đan: " + player.TamkjllDauLaDaiLuc[4]
+                        // + "\nTiên Tôn Đan: "
+                        // + player.TamkjllDauLaDaiLuc[5]
+                        // + "\nChí Tôn Đan: "
+                        // + player.TamkjllDauLaDaiLuc[6]
+                        , "Thông Tin\n Lục Căn",
+                        "Thông Tin \n Hồn Cốt\nSở Hữu",
+                        "Truy Tìm \n Hồn Cốt",
+                        "Nâng Hồn\n Cốt",
+                        "Thông tin\ncác loại lục căn");
+            }
+
+            else {
+                createOtherMenu(player, ConstNpc.BASE_MENU,
+                        "Mày tìm tao có chuyện gì",
+                        "Shop\nHủy Diệt","ĐHVT\n Liên Bang", "Từ chối");
             }
         }
     }
@@ -40,19 +61,43 @@ public class Bill extends Npc {
     public void confirmMenu(Player player, int select) {
         if (canOpenNpc(player)) {
             switch (this.mapId) {
+                case 5 -> {
+                    createOtherMenu(player, ConstNpc.BASE_MENU,
+                            "|5|zalo: @Huyền Sumo\n"
+                                    + "\nNâng cấp lục căn "
+                            // + "\nLuyện Khí đan: " + player.TamkjllDauLaDaiLuc[0]
+                            // + "\nTrúc Cơ Đan: " + player.TamkjllDauLaDaiLuc[1]
+                            // + "\nNguyên Anh Đan: " + player.TamkjllDauLaDaiLuc[2]
+                            // + "\nHoá Thần Đan: " + player.TamkjllDauLaDaiLuc[3]
+                            // + "\nHư Vô Đan: " + player.TamkjllDauLaDaiLuc[4]
+                            // + "\nTiên Tôn Đan: "
+                            // + player.TamkjllDauLaDaiLuc[5]
+                            // + "\nChí Tôn Đan: "
+                            // + player.TamkjllDauLaDaiLuc[6]
+                            , "Thông Tin\n Lục Căn",
+                            "Thông Tin \n Hồn Cốt\nSở Hữu",
+                            "Truy Tìm \n Hồn Cốt",
+                            "Nâng Hồn\n Cốt",
+                            "Thông tin\ncác loại lục căn");
+                }
                 case 48 -> {
                     switch (player.iDMark.getIndexMenu()) {
                         case ConstNpc.BASE_MENU -> {
                             switch (select) {
                                 case 0 -> {
                                     if (InventoryService.gI().canOpenBillShop(player)) {
-                                        createOtherMenu(player, 2, "Đói bụng quá...ngươi mang cho ta 99 phần đồ ăn\nta sẽ cho một món đồ Hủy Diệt.\nNếu tâm trạng ta vui ngươi có thể nhận trang bị tăng đến 15%", "OK", "Từ chối");
+                                        createOtherMenu(player, 2,
+                                                "Đói bụng quá...ngươi mang cho ta 99 phần đồ ăn\nta sẽ cho một món đồ Hủy Diệt.\nNếu tâm trạng ta vui ngươi có thể nhận trang bị tăng đến 15%",
+                                                "OK", "Từ chối");
                                     } else {
-                                        createOtherMenu(player, 2, "Ngươi trang bị đủ bộ 5 món trang bị Thần\nvà mang 99 phần đồ ăn tới đây...\nrồi ta nói chuyện tiếp.", "OK");
+                                        createOtherMenu(player, 2,
+                                                "Ngươi trang bị đủ bộ 5 món trang bị Thần\nvà mang 99 phần đồ ăn tới đây...\nrồi ta nói chuyện tiếp.",
+                                                "OK");
                                     }
                                 }
                                 case 1 ->
-                                    NpcService.gI().createTutorial(player, tempId, this.avartar, ConstNpc.HUONG_DAN_BILL);
+                                    NpcService.gI().createTutorial(player, tempId, this.avartar,
+                                            ConstNpc.HUONG_DAN_BILL);
                             }
                         }
                         case 2 -> {

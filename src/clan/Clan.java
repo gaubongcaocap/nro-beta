@@ -3,9 +3,9 @@ package clan;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
-
+import consts.ConstTask;
 import jdbc.DBConnecter;
 import models.RedRibbonHQ.RedRibbonHQ;
 import services.ClanService;
@@ -29,6 +29,7 @@ import models.DestronGas.DestronGas;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import services.TaskService;
 import utils.TimeUtil;
 
 public class Clan {
@@ -137,11 +138,14 @@ public class Clan {
         return false;
     }
 
-    public void addSMTNClan(Player plOri, long param) {
+     public void addSMTNClan(Player plOri, long param) {
         for (int i = this.membersInGame.size() - 1; i >= 0; i--) {
             Player pl = this.membersInGame.get(i);
-            if (!plOri.equals(pl) && pl != null && pl.zone != null && plOri.zone.equals(pl.zone)) {
-                long tnsm =  (param / (Math.abs(Service.gI().getCurrLevel(pl) - Service.gI().getCurrLevel(plOri)) + 1));
+            if (pl != null && !plOri.equals(pl) && pl.zone != null && plOri.zone.equals(pl.zone)) {
+                int levelOri = Service.gI().getCurrLevel(plOri); // Cấp độ người khởi xướng
+                int levelTarget = Service.gI().getCurrLevel(pl); // Cấp độ mục tiêu
+                int levelDiff = Math.abs(levelTarget - levelOri); // Chênh lệch cấp độ
+                long tnsm = param / (levelDiff == 0 ? 1 : levelDiff);   
                 Service.gI().addSMTN(pl, (byte) 1, tnsm, false);
             }
         }
@@ -196,7 +200,7 @@ public class Clan {
     }
 
     public List<ClanMessage> getCurrClanMessages() {
-        List<ClanMessage> list = new ArrayList<ClanMessage>();
+        List<ClanMessage> list = new ArrayList();
         if (this.clanMessages.size() <= 20) {
             list.addAll(this.clanMessages);
         } else {
@@ -268,6 +272,15 @@ public class Clan {
         player.clanMember = cm;
     }
 
+    public void checkTaskAllMember(Player plOri) {
+        for (int i = this.membersInGame.size() - 1; i >= 0; i--) {
+            Player pl = this.membersInGame.get(i);
+            if (pl != null && pl.zone != null && plOri.zone.equals(pl.zone)) {
+                TaskService.gI().checkDoneTaskTut(pl);
+            }
+        }
+    }
+
     //xóa khi member rời clan or bị kích
     public void removeClanMember(ClanMember cm) {
         this.members.remove(cm);
@@ -300,11 +313,10 @@ public class Clan {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public void insert() {
         JSONArray dataArray = new JSONArray();
+        JSONObject dataObject = new JSONObject();
         for (ClanMember cm : this.members) {
-            JSONObject dataObject = new JSONObject(); 
             dataObject.put("id", cm.id);
             dataObject.put("name", cm.name);
             dataObject.put("head", cm.head);
@@ -318,7 +330,8 @@ public class Clan {
             dataObject.put("join_time", cm.joinTime);
             dataObject.put("ask_pea_time", cm.timeAskPea);
             dataObject.put("power", cm.powerPoint);
-            dataArray.add(dataObject.toJSONString()); 
+            dataArray.add(dataObject.toJSONString());
+            dataObject.clear();
         }
 
         String member = dataArray.toJSONString();
@@ -354,11 +367,10 @@ public class Clan {
 
     }
 
-    @SuppressWarnings("unchecked")
     public void update() {
         JSONArray dataArray = new JSONArray();
+        JSONObject dataObject = new JSONObject();
         for (ClanMember cm : this.members) {
-            JSONObject dataObject = new JSONObject(); 
             dataObject.put("id", cm.id);
             dataObject.put("name", cm.name);
             dataObject.put("head", cm.head);
@@ -372,7 +384,8 @@ public class Clan {
             dataObject.put("join_time", cm.joinTime);
             dataObject.put("ask_pea_time", cm.timeAskPea);
             dataObject.put("power", cm.powerPoint);
-            dataArray.add(dataObject.toJSONString()); 
+            dataArray.add(dataObject.toJSONString());
+            dataObject.clear();
         }
 
         String member = dataArray.toJSONString();

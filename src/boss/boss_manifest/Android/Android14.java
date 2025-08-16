@@ -3,17 +3,15 @@ package boss.boss_manifest.Android;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstPlayer;
-
-import java.util.Random;
-
 import boss.Boss;
 import boss.BossID;
 import boss.BossStatus;
 import boss.BossesData;
+import java.util.Random;
 import map.ItemMap;
 import player.Player;
 import services.PlayerService;
@@ -29,20 +27,11 @@ public class Android14 extends Boss {
         super(BossID.ANDROID_14, BossesData.ANDROID_14);
     }
 
-    @Override
+  @Override
     public void reward(Player plKill) {
-        // Check nhiệm vụ
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-
-        // Drop vàng (item ID 190), số lượng ngẫu nhiên 200.000–3.000.000
-        Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 190, Util.nextInt(200000, 3000001),
+        Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 190, Util.nextInt(20000, 30001),
                 this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
-
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
-        
         if (Util.isTrue(80, 100)) {
             int[] items = Util.isTrue(50, 100) ? new int[]{18, 19, 20} : new int[]{1066, 1067, 1068, 1069, 1070, 1229};
             int randomItem = items[new Random().nextInt(items.length)];

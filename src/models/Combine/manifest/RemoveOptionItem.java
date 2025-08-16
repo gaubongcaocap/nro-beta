@@ -8,8 +8,13 @@ import player.Player;
 import consts.ConstNpc;
 import item.Item;
 import item.Item.ItemOption;
+import java.util.Arrays;
+import java.util.List;
+import models.Combine.Combine;
 import models.Combine.CombineService;
+import player.Player;
 import services.InventoryService;
+import services.ItemService;
 import services.Service;
 import utils.Util;
 
@@ -115,7 +120,6 @@ public class RemoveOptionItem {
                 ItemOption option_108 = new ItemOption();
                 ItemOption option_109 = new ItemOption();
                 ItemOption option_114 = new ItemOption();
-                @SuppressWarnings("unused")
                 ItemOption option_117 = new ItemOption();
                 ItemOption option_153 = new ItemOption();
                 ItemOption option_156 = new ItemOption();

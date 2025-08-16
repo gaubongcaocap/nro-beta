@@ -3,7 +3,7 @@ package models.GiftCode;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstNpc;
 import item.Item;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import jdbc.DBConnecter;
+import jdbc.NDVDB;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -23,6 +24,9 @@ import services.InventoryService;
 import services.ItemService;
 import services.NpcService;
 import services.Service;
+import shop.ItemShop;
+import shop.Shop;
+import utils.Util;
 
 public class GiftCodeService {
 

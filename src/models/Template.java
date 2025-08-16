@@ -3,7 +3,7 @@ package models;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import map.WayPoint;
 import skill.Skill;

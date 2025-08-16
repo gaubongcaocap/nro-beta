@@ -3,7 +3,7 @@ package boss.boss_manifest.SnakeWay;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import EMTI.Functions;
@@ -29,22 +29,22 @@ public class SAIBAMEN extends Boss {
     private Clan clan;
     private int idboss;
 
-    private static final int[][] FULL_GALICK = new int[][] { { Skill.GALICK, 1 }, { Skill.GALICK, 2 },
-            { Skill.GALICK, 3 }, { Skill.GALICK, 4 }, { Skill.GALICK, 5 }, { Skill.GALICK, 6 }, { Skill.GALICK, 7 } };
+    private static final int[][] FULL_GALICK = new int[][]{{Skill.GALICK, 1}, {Skill.GALICK, 2}, {Skill.GALICK, 3}, {Skill.GALICK, 4}, {Skill.GALICK, 5}, {Skill.GALICK, 6}, {Skill.GALICK, 7}};
 
     public SAIBAMEN(Zone zone, Clan clan, int id, long dame, long hp) throws Exception {
         super(PHOBANCDRD, BossID.SAIBAMEN - id, new BossData(
                 "Số " + id,
                 ConstPlayer.XAYDA,
-                new short[] { 642, 643, 644, -1, -1, -1 },
+                new short[]{642, 643, 644, -1, -1, -1},
                 ((10000 + dame)),
-                new long[] { ((500000 + hp)) },
-                new int[] { 144 },
+                new long[]{((500000 + hp))},
+                new int[]{144},
                 (int[][]) Util.addArray(FULL_GALICK),
-                new String[] {},
-                new String[] {},
-                new String[] {},
-                60));
+                new String[]{},
+                new String[]{},
+                new String[]{},
+                60
+        ));
         this.zone = zone;
         this.clan = clan;
         this.idboss = id;
@@ -57,11 +57,6 @@ public class SAIBAMEN extends Boss {
                     this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
-        // sự kiện
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override
@@ -115,12 +110,12 @@ public class SAIBAMEN extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage / 7);
+            damage = this.nPoint.subDameInjureWithDeff(damage );
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage / 4;
+                damage = damage;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -140,7 +135,7 @@ public class SAIBAMEN extends Boss {
             }
             Service.gI().chat(plAtt, "Trời ơi muộn mất rồi");
             EffectSkillService.gI().startStun(plAtt, System.currentTimeMillis(), 3500);
-            // gồng tự sát
+            //gồng tự sát
             this.playerSkill.prepareTuSat = true;
             this.playerSkill.lastTimePrepareTuSat = System.currentTimeMillis();
             Message msg;
@@ -159,7 +154,7 @@ public class SAIBAMEN extends Boss {
         Service.gI().chat(this, "He he he");
         while (this.playerSkill.prepareTuSat) {
             if (Util.canDoWithTime(this.playerSkill.lastTimePrepareTuSat, 2500)) {
-                // EffectSkillService.gI().removeStun(plAtt);
+//                EffectSkillService.gI().removeStun(plAtt);
                 this.playerSkill.prepareTuSat = false;
                 setDie(this);
                 die(plAtt);

@@ -3,7 +3,7 @@ package models.RedRibbonHQ;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import map.Zone;

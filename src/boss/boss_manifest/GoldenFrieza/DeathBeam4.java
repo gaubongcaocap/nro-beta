@@ -3,7 +3,7 @@ package boss.boss_manifest.GoldenFrieza;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -138,7 +138,7 @@ public class DeathBeam4 extends Boss {
 
     @Override
     public void setDie() {
-        // playerAtt.setDie();
+//        playerAtt.setDie();
         playerAtt.injured(this.playerUseSkill, 2_100_000_000, true, false);
     }
 }

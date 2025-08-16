@@ -1,8 +1,14 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package models.Combine.manifest;
 
 import consts.ConstNpc;
 import item.Item;
 import item.Item.ItemOption;
+import java.util.Arrays;
+import java.util.List;
 import models.Combine.CombineService;
 import player.Player;
 import services.InventoryService;
@@ -73,8 +79,8 @@ public class MoKhoaItem {
             return;
         }
         if (InventoryService.gI().getCountEmptyBag(player) > 0) {
-            if (player.inventory.ruby < 20000) {
-                Service.gI().sendThongBao(player, "Con cần 20k hồng ngọc để tẩy...");
+            if (player.inventory.ruby < 2000) {
+                Service.gI().sendThongBao(player, "Con cần 2k hồng ngọc để tẩy...");
                 return;
             }
             player.inventory.ruby -= 2000;
@@ -91,6 +97,8 @@ public class MoKhoaItem {
 
             if (Util.isTrue(30, 100)) {
                  CombineService.gI().sendEffectSuccessCombine(player);
+                List<Integer> idOptionHacHoa = Arrays.asList(30);
+
                 ItemOption option_30 = new ItemOption();
 
                 for (ItemOption itopt : trangBiKhoagd.itemOptions) {

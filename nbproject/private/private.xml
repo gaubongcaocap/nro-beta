@@ -2,6 +2,27 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/models/Combine/manifest/CuongHoaLoSaoPhaLe.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/network/CommandMessage.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/player/NPoint.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/item/ItemTime.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/EmtiManager/EmtiManager.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/network/server/EMTIServer.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/services/PetService.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/network/session/Session.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/server/ServerManagerUI.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/models/Combine/manifest/DapDoAoHoa.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/server/Controller.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/network/io/Message.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/network/io/Sender.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/network/server/InEMTIServer.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/npc/npc_manifest/OngGohan.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/models/Combine/manifest/TinhAnTrangBi.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/services/func/SummonDragon.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/network/example/DFSendCollect.java</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/data/config/config.properties</file>
+            <file>file:/C:/Users/Administrator/Downloads/DragonBoy-main1/DragonBoy-main1/src/services/func/UseItem.java</file>
+        </group>
     </open-files>
 </project-private>

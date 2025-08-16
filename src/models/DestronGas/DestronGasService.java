@@ -3,7 +3,7 @@ package models.DestronGas;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import clan.Clan;
@@ -44,9 +44,9 @@ public class DestronGasService {
         if (clan != null) {
             ClanMember cm = clan.getClanMember((int) player.id);
             if (cm != null) {
-                if (player.clanMember.getNumDateFromJoinTimeToToday() < 1) {
-                    return;
-                }
+//                if (player.clanMember.getNumDateFromJoinTimeToToday() < 1) {
+//                    return;
+//                }
                 if (clan.members.size() < DestronGas.N_PLAYER_CLAN) {
                     return;
                 }

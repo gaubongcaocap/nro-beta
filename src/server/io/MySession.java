@@ -3,7 +3,7 @@ package server.io;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import java.net.Socket;
@@ -21,6 +21,7 @@ import server.Maintenance;
 import server.Manager;
 import models.AntiLogin;
 import services.Service;
+import utils.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -128,6 +129,7 @@ public class MySession extends Session {
             if (this.player == null) {
                 Player pl = null;
                 try {
+                    long st = System.currentTimeMillis();
                     this.uu = username;
                     this.pp = password;
                     pl = NDVSqlFetcher.login(this, al);

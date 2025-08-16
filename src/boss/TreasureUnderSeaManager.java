@@ -3,7 +3,7 @@ package boss;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import server.Maintenance;

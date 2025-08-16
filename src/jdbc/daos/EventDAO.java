@@ -2,7 +2,7 @@ package jdbc.daos;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import com.google.gson.Gson;

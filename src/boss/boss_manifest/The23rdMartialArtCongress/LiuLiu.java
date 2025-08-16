@@ -3,7 +3,7 @@ package boss.boss_manifest.The23rdMartialArtCongress;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;

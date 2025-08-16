@@ -3,7 +3,7 @@ package boss;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import boss.boss_manifest.AnTrom.AnTrom;
@@ -36,9 +36,11 @@ import boss.boss_manifest.Broly.Broly;
 import boss.boss_manifest.Broly.SuperBroly;
 import boss.boss_manifest.ChristmasEvent.OngGiaNoel;
 import boss.boss_manifest.TaoPaiPai.TaoPaiPai;
+import boss.boss_manifest.ThanHuyDiet.*;
 import boss.boss_manifest.Frieza.Fide;
 import boss.boss_manifest.HungVuongEvent.SonTinh;
 import boss.boss_manifest.HungVuongEvent.ThuyTinh;
+import boss.boss_manifest.Kimetsu.*;
 import boss.boss_manifest.HalloweenEvent.BiMa;
 import boss.boss_manifest.HalloweenEvent.Doi;
 import boss.boss_manifest.HalloweenEvent.MaTroi;
@@ -90,6 +92,7 @@ import boss.boss_manifest.Yardart.TAPSU1;
 import boss.boss_manifest.Yardart.TAPSU2;
 import boss.boss_manifest.Yardart.TAPSU3;
 import boss.boss_manifest.Yardart.TAPSU4;
+import item.Item;
 import boss.boss_manifest.Cell.XENCON1;
 import boss.boss_manifest.Cell.XENCON2;
 import boss.boss_manifest.Cell.XENCON3;
@@ -99,8 +102,6 @@ import boss.boss_manifest.Cell.XENCON6;
 import boss.boss_manifest.Cell.XENCON7;
 import boss.boss_manifest.Cumber.Cumber;
 import boss.boss_manifest.LunarNewYearEvent.LanCon;
-import static boss.BossID.SOI_HEC_QUYN1;
-import boss.miniboss.SoiHecQuyn;
 import player.Player;
 import network.Message;
 import services.MapService;
@@ -157,15 +158,24 @@ public class BossManager implements Runnable {
         this.createBoss(BossID.ANDROID_14);
         this.createBoss(BossID.DR_KORE);
         this.createBoss(BossID.COOLER);
-        this.createBoss(BossID.BLACK_GOKU, 3);
+        this.createBoss(BossID.BLACK_GOKU, 5);
         this.createBoss(BossID.GOLDEN_FRIEZA, 5);
         this.createBoss(BossID.BLACK_GOKU);
         this.createBoss(BossID.AN_TROM);
         this.createBoss(BossID.AN_TROM_TV);
-        this.createBoss(BossID.BROLY, 5);
-//        this.createBoss(BossID.SUPER_BROLY, 3);
+        this.createBoss(BossID.BROLY, 50);
+        // this.createBoss(BossID.SUPER_BROLY, 3);
         this.createBoss(BossID.CUMBER);
-   		this.createBoss(SOI_HEC_QUYN1, 3);
+        this.createBoss(BossID.SOI_HEC_QUYN, 3);
+        this.createBoss(BossID.GOKU_HUYDIET, 3);
+        this.createBoss(BossID.TANJIRO, 1);
+        this.createBoss(BossID.INOSUKE_PIG, 1);
+        this.createBoss(BossID.INOSUKE, 1);
+        this.createBoss(BossID.ZENITSU, 1);
+        this.createBoss(BossID.NEZUKO, 1);
+
+        this.createBoss(BossID.BILL2, 1);
+        this.createBoss(BossID.WHIS2, 1);
     }
 
     public void createBoss(int bossID, int total) {
@@ -323,7 +333,7 @@ public class BossManager implements Runnable {
                     new AnTromTV();
                 case BossID.KHIDOT ->
                     new KhiDot();
-                case BossID.NGUYETTHAN ->
+                case BossID.NGUYET_THAN ->
                     new NguyetThan();
                 case BossID.NHATTHAN ->
                     new NhatThan();
@@ -357,8 +367,24 @@ public class BossManager implements Runnable {
                     new BlackGoku();
                 case BossID.CUMBER ->
                     new Cumber();
-                case BossID.SOI_HEC_QUYN1 ->
-                    new SoiHecQuyn();
+                case BossID.GOKU_HUYDIET ->
+                    new boss.boss_manifest.GokuVegeta.Goku();
+                case BossID.CADIC_HUYDIET ->
+                    new boss.boss_manifest.GokuVegeta.Cadic();
+                case BossID.TANJIRO ->
+                    new Tanjiro();
+                case BossID.INOSUKE_PIG ->
+                    new InosukePig();
+                case BossID.INOSUKE ->
+                    new Inosuke();
+                case BossID.ZENITSU ->
+                    new Zenitsu();
+                case BossID.NEZUKO ->
+                    new Nezuko();
+                case BossID.BILL2 ->
+                    new Bill2();
+                case BossID.WHIS2 ->
+                    new Whis2();
                 default ->
                     null;
             };
@@ -379,20 +405,32 @@ public class BossManager implements Runnable {
         return null;
     }
 
-    public void showListBoss(Player player) {
-        if (!player.isAdmin()) {
+    public void showListBoss(Player player, Item item) {
+        if (!player.isAdmin() && item == null) {
             return;
         }
+
         player.iDMark.setMenuType(3);
         Message msg;
         try {
             msg = new Message(-96);
             msg.writer().writeByte(0);
             msg.writer().writeUTF("Boss");
-            msg.writer().writeByte((int) bosses.stream().filter(boss -> !MapService.gI().isMapBossFinal(boss.data[0].getMapJoin()[0]) && !MapService.gI().isMapHuyDiet(boss.data[0].getMapJoin()[0]) && !MapService.gI().isMapYardart(boss.data[0].getMapJoin()[0]) && !MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0]) && !MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0])).count());
+            msg.writer()
+                    .writeByte((int) bosses.stream()
+                            .filter(boss -> !MapService.gI().isMapBossFinal(boss.data[0].getMapJoin()[0])
+                                    && !MapService.gI().isMapHuyDiet(boss.data[0].getMapJoin()[0])
+                                    && !MapService.gI().isMapYardart(boss.data[0].getMapJoin()[0])
+                                    && !MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0])
+                                    && !MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0]))
+                            .count());
             for (int i = 0; i < bosses.size(); i++) {
                 Boss boss = this.bosses.get(i);
-                if (MapService.gI().isMapBossFinal(boss.data[0].getMapJoin()[0]) || MapService.gI().isMapYardart(boss.data[0].getMapJoin()[0]) || MapService.gI().isMapHuyDiet(boss.data[0].getMapJoin()[0]) || MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0]) || MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0])) {
+                if (MapService.gI().isMapBossFinal(boss.data[0].getMapJoin()[0])
+                        || MapService.gI().isMapYardart(boss.data[0].getMapJoin()[0])
+                        || MapService.gI().isMapHuyDiet(boss.data[0].getMapJoin()[0])
+                        || MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0])
+                        || MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0])) {
                     continue;
                 }
                 msg.writer().writeInt(i);
@@ -406,7 +444,8 @@ public class BossManager implements Runnable {
                 msg.writer().writeUTF(boss.data[0].getName());
                 if (boss.zone != null) {
                     msg.writer().writeUTF(boss.bossStatus.toString());
-                    msg.writer().writeUTF(boss.zone.map.mapName + "(" + boss.zone.map.mapId + ") khu " + boss.zone.zoneId + "");
+                    msg.writer().writeUTF(
+                            boss.zone.map.mapName + "(" + boss.zone.map.mapId + ") khu " + boss.zone.zoneId + "");
                 } else {
                     msg.writer().writeUTF(boss.bossStatus.toString());
                     msg.writer().writeUTF("Chết rồi");
@@ -423,15 +462,20 @@ public class BossManager implements Runnable {
     }
 
     public boolean checkBosses(Zone zone, int BossID) {
-        return this.bosses.stream().filter(boss -> boss.id == BossID && boss.zone != null && boss.zone.equals(zone) && !boss.isDie()).findFirst().orElse(null) != null;
+        return this.bosses.stream()
+                .filter(boss -> boss.id == BossID && boss.zone != null && boss.zone.equals(zone) && !boss.isDie())
+                .findFirst().orElse(null) != null;
     }
 
     public Player findBossClone(Player player) {
-        return player.zone.getBosses().stream().filter(boss -> boss.id < -100_000_000 && !boss.isDie()).findFirst().orElse(null);
+        return player.zone.getBosses().stream().filter(boss -> boss.id < -100_000_000 && !boss.isDie()).findFirst()
+                .orElse(null);
     }
 
     public Boss getBossById(int bossId, int mapId, int zoneId) {
-        return this.bosses.stream().filter(boss -> boss.id == bossId && boss.zone != null && boss.zone.map.mapId == mapId && boss.zone.zoneId == zoneId && !boss.isDie()).findFirst().orElse(null);
+        return this.bosses.stream().filter(boss -> boss.id == bossId && boss.zone != null
+                && boss.zone.map.mapId == mapId && boss.zone.zoneId == zoneId && !boss.isDie()).findFirst()
+                .orElse(null);
     }
 
     @Override
@@ -447,9 +491,9 @@ public class BossManager implements Runnable {
                         e.printStackTrace();
                     }
                 }
-//                if (delay - (System.currentTimeMillis() - st) > 0) {
-//                    Thread.sleep(delay - (System.currentTimeMillis() - st));
-//                }
+                // if (delay - (System.currentTimeMillis() - st) > 0) {
+                // Thread.sleep(delay - (System.currentTimeMillis() - st));
+                // }
                 Functions.sleep(Math.max(delay - (System.currentTimeMillis() - st), 10));
             } catch (Exception e) {
                 e.printStackTrace();

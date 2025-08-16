@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstNpc;
 import npc.Npc;
@@ -96,7 +96,7 @@ public class IDMark {
     private boolean goToBDKB;
     private long lastTimeGoToBDKB;
     private long lastTimeAnXienTrapBDKB;
-
+    private int shopId; //shop ope
     private int shenronType = -1;
 
     private Npc npcChose; //npc mở
@@ -137,6 +137,14 @@ public class IDMark {
 
     public void setTranhNgoc(byte tn) {
         this.isTranhNgoc = tn;
+    }
+
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
+    }
+
+    public int getShopId() {
+        return this.shopId;
     }
 
     public void dispose() {

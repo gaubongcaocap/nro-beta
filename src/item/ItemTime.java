@@ -3,7 +3,7 @@ package item;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import player.NPoint;
 import player.Player;
@@ -96,6 +96,7 @@ public class ItemTime {
 
     public boolean isUseDK;
     public long lastTimeUseDK;
+    public int iconDK;
 
     public boolean isEatMeal;
     public long lastTimeEatMeal;
@@ -107,8 +108,21 @@ public class ItemTime {
     public boolean isEatMeal3;
     public long lastTimeEatMeal3;
 
+    public boolean isEatThuocMo;
+    public long lastTimeEatThuocMo;
+    public int iconThuocMo;
+
+    public boolean isEatThuocMo2;
+    public long lastTimeEatThuocMo2;
+    public int iconThuocMo2;
+
+
+    public boolean isEatDuoiKhiXanh;
+    public long lastTImeEatDuoiKhiXanh;
+    public int iconDKXanh;
+
     public int iconMeal2;
-     public int iconMeal3;
+    public int iconMeal3;
     public long lastTimeKhauTrang;
     public boolean isUseKhauTrang;
     public long lastTimeLoX2;
@@ -164,7 +178,7 @@ public class ItemTime {
             }
         }
         if (isUseKhauTrang) {
-            if (Util.canDoWithTime(lastTimeKhauTrang, TIME_30P)) {
+            if (Util.canDoWithTime(lastTimeKhauTrang, TIME_10P)) {
                 isUseKhauTrang = false;
                 Service.gI().point(player);
             }
@@ -256,7 +270,7 @@ public class ItemTime {
             }
         }
         if (isUserBanhChung) {
-            if (Util.canDoWithTime(lastTimeAnDanh2, TIME_ITEM)) {
+            if (Util.canDoWithTime(lastTimeBanhChung, TIME_30P)) {
                 isUserBanhChung = false;
                 Service.gI().point(player);
             }

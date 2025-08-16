@@ -3,7 +3,7 @@ package mob;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import network.Message;
 import player.Player;

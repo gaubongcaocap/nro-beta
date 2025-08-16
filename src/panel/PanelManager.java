@@ -20,7 +20,7 @@ public class PanelManager {
     // Mở giao diện chính
     public void openUI() {
         SwingUtilities.invokeLater(() -> {
-            frame = new JFrame("NTD SERVER MANAGER TOOL");
+            frame = new JFrame("SERVER MANAGER TOOL");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1000, 600);
             frame.setLocationRelativeTo(null);

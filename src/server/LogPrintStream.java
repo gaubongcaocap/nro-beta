@@ -12,7 +12,7 @@ public class LogPrintStream extends PrintStream {
 
     @Override
     public void println(String x) {
-        super.println(x);
+        super.println(x);   
         // Gửi log đến DynamicPanel
         PanelManager.gI().log(x);
     }

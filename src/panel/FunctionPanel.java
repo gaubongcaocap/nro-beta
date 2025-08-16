@@ -1,5 +1,6 @@
 package panel;
 
+import server.Manager; // thêm ở đầu file nếu chưa có
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

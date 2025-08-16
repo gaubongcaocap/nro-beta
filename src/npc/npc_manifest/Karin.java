@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;
@@ -104,7 +104,7 @@ public class Karin extends Npc {
                                             "Hướng\ndẫn\nthêm", "Đồng ý\n1 ngọc\nmỗi lần", "Không\nđồng ý");
                                 }
                                 case 1 ->
-                                    this.npcChat(player, "");
+                                    this.npcChat(player, "Tao đã già rồi, không còn nhớ nhiệm vụ của mày nữa...");
                                 case 2 ->
                                     this.createOtherMenu(player, 2002, "Con có chắc muốn tập luyện ?\nTập luyện với ta sẽ tăng 20 sức mỗi phút",
                                             "Đồng ý\nluyện tập", "Không\nđồng ý");

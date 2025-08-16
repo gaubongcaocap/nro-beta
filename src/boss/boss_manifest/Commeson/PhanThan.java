@@ -3,7 +3,7 @@ package boss.boss_manifest.Commeson;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -12,7 +12,9 @@ import boss.BossManager;
 import boss.BossStatus;
 import consts.ConstPlayer;
 import player.Player;
+import server.ServerNotify;
 import services.PlayerService;
+import services.Service;
 import services.SkillService;
 import services.func.ChangeMapService;
 import utils.Util;
@@ -37,7 +39,7 @@ public class PhanThan extends Boss {
     @Override
     public void active() {
     }
-
+    
     @Override
     public void update() {
         super.update();
@@ -52,7 +54,7 @@ public class PhanThan extends Boss {
             leaveMap();
         }
     }
-
+    
     private void followMaster(int dis) {
         if (super.zone != null) {
             if (super.zone.findPlayerByID(playerAtt.id) != null) {
@@ -79,12 +81,11 @@ public class PhanThan extends Boss {
                 this.playerAtt.location.x + Util.nextInt(-200, 200), this.playerAtt.location.y);
         this.changeStatus(BossStatus.CHAT_S);
     }
-
+    
     @Override
     public void attack() {
         try {
-            this.playerSkill.skillSelect = this.playerSkill.skills
-                    .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+            this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
 
             if (this.playerSkill.skillSelect != null) {
                 if (idSkillPlayer != -1) {

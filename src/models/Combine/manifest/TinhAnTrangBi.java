@@ -42,7 +42,7 @@ public class TinhAnTrangBi {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|1|Con có muốn biến trang bị hủy diệt " + item.template.name + " thành\n"
-                                + "trang bị Ấn không?\b|4|Đục là lên\n"
+                                + "trang bị Ấn không?\n"
                                 + "|7|Cần 99 " + dangusac.template.name;
                         CombineService.gI().baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay, "Làm phép", "Từ chối");
                     } else {
@@ -64,12 +64,12 @@ public class TinhAnTrangBi {
             if (!player.combine.itemsCombine.isEmpty()) {
                 Item item = player.combine.itemsCombine.get(0);
                 Item dangusac = player.combine.itemsCombine.get(1);
-                // int star = 0;
+                int star = 0;
                 Item.ItemOption optionStar = null;
                 if (item != null) {
                     for (Item.ItemOption io : item.itemOptions) {
                         if (io.optionTemplate.id == 34 || io.optionTemplate.id == 35 || io.optionTemplate.id == 36) {
-                            // star = io.param;
+                            star = io.param;
                             optionStar = io;
                             break;
                         }

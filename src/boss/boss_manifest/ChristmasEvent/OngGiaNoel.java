@@ -3,7 +3,7 @@ package boss.boss_manifest.ChristmasEvent;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.*;
 import static boss.BossType.CHRISTMAS_EVENT;
@@ -28,7 +28,7 @@ public class OngGiaNoel extends Boss {
     public void joinMap() {
         if (zoneFinal != null) {
             joinMapByZone(zoneFinal);
-            this.notifyJoinMap();
+            // this.notifyJoinMap();																		
             this.changeStatus(BossStatus.CHAT_S);
             this.wakeupAnotherBossWhenAppear();
             return;

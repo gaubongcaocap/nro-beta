@@ -3,7 +3,7 @@ package matches;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import matches.pvp.TraThu;
 import matches.pvp.ThachDau;
@@ -220,7 +220,7 @@ public class PVPService {
             Service.gI().sendThongBao(pl, "Đối thủ chỉ có " + plMap.inventory.gold + " vàng, không đủ tiền cược");
             return;
         }
-        new ThachDau(pl, plMap, goldThachDau);
+        ThachDau thachDau = new ThachDau(pl, plMap, goldThachDau);
     }
 
     private void acceptPVP2(Player pl) {
@@ -238,7 +238,7 @@ public class PVPService {
             Service.gI().sendThongBao(pl, "Đang giao đấu không thể mời.");
             return;
         }
-        new LuyenTap(pl, plMap);
+        LuyenTap luyenTap = new LuyenTap(pl, plMap);
     }
 
     //**************************************************************************TRẢ THÙ
@@ -294,6 +294,6 @@ public class PVPService {
             Service.gI().sendThongBao(pl, "Chưa thể đến lúc này, vui lòng thử lại sau ít phút");
             return;
         }
-        new TraThu(pl, enemy);
+        TraThu traThu = new TraThu(pl, enemy);
     }
 }

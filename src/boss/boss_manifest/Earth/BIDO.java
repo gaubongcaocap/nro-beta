@@ -1,23 +1,25 @@
 package boss.boss_manifest.Earth;
 
-import java.util.List;
-
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.Boss;
 import boss.BossID;
+import boss.BossManager;
 import boss.BossStatus;
 import boss.BossesData;
 import item.Item;
+import java.util.List;
+import java.util.Random;
+
 import map.ItemMap;
 import player.Player;
 import services.ItemService;
 import services.Service;
 import utils.Util;
-
+import consts.ConstTaskBadges;
 public class BIDO extends Boss {
 
     private long st;
@@ -36,11 +38,9 @@ public class BIDO extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        Service.gI().dropItemMap(this.zone, new ItemMap(zone, 77, Util.nextInt(10, 40), this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+        Service.gI().dropItemMap(this.zone, new ItemMap(zone, 77, Util.nextInt(10, 40), this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         short itTemp = 426;
-        ItemMap it = new ItemMap(zone, itTemp, 1, this.location.x + Util.nextInt(-50, 50),
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
+        ItemMap it = new ItemMap(zone, itTemp, 1, this.location.x + Util.nextInt(-50, 50), this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
         List<Item.ItemOption> ops = ItemService.gI().getListOptionItemShop(itTemp);
         if (!ops.isEmpty()) {
             it.options = ops;
@@ -54,18 +54,16 @@ public class BIDO extends Boss {
                 goldQuantity,
                 this.location.x + Util.nextInt(-30, 30),
                 this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24),
-                plKill.id));
+                plKill.id
+        ));
 
-        // Xác suất rơi item 16
-        if (Util.isTrue(40, 100)) {  // 40% rơi item 16 x1
-            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 16, 1, this.location.x,
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+        if (Util.isTrue(50, 100)) {
+            int[] items = Util.isTrue(50, 100) ? new int[] { 18, 19, 20 }
+                    : new int[] { 1066, 1067, 1068, 1069, 1070, 1229 };
+            int randomItem = items[new Random().nextInt(items.length)];
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, randomItem, 1,
+                    this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
-        
-
-       ItemMap item1173 = new ItemMap(this.zone, 1173, 1, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override

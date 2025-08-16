@@ -1,7 +1,7 @@
 package npc.npc_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import EMTI.Functions;
@@ -17,6 +17,7 @@ import npc.Npc;
 import player.Player;
 import server.Client;
 import services.ClanService;
+import services.NpcService;
 import services.Service;
 import services.TaskService;
 import services.func.ChangeMapService;
@@ -65,6 +66,7 @@ public class DrDrief extends Npc {
             if (this.mapId == 84) {
                 ChangeMapService.gI().changeMapBySpaceShip(player, player.gender + 24, -1, -1);
             } else if (this.mapId == 153) {
+                OUTER:
                 switch (player.iDMark.getIndexMenu()) {
                     case ConstNpc.BASE_MENU -> {
                         Clan clan = player.clan;

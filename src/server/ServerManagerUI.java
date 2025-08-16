@@ -6,9 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
-import NTDManger.NTDManager;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -22,10 +19,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 import java.util.prefs.Preferences;
 import jdbc.daos.EventDAO;
 import models.Consign.ConsignShopManager;
 import network.SessionManager;
+import network.server.EmtiSessionManager;
 
 import services.ClanService;
 import utils.Logger;
@@ -170,8 +169,8 @@ public class ServerManagerUI extends JFrame {
 //        
         JButton clearFw = new JButton("clearFw");
         clearFw.addActionListener((ActionEvent e) -> {
-            network.server.EMTIServer.firewall.clear();
-            network.server.EMTIServer.firewallDownDataGame.clear();
+//            network.server.EMTIServer.firewall.clear();
+//            network.server.EMTIServer.firewallDownDataGame.clear();
             JOptionPane.showMessageDialog(null, "Đã clear firewall");
         });
         panel.add(clearFw);
@@ -211,7 +210,7 @@ public class ServerManagerUI extends JFrame {
         messageLabel.setText("Server đang chạy");
 
         ServerManager.gI().run();
-        NTDManager.getInstance().startAutoSave();
+//        EmtiManager.getInstance().startAutoSave();
         // Đọc giá trị từ tệp
     }
 
@@ -260,7 +259,7 @@ public class ServerManagerUI extends JFrame {
                 e.printStackTrace();
             }
 
-            // long delay = minutes * 60L * 1000L;
+            long delay = minutes * 60L * 1000L;
             remainingSeconds = minutes * 60;
             countdownLabel.setText("Thời gian còn lại: " + formatTime(remainingSeconds));
             countdownTimer = new Timer(1000, e -> {

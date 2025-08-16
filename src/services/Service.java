@@ -3,7 +3,7 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import jdbc.DBConnecter;
@@ -827,12 +827,17 @@ public class Service {
 
     public void addSMTN(Player player, byte type, long param, boolean isOri) {
         if (player.isPet && player.nPoint != null) {
+            if (player.nPoint.power > player.nPoint.getPowerLimit()) {
+                return;
+            }
             player.nPoint.powerUp(param);
             player.nPoint.tiemNangUp(param);
             Player master = ((Pet) player).master;
             param = (long) (param * 0.5);
             param = master.nPoint.calSubTNSM(param);
-            master.nPoint.powerUp(param);
+            if (master.nPoint.power < master.nPoint.getPowerLimit()) {
+                master.nPoint.powerUp(param);
+            }
             master.nPoint.tiemNangUp(param);
             addSMTN(master, type, param, true);
         } else if (player.isBot) {
@@ -1388,7 +1393,7 @@ public class Service {
                 msg.writer().writeInt(leftTime);
             }
             pl.sendMessage(msg);
-            pl.nPoint.setMp(Util.maxIntValue( pl.nPoint.mpMax));
+            pl.nPoint.setMp(Util.maxIntValue(pl.nPoint.mpMax));
             PlayerService.gI().sendInfoHpMpMoney(pl);
             msg.cleanup();
 
@@ -1439,7 +1444,7 @@ public class Service {
             int leftTime = 0;
             msg.writer().writeInt(leftTime);
             pl.sendMessage(msg);
-            pl.nPoint.setMp(Util.maxIntValue( pl.nPoint.mpMax));
+            pl.nPoint.setMp(Util.maxIntValue(pl.nPoint.mpMax));
             PlayerService.gI().sendInfoHpMpMoney(pl);
             msg.cleanup();
         } catch (Exception e) {
@@ -1529,7 +1534,7 @@ public class Service {
                 msg.writeLongByEmti(Util.maxIntValue(pl.pet.nPoint.mpMax), cn.readInt); //mpfull
                 msg.writeLongByEmti(Util.maxIntValue(pl.pet.nPoint.dame), cn.readInt); //damefull
                 msg.writer().writeUTF(pl.pet.name); //name
-                msg.writer().writeUTF(pl.pet.getStrLevel()); //curr level
+                msg.writer().writeUTF(getCurrStrLevel(pl.pet)); //curr level
                 msg.writer().writeLong(pl.pet.nPoint.power); //power
                 msg.writer().writeLong(pl.pet.nPoint.tiemNang); //tiềm năng
                 msg.writer().writeByte(pl.pet.getStatus()); //status
@@ -1546,19 +1551,19 @@ public class Service {
                         switch (i) {
                             case 1:
                                 msg.writer().writeShort(-1);
-                                msg.writer().writeUTF("Cần 150 Tr sức mạnh để mở");
+                                msg.writer().writeUTF("Cần đạt sức mạnh 150tr để mở");
                                 break;
                             case 2:
                                 msg.writer().writeShort(-1);
-                                msg.writer().writeUTF("Cần 1,5 Tỉ sức mạnh để mở");
+                                msg.writer().writeUTF("Cần đạt sức mạnh 1tỷ5 để mở");
                                 break;
                             case 3:
                                 msg.writer().writeShort(-1);
-                                msg.writer().writeUTF("Cần 20 Tỉ sức mạnh để mở");
+                                msg.writer().writeUTF("Cần đạt sức mạnh 20tỷ để mở");
                                 break;
-                            case 4:
+                            default:
                                 msg.writer().writeShort(-1);
-                                msg.writer().writeUTF("Cần 60 Tỉ sức mạnh để mở");
+                                msg.writer().writeUTF("Cần đạt sức mạnh 60tỷ để mở");
                                 break;
 //                            case 5:
 //                                msg.writer().writeShort(-1);
@@ -1569,7 +1574,6 @@ public class Service {
 //                                msg.writer().writeUTF("Cần 200 Tỉ sức mạnh để mở");
 //                                break;
                         }
-
                     }
                 }
 

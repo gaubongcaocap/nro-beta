@@ -1,6 +1,5 @@
 package Bot;
 
-import java.util.ArrayList;
 import java.util.List;
 import server.ServerManager;
 
@@ -8,7 +7,6 @@ public class BotManager implements Runnable {
 
     public static BotManager i;
     
-    // Danh sách bot sử dụng CopyOnWriteArrayList để an toàn khi nhiều luồng thêm/xóa bot.
     public List<Bot> bot =  new java.util.concurrent.CopyOnWriteArrayList<>();
     
     private boolean started = false;
@@ -27,7 +25,8 @@ public class BotManager implements Runnable {
         }
             return i;
     }
-       @Override
+
+    @Override
     public void run() {
         while (ServerManager.isRunning) {
             try {
@@ -35,15 +34,13 @@ public class BotManager implements Runnable {
                 for (Bot bot : this.bot) {
                     bot.update();
                 }
-                long delay = 150 - (System.currentTimeMillis() - st);
-                // Đảm bảo thời gian ngủ luôn dương để tránh ném IllegalArgumentException
-                if (delay < 10) {
-                    delay = 10;
+                long delay = 300 - (System.currentTimeMillis() - st); // tăng thời gian chờ
+                if (delay < 50) { // đảm bảo delay tối thiểu 50 ms thay vì 10 ms
+                    delay = 50;
                 }
                 Thread.sleep(delay);
             } catch (Exception ignored) {
             }
-
         }
     }
 }

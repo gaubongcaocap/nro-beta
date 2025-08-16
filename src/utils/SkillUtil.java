@@ -3,7 +3,7 @@ package utils;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import java.util.List;
@@ -245,14 +245,16 @@ public class SkillUtil {
             return Skill.TROI;
         } else if (id >= 509 && id <= 515) {
             return Skill.HUYT_SAO;
-        } else if (id >= 1334 && id <= 1339) {
-            return Skill.SUPER_TRAI_DAT;
-        } else if (id >= 1340 && id <= 1345) {
-            return Skill.SUPER_NAMEC;
-        } else if (id >= 1346 && id <= 1351) {
-            return Skill.SUPER_SAIYAN;
+        } else if (id >= 1764 && id <= 1769) {
+            return Skill.SUPER_TRANFORMATION;
+        } else if (id >= 1770 && id <= 1775) {
+            return Skill.SUPER_TRANFORMATION;
+        } else if (id >= 1776 && id <= 1781) {
+            return Skill.SUPER_TRANFORMATION;
         }  else if (id >= 1363 && id <= 1369) {
             return Skill.PHAN_THAN;
+        } else if (id == 1782) {
+            return Skill.EVOLUTION;
         } else {
             return -1;
         }
@@ -260,15 +262,14 @@ public class SkillUtil {
 
     public static byte getLevelSkillByItemID(int tempId) {
         switch (tempId) {
-            // TRÁI ĐẤT
-            case 1334:
+            case 1764:
             case 1340:
             case 1346:
             case 1356:
             case 1363:
             case 1370:
                 return 1;
-            case 1335:
+            case 1770:
             case 1341:
             case 1347:
             case 1357:
@@ -357,22 +358,20 @@ public class SkillUtil {
             return getSkillbyId(pl, Skill.TROI);
         } else if (tempId >= 509 && tempId <= 515) {
             return getSkillbyId(pl, Skill.HUYT_SAO);
-        } else if (tempId == 251003) {
-            switch (pl.gender) {
-                case 0:
-                    return getSkillbyId(pl, Skill.SUPER_KAME);
-                case 1:
-                    return getSkillbyId(pl, Skill.MA_PHONG_BA);
-                case 2:
-                    return getSkillbyId(pl, Skill.LIEN_HOAN_CHUONG);
-            }
-            return null;
-        } else if (tempId >= 1334 && tempId <= 1339) {
-            return getSkillbyId(pl, Skill.SUPER_TRAI_DAT);
-        } else if (tempId >= 1340 && tempId <= 1345) {
-            return getSkillbyId(pl, Skill.SUPER_NAMEC);
-        } else if (tempId >= 1346 && tempId <= 1351) {
-            return getSkillbyId(pl, Skill.SUPER_SAIYAN);
+        } else if (tempId >= 1743 && tempId <= 1749) {
+            return getSkillbyId(pl, Skill.SUPER_KAME);
+        } else if (tempId >= 1757 && tempId <= 1763) {
+            return getSkillbyId(pl, Skill.MA_PHONG_BA);
+        } else if (tempId >= 1750 && tempId <= 1760) {
+            return getSkillbyId(pl, Skill.MA_PHONG_BA);
+        } else if (tempId >= 1764 && tempId <= 1769) {
+            return getSkillbyId(pl, Skill.SUPER_TRANFORMATION);
+        } else if (tempId >= 1770 && tempId <= 1775) {
+            return getSkillbyId(pl, Skill.SUPER_TRANFORMATION);
+        } else if (tempId >= 1776 && tempId <= 1781) {
+            return getSkillbyId(pl, Skill.SUPER_TRANFORMATION);
+        } else if (tempId ==  1782) {
+            return getSkillbyId(pl, Skill.EVOLUTION);
         } else if (tempId >= 1363 && tempId <= 1369) {
             return getSkillbyId(pl, Skill.PHAN_THAN);
         } else {

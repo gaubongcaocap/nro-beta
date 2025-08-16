@@ -3,7 +3,7 @@ package npc;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import java.io.IOException;

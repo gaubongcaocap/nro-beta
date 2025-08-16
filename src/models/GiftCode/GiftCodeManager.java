@@ -3,7 +3,7 @@ package models.GiftCode;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import jdbc.DBConnecter;
 import player.Player;
@@ -77,4 +77,6 @@ public class GiftCodeManager {
     
     NpcService.gI().createTutorial(p, 5073, sb.toString());
 }
+
+
 }

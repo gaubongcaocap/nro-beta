@@ -11,7 +11,7 @@ import lombok.Getter;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 public class PowerLimitManager {
@@ -32,7 +32,7 @@ public class PowerLimitManager {
     public void load() {
         try {
             try (Connection con = DBConnecter.getConnectionServer();) {
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM `power_limit`");
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM `power_limit` ORDER BY id ASC");
                 ResultSet rs = ps.executeQuery();
                 try {
                     while (rs.next()) {
@@ -72,28 +72,9 @@ public class PowerLimitManager {
         powers.remove(powerLimit);
     }
 
-    /**
-     * Lấy giới hạn sức mạnh tương ứng với chỉ số limitPower.  Trong một số
-     * trường hợp dữ liệu người chơi có thể lưu giá trị limitPower vượt ra ngoài
-     * phạm vi mảng powers hoặc âm.  Thay vì trả về null khiến các hàm gọi phải
-     * xử lý lỗi thủ công, phương thức sẽ trả về phần tử phù hợp nhất:
-     *  - Nếu index < 0: trả về null (không tìm thấy)
-     *  - Nếu index >= kích thước danh sách: trả về phần tử cuối cùng (giới hạn cao nhất)
-     *  - Ngược lại: trả về phần tử tại vị trí index
-     *
-     * @param index vị trí limitPower mong muốn
-     * @return Đối tượng PowerLimit tương ứng hoặc null nếu không tìm được
-     */
     public PowerLimit get(int index) {
-        if (powers == null || powers.isEmpty()) {
+        if (index < 0 || index >= powers.size()) {
             return null;
-        }
-        if (index < 0) {
-            return null;
-        }
-        if (index >= powers.size()) {
-            // Trả về phần tử cuối cùng để đảm bảo luôn có giới hạn sử dụng
-            return powers.get(powers.size() - 1);
         }
         return powers.get(index);
     }

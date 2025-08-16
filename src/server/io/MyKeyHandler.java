@@ -3,7 +3,7 @@ package server.io;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import network.KeyHandler;

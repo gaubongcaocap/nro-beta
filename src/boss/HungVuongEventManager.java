@@ -3,7 +3,7 @@ package boss;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 public class HungVuongEventManager extends BossManager {

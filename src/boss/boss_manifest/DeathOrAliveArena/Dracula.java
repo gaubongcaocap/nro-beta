@@ -3,13 +3,14 @@ package boss.boss_manifest.DeathOrAliveArena;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;
 import boss.BossesData;
 import static boss.BossType.PHOBAN;
 import player.Player;
+import services.PlayerService;
 import services.Service;
 import utils.Util;
 

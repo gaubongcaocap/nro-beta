@@ -3,7 +3,7 @@ package models.The23rdMartialArtCongress;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.boss_manifest.The23rdMartialArtCongress.TauPayPay;

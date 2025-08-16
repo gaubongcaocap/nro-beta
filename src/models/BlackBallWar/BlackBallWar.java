@@ -3,7 +3,7 @@ package models.BlackBallWar;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import EMTI.Functions;
@@ -30,9 +30,9 @@ public class BlackBallWar implements Runnable {
     public static final byte X5 = 5;
     public static final byte X7 = 7;
 
-    public static final int COST_X3 = 1000000;
-    public static final int COST_X5 = 3000000;
-    public static final int COST_X7 = 5000000;
+    public static final int COST_X3 = 100000000;
+    public static final int COST_X5 = 300000000;
+    public static final int COST_X7 = 500000000;
 
     public static final byte HOUR_OPEN = 20;
     public static final byte MIN_OPEN = 0;
@@ -46,7 +46,7 @@ public class BlackBallWar implements Runnable {
     public static final byte MIN_CLOSE = 0;
     public static final byte SECOND_CLOSE = 0;
 
-    public static final int AVAILABLE = 1;
+    public static final int AVAILABLE = 5;
     private static final int TIME_WIN = 300000;
 
     public Zone zone;

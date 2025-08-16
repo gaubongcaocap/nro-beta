@@ -3,7 +3,7 @@ package services;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstPlayer;
@@ -78,7 +78,7 @@ public class ItemTimeService {
             sendItemTime(player, 13540, (int) ((TIME_30P- (System.currentTimeMillis() - player.itemTime.lastTimeBuax2DeTu)) / 1000));
         }
         if (player.itemTime.isUseKhauTrang) {
-            sendItemTime(player, 7149, (int) ((TIME_30P- (System.currentTimeMillis() - player.itemTime.lastTimeKhauTrang)) / 1000));
+            sendItemTime(player, 7149, (int) ((TIME_10P- (System.currentTimeMillis() - player.itemTime.lastTimeKhauTrang)) / 1000));
         }
         if (player.itemTime.isUseBoHuyet) {
             sendItemTime(player, 2755, (int) ((TIME_ITEM - (System.currentTimeMillis() - player.itemTime.lastTimeBoHuyet)) / 1000));
@@ -108,7 +108,9 @@ public class ItemTimeService {
         if (player.itemTime.isUseCuongNo2) {
             sendItemTime(player, 10716, (int) ((TIME_ITEM - (System.currentTimeMillis() - player.itemTime.lastTimeCuongNo2)) / 1000));
         }
-
+        if (player.itemTime.isUserBanhChung) {
+            sendItemTime(player, 11717, (int) ((TIME_ITEM - (System.currentTimeMillis() - player.itemTime.lastTimeBanhChung)) / 1000));
+        }
         if (player.itemTime.isUseAnDanh2) {
             sendItemTime(player, 10717, (int) ((TIME_ITEM - (System.currentTimeMillis() - player.itemTime.lastTimeAnDanh2)) / 1000));
         }

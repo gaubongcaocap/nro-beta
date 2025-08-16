@@ -3,7 +3,7 @@ package data;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import models.Template;
@@ -18,8 +18,14 @@ public class ItemData {
     public static void updateItem(MySession session) {
         updateItemOptionItemplate(session);
         updateItemArrHead2FItemplate(session);
-        updateItemTemplate(session, 750);
-        updateItemTemplate(session, 750, Manager.ITEM_TEMPLATES.size());
+        int total = Manager.ITEM_TEMPLATES.size();
+        int half = total / 2;
+        if (half <= 0) {
+            updateItemTemplate(session, total);
+        } else {
+            updateItemTemplate(session, half);
+            updateItemTemplate(session, half, total);
+        }
     }
 
     private static void updateItemOptionItemplate(MySession session) {
@@ -80,7 +86,6 @@ public class ItemData {
             msg.writer().writeShort(start);
             msg.writer().writeShort(end);
             for (int i = start; i < end; i++) {
-//                System.out.println("start: " + start + " -> " + end + " id " + Manager.ITEM_TEMPLATES.get(i).id);
                 msg.writer().writeByte(Manager.ITEM_TEMPLATES.get(i).type);
                 msg.writer().writeByte(Manager.ITEM_TEMPLATES.get(i).gender);
                 msg.writer().writeUTF(Manager.ITEM_TEMPLATES.get(i).name);

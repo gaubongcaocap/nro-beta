@@ -3,7 +3,7 @@ package boss.boss_manifest.SnakeWay;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstPlayer;
@@ -30,17 +30,18 @@ public class NADIC extends Boss {
         super(PHOBANCDRD, BossID.NADIC, new BossData(
                 "Nađíc",
                 ConstPlayer.XAYDA,
-                new short[] { 648, 649, 650, -1, -1, -1 },
+                new short[]{648, 649, 650, -1, -1, -1},
                 ((10000 + dame)),
-                new long[] { ((500000 + hp)) },
-                new int[] { 144 },
-                new int[][] {
-                        { Skill.GALICK, 7, 1000 },
-                        { Skill.TAI_TAO_NANG_LUONG, 5, 10000 }, }, // skill
-                new String[] {},
-                new String[] {},
-                new String[] { "|-1|Sếp hãy giết nó, trả thù cho em!" },
-                60));
+                new long[]{((500000 + hp))},
+                new int[]{144},
+                new int[][]{
+                    {Skill.GALICK, 7, 1000},
+                    {Skill.TAI_TAO_NANG_LUONG, 5, 10000},},//skill
+                new String[]{},
+                new String[]{},
+                new String[]{"|-1|Sếp hãy giết nó, trả thù cho em!"},
+                60
+        ));
         this.zone = zone;
         this.clan = clan;
     }
@@ -52,11 +53,6 @@ public class NADIC extends Boss {
                     this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
-        // sự kiện
-        int quantity = 1;
-        ItemMap item1173 = new ItemMap(this.zone, 1173, quantity, this.location.x,
-                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, item1173);
     }
 
     @Override
@@ -80,7 +76,7 @@ public class NADIC extends Boss {
     public void die(Player plKill) {
         for (Boss boss : clan.ConDuongRanDoc.bosses) {
             if (boss.id == BossID.CADICH) {
-                boss.moveTo(boss.location.x + this.location.x > boss.location.x ? -100 : 100, this.location.y);
+                boss.moveTo(boss.location.x + this.location.x > boss.location.x ? - 100 : 100, this.location.y);
                 break;
             }
         }
@@ -102,8 +98,7 @@ public class NADIC extends Boss {
 
     @Override
     public void attack() {
-        if (!this.effectSkill.isCharging && Util.canDoWithTime(this.lastTimeAttack, 100)
-                && this.typePk == ConstPlayer.PK_ALL) {
+        if (!this.effectSkill.isCharging && Util.canDoWithTime(this.lastTimeAttack, 100) && this.typePk == ConstPlayer.PK_ALL) {
             this.lastTimeAttack = System.currentTimeMillis();
             try {
                 Player pl = getPlayerAttack();

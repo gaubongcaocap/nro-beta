@@ -1,5 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package models.Combine.manifest;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +15,7 @@ import item.Item.ItemOption;
 import models.Combine.CombineService;
 import player.Player;
 import services.InventoryService;
+import services.ItemService;
 import services.Service;
 import utils.Util;
 

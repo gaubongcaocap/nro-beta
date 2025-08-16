@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
+import lombok.core.Main;
 
 import utils.Logger;
 
@@ -17,14 +18,14 @@ public class DBConnecter {
 
     private static String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://%s:%s/%s?useUnicode=yes&characterEncoding=UTF-8";
-    private static String DB_HOST = "14.225.203.122:3859";
+    private static String DB_HOST = "160.191.244.129";
     private static String DB_PORT = "3306";
-    public static String DB_DATA = "blue";
-    public static String DB_USER = "tech_test2";
-    private static String DB_PASSWORD = "tech_test2";
+    public static String DB_DATA = "user";
+    public static String DB_USER = "nroprime";
+    private static String DB_PASSWORD = "150820";
     private static int MIN_CONN = 1;
     private static int MAX_CONN = 1;
-    private  static long MAX_LIFE_TIME = 120000L;
+    private static long MAX_LIFE_TIME = 120000L;
     private static final HikariConfig config = new HikariConfig();
     private static final HikariDataSource ds;
 

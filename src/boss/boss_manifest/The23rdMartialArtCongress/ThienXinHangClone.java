@@ -3,7 +3,7 @@ package boss.boss_manifest.The23rdMartialArtCongress;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstPlayer;
@@ -28,31 +28,26 @@ public class ThienXinHangClone extends The23rdMartialArtCongress {
         super(PHOBAN, id, BossesData.THIEN_XIN_HANG_CLONE);
         this.playerAtt = player;
         timeLive = 10;
-        // this.bossStatus = BossStatus.JOIN_MAP;
-        // this.bossStatus = BossStatus.ACTIVE;
-        // this.typePk = 3;
-        // this.nPoint.khangTDHS = true;
-        // PlayerService.gI().changeAndSendTypePK(this, ConstPlayer.PK_PVP);
-        // MartialCongressService.gI().sendTypePK(playerAtt, this);
+//        this.bossStatus = BossStatus.JOIN_MAP;
+//        this.bossStatus = BossStatus.ACTIVE;
+//        this.typePk = 3;
+//        this.nPoint.khangTDHS = true;
+//        PlayerService.gI().changeAndSendTypePK(this, ConstPlayer.PK_PVP);
+//        MartialCongressService.gI().sendTypePK(playerAtt, this);
         this.timeJoinMap = System.currentTimeMillis() + 10000;
     }
 
     @Override
     public void attack() {
         try {
-            if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null
-                    && this.zone.equals(playerAtt.zone)) {
+            if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null && this.zone.equals(playerAtt.zone)) {
                 if (this.isDie()) {
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, playerAtt) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(15, ConstRatio.PER100) && SkillUtil.isUseSkillChuong(this)) {
-                        goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)),
-                                Util.nextInt(10) % 2 == 0 ? playerAtt.location.y
-                                        : playerAtt.location.y - Util.nextInt(0, 50),
-                                false);
+                        goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)), Util.nextInt(10) % 2 == 0 ? playerAtt.location.y : playerAtt.location.y - Util.nextInt(0, 50), false);
                     }
                     SkillService.gI().useSkill(this, playerAtt, null, -1, null);
                     checkPlayerDie(playerAtt);
@@ -69,7 +64,7 @@ public class ThienXinHangClone extends The23rdMartialArtCongress {
 
     @Override
     public void update() {
-        // super.update();
+//        super.update();
         try {
             EffectSkillService.gI().removeStun(this);
             switch (this.bossStatus) {
@@ -94,8 +89,6 @@ public class ThienXinHangClone extends The23rdMartialArtCongress {
                     } else {
                         this.attack();
                     }
-                    break;
-                default:
                     break;
             }
             if (Util.canDoWithTime(lastUpdate, 1000)) {

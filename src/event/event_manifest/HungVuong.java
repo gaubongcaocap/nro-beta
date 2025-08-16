@@ -3,7 +3,7 @@ package event.event_manifest;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;
@@ -15,9 +15,10 @@ public class HungVuong extends Event {
     public void boss() {
         createBoss(BossID.THUY_TINH, 10);
     }
-     @Override
+
+    @Override
     public void npc() {
         createNpc(7, 52, 816, 432);
-      
+
     }
 }

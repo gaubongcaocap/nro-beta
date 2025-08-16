@@ -8,8 +8,10 @@ import models.Combine.CombineService;
 import player.Player;
 import services.InventoryService;
 import services.Service;
+import services.SkillService;
 import skill.Skill;
 import utils.SkillUtil;
+import utils.Util;
 
 public class HocTuyetKy {
 
@@ -48,7 +50,6 @@ public class HocTuyetKy {
         CombineService.gI().whis.createOtherMenu(player, ConstNpc.HOC_TUYET_KY, text.toString(), "Đồng ý", "Từ chối");
     }
 
-    @SuppressWarnings("unused")
     public static void hocTuyetKy(Player player) {
         Item biKipTuyetKy = InventoryService.gI().findItem(player.inventory.itemsBag, 1229);
         int quantityBiKipTuyetKy = biKipTuyetKy != null ? biKipTuyetKy.quantity : 0;

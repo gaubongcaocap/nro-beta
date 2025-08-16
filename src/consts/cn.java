@@ -2,7 +2,7 @@ package consts;
 
 import player.Player;
 
-public class cn {
+public class cn {//Zalo: 0358124452//Name: EMTI 
 
     private Player player;
     public final static int GIA_X = 1;
@@ -16,7 +16,7 @@ public class cn {
     public final static String MANAP = "NTD ";
     public static boolean readInt = true;
 
-    private static class ________________________GHBUG______________________ {
+    private static class ________________________GHBUG______________________ {//Zalo: 0358124452//Name: EMTI 
 
     }
     public static int ghVnd = 2000000000;
@@ -25,12 +25,12 @@ public class cn {
     public static int ghNgocHong = 50000000;
     public static int ghThoiVang = 50000000;
 
-    private static class ________________________POTAGE______________________ {
+    private static class ________________________POTAGE______________________ {//Zalo: 0358124452//Name: EMTI 
 
     }
     public static int costNhanBan = 1000;
 
-    private static class ________________________NPC_TRUNGLINHTHU______________________ {
+    private static class ________________________NPC_TRUNGLINHTHU______________________ {//Zalo: 0358124452//Name: EMTI 
 
     }
     public static int slItemSub = 99;
@@ -39,7 +39,7 @@ public class cn {
     public static int giaTrung = 5000;
 //
 
-    private static class ________________________NPC_THODAICA______________________ {
+    private static class ________________________NPC_THODAICA______________________ {//Zalo: 0358124452//Name: EMTI 
 
     }
     public static short cr = 462;
@@ -51,14 +51,14 @@ public class cn {
     public static int slbd = 5;
     public static int slthoiVang_ = 4;
 
-    private static class ________________________NPC_GOHAN_PAGUSU_NAMEC_____________________ {
+    private static class ________________________NPC_GOHAN_PAGUSU_NAMEC_____________________ {//Zalo: 0358124452//Name: EMTI 
 
     }
     public static int slnx1 = 50000;
     public static int slnh1 = 10000;
 //
 
-    private static class ________________________NPC_BARDOCK______________________ {
+    private static class ________________________NPC_BARDOCK______________________ {//Zalo: 0358124452//Name: EMTI 
 
     }
     // giá đệ 1
@@ -96,15 +96,35 @@ public class cn {
     public static int de29 = 1200000 * GIA_X;
     public static int de30 = 1500000 * GIA_X;
     //giá đệ vip 3
-    public static int de31 = 40000 * GIA_X;
+    public static int de31 = 50000 * GIA_X;
     public static int de32 = 70000 * GIA_X;
     public static int de33 = 100000 * GIA_X;
     public static int de34 = 200000 * GIA_X;
     public static int de35 = 500000 * GIA_X;
-    public static int de36 = 350000 * GIA_X;
+    public static int de36 = 750000 * GIA_X;
+    public static int de37 = 20000 * GIA_X;
+
+    public static int de38 = 50  * GIA_X;
+    public static int de39 = 100 * GIA_X;
+    public static int de40 = 150 * GIA_X;
+    public static int de41 = 200 * GIA_X;
+    public static int de42 = 250 * GIA_X;
+    public static int de43 = 350 * GIA_X;
+    public static int de44 = 750 * GIA_X;
+    public static int de45 = 850 * GIA_X;
+
+    public static String petBuuNhiNm = "Bưu Nhí";
+    public static String petFideNhiNm = "Fide Nhí";
+    public static String petCellNhiNm = "Cell Nhí";
+    public static String petAndroidNm = "Android";
+    public static String petBuuGayNm = "Bưu Gầy";
+    public static String petBerrusNhiNm = "Berrus Nhí";
+    public static String petBlackNm = "Black Goku";
+    public static String petBerrusNm = "Berrus Hủy Diệt";
+
     //giá đổi skill
-    public static int skill23 = 2000;
-    public static int skill24 = 3000;
+    public static int skill23 = 3000;
+    public static int skill24 = 10000;
     //giá đổi vnd
     public static short thoivang = 457;
 
@@ -133,7 +153,7 @@ public class cn {
     public static int nx5 = 20000000;
     public static int nh5 = 40;
 
-    private static class ________________________NPC_BAHATMIT______________________ {
+    private static class ________________________NPC_BAHATMIT______________________ {//Zalo: 0358124452//Name: EMTI 
 
     }
 
@@ -154,7 +174,7 @@ public class cn {
     //ép sao trang bị
     public static short thoiVang_EpSao = 2;
 
-    private static class ________________________Chỉ_số_hợp_thể_đệ______________________ {
+    private static class ________________________Chỉ_số_hợp_thể_đệ______________________ {//Zalo: 0358124452//Name: EMTI 
 
     }
     public static short hpPet = 20;

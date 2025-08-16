@@ -5,6 +5,7 @@
 package minigame.DecisionMaker;
 
 import minigame.cost.DecisionMakerCost;
+import minigame.cost.LuckyNumberCost;
 import npc.Npc;
 import npc.npc_manifest.LyTieuNuong;
 import player.Player;

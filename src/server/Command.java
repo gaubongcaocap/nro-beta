@@ -1,9 +1,8 @@
 package server;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
-import EMTI.SystemMetrics;
 import Bot.*;
 import boss.AnTromManager;
 import boss.BossManager;
@@ -17,6 +16,9 @@ import boss.TreasureUnderSeaManager;
 import boss.TrungThuEventManager;
 import consts.ConstNpc;
 import item.Item;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.util.List;
 
@@ -27,9 +29,10 @@ import models.ShenronEvent.ShenronEventManager;
 import network.SessionManager;
 import player.Pet;
 import player.Player;
-// import player.badges.BadgesData;
+import player.badges.BadgesData;
 import services.InventoryService;
 import services.ItemService;
+import services.MapService;
 import services.NpcService;
 import services.PetService;
 import services.Service;
@@ -59,43 +62,43 @@ public class Command {
 
     public boolean check(Player player, String text) {
         if (player.isAdmin()) {
-            if (text.equals("giftcode")) {
+            if (text.equals("code")) {
                 GiftCodeManager.gI().checkInfomationGiftCode(player);
                 return true;
             } else if (text.equals("mapboss")) {
-                BossManager.gI().showListBoss(player);
+                BossManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("mapbroly")) {
-                BrolyManager.gI().showListBoss(player);
+                BrolyManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("mapantrom")) {
-                AnTromManager.gI().showListBoss(player);
+                AnTromManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("mapboss2")) {
-                OtherBossManager.gI().showListBoss(player);
+                OtherBossManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("mapdt")) {
-                RedRibbonHQManager.gI().showListBoss(player);
+                RedRibbonHQManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("mapbdkb")) {
-                TreasureUnderSeaManager.gI().showListBoss(player);
+                TreasureUnderSeaManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("mapcdrd")) {
-                SnakeWayManager.gI().showListBoss(player);
+                SnakeWayManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("mapkghd")) {
-                GasDestroyManager.gI().showListBoss(player);
+                GasDestroyManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("maptrungthu")) {
-                TrungThuEventManager.gI().showListBoss(player);
+                TrungThuEventManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("maptet")) {
-                LunarNewYearEventManager.gI().showListBoss(player);
+                LunarNewYearEventManager.gI().showListBoss(player,null);
                 return true;
             } else if (text.equals("hsk")) {
                 Service.gI().releaseCooldownSkill(player);
                 return true;
-            } else if (text.startsWith("smbuff")) {
+            } else if (text.startsWith("sucmanh1")) {
                 try {
                     long power = 10000000000L; // 10 tỷ sức mạnh
                     Service.gI().addSMTN(player, (byte) 2, power, false);
@@ -165,10 +168,10 @@ public class Command {
                 int totalThreads = Thread.activeCount();
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1,
                         "|0|Time start: " + ServerManager.timeStart
-                        + "\nClients: " + Client.gI().getPlayers().size() + " người chơi"
-                        + "\nSessions: " + SessionManager.gI().getNumSession()
-                        + "\nThreads: " + totalThreads 
-                        + "\n" + SystemMetrics.ToString(),
+                                + "\nClients: " + Client.gI().getPlayers().size() + " người chơi"
+                                + "\nSessions: " + SessionManager.gI().getNumSession()
+                                + "\nThreads: " + totalThreads
+                                + "\n" + SystemMetrics.ToString(),
                         "Ngọc rồng", "Đệ tử", "Bảo trì", "Tìm kiếm\nngười chơi",
                         "Boss", "Call Broly", "Buff Coin", "Buff\nhộp thư", "Đóng");
                 return true;
@@ -180,9 +183,9 @@ public class Command {
                         "Bot\nPem Quái", "Bot\nBán Item", "Bot\nSăn Boss", "Đóng");
                 return true;
             } else if (text.equals("daucatmoi")) {
-                //for (int i = 0; i < 10; i++) {
-                    ServerNotify.gI().notify("BOSS Tấn Đạt Đz vừa xuất hiện tại nhà anh ấy");
-                //}
+                // for (int i = 0; i < 10; i++) {
+                ServerNotify.gI().notify("BOSS Tấn Đạt Đz vừa xuất hiện tại nhà anh ấy");
+                // }
                 return true;
             } else if (!text.equals("m") && text.startsWith("m ")) {
                 int mapId = Integer.parseInt(text.replace("m ", ""));
@@ -260,14 +263,15 @@ public class Command {
             if (!text.equals("badges_") && text.startsWith("badges_")) {
                 int idBadges = Integer.parseInt(text.replaceAll("badges_", ""));
                 player.badges.idBadges = idBadges;
+                return true;
             }
             if (!text.equals("kq") && text.startsWith("kq")) {
                 Service.gI().sendThongBao(player, "Kết quả Lucky Round tiếp theo là: " + LuckyNumber.RESULT);
                 return true;
             }
             if (!text.equals("danhhieu_") && text.startsWith("danhhieu_")) {
-                // int idGender = Integer.parseInt(text.replaceAll("danhhieu_", ""));
-                // BadgesData data = new BadgesData(player, idGender, 5);
+                int idGender = Integer.parseInt(text.replaceAll("danhhieu_", ""));
+                BadgesData data = new BadgesData(player, idGender, 5);
                 return true;
             }
             if (!text.equals("gender_") && text.startsWith("gender_")) {
@@ -275,7 +279,21 @@ public class Command {
                 player.gender = idGender;
                 return true;
             }
-            if (!text.equals("toado") && text.startsWith("toado")) {
+
+            if (text != null && text.toLowerCase().startsWith("map")) {
+                // Lấy phần sau ký tự 'map' và loại bỏ khoảng trắng thừa
+                String arg = text.substring(3).trim(); // ví dụ "map 164" -> "164"
+                try {
+                    int mapId = Integer.parseInt(arg);
+                    ChangeMapService.gI().changeMapNonSpaceship(player, mapId, 50, 384);
+                    return true;
+                } catch (NumberFormatException e) {
+                    // Thông báo sai cú pháp hoặc không phải số
+                    Service.gI().sendThongBao(player, "Sai cú pháp. Dùng: map <id>");
+                    return false;
+                }
+            }
+            if (text.equals("toado")) {
                 Service.gI().sendThongBaoOK(player, "x: " + player.location.x + " - y: " + player.location.y);
                 return true;
             }
@@ -290,7 +308,8 @@ public class Command {
                 InventoryService.gI().addItemBag(player, item);
                 InventoryService.gI().sendItemBag(player);
 
-                String thongBao = "GET " + item.template.name + " [" + item.template.id + "] SUCCESS, " + player.name + "!";
+                String thongBao = "GET " + item.template.name + " [" + item.template.id + "] SUCCESS, " + player.name
+                        + "!";
                 Service.gI().sendThongBao(player, thongBao);
                 Util.FileManager.writeToFile("thongbao.txt", thongBao);
                 return true;
@@ -309,13 +328,12 @@ public class Command {
                 "ten con la ")) {
             PetService.gI().changeNamePet(player, text.replaceAll("ten con la ", ""));
         }
-        
+
         if (text.equals("goback")) {
             int mapId = player.gender + 21;
             ChangeMapService.gI().changeMapInYard(player, mapId, -1, -1);
             return true;
         }
-
         if (player.pet != null) {
             switch (text) {
                 case "di theo", "follow" ->
@@ -332,4 +350,5 @@ public class Command {
         }
         return false;
     }
+
 }

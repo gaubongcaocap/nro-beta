@@ -1,9 +1,7 @@
 package panel;
 
-import javax.swing.*;
-
 import EMTI.SystemMetrics;
-
+import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,7 +1,7 @@
 package npc.npc_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstNpc;

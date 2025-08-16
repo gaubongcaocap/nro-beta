@@ -2,14 +2,18 @@ package models.Achievement;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstAchievement;
+import item.Item;
+import jdbc.daos.PlayerDAO;
 import mob.Mob;
 import models.Template.AchievementTemplate;
 import network.Message;
 import player.Player;
 import server.Manager;
+import services.InventoryService;
+import services.ItemService;
 import services.Service;
 import skill.Skill;
 import utils.Util;

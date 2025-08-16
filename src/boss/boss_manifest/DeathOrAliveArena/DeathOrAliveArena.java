@@ -3,7 +3,7 @@ package boss.boss_manifest.DeathOrAliveArena;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstRatio;
@@ -138,8 +138,6 @@ public abstract class DeathOrAliveArena extends Boss {
                     } else {
                         this.attack();
                     }
-                    break;
-                default:
                     break;
             }
         } catch (Exception e) {

@@ -1,7 +1,7 @@
 package npc.npc_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.Boss;
@@ -13,6 +13,7 @@ import map.Zone;
 import npc.Npc;
 import player.Player;
 import services.MapService;
+import services.NpcService;
 import services.Service;
 import services.TaskService;
 import services.func.ChangeMapService;
@@ -20,7 +21,7 @@ import utils.Util;
 
 public class Cui extends Npc {
 
-    private final int COST_FIND_BOSS = 50000000;
+    private final int COST_FIND_BOSS = 500000000;
 
     public Cui(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         super(mapId, status, cx, cy, tempId, avartar);

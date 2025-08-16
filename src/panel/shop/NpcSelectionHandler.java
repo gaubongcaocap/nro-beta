@@ -2,6 +2,8 @@ package panel.shop;
 
 import models.Template.NpcTemplate;
 
+import javax.swing.*;
+
 public class NpcSelectionHandler {
 
     private final ShopManagerPanel parentPanel;

@@ -2,15 +2,18 @@ package npc.npc_manifest;
 //that ra la con poc o dao kame
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.ConstNpc;
 import consts.ConstTranhNgocNamek;
 import models.DragonNamecWar.TranhNgocService;
 import npc.Npc;
 import player.Player;
+import services.InventoryService;
+import services.NpcService;
 import services.Service;
 import services.TaskService;
+import services.func.ChangeMapService;
 import shop.ShopService;
 import utils.Util;
 

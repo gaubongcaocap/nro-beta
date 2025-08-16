@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ import item.Item.ItemOption;
 
 public class Inventory {
 
-    public static final long LIMIT_GOLD = 500_000_000_000L;
-    public static final int MAX_ITEMS_BAG = 200;
-    public static final int MAX_ITEMS_BOX = 200;
+    public static final long LIMIT_GOLD = 2_000_000_000_000L;
+    public static final int MAX_ITEMS_BAG = 100;
+    public static final int MAX_ITEMS_BOX = 100;
     public Item trainArmor;
     public List<String> giftCode;
     public List<Item> itemsBody;
@@ -127,7 +127,7 @@ public class Inventory {
         this.itemsDaBan = null;
     }
 
-        public void subGem(int num) {
+    public void subGem(int num) {
         this.gem -= num;
     }
 

@@ -3,7 +3,7 @@ package models.SuperDivineWater;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.boss_manifest.SuperDivineWater.Pocolo;
 import consts.ConstNpc;

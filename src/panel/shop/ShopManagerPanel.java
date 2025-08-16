@@ -8,6 +8,7 @@ import models.Template.NpcTemplate;
 import server.Manager;
 import shop.Shop;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShopManagerPanel extends JPanel {
 

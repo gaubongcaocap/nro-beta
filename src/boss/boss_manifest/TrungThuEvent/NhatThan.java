@@ -3,11 +3,12 @@ package boss.boss_manifest.TrungThuEvent;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.*;
 import static boss.BossType.TRUNGTHU_EVENT;
+import consts.ConstPlayer;
 import item.Item;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import services.PlayerService;
 import services.Service;
 import services.SkillService;
 import services.func.ChangeMapService;
+import utils.SkillUtil;
 import utils.Util;
 
 public class NhatThan extends Boss {
@@ -31,7 +33,7 @@ public class NhatThan extends Boss {
     private long lastTimeReward;
 
     public NhatThan() throws Exception {
-        super(TRUNGTHU_EVENT, BossID.NHATTHAN, true, true, BossesData.NHATTTHAN);
+        super(TRUNGTHU_EVENT, BossID.NHATTHAN, true, true, BossesData.NHAT_THAN);
     }
 
     @Override
@@ -95,7 +97,7 @@ public class NhatThan extends Boss {
 
     @Override
     public void joinMap() {
-        super.joinMap(); // To change body of generated methods, choose Tools | Templates.
+        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
         Service.gI().changeFlag(this, 2);
     }
@@ -119,7 +121,7 @@ public class NhatThan extends Boss {
 
     @Override
     public Player getPlayerAttack() {
-        List<Player> plNotVoHinh = new ArrayList<Player>();
+        List<Player> plNotVoHinh = new ArrayList();
         for (Player pl : this.zone.getNotBosses()) {
             if ((pl.effectSkin == null || !pl.effectSkin.isVoHinh) && pl.cFlag != this.cFlag) {
                 plNotVoHinh.add(pl);
@@ -157,8 +159,7 @@ public class NhatThan extends Boss {
                     }
                     return;
                 }
-                this.playerSkill.skillSelect = this.playerSkill.skills
-                        .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 int dis = Util.getDistance(this, pl);
                 if (dis > 450) {
                     move(pl.location.x - 24, pl.location.y);
@@ -180,7 +181,7 @@ public class NhatThan extends Boss {
                     checkPlayerDie(pl);
                 }
             } catch (Exception ex) {
-                // ex.printStackTrace();
+//                ex.printStackTrace();
             }
         }
     }

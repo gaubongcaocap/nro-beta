@@ -3,7 +3,7 @@ package matches.pvp;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstAchievement;

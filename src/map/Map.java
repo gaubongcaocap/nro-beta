@@ -3,7 +3,7 @@ package map;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import consts.ConstMap;
@@ -12,8 +12,6 @@ import boss.Boss;
 import boss.BossID;
 import boss.BossManager;
 import consts.ConstMob;
-import consts.ConstNpc;
-
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -86,6 +84,18 @@ public class Map implements Runnable {
     public int[] types;
     public int[] maps;
     public List<EffectMap> effMap;
+
+     // Tạo một List chứa các ID
+    private List<Integer> validMap;
+
+    // Constructor để khởi tạo danh sách npcIds
+    public Map() {
+        this.validMap = new ArrayList<>();
+    }
+
+    public void addValidMap(int id) {
+        this.validMap.add(id);  // Thêm ID vào List
+    }
 
     public Map(int mapId, String mapName, byte planetId,
             byte tileId, byte bgId, byte bgType, byte type, int[][] tileMap,
@@ -260,7 +270,6 @@ public class Map implements Runnable {
         TranhNgocService.getInstance().dropBall(player, (byte) 1);
     }
 
-    @SuppressWarnings("unused")
     private void initItem() {
         for (Zone zone : zones) {
             ItemMap itemMap = null;

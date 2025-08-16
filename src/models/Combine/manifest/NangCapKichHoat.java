@@ -1,5 +1,6 @@
 package models.Combine.manifest;
 
+import consts.ConstFont;
 import consts.ConstNpc;
 import item.Item;
 import models.Combine.CombineService;
@@ -17,7 +18,7 @@ import utils.Util;
  */
 public class NangCapKichHoat {
 
-  	public static boolean isDoHuyDiet(Item item) {
+    public static boolean isDoHuyDiet(Item item) {
         if (item.template.id >= 650 && item.template.id <= 662) {
             return true;
         }
@@ -31,7 +32,7 @@ public class NangCapKichHoat {
             for (Item item : player.combine.itemsCombine) {
                 if (isDoHuyDiet(item)) {
                     trangbiHuyDiet = item;
-                } else if (item.template.id == 1732) {
+                } else if (item.template.id == 1777) {
                     daKichHoat = item;
                 }
             }
@@ -62,7 +63,7 @@ public class NangCapKichHoat {
             for (Item item : player.combine.itemsCombine) {
                 if (isDoHuyDiet(item)) {
                     trangbiHuyDiet = item;
-                } else if (item.template.id == 1732) {
+                } else if (item.template.id == 1777) {
                     daKichHoat = item;
                 }
             }
@@ -90,7 +91,7 @@ public class NangCapKichHoat {
                 newItem.itemOptions.add(new Item.ItemOption(selectedOptions[0], 0));
                 newItem.itemOptions.add(new Item.ItemOption(selectedOptions[1], 0));
             } else {
-                if (Util.isTrue(70, 100)) {
+                if (Util.isTrue(75, 100)) {
                     newItem.itemOptions.add(new Item.ItemOption(selectedOptions[2], 0));
                     newItem.itemOptions.add(new Item.ItemOption(selectedOptions[3], 0));
                 } else {

@@ -1,7 +1,7 @@
 package mob.bigboss_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import consts.cn;
 import map.ItemMap;
@@ -92,20 +92,13 @@ public class Hirudegarn extends BigBoss {
                         new ItemMap(zone, 190, 32000, this.location.x + X, this.location.y, -1)
                 );
             }
-            
-            if (Util.isTrue(5, 10)) {
-                ItemMap it = new ItemMap(this.zone, 568, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                        this.location.y - 24), -1);
-                Service.gI().dropItemMap(this.zone, it);
-            }
-            
             if (Util.isTrue(10, 10)) {
                 ItemMap it = new ItemMap(this.zone, 674, 3, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                         this.location.y - 24), -1);
                 Service.gI().dropItemMap(this.zone, it);
             }
-            if (Util.isTrue(3, 50)) {
-                ItemMap it = ItemService.gI().randAoThanLinh(this.zone, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+            if (Util.isTrue(5, 50)) {
+                ItemMap it = ItemService.gI().randDoTL(this.zone, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                         this.location.y - 24), -1);
                 Service.gI().dropItemMap(this.zone, it);
             }

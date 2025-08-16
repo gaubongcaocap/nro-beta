@@ -3,13 +3,13 @@ package map;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import models.Template.ItemTemplate;
 import item.Item.ItemOption;
+import java.util.HashMap;
 import player.Player;
 import utils.Util;
 import services.ItemMapService;
@@ -76,16 +76,15 @@ public class ItemMap {
         this.lastTimeMoveToPlayer = System.currentTimeMillis();
         this.zone.addItem(this);
     }
- public ItemMap(Zone zone, int tempId, int quantity, int x, int y, long playerId, int maxDaily) {
+
+    public ItemMap(Zone zone, int tempId, int quantity, int x, int y, long playerId, int maxDaily) {
         this.zone = zone;
 
-        // Kiểm tra giới hạn số lượng vật phẩm trong ngày
         if (!canReceiveItem(playerId, tempId, maxDaily)) {
-          
+
             return;
         }
 
-        // Tạo vật phẩm và thêm vào zone
         this.itemMapId = zone.countItemAppeaerd++;
         if (zone.countItemAppeaerd >= 2000000000) {
             zone.countItemAppeaerd = 0;
@@ -101,19 +100,16 @@ public class ItemMap {
         this.isNamecBall = ItemMapService.gI().isNamecBall(this.itemTemplate.id);
         this.lastTimeMoveToPlayer = System.currentTimeMillis();
 
-        // Cập nhật số lượng vật phẩm đã nhận
         updateDailyItemCount(playerId, tempId, quantity);
 
-        // Thêm vật phẩm vào zone
         this.zone.addItem(this);
     }
- 
+
     /**
-     * Cập nhật số lượng vật phẩm đã nhận trong ngày.
      *
-     * @param playerId ID người chơi.
-     * @param tempId   ID loại vật phẩm.
-     * @param quantity Số lượng vật phẩm nhận thêm.
+     * @param playerId 
+     * @param tempId   
+     * @param quantity
      */
     private void updateDailyItemCount(long playerId, int tempId, int quantity) {
         dailyItemReceiveCount.putIfAbsent(playerId, new HashMap<>());
@@ -121,27 +117,19 @@ public class ItemMap {
         int currentCount = playerItems.getOrDefault(tempId, 0);
         playerItems.put(tempId, currentCount + quantity);
     }
-     /**
-     * Reset số lượng vật phẩm đã nhận trong ngày (dùng vào cuối ngày).
-     */
+
+
     public static void resetDailyItemCount() {
         dailyItemReceiveCount.clear();
-        System.out.println("Đã reset số lượng vật phẩm nhận trong ngày.");
+        System.out.println("Đã reset vật phẩm trong ngày");
     }
-    /**
-     * Kiểm tra xem người chơi có thể nhận thêm vật phẩm loại này không.
-     *
-     * @param playerId ID người chơi.
-     * @param tempId   ID loại vật phẩm.
-     * @param maxDaily Giới hạn tối đa trong ngày.
-     * @return true nếu người chơi chưa đạt giới hạn, ngược lại false.
-     */
+
     private boolean canReceiveItem(long playerId, int tempId, int maxDaily) {
         java.util.Map<Integer, Integer> playerItems = dailyItemReceiveCount.getOrDefault(playerId, new HashMap<>());
         int receivedCount = playerItems.getOrDefault(tempId, 0);
         return receivedCount < maxDaily;
     }
-    
+
     public ItemMap(ItemMap itemMap) {
         this.zone = itemMap.zone;
         this.itemMapId = itemMap.itemMapId;
@@ -175,7 +163,7 @@ public class ItemMap {
                 return;
             }
 
-            //========================SATELLITE========================
+            // ========================SATELLITE========================
             if (this.itemTemplate.type == 22) {
                 satelliteUpdate();
             }
@@ -184,20 +172,23 @@ public class ItemMap {
                     this.playerId = -1;
                 }
             }
-            if ((Util.canDoWithTime(createTime, 50000) && isNotNullItem() && itemTemplate.type != 22 || Util.canDoWithTime(createTime, 1800000)) && !this.isNamecBall) {
+            if ((Util.canDoWithTime(createTime, 50000) && isNotNullItem() && itemTemplate.type != 22
+                    || Util.canDoWithTime(createTime, 1800000)) && !this.isNamecBall) {
                 if (this.zone != null && this.zone.map.mapId != 21 && this.zone.map.mapId != 22
                         && this.zone.map.mapId != 23 && this.itemTemplate.id != 78
-                        && this.itemTemplate.id != 726 && !(MapService.gI().isMapDoanhTrai(this.zone.map.mapId) && this.itemTemplate.id >= 14 && this.itemTemplate.id <= 20)) {
+                        && this.itemTemplate.id != 726 && !(MapService.gI().isMapDoanhTrai(this.zone.map.mapId)
+                                && this.itemTemplate.id >= 14 && this.itemTemplate.id <= 20)) {
                     ItemMapService.gI().removeItemMapAndSendClient(this);
                 }
             }
-            //========================DHVT ITEM 726========================
+            // ========================DHVT ITEM 726========================
             if (this.zone != null && this.zone.map.mapId == 52 && isNotNullItem() && this.itemTemplate.id == 726) {
                 if (!findPlayerByID(this.playerId)) {
                     ItemMapService.gI().removeItemMapAndSendClient(this);
                 }
             }
-            if (this.zone != null && isNotNullItem() && this.itemTemplate.id == 460 && this.playerId == 123456789 && Util.canDoWithTime(createTime, 5000)) {
+            if (this.zone != null && isNotNullItem() && this.itemTemplate.id == 460 && this.playerId == 123456789
+                    && Util.canDoWithTime(createTime, 5000)) {
                 ItemMapService.gI().removeItemMapAndSendClient(this);
             }
         }
@@ -214,7 +205,8 @@ public class ItemMap {
 
     private void satelliteUpdate() {
         for (Player pl : this.zone.getPlayers()) {
-            if (!pl.isDie() && Util.getDistance(pl.location.x, pl.location.y, x, y) < 200 && pl.satellite != null && (pl.id == this.playerId || this.clanId != -1 && pl.clan != null && pl.clan.id == this.clanId)) {
+            if (!pl.isDie() && Util.getDistance(pl.location.x, pl.location.y, x, y) < 200 && pl.satellite != null
+                    && (pl.id == this.playerId || this.clanId != -1 && pl.clan != null && pl.clan.id == this.clanId)) {
                 switch (this.itemTemplate.id) {
                     case 342 -> {
                         if (!pl.satellite.isMP) {

@@ -3,7 +3,7 @@ package models.SuperRank;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstSuperRank;
@@ -86,7 +86,7 @@ public class SuperRankService {
     }
 
     public void topList(Player player, int type) {
-        // long st = System.currentTimeMillis();
+        long st = System.currentTimeMillis();
         player.iDMark.setMenuType(type);
         Message msg = null;
         try {

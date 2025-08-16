@@ -2,10 +2,11 @@ package event.event_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;
+import consts.ConstNpc;
 import event.Event;
 
 public class Halloween extends Event {

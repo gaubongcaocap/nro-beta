@@ -3,9 +3,10 @@ package npc.specialnpc;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
+import data.DataGame;
 import services.func.ChangeMapService;
 import services.PetService;
 import player.Player;
@@ -16,8 +17,8 @@ import utils.Logger;
 
 public class MabuEgg {
 
-//    private static final long DEFAULT_TIME_DONE = 7776000000L;
-    private static final long DEFAULT_TIME_DONE = 864000000L;
+    // private static final long DEFAULT_TIME_DONE = 7776000000L;
+    private static final long DEFAULT_TIME_DONE = 86400000L;
 
     private Player player;
     public long lastTimeCreate;

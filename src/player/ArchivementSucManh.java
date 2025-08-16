@@ -157,7 +157,6 @@ public class ArchivementSucManh {
         return false;
     }
 
-    @SuppressWarnings("unchecked")
     public void receiveGem(int index, Player pl) {
         ArchivementSucManh temp = pl.archivementListSM.get(index);
         if (temp.isRecieve) {
@@ -199,10 +198,9 @@ public class ArchivementSucManh {
                 e.printStackTrace();
             }
             Service.gI().sendThongBao(pl, "Nhận thành công, vui lòng kiểm tra hòm thư ");
-        } 
-        // else {
-        //     Service.gI().sendThongBao(pl, "Không có phần thưởng");
-        // }
+        } else {
+            Service.gI().sendThongBao(pl, "Không có phần thưởng");
+        }
     }
 
     private void nhanQua(Player pl, int index) throws SQLException {
@@ -245,7 +243,6 @@ public class ArchivementSucManh {
 
     }
 
-    @SuppressWarnings("unchecked")
     public void getAchievement(Player player) {
         try {
             if (player.getSession() == null) {
@@ -254,6 +251,7 @@ public class ArchivementSucManh {
 
             Connection con = null;
             PreparedStatement ps = null;
+            JSONValue jv = new JSONValue();
             JSONArray dataArray = null;
             con = DBConnecter.getConnectionServer();
             ps = con.prepareStatement("SELECT `Achievement_SucManh` FROM `player` WHERE id = ? LIMIT 1");
@@ -263,7 +261,7 @@ public class ArchivementSucManh {
                 while (rs.next()) {
                     String achievementData = rs.getString(1);
                     try {
-                        dataArray = (JSONArray) JSONValue.parse(achievementData);
+                        dataArray = (JSONArray) jv.parse(achievementData);
                         if (dataArray != null && dataArray.size() != 7) {
                             if (dataArray.size() < 7) {
                                 for (int j = dataArray.size(); j < 7; j++) {

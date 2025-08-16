@@ -1,15 +1,17 @@
 package npc.npc_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import consts.ConstNpc;
 import consts.ConstTask;
+import item.Item;
 import npc.Npc;
 import player.Player;
 import services.*;
 import shop.ShopService;
+import utils.Util;
 
 public class BulmaTuongLai extends Npc {
 
@@ -26,7 +28,7 @@ public class BulmaTuongLai extends Npc {
 //                }
 //            } else if (this.mapId == 102) {
             if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_29_1) {
+                if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_28_0 ) {
                     this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cám ơn bạn đã đến đây giúp chúng tôi", "Kể chuyện", "Cửa hàng");
                 } else {
                     this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cám ơn bạn đã đến đây giúp chúng tôi", "Kể chuyện");

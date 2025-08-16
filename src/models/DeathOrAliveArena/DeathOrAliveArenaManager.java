@@ -3,7 +3,7 @@ package models.DeathOrAliveArena;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import EMTI.Functions;
 import java.util.ArrayList;

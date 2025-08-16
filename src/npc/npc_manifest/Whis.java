@@ -1,7 +1,7 @@
 package npc.npc_manifest;
 
 /**
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.BossID;
 import consts.ConstNpc;
@@ -9,6 +9,7 @@ import item.Item;
 
 import java.io.IOException;
 
+import models.Combine.manifest.CheTaoTrangBiThienSu;
 import network.Message;
 import npc.Npc;
 import player.Player;
@@ -20,6 +21,7 @@ import models.Combine.CombineService;
 import models.Training.TrainingService;
 import services.NpcService;
 import services.func.TopService;
+import shop.ShopService;
 import skill.Skill;
 import utils.SkillUtil;
 import utils.Util;
@@ -36,24 +38,31 @@ public class Whis extends Npc {
     public void openBaseMenu(Player player) {
         if (canOpenNpc(player)) {
             switch (this.mapId) {
+                case 48 -> {
+                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Mày muốn nâng cấp Set KH VIP sao, gặp bà già Hạt mít để nâng cấp nhé",
+                                "Hướng\ndẫn\nthêm", "Từ chối");
+                }
                 case 154 -> {
                     Item BiKiepTuyetKy = InventoryService.gI().findItem(player.inventory.itemsBag, 1229);
                     if (BiKiepTuyetKy != null) {
                         createOtherMenu(player, ConstNpc.BASE_MENU,
                                 "Thử đánh với ta xem nào.\nNgươi còn 1 lượt nữa cơ mà.",
-                                "Nói chuyện",
-                                "Học\ntuyệt kỹ",
-                                "Top 100",
-                                "[LV:" + (player.traning.getTop() + 1) + "]"
+                                "Nâng cấp\nTrang bị\nThiên sứ",
+                                "Học\ntuyệt kỹ"
+                                // ,"Top 100",
+                                // "[LV:" + (player.traning.getTop() + 1) + "]"
                         );
                     } else {
                         createOtherMenu(player, ConstNpc.BASE_MENU,
                                 "Thử đánh với ta xem nào.\nNgươi còn 1 lượt nữa cơ mà.",
-                                "Nói chuyện",
-                                "Top 100",
-                                "[LV:" + (player.traning.getTop() + 1) + "]"
+                                "Nâng cấp\nTrang bị\nThiên sứ"
+                                // ,"Top 100",
+                                // "[LV:" + (player.traning.getTop() + 1) + "]"
                         );
                     }
+                }
+                default -> {
+                    super.openBaseMenu(player);
                 }
             }
         }
@@ -104,10 +113,10 @@ public class Whis extends Npc {
                             if (BiKiepTuyetKy.quantity >= 9999) {
                                 duSachTuyetKy = true;
                             }
-                            if (player.inventory.gold >= 10_000_000) {
+                            if (player.inventory.gold >= 1_000_000_000) {
                                 duVang = true;
                             }
-                            if (player.inventory.gem >= 99) {
+                            if (player.inventory.gem >= 990) {
                                 duNgoc = true;
                             }
                             if (checkskill) {
@@ -115,30 +124,30 @@ public class Whis extends Npc {
                                     this.createOtherMenu(player, 6,
                                             "|1|Ta sẽ dạy ngươi tuyệt kỹ " + nameSkill + " 1"
                                             + "\n|2|Bí kiếp tuyệt kỹ " + BiKiepTuyetKy.quantity + "/999\n"
-                                            + "|2|Giá vàng: 10.000.000\n"
-                                            + "|2|Giá ngọc: 99",
+                                            + "|2|Giá vàng: 1 tỷ\n"
+                                            + "|2|Giá ngọc: 999",
                                             "Đồng ý", "Từ chối");
                                 } else {
                                     this.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                                             "|1|Ta sẽ dạy ngươi tuyệt kỹ " + nameSkill + " 1"
                                             + "\n" + (duSachTuyetKy ? "|2|" : "|7|") + "Bí kiếp tuyệt kỹ " + BiKiepTuyetKy.quantity + "/999"
-                                            + "\n" + (duVang ? "|2|" : "|7|") + "Giá vàng: 10.000.000"
-                                            + "\n" + (duNgoc ? "|2|" : "|7|") + "Giá ngọc: 99", "Từ chối");
+                                            + "\n" + (duVang ? "|2|" : "|7|") + "Giá vàng: 1 tỷ"
+                                            + "\n" + (duNgoc ? "|2|" : "|7|") + "Giá ngọc: 999", "Từ chối");
                                 }
                             } else {
                                 if (duSachTuyetKy && duVang && duNgoc) {
                                     this.createOtherMenu(player, 6,
                                             "|1|Ta sẽ dạy ngươi tuyệt kỹ " + nameSkill + " " + (curSkill.point + 1)
                                             + "\n|2|Bí kiếp tuyệt kỹ " + BiKiepTuyetKy.quantity + "/999\n"
-                                            + "|2|Giá vàng: 10.000.000\n"
-                                            + "|2|Giá ngọc: 99",
+                                            + "|2|Giá vàng: 1 tỷ\n"
+                                            + "|2|Giá ngọc: 999",
                                             "Đồng ý", "Từ chối");
                                 } else {
                                     this.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                                             "|1|Ta sẽ dạy ngươi tuyệt kỹ " + nameSkill + " " + (curSkill.point + 1)
                                             + "\n" + (duSachTuyetKy ? "|2|" : "|7|") + "Bí kiếp tuyệt kỹ " + BiKiepTuyetKy.quantity + "/999"
-                                            + "\n" + (duVang ? "|2|" : "|7|") + "Giá vàng: 10.000.000"
-                                            + "\n" + (duNgoc ? "|2|" : "|7|") + "Giá ngọc: 99", "Từ chối");
+                                            + "\n" + (duVang ? "|2|" : "|7|") + "Giá vàng: 1 tỷ"
+                                            + "\n" + (duNgoc ? "|2|" : "|7|") + "Giá ngọc: 999", "Từ chối");
                                 }
                             }
                         } else {
@@ -164,7 +173,7 @@ public class Whis extends Npc {
                 switch (select) {
                     case 0 -> {
                         Item sach = InventoryService.gI().findItemBag(player, 2055);
-                        if (sach != null && player.inventory.gold >= 10000000 && player.inventory.gem > 99 && player.nPoint.power >= 60000000000L) {
+                        if (sach != null && player.inventory.gold >= 1000000000 && player.inventory.gem > 999 && player.nPoint.power >= 60000000000L) {
                             int idskill = Skill.MA_PHONG_BA;
                             int iconSkill = 11194;
                             if (player.gender == 0) {
@@ -187,7 +196,7 @@ public class Whis extends Npc {
                                         int trubk = 99;
                                         String msg = "Tư chất kém!";
                                         String msg2 = "Ngu dốt!";
-                                        if (Util.isTrue(1, 15)) {
+                                        if (Util.isTrue(15, 15)) {
                                             trubk = 9999;
                                             msg = "Học skill thành công!";
                                             msg2 = "Chúc mừng con nhé!";
@@ -206,7 +215,7 @@ public class Whis extends Npc {
                                         msgg = new Message(-81);
                                         msgg.writer().writeByte(0);
                                         msgg.writer().writeUTF("Skill 9");
-                                        msgg.writer().writeUTF("NroLegion");
+                                        msgg.writer().writeUTF("NRO");
                                         msgg.writer().writeShort(tempId);
                                         player.sendMessage(msgg);
                                         msgg.cleanup();
@@ -224,8 +233,8 @@ public class Whis extends Npc {
                                         this.npcChat(player, msg2);
                                         Service.gI().sendThongBao(player, msg);
                                         InventoryService.gI().subQuantityItemsBag(player, sach, trubk);
-                                        player.inventory.gold -= 10000000;
-                                        player.inventory.gem -= 99;
+                                        player.inventory.gold -= 1000000000;
+                                        player.inventory.gem -= 999;
                                         InventoryService.gI().sendItemBag(player);
                                         Service.gI().sendThongBao(player, msg);
                                     } catch (IOException e) {
@@ -259,7 +268,7 @@ public class Whis extends Npc {
                                             msgg = new Message(-81);
                                             msgg.writer().writeByte(0);
                                             msgg.writer().writeUTF("Skill 9");
-                                            msgg.writer().writeUTF("DucVuPro");
+                                            msgg.writer().writeUTF("NroVoz");
                                             msgg.writer().writeShort(tempId);
                                             player.sendMessage(msgg);
                                             msgg.cleanup();
@@ -277,7 +286,7 @@ public class Whis extends Npc {
                                             this.npcChat(player, msg2);
                                             Service.gI().sendThongBao(player, msg);
                                             InventoryService.gI().subQuantityItemsBag(player, sach, trubk);
-                                            player.inventory.gold -= 10000000;
+                                            player.inventory.gold -= 1000000000;
                                             player.inventory.gem -= 99;
                                             InventoryService.gI().sendItemBag(player);
                                             Service.gI().sendThongBao(player, msg);
@@ -291,9 +300,9 @@ public class Whis extends Npc {
                             }
                         } else if (player.nPoint.power < 60000000000L) {
                             Service.gI().sendThongBao(player, "Ngươi không đủ sức mạnh để học tuyệt kỹ");
-                        } else if (player.inventory.gold <= 10000000) {
+                        } else if (player.inventory.gold <= 1000000000) {
                             Service.gI().sendThongBao(player, "Hãy có đủ vàng thì quay lại gặp ta.");
-                        } else if (player.inventory.gem <= 99) {
+                        } else if (player.inventory.gem <= 999) {
                             Service.gI().sendThongBao(player, "Hãy có đủ ngọc xanh thì quay lại gặp ta.");
                         }
                     }

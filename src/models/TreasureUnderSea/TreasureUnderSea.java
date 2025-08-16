@@ -3,7 +3,7 @@ package models.TreasureUnderSea;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import EMTI.Functions;
@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import server.Maintenance;
+import services.ClanService;
 import services.ItemMapService;
 import utils.TimeUtil;
 
@@ -149,7 +150,7 @@ public class TreasureUnderSea implements Runnable {
         }
     }
 
-    private void init() {
+ private void init() {
         //Hồi sinh quái
         for (Zone zone : this.zones) {
             for (TrapMap trap : zone.trapMaps) {
@@ -201,7 +202,6 @@ public class TreasureUnderSea implements Runnable {
         }
        Thread.currentThread().setName("Bản Đồ Kho Báu: " + this.clan.name);
     }
-
     //kết thúc bản đồ kho báu
     public void finish() {
         for (Zone zone : zones) {

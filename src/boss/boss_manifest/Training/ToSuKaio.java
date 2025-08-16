@@ -3,7 +3,7 @@ package boss.boss_manifest.Training;
 /*
  *
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 
 import boss.BossID;
@@ -42,8 +42,7 @@ public class ToSuKaio extends TrainingBoss {
 
     @Override
     public void active() {
-        if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null
-                && this.zone.equals(playerAtt.zone)) {
+        if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null && this.zone.equals(playerAtt.zone)) {
             if (Util.canDoWithTime(lastTimeLuyenTap, 10000)) {
                 Service.gI().addSMTN(playerAtt, (byte) 2, TrainingService.gI().getTnsmMoiPhut(playerAtt) / 6, false);
                 lastTimeLuyenTap = System.currentTimeMillis();

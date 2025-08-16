@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author Entidi (NTD - Tấn Đạt)
+ * @author EMTI
  */
 import boss.BossID;
 import consts.ConstNpc;
@@ -15,7 +15,7 @@ import services.NpcService;
 import services.Service;
 import services.func.ChangeMapService;
 import services.func.Input;
-// import utils.TimeUtil;
+import utils.TimeUtil;
 
 public class ThanVuTru extends Npc {
 
@@ -131,12 +131,12 @@ public class ThanVuTru extends Npc {
                                         Service.gI().sendThongBao(player, "Chức năng tạm đóng");
                                         return;
                                     }
-                                    // this.createOtherMenu(player, 2,
-                                    //         "Bang hội con đang ở con đường rắn độc cấp độ "
-                                    //         + player.clan.ConDuongRanDoc.level + "\ncon có muốn đi cùng họ không? ("
-                                    //         + TimeUtil.convertTimeNow(player.clan.ConDuongRanDoc.getLastTimeOpen())
-                                    //         + " trước)",
-                                    //         "Top\nBang hội", "Thành tích\nBang", "Đồng ý", "Từ chối");
+                                    this.createOtherMenu(player, 2,
+                                            "Bang hội con đang ở con đường rắn độc cấp độ "
+                                            + player.clan.ConDuongRanDoc.level + "\ncon có muốn đi cùng họ không? ("
+                                            + TimeUtil.convertTimeNow(player.clan.ConDuongRanDoc.getLastTimeOpen())
+                                            + " trước)",
+                                            "Top\nBang hội", "Thành tích\nBang", "Đồng ý", "Từ chối");
                                 } else {
                                     this.createOtherMenu(player, 2,
                                             "Hãy mau trở về bằng con đường rắn độc\nbọn Xayda đã đến Trái Đất",
