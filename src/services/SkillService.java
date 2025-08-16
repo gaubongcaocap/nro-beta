@@ -18,6 +18,7 @@ import boss.boss_manifest.Yardart.Yardart;
 import consts.ConstAchievement;
 import consts.cn;
 import intrinsic.Intrinsic;
+import jdbc.daos.PlayerDAO;
 import mob.Mob;
 import mob.MobMe;
 import player.Pet;
@@ -126,7 +127,7 @@ public class SkillService {
                 case 3 ->
                     useSkillAlone(player);
                 case 4 ->
-                    useNewSkillNotFocus(player, plTarget, mobTarget, status, skillId, dx, dy, dir, x, y);
+                    userSkillSpecial(player, plTarget, mobTarget, status, skillId, dx, dy, dir, x, y);
                 default -> {
                     return false;
                 }
@@ -148,7 +149,7 @@ public class SkillService {
         }
     }
 
-    private void useNewSkillNotFocus(Player player, Player plTarget, Mob mobTarget, int status, byte skillId, Short dx,
+    private void userSkillSpecial(Player player, Player plTarget, Mob mobTarget, int status, byte skillId, Short dx,
             Short dy, byte dir, Short x, Short y) {
         try {
             // Cho đệ và boss dùng skill mới
@@ -171,42 +172,6 @@ public class SkillService {
                     newSkillNotFocus(player, status);
                     AchievementService.gI().checkDoneTask(player, ConstAchievement.TUYET_KY_THANH_THAO);
                 }
-                case Skill.SUPER_TRANFORMATION -> {
-                    player.numUseSkill = player.playerSkill.skillSelect.point - 1;
-                    player.effectSkill.isUpdateSuper = false;
-                    EffectSkillService.gI().sendEffectSuper(player);
-                    EffectSkillService.gI().setIsSuper(player);
-                    EffectSkillService.gI().sendEffectSuper(player);
-                    Service.gI().player(player);
-                    Service.gI().Send_Caitrang(player);
-                    Service.gI().point(player);
-                    Service.gI().Send_Info_NV(player);
-                    Service.gI().sendInfoPlayerEatPea(player);
-                    player.zone.load_Another_To_Me(player);
-                    player.zone.load_Me_To_Another(player);
-                    ItemTimeService.gI().sendAllItemTime(player);
-                    affterUseSkill(player, player.playerSkill.skillSelect.template.id);
-                    player.effectSkill.isUpdateSuper = true;
-                }
-
-                case Skill.EVOLUTION -> {
-                    if (player.effectSkill.isUpdateSuper) {
-                        if (player.numUseSkill != 0) {
-                            player.numUseSkill -= 1;
-                            EffectSkillService.gI().sendEffectSuper(player);
-                            EffectSkillService.gI().sendEffectSuper(player);
-                            Service.gI().player(player);
-                            Service.gI().Send_Caitrang(player);
-                            Service.gI().point(player);
-                            Service.gI().Send_Info_NV(player);
-                            Service.gI().sendInfoPlayerEatPea(player);
-                            ItemTimeService.gI().sendAllItemTime(player);
-                            player.zone.load_Another_To_Me(player);
-                            player.zone.load_Me_To_Another(player);
-                        }
-                    }
-                    break;
-                }
                 case Skill.PHAN_THAN -> {
                     callPhanThan(player);
                     ItemTimeService.gI().sendItemTime(player, 31641, 60);
@@ -214,6 +179,7 @@ public class SkillService {
                 }
             }
             affterUseSkill(player, player.playerSkill.skillSelect.template.id);
+            player.newSkill.setSkillSpecial(dir, dx, dy, x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1273,7 +1239,7 @@ public class SkillService {
         }
         return Util.canDoWithTime(
                 player.playerSkill.skillSelect.lastTimeUseThisSkill,
-                player.playerSkill.skillSelect.coolDown - 50);
+                player.playerSkill.skillSelect.coolDown);
     }
 
     private boolean canUseSkillWithCooldown(Player player, int skillId) {
@@ -1477,6 +1443,81 @@ public class SkillService {
             if (skill.skillId != -1 && skill.template.id == skillId) {
                 player.playerSkill.skillSelect = skill;
                 break;
+            }
+        }
+    }
+
+    public void useSkillTranformation(Player player) {
+        if (!canUseSkillWithCooldown(player)) {
+            return;
+        }
+        EffectSkillService.gI().sendEffectTranformation(player);
+        EffectSkillService.gI().setIsTranformation(player);
+        player.effectSkill.lastTimeTranformation = System.currentTimeMillis();
+        affterUseSkill(player, player.playerSkill.skillSelect.template.id);
+    }
+
+    public void setSkillEvolution(Player player) {
+        if ((player.effectSkill.isTranformation || player.effectSkill.isEvolution)) {
+            if (canUseSkillWithCooldown(player, Skill.EVOLUTION)) {
+                player.isTranform++;
+                PlayerDAO.saveIsBienHinh(player);
+                player.effectSkill.isTranformation = false;
+                EffectSkillService.gI().sendEffectVolution(player);
+                EffectSkillService.gI().setIsEvolution(player);
+                player.lastTimeTranformation = System.currentTimeMillis();
+                affterUseSkill(player, player.playerSkill.skillSelect.template.id);
+            } else {
+                Service.gI().sendThongBao(player, "Đợi 3 giây để biến hình tiếp");
+            }
+        } else {
+            Service.gI().sendThongBao(player, "Bạn chưa biến hình");
+        }
+    }
+
+    public void useSkillEvolution(Player player) {
+        switch (player.effectSkill.levelTranformation) {
+            case 1 -> {
+                if (player.isTranform == 0) {
+                    Service.gI().sendThongBao(player, "Skill Biến Hình Phải từ cấp 2 mới có thể tiến hóa");
+                }
+            }
+            case 2 -> {
+                if (player.isTranform < 1) {
+                    setSkillEvolution(player);
+                } else {
+                    Service.gI().sendThongBao(player, "Đã đạt cấp tối đa");
+                }
+            }
+            case 3 -> {
+                if (player.isTranform < 2) {
+                    setSkillEvolution(player);
+                } else {
+                    Service.gI().sendThongBao(player, "Đã đạt cấp tối đa");
+                }
+            }
+            case 4 -> {
+                if (player.isTranform < 3) {
+                    setSkillEvolution(player);
+                } else {
+                    Service.gI().sendThongBao(player, "Đã đạt cấp tối đa");
+                }
+            }
+            case 5 -> {
+                if (player.isTranform < 4) {
+                    setSkillEvolution(player);
+                } else {
+                    Service.gI().sendThongBao(player, "Đã đạt cấp tối đa");
+                }
+            }
+            case 6 -> {
+                if (player.isTranform < 5) {
+                    setSkillEvolution(player);
+                } else {
+                    Service.gI().sendThongBao(player, "Đã đạt cấp tối đa");
+                }
+            }
+            default -> {
             }
         }
     }

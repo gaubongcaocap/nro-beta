@@ -941,6 +941,13 @@ public class NPoint {
             }
         }
 
+        if (this.player.effectSkill.isTranformation || this.player.effectSkill.isEvolution) {
+            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
+                int percent = SkillUtil.getPercentDameMonkey((byte) player.isTranform);
+                this.hpMax += ((long) this.hpMax * percent * 2 / 100);
+            }
+        }
+
         // Xử lý pet pic
         if (this.player.isPet && ((Pet) this.player).typePet == 3
                 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA
@@ -1127,6 +1134,12 @@ public class NPoint {
         if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             mpMax *= this.player.effectSkin.xHPKI;
         }
+        if (this.player.effectSkill.isTranformation || this.player.effectSkill.isEvolution) {
+            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
+                int percent = SkillUtil.getPercentDameMonkey((byte) player.isTranform);
+                this.mpMax += ((long) this.mpMax * percent * 2 / 100);
+            }
+        }
         // xử lý nhật nguyệt
         if (this.isNhatNguyet) {
             mpMax += (mpMax * 15 / 100L);
@@ -1262,6 +1275,13 @@ public class NPoint {
         // Xử lý set tinh ấn
         if (this.isTinhAn) {
             dame += (dame * 15L / 100L);
+        }
+
+        if (this.player.effectSkill.isTranformation || this.player.effectSkill.isEvolution) {
+            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
+                int percent = SkillUtil.getPercentDameMonkey((byte) player.isTranform);
+                this.dame += ((long) this.dame * percent * 2 / 100);
+            }
         }
 
         // Xử lý thức ăn

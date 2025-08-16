@@ -631,9 +631,18 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 34:
-                    if (player != null) {
-                        int selectSkill = _msg.reader().readShort();
-                        SkillService.gI().selectSkill(player, selectSkill);
+                    if (player == null) {
+                        return;
+                    }
+                    int selectSkill = _msg.reader().readShort();
+                    SkillService.gI().selectSkill(player, selectSkill);
+
+                    if (selectSkill == Skill.SUPER_TRANFORMATION) {
+                        SkillService.gI().useSkillTranformation(player);
+                    } else if (selectSkill == Skill.EVOLUTION) {
+                        SkillService.gI().useSkillEvolution(player);
+                    } else if (selectSkill == Skill.PHAN_THAN) {
+                        // SkillService.gI().useSkillPhanThan(player);
                     }
                     break;
                 case 54:
@@ -703,7 +712,6 @@ public class Controller implements IMessageHandler {
                             }
                             default -> {
                                 if (player.isAdmin()) {
-                                    System.out.println(player.isAdmin());
                                     Boss boss = BossManager.gI().getBoss(_id);
                                     if (boss != null) {
                                         ChangeMapService.gI().changeMapYardrat(player, boss.zone, boss.location.x,

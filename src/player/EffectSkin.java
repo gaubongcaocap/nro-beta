@@ -24,44 +24,44 @@ public class EffectSkin {
     private long lastSendInfoTime;
     private boolean sendInfo;
 
-    private static final String[] textOdo = new String[]{
-        "Hôi quá, tránh xa ta ra",
-        "Biến đi",
-        "Trời ơi đồ ở dơ",
-        "Thúi quá",
-        "Mùi gì hôi quá"
+    private static final String[] textOdo = new String[] {
+            "Hôi quá, tránh xa ta ra",
+            "Biến đi",
+            "Trời ơi đồ ở dơ",
+            "Thúi quá",
+            "Mùi gì hôi quá"
     };
 
-    private static final String[] textThoBulma = new String[]{
-        "Wow, sexy quá"
+    private static final String[] textThoBulma = new String[] {
+            "Wow, sexy quá"
     };
-    private static final String[] textDietQuy = new String[]{
-        "Đừng để căm thù điều khiển mình.",
-        "Em sẽ bảo vệ tất cả, dù trong im lặng",
-        "Ngã xuống, nhưng vẫn bảo vệ mọi người",
-        "Muốn sống sót, phải mạnh mẽ hơn!",
-        "Đối mặt nỗi sợ, mới mạnh mẽ hơn",
-        "Sức mạnh là kiểm soát cảm xúc",
-        "Chấp nhận nỗi đau để bước tiếp",
-        "Kẻ yếu không có quyền tồn tại",
-        "Cần can đảm để biết sức mạnh mình"
-    };
-
-    private static final String[] textBuffSD = new String[]{
-        "Wow!", "Đẹp quá!", "Xinh quá!"
+    private static final String[] textDietQuy = new String[] {
+            "Đừng để căm thù điều khiển mình.",
+            "Em sẽ bảo vệ tất cả, dù trong im lặng",
+            "Ngã xuống, nhưng vẫn bảo vệ mọi người",
+            "Muốn sống sót, phải mạnh mẽ hơn!",
+            "Đối mặt nỗi sợ, mới mạnh mẽ hơn",
+            "Sức mạnh là kiểm soát cảm xúc",
+            "Chấp nhận nỗi đau để bước tiếp",
+            "Kẻ yếu không có quyền tồn tại",
+            "Cần can đảm để biết sức mạnh mình"
     };
 
-    private static final String[] textltdb = new String[]{
-        "...", "Idol Vip Quá!", "Idol",
-        "Trùm Server Đây Rồi!"
+    private static final String[] textBuffSD = new String[] {
+            "Wow!", "Đẹp quá!", "Xinh quá!"
     };
 
-    private static final String[] textXinbato = new String[]{
-        "Bực bội quá",
-        "Phân tâm quá",
-        "Nực quá",
-        "Im đi ông Xinbatô ơi",
-        "Tránh ra đi Xinbatô ơi"
+    private static final String[] textltdb = new String[] {
+            "...", "Idol Vip Quá!", "Idol",
+            "Trùm Server Đây Rồi!"
+    };
+
+    private static final String[] textXinbato = new String[] {
+            "Bực bội quá",
+            "Phân tâm quá",
+            "Nực quá",
+            "Im đi ông Xinbatô ơi",
+            "Tránh ra đi Xinbatô ơi"
     };
 
     @Setter
@@ -108,7 +108,8 @@ public class EffectSkin {
 
     public void update() {
         updateVoHinh();
-        if (!this.player.isDie() && this.player.zone != null && !MapService.gI().isMapOffline(this.player.zone.map.mapId)) {
+        if (!this.player.isDie() && this.player.zone != null
+                && !MapService.gI().isMapOffline(this.player.zone.map.mapId)) {
             updateOdo();
             updateltdb();
             updateThoBulma();
@@ -136,7 +137,7 @@ public class EffectSkin {
         }
         updateCTHaiTac();
     }
-//1488	1489	1490
+    // 1488 1489 1490
 
     private void updateCTHaiTac() {
         if (this.player.setClothes != null && this.player.setClothes.ctHaiTac != -1
@@ -183,7 +184,8 @@ public class EffectSkin {
 
     private void updateXenHutXungQuanh() {
         try {
-            if (this.player.nPoint != null && (player.nPoint.hp < player.nPoint.hpMax || player.nPoint.mp < player.nPoint.mpMax)) {
+            if (this.player.nPoint != null
+                    && (player.nPoint.hp < player.nPoint.hpMax || player.nPoint.mp < player.nPoint.mpMax)) {
                 int param = this.player.nPoint.tlHutHpMpXQ;
                 if (param > 0) {
                     if (!this.player.isDie() && Util.canDoWithTime(lastTimeXenHutHpKi, 5000)) {
@@ -315,31 +317,32 @@ public class EffectSkin {
             e.printStackTrace();
         }
     }
-//     private void updateDietQuy() {
-//        try {
-//            if (this.player.nPoint != null && this.player.nPoint.tlSexyDame > 0) {
-//                if (Util.canDoWithTime(lastTimeDietQuy, 10000)) {
-//
-//                    List<Player> playersMap = this.player.zone.getNotBosses();
-//                    for (int i = playersMap.size() - 1; i >= 0; i--) {
-//                        Player pl = playersMap.get(i);
-//                        if (pl != null && pl.nPoint != null && !this.player.equals(pl) && !pl.isBoss && !pl.isDie()
-//                                && Util.getDistance(this.player, pl) <= 120) {
-//                            if (player.nPoint.isDietQuy) {
-//                                Service.gI().chat(pl, textDietQuy[Util.nextInt(0, textDietQuy.length - 1)]);
-//                            } else {
-//                                Service.gI().chat(pl, textBuffSD[Util.nextInt(0, textBuffSD.length - 1)]);
-//                            }
-//                            EffectSkillService.gI().setDameBuff(player, 11000, player.nPoint.tlSexyDame);
-//                        }
-//                    }
-//                    this.lastTimeThoBulma = System.currentTimeMillis();
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    // private void updateDietQuy() {
+    // try {
+    // if (this.player.nPoint != null && this.player.nPoint.tlSexyDame > 0) {
+    // if (Util.canDoWithTime(lastTimeDietQuy, 10000)) {
+    //
+    // List<Player> playersMap = this.player.zone.getNotBosses();
+    // for (int i = playersMap.size() - 1; i >= 0; i--) {
+    // Player pl = playersMap.get(i);
+    // if (pl != null && pl.nPoint != null && !this.player.equals(pl) && !pl.isBoss
+    // && !pl.isDie()
+    // && Util.getDistance(this.player, pl) <= 120) {
+    // if (player.nPoint.isDietQuy) {
+    // Service.gI().chat(pl, textDietQuy[Util.nextInt(0, textDietQuy.length - 1)]);
+    // } else {
+    // Service.gI().chat(pl, textBuffSD[Util.nextInt(0, textBuffSD.length - 1)]);
+    // }
+    // EffectSkillService.gI().setDameBuff(player, 11000, player.nPoint.tlSexyDame);
+    // }
+    // }
+    // this.lastTimeThoBulma = System.currentTimeMillis();
+    // }
+    // }
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    // }
 
     private void updateCTDietQuy() {
         if (this.player.setClothes != null && this.player.setClothes.ctDietQuy != -1
@@ -393,7 +396,8 @@ public class EffectSkin {
             players.add(player);
             try {
                 for (Player pl : player.zone.getNotBosses()) {
-                    if (!player.equals(pl) && pl.setClothes.ctBunmaTocMau != -1 && Util.getDistance(player, pl) <= 300) {
+                    if (!player.equals(pl) && pl.setClothes.ctBunmaTocMau != -1
+                            && Util.getDistance(player, pl) <= 300) {
                         cts[pl.setClothes.ctBunmaTocMau - 1208] = pl.setClothes.ctBunmaTocMau;
                         players.add(pl);
                     }
@@ -444,7 +448,8 @@ public class EffectSkin {
             try {
                 for (Player pl : player.zone.getNotBosses()) {
                     // Kiểm tra nếu người chơi không phải là chính mình và cách xa trong phạm vi 300
-                    if (!player.equals(pl) && pl.setClothes.ctTiecbaiBien != -1 && Util.getDistance(player, pl) <= 300) {
+                    if (!player.equals(pl) && pl.setClothes.ctTiecbaiBien != -1
+                            && Util.getDistance(player, pl) <= 300) {
 
                         // Loại trừ những người mặc cải trang từ 1208 đến 1210
                         if (pl.setClothes.ctTiecbaiBien >= 1234 && pl.setClothes.ctTiecbaiBien <= 1236) {
@@ -460,7 +465,8 @@ public class EffectSkin {
                         if (ct.isNotNullItem() && ct.template.id >= 1234 && ct.template.id <= 1236) {
                             for (Item.ItemOption io : ct.itemOptions) {
                                 if (io.optionTemplate.id == 147) {
-                                    io.param = io.param - Math.min(count * 5, 15); // giảm 5% SĐ cho mỗi người, tối đa 10 người
+                                    io.param = io.param - Math.min(count * 5, 15); // giảm 5% SĐ cho mỗi người, tối đa
+                                                                                   // 10 người
                                 }
                             }
                         }
@@ -550,10 +556,14 @@ public class EffectSkin {
 
     private void updateMaPhongBa() {
         try {
-            if (this.player.effectSkill != null && this.player.effectSkill.isBinh && this.player.effectSkill.playerUseMafuba != null) {
-                if (Util.canDoWithTime(lastTimeMaPhongBa, 500) && this.player.effectSkill.playerUseMafuba.playerSkill != null) {
-                    double param = this.player.effectSkill.playerUseMafuba.playerSkill.getSkillbyId(Skill.MA_PHONG_BA).point * (this.player.effectSkill.typeBinh == 0 ? 1 : 2);
-                    long subHp = Util.maxIntValue((long) (this.player.effectSkill.playerUseMafuba.nPoint.hpMax * param / 100));
+            if (this.player.effectSkill != null && this.player.effectSkill.isBinh
+                    && this.player.effectSkill.playerUseMafuba != null) {
+                if (Util.canDoWithTime(lastTimeMaPhongBa, 500)
+                        && this.player.effectSkill.playerUseMafuba.playerSkill != null) {
+                    double param = this.player.effectSkill.playerUseMafuba.playerSkill
+                            .getSkillbyId(Skill.MA_PHONG_BA).point * (this.player.effectSkill.typeBinh == 0 ? 1 : 2);
+                    long subHp = Util
+                            .maxIntValue((long) (this.player.effectSkill.playerUseMafuba.nPoint.hpMax * param / 100));
                     if (subHp >= this.player.nPoint.hp) {
                         subHp = Math.abs(this.player.nPoint.hp - 100);
                     }
@@ -575,7 +585,8 @@ public class EffectSkin {
                     List<Player> playersMap = this.player.zone.getNotBosses();
                     for (int i = playersMap.size() - 1; i >= 0; i--) {
                         Player pl = playersMap.get(i);
-                        if (pl != null && pl.nPoint != null && !this.player.equals(pl) && pl.effectSkill != null && !pl.effectSkill.isHalloween && !pl.isPet && !pl.isDie()
+                        if (pl != null && pl.nPoint != null && !this.player.equals(pl) && pl.effectSkill != null
+                                && !pl.effectSkill.isHalloween && !pl.isPet && !pl.isDie()
                                 && Util.getDistance(this.player, pl) <= 200) {
                             EffectSkillService.gI().setIsHalloween(pl, -1, 1800000);
                         }
@@ -589,7 +600,7 @@ public class EffectSkin {
         }
     }
 
-    //giáp tập luyện
+    // giáp tập luyện
     private void updateTrainArmor() {
         if (Util.canDoWithTime(lastTimeAddTimeTrainArmor, 60000) && !Util.canDoWithTime(lastTimeAttack, 30000)) {
             if (this.player.nPoint.wearingTrainArmor) {

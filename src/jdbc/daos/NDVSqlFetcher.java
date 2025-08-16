@@ -290,6 +290,8 @@ public class NDVSqlFetcher {
             }
             dataArray.clear();
 
+            player.isTranform = rs.getInt("isBienHinh");
+
             //data tọa độ
             try {
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("data_location"));

@@ -274,9 +274,9 @@ public class PlayerDAO {
             String charms = dataArray.toJSONString();
             dataArray.clear();
 
-            int[] skillsArr = gender == 0 ? new int[] { 0, 1, 6, 9, 10, 20, 22, 19 }
-                    : gender == 1 ? new int[] { 2, 3, 7, 11, 12, 17, 18, 19 }
-                            : new int[] { 4, 5, 8, 13, 14, 21, 23, 19 };
+            int[] skillsArr = gender == 0 ? new int[] { 0, 1, 6, 9, 10, 20, 22, 19 , 24 , 27 , 28 }
+                    : gender == 1 ? new int[] { 2, 3, 7, 11, 12, 17, 18, 19 , 26 , 27 , 28}
+                            : new int[] { 4, 5, 8, 13, 14, 21, 23, 19 , 25 , 27 , 28};
             // [{"temp_id":"4","point":0,"last_time_use":0},]
 
             JSONArray skill = new JSONArray();
@@ -295,6 +295,7 @@ public class PlayerDAO {
             dataArray.clear();
 
             dataArray.add(gender == 0 ? 0 : gender == 1 ? 2 : 4);
+            dataArray.add(-1);
             dataArray.add(-1);
             dataArray.add(-1);
             dataArray.add(-1);
@@ -1066,7 +1067,7 @@ public class PlayerDAO {
                         + "nhanthoivang = ?, ruonggo = ?, sieuthanthuy = ?, vodaisinhtu = ?, rongxuong = ?, data_item_event = ?, data_luyentap = ?, data_clan_task = ?, data_vip = ?, "
                         + "rank = ?, data_super_rank = ?, data_achievement = ?, giftcode = ?, firstTimeLogin = ?, dataBadges = ?, dataTaskBadges = ?, dailyGift = ?, "
                         + "event_point = ?, event_point_boss = ?, event_point_nhs = ?, event_point_quai = ?, diem_quy_lao = ?, "
-                        + "hp_point_fusion = ?, mp_point_fusion = ?, dame_point_fusion = ?, BoughtSkill = ?, LearnSkill = ?, data_dua = ?, kill_boss_point = ? where id = ?";
+                        + "hp_point_fusion = ?, mp_point_fusion = ?, dame_point_fusion = ?, BoughtSkill = ?, LearnSkill = ?, data_dua = ?, kill_boss_point = ? , isBienHinh =? where id = ?";
 
                 DBConnecter.executeUpdate(query,
                         player.head,
@@ -1131,6 +1132,7 @@ public class PlayerDAO {
                         LearnSkill,
                         timedua,
                         player.event.getKillBossPoint(),
+                        player.isTranform,
                         // player.nPoint.power,
                         player.id);
                 if (player.isOffline) {
@@ -1675,7 +1677,7 @@ public class PlayerDAO {
         PreparedStatement ps = null;
         try (Connection con = DBConnecter.getConnectionServer();) {
             ps = con.prepareStatement("update player set isBienHinh = ? where id = ?");
-            ps.setInt(1, player.isBienHinh);
+            ps.setInt(1, player.isTranform);
             ps.setInt(2, (int) player.id);
             ps.executeUpdate();
         } catch (Exception e) {

@@ -210,6 +210,12 @@ public class EffectSkill {
         if (isDameBuff) {
             EffectSkillService.gI().removeDameBuff(this.player);
         }
+        if (isTranformation) {
+            EffectSkillService.gI().TranformationDown(player);
+        }
+        if (isEvolution) {
+            EffectSkillService.gI().EvolutionDown(player);
+        }
     }
 
     public void update() {

@@ -61,11 +61,11 @@ public class SkillUtil {
         return skill;
     }
 
-    public static int getTimeTranformation() { //thời gian tồn tại khỉ v
+    public static int getTimeTranformation() { // thời gian tồn tại khỉ v
         return 300000;
     }
 
-     public static int getTimett() {
+    public static int getTimett() {
         return 300000;
     }
 
@@ -81,23 +81,23 @@ public class SkillUtil {
         return (skillId == Skill.KAMEJOKO || skillId == Skill.MASENKO || skillId == Skill.ANTOMIC);
     }
 
-    public static int getTimeMonkey(int level) { //thời gian tồn tại khỉ
+    public static int getTimeMonkey(int level) { // thời gian tồn tại khỉ
         return (level + 5) * 10000;
     }
 
-    public static int getTimeBNVC(int level) { //thời gian tồn tại BNVC
+    public static int getTimeBNVC(int level) { // thời gian tồn tại BNVC
         return (level + 5) * 1000;
     }
 
-    public static int getPercentHpMonkey(int level) { //tỉ lệ máu khỉ cộng thêm v
+    public static int getPercentHpMonkey(int level) { // tỉ lệ máu khỉ cộng thêm v
         return (level + 3) * 10;
     }
 
-    public static int getPercentDameMonkey(int level) { //tỉ lệ dam khỉ cộng thêm v
+    public static int getPercentDameMonkey(int level) { // tỉ lệ dam khỉ cộng thêm v
         return (level + 3);
     }
 
-    public static int getTimeStun(int level) { //thời gian choáng thái dương hạ san v
+    public static int getTimeStun(int level) { // thời gian choáng thái dương hạ san v
         return (level + 2) * 1000;
     }
 
@@ -105,57 +105,57 @@ public class SkillUtil {
         return 30000;
     }
 
-    public static int getTimeShield(int level) { //thời gian tồn tại khiên v
+    public static int getTimeShield(int level) { // thời gian tồn tại khiên v
         return (level + 2) * 5000;
     }
 
-    public static int getTimeTroi(int level) { //thời gian trói v
+    public static int getTimeTroi(int level) { // thời gian trói v
         return level * 5000;
     }
 
-    public static int getTimeDCTT(int level) { //thời gian choáng dịch chuyển tức thời v
+    public static int getTimeDCTT(int level) { // thời gian choáng dịch chuyển tức thời v
         return (level + 1) * 500;
     }
 
-    public static int getTimeThoiMien(int level) { //thời gian thôi miên
+    public static int getTimeThoiMien(int level) { // thời gian thôi miên
         return (level + 4) * 1000;
     }
 
-    public static int getRangeStun(int level) { //phạm vi thái dương hạ san
+    public static int getRangeStun(int level) { // phạm vi thái dương hạ san
         return 120 + level * 30;
     }
 
-    public static int getRangeBom(int level) { //phạm vi tự sát
+    public static int getRangeBom(int level) { // phạm vi tự sát
         return 400 + level * 30;
     }
 
-    public static int getRangeQCKK(int level) { //phạm vi quả cầu kênh khi
+    public static int getRangeQCKK(int level) { // phạm vi quả cầu kênh khi
         return 350 + level * 30;
     }
 
-    public static int getPercentHPHuytSao(int level) { //tỉ lệ máu huýt sáo cộng thêm v
+    public static int getPercentHPHuytSao(int level) { // tỉ lệ máu huýt sáo cộng thêm v
         return (level + 3) * 10;
     }
 
-    public static int getPercentTriThuong(int level) { //tỉ lệ máu hồi phục trị thương v
+    public static int getPercentTriThuong(int level) { // tỉ lệ máu hồi phục trị thương v
         return (level + 9) * 5;
     }
 
-    public static int getPercentCharge(int level) { //tỉ lệ hp ttnl
+    public static int getPercentCharge(int level) { // tỉ lệ hp ttnl
         return level + 3;
     }
 
-    public static int getTempMobMe(int level) { //template đẻ trứng
-        int[] temp = {8, 11, 32, 25, 43, 49, 50};
+    public static int getTempMobMe(int level) { // template đẻ trứng
+        int[] temp = { 8, 11, 32, 25, 43, 49, 50 };
         return temp[level - 1];
     }
 
-    public static int getTimeSurviveMobMe(int level) { //thời gian trứng tồn tại
+    public static int getTimeSurviveMobMe(int level) { // thời gian trứng tồn tại
         return getTimeMonkey(level) * 2;
     }
 
-    public static long getHPMobMe(long hpMaxPlayer, int level) { //lấy hp max của đệ trứng theo hp max player
-        long[] perHPs = {30, 40, 50, 60, 70, 80, 90};
+    public static long getHPMobMe(long hpMaxPlayer, int level) { // lấy hp max của đệ trứng theo hp max player
+        long[] perHPs = { 30, 40, 50, 60, 70, 80, 90 };
         return hpMaxPlayer * perHPs[level - 1] / 100L;
     }
 
@@ -167,7 +167,7 @@ public class SkillUtil {
         }
         return null;
     }
-    
+
     public static int getTimeSuper(int level) {
         switch (level) {
             case 1:
@@ -259,7 +259,7 @@ public class SkillUtil {
             return Skill.SUPER_TRANFORMATION;
         } else if (id >= 1776 && id <= 1781) {
             return Skill.SUPER_TRANFORMATION;
-        }  else if (id >= 1363 && id <= 1369) {
+        } else if (id >= 1363 && id <= 1369) {
             return Skill.PHAN_THAN;
         } else if (id == 1782) {
             return Skill.EVOLUTION;
@@ -378,7 +378,7 @@ public class SkillUtil {
             return getSkillbyId(pl, Skill.SUPER_TRANFORMATION);
         } else if (tempId >= 1776 && tempId <= 1781) {
             return getSkillbyId(pl, Skill.SUPER_TRANFORMATION);
-        } else if (tempId ==  1782) {
+        } else if (tempId == 1782) {
             return getSkillbyId(pl, Skill.EVOLUTION);
         } else if (tempId >= 1363 && tempId <= 1369) {
             return getSkillbyId(pl, Skill.PHAN_THAN);

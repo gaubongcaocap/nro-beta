@@ -37,6 +37,17 @@ public class Karin extends TrainingBoss {
     }
 
     @Override
+    public void die(Player plKill) {
+        this.changeStatus(BossStatus.AFK);
+        this.chatE();
+        this.lastTimeAFK = System.currentTimeMillis();
+        Service.gI().sendPlayerVS(playerAtt, null, (byte) 0);
+        if (playerAtt.isThachDau) {
+            TaskService.gI().doneTask(plKill, ConstTask.TASK_10_0);
+        }
+    }
+
+    @Override
     public boolean chatS() {
         if (Util.canDoWithTime(lastTimeChatS, timeChatS)) {
             if (this.doneChatS) {
@@ -54,32 +65,6 @@ public class Karin extends TrainingBoss {
             doneChatS = true;
         }
         return false;
-    }
-
-    @Override
-    public void bayLungTung() {
-        if (Util.canDoWithTime(lastTimeBay, 5000)) {
-            goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)), this.location.y - 100, false);
-            lastTimeBay = System.currentTimeMillis();
-        }
-        if (Util.canDoWithTime(lastTimeBay2, 5500)) {
-            goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)), this.location.y - 100, false);
-            lastTimeBay2 = System.currentTimeMillis();
-        }
-    }
-
-    @Override
-    public void die(Player plKill) {
-        this.changeStatus(BossStatus.LEAVE_MAP);
-        this.chatE();
-        this.lastTimeAFK = 0;
-        Service.gI().sendPlayerVS(playerAtt, null, (byte) 0);
-        boolean doneTask = TaskService.gI().doneTask(plKill, ConstTask.TASK_10_0);
-    }
-    
-    @Override
-    public void reward(Player plKill) {
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 
     @Override

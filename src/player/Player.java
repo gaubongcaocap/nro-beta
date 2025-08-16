@@ -6,12 +6,9 @@ package player;
  * @author EMTI
  */
 import EMTI.Functions;
-import boss.BossID;
-import boss.BossManager;
 import consts.ConstDailyGift;
 import minigame.cost.LuckyNumberCost;
 import minigame.LuckyNumber.LuckyNumberService;
-import models.Training.TrainingService;
 import npc.NonInteractiveNPC;
 import models.Card.Card;
 import models.Card.RadarCard;
@@ -269,8 +266,8 @@ public class Player implements Runnable {
     public boolean hasReceivedLunarGift;
     public int vip;
     public LocalDate timevip;
-    public int isBienHinh;
-
+    public int isTranform;
+    public long lastTimeTranformation;
 
     public Player() {
         LearnSkill = new LearnSkill();
@@ -1178,7 +1175,7 @@ public class Player implements Runnable {
                 int timeTransformation = this.effectSkill.timeTranformation / 1000;
                 switch (this.gender) {
                     case 0:
-                        switch (this.isBienHinh) {
+                        switch (this.isTranform) {
                             case 1:
                                 itemTimeService.removeItemTime(this, 20958);
                                 itemTimeService.sendItemTime(this, 20959, timeTransformation);
@@ -1204,7 +1201,7 @@ public class Player implements Runnable {
                         }
                         break;
                     case 1:
-                        switch (this.isBienHinh) {
+                        switch (this.isTranform) {
                             case 1:
                                 itemTimeService.removeItemTime(this, 20964);
                                 itemTimeService.sendItemTime(this, 20965, timeTransformation);
@@ -1230,7 +1227,7 @@ public class Player implements Runnable {
                         }
                         break;
                     case 2:
-                        switch (this.isBienHinh) {
+                        switch (this.isTranform) {
                             case 1:
                                 itemTimeService.removeItemTime(this, 20952);
                                 itemTimeService.sendItemTime(this, 20953, timeTransformation);
@@ -1315,6 +1312,22 @@ public class Player implements Runnable {
     }
 
     public short getBody() {
+        // Kiểm tra trạng thái biến hình hoặc tiến hóa của effectSkill
+        if (effectSkill != null) {
+            if (effectSkill.isTranformation || effectSkill.isEvolution) {
+                switch (this.gender) {
+                    case 0:
+                        return 1707;
+                    case 1:
+                        return 1727;
+                    case 2:
+                        return 1744;
+                    default:
+                        break;
+                }
+            }
+        }
+
         if (this.isPl() && this.pet != null && this.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA
                 || this.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
             Item item = inventory.itemsBody.get(5);
@@ -1366,6 +1379,22 @@ public class Player implements Runnable {
     }
 
     public short getLeg() {
+        // Kiểm tra trạng thái biến hình hoặc tiến hóa của effectSkill
+        if (effectSkill != null) {
+            if (effectSkill.isTranformation || effectSkill.isEvolution) {
+                switch (this.gender) {
+                    case 0:
+                        return 1708;
+                    case 1:
+                        return 1728;
+                    case 2:
+                        return 1745;
+                    default:
+                        break;
+                }
+            }
+        }
+
         if (this.isPl() && this.pet != null && this.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA
                 || this.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
             Item item = inventory.itemsBody.get(5);

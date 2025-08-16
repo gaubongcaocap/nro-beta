@@ -2927,7 +2927,7 @@ public class BossesData {
                         new int[][] {
                                         { Skill.DRAGON, 7, 1000 },{ Skill.LIEN_HOAN, 7, 500 },
                                         { Skill.LIEN_HOAN, 7, 500 },{ Skill.LIEN_HOAN, 7, 500 },
-                                        { Skill.TROI, 7, 60000 },{ Skill.LIEN_HOAN, 7, 500 },
+                                        { Skill.LIEN_HOAN_CHUONG, 7, 5000 },{ Skill.LIEN_HOAN, 7, 500 },
                                         { Skill.SOCOLA, 7, 30000 },{ Skill.LIEN_HOAN, 7, 500 },
                                         { Skill.LIEN_HOAN_CHUONG, 7, 10000 },{ Skill.LIEN_HOAN, 7, 500 },{ Skill.LIEN_HOAN_CHUONG, 7, 10000 },
                                         { Skill.TAI_TAO_NANG_LUONG, 3, 30000 },{ Skill.LIEN_HOAN, 7, 500 },
@@ -3016,13 +3016,16 @@ public class BossesData {
                         new long[] { 1_500_000_000 }, // hp
                         new int[] { 0,4,5,6,29}, // map join
                         new int[][] {
-                                        { Skill.DRAGON, 7, 1000 },{ Skill.LIEN_HOAN, 7, 500 },
-                                        { Skill.LIEN_HOAN, 7, 500 },{ Skill.LIEN_HOAN, 7, 500 },{ Skill.LIEN_HOAN, 7, 500 },
-                                        { Skill.TROI, 7, 60000 },
-                                        { Skill.LIEN_HOAN_CHUONG, 7, 30000 },{ Skill.LIEN_HOAN, 7, 500 },
-                                        { Skill.THOI_MIEN, 7, 30000 },{ Skill.LIEN_HOAN, 7, 500 },{ Skill.LIEN_HOAN, 7, 500 },
-                                        { Skill.TAI_TAO_NANG_LUONG, 7, 30000 },{ Skill.LIEN_HOAN, 7, 500 },
-                                        { Skill.KAMEJOKO, 7, 700 }, { Skill.LIEN_HOAN_CHUONG, 7, 30000 },{ Skill.LIEN_HOAN, 7, 500 } ,},
+                                        { Skill.GALICK, 7, 1000 },{ Skill.THAI_DUONG_HA_SAN, 7, 30000 },
+                                        { Skill.LIEN_HOAN_CHUONG, 7, 1000 },{ Skill.LIEN_HOAN, 7, 1000 },
+                                        { Skill.ANTOMIC, 7, 1000 },{ Skill.LIEN_HOAN_CHUONG, 7, 1000 },
+                                        { Skill.THAI_DUONG_HA_SAN, 7, 50000 },{ Skill.LIEN_HOAN, 7, 1000 },
+                                        { Skill.MASENKO, 7, 1000 },{ Skill.LIEN_HOAN_CHUONG, 7, 1000 },{ Skill.LIEN_HOAN, 7, 1000 },
+                                        { Skill.TAI_TAO_NANG_LUONG, 7, 5000 },{ Skill.LIEN_HOAN, 7, 1000 },{ Skill.LIEN_HOAN, 7, 1000 },
+                                        { Skill.LIEN_HOAN_CHUONG, 7, 10000 },{ Skill.LIEN_HOAN_CHUONG, 7, 10000 },{ Skill.LIEN_HOAN, 7, 1000 },
+                                        { Skill.TAI_TAO_NANG_LUONG,2, 10000 },{ Skill.TAI_TAO_NANG_LUONG, 4, 10000 },{ Skill.LIEN_HOAN, 7, 1000 },
+                                        { Skill.THAI_DUONG_HA_SAN, 1, 30000 }, { Skill.THAI_DUONG_HA_SAN, 2, 40000 },{ Skill.LIEN_HOAN, 7, 1000 },
+                                        { Skill.LIEN_HOAN, 7, 60000 } ,{ Skill.LIEN_HOAN, 7, 1000 }}, // skill
                         new String[] { "|-1|Đây là trái đất ư", "|-1|Thật đáng để hủy diệt nhỉ"}, // text chat 1
                         new String[] {
                                         "|-1|Vào đây",

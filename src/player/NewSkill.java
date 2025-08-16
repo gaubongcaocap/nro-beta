@@ -60,42 +60,61 @@ public class NewSkill {
     }
 
     public void setSkillSpecial(byte dir, short _xPlayer, short _yPlayer, short _xObjTaget, short _yObjTaget) {
+        // 1) Vật phẩm giảm hồi chiêu
         if (player.itemTime != null && player.itemTime.isUseNCD) {
             typeItem = 2;
         } else {
             typeItem = 0;
         }
+
+        // 2) Lấy skill đang chọn & buff currLevel có kẹp trần
         this.skillSelect = this.player.playerSkill.skillSelect;
         if (this.player.isPl() && skillSelect.currLevel < 1000) {
-           skillSelect.currLevel += 10;
+            skillSelect.currLevel = (short) Math.min(1000, skillSelect.currLevel + 10);
             SkillService.gI().sendCurrLevelSpecial(player, skillSelect);
         }
-        this.dir = dir;
+
+        // 3) Ghi thông tin cơ bản
+        this.dir = dir; // -1: trái, 1: phải (từ client)
         this._xPlayer = _xPlayer;
         this._yPlayer = _yPlayer;
-        int length = _xObjTaget - _xPlayer;
-        int dx = skillSelect.dx + 24;//dir * (skillSelect.point * 100 + 100);
-        if (skillSelect.template.id != Skill.MA_PHONG_BA) {
-            if (Math.abs(dx) < Math.abs(length) || Math.abs(length) < 100) {
-                this._xObjTaget = (short) dx;
-            } else {
-                this._xObjTaget = (short) length;
-            }
+
+        // 4) Tính tầm X theo cấp (dx * point) + padding nhỏ, clamp theo khoảng cách
+        // thật
+        final int PAD = 24; // bù hình/animation nhẹ
+        int point = Math.max(1, skillSelect.point); // tránh 0
+        int baseDx = Math.max(0, skillSelect.dx);
+        int maxRange = baseDx * point + PAD; // tầm tối đa theo cấp
+        int length = _xObjTaget - _xPlayer; // khoảng cách thật (có dấu)
+
+        int desiredAbs;
+        if (skillSelect.template.id == Skill.MA_PHONG_BA) {
+            desiredAbs = 75; // case đặc biệt như code cũ
         } else {
-            this._xObjTaget = 75;
+            desiredAbs = Math.min(Math.abs(length), maxRange); // không vượt tầm, không overshoot
+            desiredAbs = Math.max(1, desiredAbs); // tối thiểu 1 để có chuyển động
         }
 
-//        if (this._xObjTaget < 0) {
-//            this.dir = -1;
-//        } else {
-//            this.dir = 1;
-//        }
-        this._xObjTaget = (short) Math.abs(this._xObjTaget);
-        this._yObjTaget = (short) (skillSelect.template.id == Skill.LIEN_HOAN_CHUONG ? 30 : skillSelect.dy);//Math.abs(_yObjTaget);
+        int signedDx = (dir >= 0 ? 1 : -1) * desiredAbs; // GIỮ HƯỚNG theo dir, KHÔNG abs()
+        if (signedDx > Short.MAX_VALUE)
+            signedDx = Short.MAX_VALUE;
+        if (signedDx < Short.MIN_VALUE)
+            signedDx = Short.MIN_VALUE;
+        this._xObjTaget = (short) signedDx;
+
+        // 5) Tính Y (giữ case đặc biệt Liên Hoàn Chưởng), có clamp short
+        int yDelta = (skillSelect.template.id == Skill.LIEN_HOAN_CHUONG) ? 30 : skillSelect.dy;
+        if (yDelta > Short.MAX_VALUE)
+            yDelta = Short.MAX_VALUE;
+        if (yDelta < Short.MIN_VALUE)
+            yDelta = Short.MIN_VALUE;
+        this._yObjTaget = (short) yDelta;
+
+        // 6) Bắt đầu skill
         this.isStartSkillSpecial = true;
         this.stepSkillSpecial = 0;
         this.lastTimeSkillSpecial = System.currentTimeMillis();
-        this.start(250);
+        this.start(250); // Giữ delay 250ms như bản 2 (có thể đưa vào data skill nếu cần)
     }
 
     public void sonPhiPhai() {
@@ -157,9 +176,8 @@ public class NewSkill {
         }
         return -1;
     }
-    
-    public int getdx()
-    {
+
+    public int getdx() {
         switch (skillSelect.template.id) {
             case Skill.LIEN_HOAN_CHUONG:
             case Skill.SUPER_KAME:

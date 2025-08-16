@@ -263,11 +263,7 @@ public class UseItem {
                         UseCard(pl, item);
                         break;
                     case 7: // sách học, nâng skill
-                        if(item.template.id > 1700) {
-                            learnSkillNew2(pl, item);
-                        }else {
-                            learnSkill(pl, item);
-                        }
+                        learnSkill(pl, item);
                         break;
                     case 6: // đậu thần
                         this.eatPea(pl);
@@ -1487,7 +1483,6 @@ public class UseItem {
                 String[] subName = item.template.name.split("");
                 byte level = Byte.parseByte(subName[subName.length - 1]);
                 Skill curSkill = SkillUtil.getSkillByItemID(pl, item.template.id);
-                System.out.println(curSkill);
                 if (curSkill.point == 7) {
                     Service.gI().sendThongBao(pl, "Kỹ năng đã đạt tối đa!");
                 } else {
@@ -1606,8 +1601,14 @@ public class UseItem {
         Message msg;
         try {
             if (item.template.gender == pl.gender || item.template.gender == 3) {
-                byte level = SkillUtil.getLevelSkillByItemID(item.template.id);
+                String[] subName = item.template.name.split("");
+                byte level = Byte.parseByte(subName[subName.length - 1]);
+                System.out.println(level);
                 Skill curSkill = SkillUtil.getSkillByItemID(pl, item.template.id);
+                if(curSkill == null) {
+                    Service.gI().sendThongBao(pl, "Không thể thực hiện");
+                    return;
+                }
                 if (curSkill.point == 6) {
                     Service.gI().sendThongBao(pl, "Kỹ năng đã đạt tối đa!");
                 } else {

@@ -728,7 +728,7 @@ public class EffectSkillService {
     public void setIsTranformation(Player player) {
         Util.setTimeout(() -> {
             int time = SkillUtil.getTimeTranformation();
-            player.isBienHinh = 0;
+            player.isTranform = 0;
             PlayerDAO.saveIsBienHinh(player);
             player.effectSkill.isTranformation = true;
             player.effectSkill.timeTranformation = time;
@@ -757,7 +757,7 @@ public class EffectSkillService {
             // đặt aura tùy theo giới tính và số lần tiến hóa
             switch (player.gender) {
                 case 0 -> {
-                    switch (player.isBienHinh) {
+                    switch (player.isTranform) {
                         case 1, 2 -> RadarService.gI().setIDAuraEff(player, 11);
                         case 3 -> RadarService.gI().setIDAuraEff(player, 14);
                         case 4 -> RadarService.gI().setIDAuraEff(player, 10);
@@ -765,7 +765,7 @@ public class EffectSkillService {
                     }
                 }
                 case 1 -> {
-                    switch (player.isBienHinh) {
+                    switch (player.isTranform) {
                         case 1, 2 -> RadarService.gI().setIDAuraEff(player, 13);
                         case 3 -> RadarService.gI().setIDAuraEff(player, 14);
                         case 4 -> RadarService.gI().setIDAuraEff(player, 8);
@@ -773,7 +773,7 @@ public class EffectSkillService {
                     }
                 }
                 case 2 -> {
-                    switch (player.isBienHinh) {
+                    switch (player.isTranform) {
                         case 1, 2 -> RadarService.gI().setIDAuraEff(player, 11);
                         case 3 -> RadarService.gI().setIDAuraEff(player, 14);
                         case 4 -> RadarService.gI().setIDAuraEff(player, 10);
@@ -811,5 +811,42 @@ public class EffectSkillService {
         } catch (IOException e) {
             utils.Logger.logException(EffectSkillService.class, e);
         }
+    }
+
+    // Hủy biến hình
+    public void TranformationDown(Player player) {
+        player.isTranform = 0;
+        PlayerDAO.saveIsBienHinh(player);
+        player.effectSkill.isTranformation = false;
+        player.effectSkill.levelTranformation = 0;
+        if (player.nPoint.hp > player.nPoint.hpMax) {
+            player.nPoint.setHp(player.nPoint.hpMax);
+        }
+        sendEffectEndCharge(player);
+        sendEffectTranformation(player);
+        Service.gI().setNotTranformation(player);
+        Service.gI().Send_Caitrang(player);
+        RadarService.gI().setIDAuraEff(player, player.getAura());
+        Service.gI().point(player);
+        PlayerService.gI().sendInfoHpMp(player);
+        Service.gI().Send_Info_NV(player);
+    }
+
+    // Hủy tiến hóa
+    public void EvolutionDown(Player player) {
+        player.isTranform = 0;
+        PlayerDAO.saveIsBienHinh(player);
+        player.effectSkill.isEvolution = false;
+        if (player.nPoint.hp > player.nPoint.hpMax) {
+            player.nPoint.setHp(player.nPoint.hpMax);
+        }
+        sendEffectEndCharge(player);
+        sendEffectVolution(player);
+        Service.gI().setNotVolution(player);
+        Service.gI().Send_Caitrang(player);
+        RadarService.gI().setIDAuraEff(player, player.getAura());
+        Service.gI().point(player);
+        PlayerService.gI().sendInfoHpMp(player);
+        Service.gI().Send_Info_NV(player);
     }
 }

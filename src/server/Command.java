@@ -66,34 +66,34 @@ public class Command {
                 GiftCodeManager.gI().checkInfomationGiftCode(player);
                 return true;
             } else if (text.equals("mapboss")) {
-                BossManager.gI().showListBoss(player,null);
+                BossManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("mapbroly")) {
-                BrolyManager.gI().showListBoss(player,null);
+                BrolyManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("mapantrom")) {
-                AnTromManager.gI().showListBoss(player,null);
+                AnTromManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("mapboss2")) {
-                OtherBossManager.gI().showListBoss(player,null);
+                OtherBossManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("mapdt")) {
-                RedRibbonHQManager.gI().showListBoss(player,null);
+                RedRibbonHQManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("mapbdkb")) {
-                TreasureUnderSeaManager.gI().showListBoss(player,null);
+                TreasureUnderSeaManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("mapcdrd")) {
-                SnakeWayManager.gI().showListBoss(player,null);
+                SnakeWayManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("mapkghd")) {
-                GasDestroyManager.gI().showListBoss(player,null);
+                GasDestroyManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("maptrungthu")) {
-                TrungThuEventManager.gI().showListBoss(player,null);
+                TrungThuEventManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("maptet")) {
-                LunarNewYearEventManager.gI().showListBoss(player,null);
+                LunarNewYearEventManager.gI().showListBoss(player, null);
                 return true;
             } else if (text.equals("hsk")) {
                 Service.gI().releaseCooldownSkill(player);
@@ -235,7 +235,7 @@ public class Command {
             if (text.startsWith("fw")) {
                 network.server.EMTIServer.firewall.clear();
                 network.server.EMTIServer.firewallDownDataGame.clear();
-                
+
                 Service.gI().sendThongBao(player, "CLEAR FIREWALL SUCCESS !");
             }
 
