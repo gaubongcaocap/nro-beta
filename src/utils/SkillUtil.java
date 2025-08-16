@@ -61,6 +61,14 @@ public class SkillUtil {
         return skill;
     }
 
+    public static int getTimeTranformation() { //thời gian tồn tại khỉ v
+        return 300000;
+    }
+
+     public static int getTimett() {
+        return 300000;
+    }
+
     public static boolean isUseSkillDam(Player player) {
         int skillId = player.playerSkill.skillSelect.template.id;
         return (skillId == Skill.DRAGON || skillId == Skill.DEMON

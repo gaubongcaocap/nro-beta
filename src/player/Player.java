@@ -269,6 +269,7 @@ public class Player implements Runnable {
     public boolean hasReceivedLunarGift;
     public int vip;
     public LocalDate timevip;
+    public int isBienHinh;
 
 
     public Player() {
@@ -1154,6 +1155,112 @@ public class Player implements Runnable {
     }
 
     public short getHead() {
+
+        if (effectSkill != null) {
+            if (effectSkill.isTranformation) {
+                ItemTimeService itemTimeService = ItemTimeService.gI();
+                int timeTransformation = this.effectSkill.timeTranformation / 1000;
+                switch (this.gender) {
+                    case 0:
+                        itemTimeService.sendItemTime(this, 20958, timeTransformation);
+                        return 1692;
+                    case 1:
+                        itemTimeService.sendItemTime(this, 20964, timeTransformation);
+                        return 1709;
+                    case 2:
+                        itemTimeService.sendItemTime(this, 20952, timeTransformation);
+                        return 1729;
+                    default:
+                        break;
+                }
+            } else if (effectSkill.isEvolution) {
+                ItemTimeService itemTimeService = ItemTimeService.gI();
+                int timeTransformation = this.effectSkill.timeTranformation / 1000;
+                switch (this.gender) {
+                    case 0:
+                        switch (this.isBienHinh) {
+                            case 1:
+                                itemTimeService.removeItemTime(this, 20958);
+                                itemTimeService.sendItemTime(this, 20959, timeTransformation);
+                                return 1692;
+                            case 2:
+                                itemTimeService.removeItemTime(this, 20959);
+                                itemTimeService.sendItemTime(this, 20960, timeTransformation);
+                                return 1695;
+                            case 3:
+                                itemTimeService.removeItemTime(this, 20960);
+                                itemTimeService.sendItemTime(this, 20961, timeTransformation);
+                                return 1698;
+                            case 4:
+                                itemTimeService.removeItemTime(this, 20961);
+                                itemTimeService.sendItemTime(this, 20962, timeTransformation);
+                                return 1701;
+                            case 5:
+                                itemTimeService.removeItemTime(this, 20962);
+                                itemTimeService.sendItemTime(this, 20963, timeTransformation);
+                                return 1704;
+                            default:
+                                break;
+                        }
+                        break;
+                    case 1:
+                        switch (this.isBienHinh) {
+                            case 1:
+                                itemTimeService.removeItemTime(this, 20964);
+                                itemTimeService.sendItemTime(this, 20965, timeTransformation);
+                                return 1712;
+                            case 2:
+                                itemTimeService.removeItemTime(this, 20965);
+                                itemTimeService.sendItemTime(this, 20966, timeTransformation);
+                                return 1715;
+                            case 3:
+                                itemTimeService.removeItemTime(this, 20966);
+                                itemTimeService.sendItemTime(this, 20967, timeTransformation);
+                                return 1718;
+                            case 4:
+                                itemTimeService.removeItemTime(this, 20967);
+                                itemTimeService.sendItemTime(this, 20968, timeTransformation);
+                                return 1721;
+                            case 5:
+                                itemTimeService.removeItemTime(this, 20968);
+                                itemTimeService.sendItemTime(this, 20969, timeTransformation);
+                                return 1724;
+                            default:
+                                break;
+                        }
+                        break;
+                    case 2:
+                        switch (this.isBienHinh) {
+                            case 1:
+                                itemTimeService.removeItemTime(this, 20952);
+                                itemTimeService.sendItemTime(this, 20953, timeTransformation);
+                                return 1729;
+                            case 2:
+                                itemTimeService.removeItemTime(this, 20953);
+                                itemTimeService.sendItemTime(this, 20954, timeTransformation);
+                                return 1732;
+                            case 3:
+                                itemTimeService.removeItemTime(this, 20954);
+                                itemTimeService.sendItemTime(this, 20955, timeTransformation);
+                                return 1735;
+                            case 4:
+                                itemTimeService.removeItemTime(this, 20955);
+                                itemTimeService.sendItemTime(this, 20956, timeTransformation);
+                                return 1738;
+                            case 5:
+                                itemTimeService.removeItemTime(this, 20956);
+                                itemTimeService.sendItemTime(this, 20957, timeTransformation);
+                                return 1741;
+                            default:
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
         if (this.isPl() && this.pet != null && this.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA
                 || this.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
             Item item = inventory.itemsBody.get(5);
