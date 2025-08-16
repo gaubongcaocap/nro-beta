@@ -98,8 +98,8 @@ public class ServerManager {
 
     public static void main(String[] args) {
         System.setProperty("file.encoding", "UTF-8");
-        // panel.PanelManager.gI().openUI();
-        // redirectSystemLogsToPanel();
+        panel.PanelManager.gI().openUI();
+        redirectSystemLogsToPanel();
         timeStart = TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss");
         ServerManager.gI().run();
     }
