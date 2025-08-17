@@ -77,6 +77,9 @@ public class KingKong extends Boss {
             Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, randomItem, 1,
                     this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
+
+        Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 1790, Util.nextInt(1, 5),
+                this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }

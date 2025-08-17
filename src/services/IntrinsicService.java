@@ -17,7 +17,7 @@ import java.util.List;
 public class IntrinsicService {
 
     private static IntrinsicService I;
-    private static final int[] COST_OPEN = {10, 20, 40, 80, 160, 320, 640, 1280};
+    private static final int[] COST_OPEN = { 10, 20, 40, 80, 160, 320, 640, 1280 };
 
     public static IntrinsicService gI() {
         if (IntrinsicService.I == null) {
@@ -65,7 +65,7 @@ public class IntrinsicService {
         try {
             msg = new Message(112);
             msg.writer().writeByte(1);
-            msg.writer().writeByte(1); //count tab
+            msg.writer().writeByte(1); // count tab
             msg.writer().writeUTF("Nội tại");
             msg.writer().writeByte(listIntrinsic.size() - 1);
             for (int i = 1; i < listIntrinsic.size(); i++) {
@@ -77,7 +77,8 @@ public class IntrinsicService {
         } catch (Exception e) {
         }
     }
-public void settltd(Player player) {
+
+    public void settltd(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.SET_TLTD, -1,
                 "Mày chọn gì thì chọn lẹ đi", "Set\nThiên Xin Hăn", "Set\nGenki", "Set\nKamejoko", "Từ chối");
 
@@ -103,7 +104,7 @@ public void settltd(Player player) {
 
     public void sethdnm(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.SET_HDNM, -1,
-                "Mày chọn gì thì chọn lẹ đi", "Set\nLiên hoàn", "Set\nỐc Tiêu", "Set\nPikkoro Daimao","Từ chối");
+                "Mày chọn gì thì chọn lẹ đi", "Set\nLiên hoàn", "Set\nỐc Tiêu", "Set\nPikkoro Daimao", "Từ chối");
 
     }
 
@@ -112,6 +113,7 @@ public void settltd(Player player) {
                 "Mày chọn gì thì chọn lẹ đi", "Set\nKakarot", "Set\nCadic", "Set\nNappa", "Từ chối");
 
     }
+
     public void showMenu(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.INTRINSIC, -1,
                 "Nội tại là một kỹ năng bị động hỗ trợ đặc biệt\nBạn có muốn mở hoặc thay đổi nội tại không?",
@@ -119,21 +121,27 @@ public void settltd(Player player) {
     }
 
     public void showConfirmOpen(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC, -1, "Bạn muốn đổi Nội Tại khác\nvới giá là "
-                + COST_OPEN[player.playerIntrinsic.countOpen] + " Tr vàng ?", "Mở\nNội Tại", "Từ chối");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC, -1,
+                "Bạn muốn đổi Nội Tại khác\nvới giá là "
+                        + COST_OPEN[player.playerIntrinsic.countOpen] + " Tr vàng ?",
+                "Mở\nNội Tại", "Từ chối");
     }
 
     public void showConfirmOpenVip(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC_VIP, -1,
-                "Bạn có muốn mở Nội Tại\nvới giá là 100 ngọc và\ntái lập giá vàng quay lại ban đầu không?", "Mở\nNội VIP", "Từ chối");
+                "Bạn có muốn mở Nội Tại\nvới giá là 100 ngọc và\ntái lập giá vàng quay lại ban đầu không?",
+                "Mở\nNội VIP", "Từ chối");
     }
 
     private void changeIntrinsic(Player player) {
         List<Intrinsic> listIntrinsic = getIntrinsics(player.gender);
         player.playerIntrinsic.intrinsic = new Intrinsic(listIntrinsic.get(Util.nextInt(1, listIntrinsic.size() - 1)));
-        player.playerIntrinsic.intrinsic.param1 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom1, player.playerIntrinsic.intrinsic.paramTo1);
-        player.playerIntrinsic.intrinsic.param2 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom2, player.playerIntrinsic.intrinsic.paramTo2);
-        Service.gI().sendThongBao(player, "Bạn nhận được Nội tại:\n" + player.playerIntrinsic.intrinsic.getName().substring(0, player.playerIntrinsic.intrinsic.getName().indexOf(" [")));
+        player.playerIntrinsic.intrinsic.param1 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom1,
+                player.playerIntrinsic.intrinsic.paramTo1);
+        player.playerIntrinsic.intrinsic.param2 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom2,
+                player.playerIntrinsic.intrinsic.paramTo2);
+        Service.gI().sendThongBao(player, "Bạn nhận được Nội tại:\n" + player.playerIntrinsic.intrinsic.getName()
+                .substring(0, player.playerIntrinsic.intrinsic.getName().indexOf(" [")));
         sendInfoIntrinsic(player);
     }
 

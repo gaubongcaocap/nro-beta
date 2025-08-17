@@ -940,13 +940,14 @@ public class UseItem {
                             }
                             break;
                             case 1703://set tl kh
-
                                 UseItem.gI().Hopdothanlinh(pl, item);
                                 break;                                //Zalo: 0358124452                                //Name: EMTI 
                             case 1704://set hd kh
-
                                 UseItem.gI().Hopdohuydiet(pl, item);
-                                break;                                //Zalo: 0358124452                                //Name: EMTI 
+                                break;    
+                            case 1793://set hd kh
+                                ItemService.gI().setHoaThan(pl);
+                                break;                              //Zalo: 0358124452                                //Name: EMTI 
                         }
                         break;
                 }

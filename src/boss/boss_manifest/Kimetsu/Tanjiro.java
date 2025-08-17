@@ -38,6 +38,9 @@ public class Tanjiro extends Boss {
 
     @Override
     public void reward(Player plKill) {
+        Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 1790, Util.nextInt(1, 5),
+                this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+                
         if (Util.isTrue(50, 100)) {
             int[] items = Util.isTrue(50, 100) ? new int[] { 18, 19, 20 }
                     : new int[] { 1066, 1067, 1068, 1069, 1070, 1229 };

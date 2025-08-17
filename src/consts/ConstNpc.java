@@ -364,6 +364,7 @@ public class ConstNpc {
         public static final int SET_HDXD = 1302;
         public static final int MENU_OPTION_USE_ITEM1703 = 1703;
         public static final int MENU_OPTION_USE_ITEM1704 = 1704;
+        public static final int MENU_OPTION_USE_ITEM1793 = 1793;
         public static final int MENU_OPTION_USE_ITEM1536 = 1536;
         public static int RECEIVE_GIFT_MENU = 12121;
         public static final int CAN_NOT_OPEN_DUA = 500;

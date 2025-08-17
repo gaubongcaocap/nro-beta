@@ -1894,6 +1894,29 @@ public class ItemService {
         }
     }
 
+    public void setHoaThan(Player player) {
+        for (int i = 0; i < 1; i++) {
+            Item hq = InventoryService.gI().findItem(player.inventory.itemsBag, 1793 + i);
+            int[] doHT = new int[]{1733, 1734, 1735, 1736, 1737};
+
+            int ramdom = new Random().nextInt(doHT.length);
+
+            Item ao = ItemService.gI().otphd((short) doHT[ramdom]);
+            ao.itemOptions.add(new Item.ItemOption(133, 0));
+            ao.itemOptions.add(new Item.ItemOption(136, 0));
+            ao.itemOptions.add(new Item.ItemOption(30, 0));
+            if (InventoryService.gI().getCountEmptyBag(player) > 1) {
+                InventoryService.gI().addItemBag(player, ao);
+                InventoryService.gI().sendItemBag(player);
+                Service.gI().sendThongBao(player, "Bạn đã nhận được món Hủy Diệt ");
+                InventoryService.gI().subQuantityItemsBag(player, hq, 1);
+                InventoryService.gI().sendItemBag(player);
+            } else {
+                Service.gI().sendThongBao(player, "Bạn phải có ít nhất 1 ô trống hành trang");
+            }
+        }
+    }
+
     public void sethdcadic(Player player) {
         for (int i = 0; i < 1; i++) {
             Item hq = InventoryService.gI().findItem(player.inventory.itemsBag, 1704 + i);

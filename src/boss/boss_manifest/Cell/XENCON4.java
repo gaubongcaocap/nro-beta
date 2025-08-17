@@ -42,6 +42,9 @@ public class XENCON4 extends Boss {
                 Service.gI().dropItemMap(this.zone, it);
             }
         }
+
+        Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 1790, Util.nextInt(1, 5),
+                this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
     }
 
     @Override
