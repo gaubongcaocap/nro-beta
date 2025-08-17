@@ -110,7 +110,7 @@ public class NangGiapLuyenTap {
     }
     private static boolean isCoupleItemNangCapCheck3(Item trangBi, Item daNangCap) {
         if (trangBi != null && daNangCap != null) {
-            if ((trangBi.template.id >= 529 && trangBi.template.id <= 531 || trangBi.template.id >= 534 && trangBi.template.id <= 536) && daNangCap.template.id == 1710) {
+            if ((trangBi.template.id >= 529 && trangBi.template.id <= 531 || trangBi.template.id >= 534 && trangBi.template.id <= 536 || trangBi.template.id == 1792) && daNangCap.template.id == 1710) {
                 return true;
             }
         } else {

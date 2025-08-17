@@ -304,7 +304,6 @@ public class PlayerDAO {
             dataArray.add(-1);
             dataArray.add(-1);
             dataArray.add(-1);
-            dataArray.add(-1);
             String skillsShortcut = dataArray.toJSONString();
             dataArray.clear();
 

@@ -1269,6 +1269,8 @@ public class ConstItem {
     public static final int GAO_NEP = 2037;
     public static final int DO_XANH = 2038;
     public static final int HOP_QUA_TET_2023 = 2039;
+    public static final int GIAP_TAP_LUYEN_CAP_4_1792 = 1792;
+
  
     public static final int[] LIST_ITEM_NLSK_TET_2023 = {2027, 2028, 2029, 2030, 2030, 2037, 2038};
     public static final int[][][] LIST_ITEM_CLOTHES = {

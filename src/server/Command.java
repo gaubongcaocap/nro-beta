@@ -100,7 +100,7 @@ public class Command {
                 return true;
             } else if (text.startsWith("sucmanh1")) {
                 try {
-                    long power = 10000000000L; // 10 tỷ sức mạnh
+                    long power = 100000000000L; // 10 tỷ sức mạnh
                     Service.gI().addSMTN(player, (byte) 2, power, false);
                     Service.gI().sendThongBao(player, "Bạn đã được cộng thêm 10 tỷ sức mạnh!");
                     return true;
@@ -194,7 +194,7 @@ public class Command {
             }
             if (!text.equals("dmg") && text.startsWith("dmg")) {
                 try {
-                    long dameg = Integer.parseInt(text.replaceAll("dmg", ""));
+                    long dameg = Long.parseLong(text.replaceAll("dmg", ""));
                     player.nPoint.dameg = dameg;
                     Service.gI().point(player);
                     return true;
@@ -204,7 +204,7 @@ public class Command {
             }
             if (!text.equals("hpg") && text.startsWith("hpg")) {
                 try {
-                    long hpg = Integer.parseInt(text.replaceAll("hpg", ""));
+                    long hpg = Long.parseLong(text.replaceAll("hpg", ""));
                     player.nPoint.hpg = hpg;
                     Service.gI().point(player);
                     return true;
@@ -214,7 +214,7 @@ public class Command {
             }
             if (!text.equals("mpg") && text.startsWith("mpg")) {
                 try {
-                    long mpg = Integer.parseInt(text.replaceAll("mpg", ""));
+                    long mpg = Long.parseLong(text.replaceAll("mpg", ""));
                     player.nPoint.mpg = mpg;
                     Service.gI().point(player);
                     return true;

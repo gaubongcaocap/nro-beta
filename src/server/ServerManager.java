@@ -98,8 +98,8 @@ public class ServerManager {
 
     public static void main(String[] args) {
         System.setProperty("file.encoding", "UTF-8");
-        panel.PanelManager.gI().openUI();
-        redirectSystemLogsToPanel();
+        // panel.PanelManager.gI().openUI();
+        // redirectSystemLogsToPanel();
         timeStart = TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss");
         ServerManager.gI().run();
     }
@@ -158,13 +158,13 @@ public class ServerManager {
         Thread.startVirtualThread(() -> SnakeWayManager.gI());
         Thread.startVirtualThread(() -> GasDestroyManager.gI());
         Thread.startVirtualThread(() -> GasDestroyManager.gI());
-        Thread.startVirtualThread(() -> TrungThuEventManager.gI());
-        Thread.startVirtualThread(() -> HalloweenEventManager.gI());
-        Thread.startVirtualThread(() -> ChristmasEventManager.gI());
-        Thread.startVirtualThread(() -> ChristmasEventManager.gI());
-        Thread.startVirtualThread(() -> HungVuongEventManager.gI());
-        Thread.startVirtualThread(() -> LunarNewYearEventManager.gI());
-        Thread.startVirtualThread(() -> LuckyNumber.gI());
+        // Thread.startVirtualThread(() -> TrungThuEventManager.gI());
+        // Thread.startVirtualThread(() -> HalloweenEventManager.gI());
+        // Thread.startVirtualThread(() -> ChristmasEventManager.gI());
+        // Thread.startVirtualThread(() -> ChristmasEventManager.gI());
+        // Thread.startVirtualThread(() -> HungVuongEventManager.gI());
+        // Thread.startVirtualThread(() -> LunarNewYearEventManager.gI());
+        // Thread.startVirtualThread(() -> LuckyNumber.gI());
         Thread.startVirtualThread(() -> DecisionMaker.gI());
         Thread.startVirtualThread(() -> DecisionMaker.gI());
 

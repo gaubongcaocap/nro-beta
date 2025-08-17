@@ -1280,7 +1280,7 @@ public class NPoint {
         if (this.player.effectSkill.isTranformation || this.player.effectSkill.isEvolution) {
             if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
                 int percent = SkillUtil.getPercentDameMonkey((byte) player.isTranform);
-                this.dame += ((long) this.dame * percent * 2 / 100);
+                dame += ((long) dame * percent * 2 / 100);
             }
         }
 
@@ -1682,12 +1682,12 @@ public class NPoint {
             case Skill.KAIOKEN:
                 percentDameSkill = skillSelect.damage;
                 if (this.player.setClothes.kaioken == 5) {
-                    percentXDame = 50;
+                    percentXDame = 80;
                 } else if (player.setClothes.thanVuTruKaio == 5) {
-                    percentXDame = 30;
+                    percentXDame = 50;
                 }
                 if (this.isGogeta) {
-                    percentXDame = 15;
+                    percentXDame = 30;
                 }
                 break;
             case Skill.TU_SAT:
@@ -1732,10 +1732,10 @@ public class NPoint {
                     }
                 }
 
-                long dameqckk = (hpmob * 10 / 100) + (hppl * 10 / 100) + this.dame * 10;
+                long dameqckk = (hpmob * 20 / 100) + (hppl * 20 / 100) + this.dame * 20;
 
                 if (this.player.setClothes.kirin == 5) {
-                    dameqckk *= 2;
+                    dameqckk *= 3;
                 }
 
                 dameqckk = dameqckk + (Util.nextInt(-5, 5) * dameqckk / 100);

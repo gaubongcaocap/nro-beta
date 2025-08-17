@@ -176,6 +176,8 @@ public class ItemService {
                 case 531:
                 case 536:
                     return 30;
+                case 1792:
+                    return 40;
                 default:
                     return 0;
             }
@@ -193,6 +195,7 @@ public class ItemService {
                 case 535:
                 case 531:
                 case 536:
+                case 1792:
                     return true;
                 default:
                     return false;

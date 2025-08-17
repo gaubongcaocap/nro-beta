@@ -795,9 +795,14 @@ public class SkillService {
                 affterUseSkill(player, player.playerSkill.skillSelect.template.id);
                 break;
             case Skill.BIEN_KHI:
-                EffectSkillService.gI().startUseSkillMonkey(player);
-                affterUseSkill(player, player.playerSkill.skillSelect.template.id);
-                break;
+                if(!player.effectSkill.isTranformation && !player.effectSkill.isEvolution ){
+                    EffectSkillService.gI().startUseSkillMonkey(player);
+                    affterUseSkill(player, player.playerSkill.skillSelect.template.id);
+                    break;
+                } else {
+                    Service.gI().sendThongBao(player, "Không thể biến khỉ ở trạng thái Super Saiyan");
+                }
+                
             case Skill.KHIEN_NANG_LUONG:
                 EffectSkillService.gI().setStartShield(player);
                 EffectSkillService.gI().sendEffectPlayer(player, player, EffectSkillService.TURN_ON_EFFECT,
@@ -1450,6 +1455,12 @@ public class SkillService {
     public void useSkillTranformation(Player player) {
         if (!canUseSkillWithCooldown(player)) {
             return;
+        }
+        if (player.effectSkill.isMonkey) {
+            EffectSkillService.gI().monkeyDown(player);
+        }
+        if (player.effectSkill.isUseSkillMonkey) {
+            EffectSkillService.gI().finishUseMonkey(player);
         }
         EffectSkillService.gI().sendEffectTranformation(player);
         EffectSkillService.gI().setIsTranformation(player);
