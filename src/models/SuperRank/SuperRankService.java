@@ -3,7 +3,7 @@ package models.SuperRank;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import consts.ConstSuperRank;

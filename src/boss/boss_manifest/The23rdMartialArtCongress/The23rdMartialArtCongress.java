@@ -3,7 +3,7 @@ package boss.boss_manifest.The23rdMartialArtCongress;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import consts.ConstRatio;

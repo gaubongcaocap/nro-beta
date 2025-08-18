@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import models.Card.Card;
 import models.Card.OptionCard;

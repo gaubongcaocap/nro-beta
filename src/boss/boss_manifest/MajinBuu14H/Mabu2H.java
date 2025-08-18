@@ -3,7 +3,7 @@ package boss.boss_manifest.MajinBuu14H;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.Boss;

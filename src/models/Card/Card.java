@@ -3,7 +3,7 @@ package models.Card;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import java.util.ArrayList;

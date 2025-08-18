@@ -3,7 +3,7 @@ package models.SnakeWay;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import clan.Clan;
 import clan.ClanMember;

@@ -1,7 +1,7 @@
 package npc.npc_manifest;
 
 /**
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstDailyGift;
 import consts.ConstMenu;
@@ -125,7 +125,7 @@ public class BaHatMit extends Npc {
                                             + "\nTẩy đồ: tẩy sao pha lê, chỉ số đặc biệt một số trang bị",
                                             "Mở Khóa GD", "Gia hạn\n Vật Phẩm", "Tẩy Đồ"
                                     );
-                                    break;//Zalo: 0358124452  
+                                    break;  
                                 case 2: //Pháp sư hóa trang bị
                                     CombineService.gI().openTabCombine(player, CombineService.PS_HOA_TRANG_BI);
                                     break;
@@ -134,13 +134,13 @@ public class BaHatMit extends Npc {
                                     break;
                                 case 4:
                                     CombineService.gI().openTabCombine(player, CombineService.AN_TRANG_BI);
-                                    break;//Name: EMTI 
+                                    break; 
                                 case 5:
                                     CombineService.gI().openTabCombine(player, CombineService.TINH_THACH_HOA);
-                                    break;//Name: EMTI  
+                                    break;  
                                 case 6:
                                     CombineService.gI().openTabCombine(player, CombineService.NANG_GIAP_LUYEN_TAP);
-                                    break;//Name: EMTI 
+                                    break; 
                             }
                         }
                         case ConstMenu.BUILD_DO_BHM -> {

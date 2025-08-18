@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import models.MajinBuu.MajinBuuService;

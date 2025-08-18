@@ -3,7 +3,7 @@ package models.DeathOrAliveArena;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import consts.ConstPlayer;

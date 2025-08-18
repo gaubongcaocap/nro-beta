@@ -25,7 +25,7 @@ public class LoggerUI extends JFrame {
     }
 
     private LoggerUI() {
-        setTitle("EMTI Game Server Log");
+        setTitle("NTD Game Server Log");
         setSize(600, 360);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

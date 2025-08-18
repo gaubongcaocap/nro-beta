@@ -2,7 +2,7 @@ package player;
 
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstTaskBadges;
 import item.Item;

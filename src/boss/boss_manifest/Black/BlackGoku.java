@@ -3,7 +3,7 @@ package boss.boss_manifest.Black;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import boss.*;
 import consts.ConstPlayer;

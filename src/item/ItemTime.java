@@ -3,7 +3,7 @@ package item;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import player.NPoint;
 import player.Player;
@@ -116,6 +116,14 @@ public class ItemTime {
     public long lastTimeEatThuocMo2;
     public int iconThuocMo2;
 
+    public boolean isDrinkBiaTiger;
+    public long lastTimeDrinkBiaTiger;
+
+    public boolean isDrinkBia333;
+    public long lastTimeDrinkBia333;
+
+    public boolean isDrinkHeniken;
+    public long lastTimeDrinkHeniken;
 
     public boolean isEatDuoiKhiXanh;
     public long lastTImeEatDuoiKhiXanh;
@@ -320,6 +328,21 @@ public class ItemTime {
         if (isUseRX) {
             if (Util.canDoWithTime(lastTimeUseRX, timeRX)) {
                 isUseRX = false;
+            }
+        }
+        if (isDrinkBiaTiger) {
+            if (Util.canDoWithTime(lastTimeDrinkBiaTiger, TIME_MAY_DO2)) {
+                isDrinkBiaTiger = false;
+            }
+        }
+        if (isDrinkBia333) {
+            if (Util.canDoWithTime(lastTimeDrinkBia333, TIME_MAY_DO2)) {
+                isDrinkBia333 = false;
+            }
+        }
+        if (isDrinkHeniken) {
+            if (Util.canDoWithTime(lastTimeDrinkHeniken, TIME_ITEM)) {
+                isDrinkHeniken = false;
             }
         }
     }

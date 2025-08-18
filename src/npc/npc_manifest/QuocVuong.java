@@ -2,7 +2,7 @@ package npc.npc_manifest;
 //hang nga map 5 dao kame
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstNpc;
 import consts.ConstTranhNgocNamek;

@@ -3,7 +3,7 @@ package boss.boss_manifest.ChristmasEvent;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import boss.*;
 import static boss.BossType.CHRISTMAS_EVENT;

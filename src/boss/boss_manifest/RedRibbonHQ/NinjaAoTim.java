@@ -3,7 +3,7 @@ package boss.boss_manifest.RedRibbonHQ;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import consts.ConstPlayer;

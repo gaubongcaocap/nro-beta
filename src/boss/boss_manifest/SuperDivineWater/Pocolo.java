@@ -3,7 +3,7 @@ package boss.boss_manifest.SuperDivineWater;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstPlayer;
 import boss.*;

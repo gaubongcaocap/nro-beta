@@ -3,7 +3,7 @@ package models.Combine;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import item.Item;

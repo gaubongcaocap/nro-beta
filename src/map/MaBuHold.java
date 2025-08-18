@@ -3,7 +3,7 @@ package map;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import player.Player;

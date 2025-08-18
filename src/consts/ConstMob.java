@@ -3,7 +3,7 @@ package consts;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 public class ConstMob {

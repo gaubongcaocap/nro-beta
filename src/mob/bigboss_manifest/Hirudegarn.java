@@ -1,7 +1,7 @@
 package mob.bigboss_manifest;
 
 /**
- * @author EMTI
+ * @author NTD
  */
 import consts.cn;
 import map.ItemMap;

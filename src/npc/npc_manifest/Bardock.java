@@ -3,7 +3,7 @@ package npc.npc_manifest;
 import consts.ConstNpc;
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstTask;
 import consts.cn;

@@ -3,7 +3,7 @@ package boss.boss_manifest.GoldenFrieza;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.Boss;

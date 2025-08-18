@@ -3,7 +3,7 @@ package jdbc.daos;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import models.Card.OptionCard;
 import models.Card.Card;
@@ -619,6 +619,9 @@ public class NDVSqlFetcher {
             int timeUseBuax2DeTu = 0;
             int timeUseKhauTrang = 0;
             int timeUseBanhChung = 0;
+            int timeBiaTiger = 0;
+            int timeBia333 = 0;
+            int timeBiaHeniken = 0;
             int timeBoHuyet = Integer.parseInt(String.valueOf(dataArray.get(0)));
             int timeBoHuyet2 = Integer.parseInt(String.valueOf(dataArray.get(1)));
             int timeBoKhi = Integer.parseInt(String.valueOf(dataArray.get(2)));
@@ -685,6 +688,15 @@ public class NDVSqlFetcher {
             if (dataArray.size() > 28) {
                 iconMeal3 = Integer.parseInt(String.valueOf(dataArray.get(28)));
             }
+            if (dataArray.size() > 29) {
+                timeBiaTiger = Integer.parseInt(String.valueOf(dataArray.get(29)));
+            }
+            if (dataArray.size() > 30) {
+                timeBia333 = Integer.parseInt(String.valueOf(dataArray.get(30)));
+            }
+            if (dataArray.size() > 31) {
+                timeBiaHeniken = Integer.parseInt(String.valueOf(dataArray.get(31)));
+            }
 
             player.itemTime.lastTimeBoHuyet = System.currentTimeMillis() - (ItemTime.TIME_ITEM - timeBoHuyet);
             player.itemTime.lastTimeBoKhi = System.currentTimeMillis() - (ItemTime.TIME_ITEM - timeBoKhi);
@@ -712,6 +724,9 @@ public class NDVSqlFetcher {
             player.itemTime.lastTimeBuax2DeTu = System.currentTimeMillis() - (ItemTime.TIME_30P - timeUseBuax2DeTu);
             player.itemTime.lastTimeKhauTrang = System.currentTimeMillis() - (ItemTime.TIME_30P - timeUseKhauTrang);
             player.itemTime.lastTimeEatMeal3 = System.currentTimeMillis() - (ItemTime.TIME_EAT_MEAL3 - timeMeal3);
+            player.itemTime.lastTimeDrinkBiaTiger = System.currentTimeMillis() - (ItemTime.TIME_30P - timeBiaTiger);
+            player.itemTime.lastTimeDrinkBia333= System.currentTimeMillis() - (ItemTime.TIME_30P - timeBia333);
+            player.itemTime.lastTimeDrinkHeniken = System.currentTimeMillis() - (ItemTime.TIME_10P - timeBiaHeniken);
             player.itemTime.iconMeal = iconMeal;
             player.itemTime.isEatMeal = timeMeal != 0;
             player.itemTime.isUseBoHuyet = timeBoHuyet != 0;
@@ -740,6 +755,9 @@ public class NDVSqlFetcher {
             player.itemTime.isUseKhauTrang = timeUseKhauTrang != 0;
             player.itemTime.iconMeal3 = iconMeal3;
             player.itemTime.isEatMeal3 = timeMeal3 != 0;
+            player.itemTime.isDrinkBiaTiger = timeBiaTiger != 0;
+            player.itemTime.isDrinkBia333 = timeBia333 != 0;
+            player.itemTime.isDrinkHeniken = timeBiaHeniken != 0;
             player.itemTime.lastTimeBanhChung = System.currentTimeMillis() - (ItemTime.TIME_30P - timeUseBanhChung);
             dataArray.clear();
 

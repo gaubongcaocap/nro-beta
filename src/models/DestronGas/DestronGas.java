@@ -3,7 +3,7 @@ package models.DestronGas;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import EMTI.Functions;
 import boss.Boss;

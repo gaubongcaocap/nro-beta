@@ -3,7 +3,7 @@ package boss.boss_manifest.HalloweenEvent;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.*;

@@ -3,7 +3,7 @@ package npc.specialnpc;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import consts.ConstNpc;

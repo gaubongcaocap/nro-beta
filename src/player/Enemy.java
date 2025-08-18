@@ -3,7 +3,7 @@ package player;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 public class Enemy extends Friend {

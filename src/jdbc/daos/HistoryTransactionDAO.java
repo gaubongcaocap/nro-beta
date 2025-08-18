@@ -3,7 +3,7 @@ package jdbc.daos;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import jdbc.DBConnecter;

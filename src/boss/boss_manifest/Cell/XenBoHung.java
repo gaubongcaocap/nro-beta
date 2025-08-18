@@ -3,7 +3,7 @@ package boss.boss_manifest.Cell;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import consts.ConstPlayer;
@@ -118,6 +118,11 @@ public class XenBoHung extends Boss {
             return;
         }
         ChangeMapService.gI().changeMapYardrat(this, this.zone, pl.location.x, pl.location.y);
+        if(pl.itemTime.isDrinkBiaTiger) {
+            this.chat("Sao ta không hấp thụ được ngươi");
+            Service.gI().chat(pl, "Haha, do bạn chưa chơi đồ đó bạn ạ");
+            return;
+        }
         this.nPoint.dameg += (pl.nPoint.dame * 5 / 100);
         this.nPoint.hpg += (pl.nPoint.hp * 2 / 100);
         this.nPoint.critg++;

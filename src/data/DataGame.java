@@ -3,7 +3,7 @@ package data;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import encrypt.IconEncrypt;
 import encrypt.ImageUtil;

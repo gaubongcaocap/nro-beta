@@ -2,7 +2,7 @@ package npc.npc_manifest;
 //that ra la con poc o dao kame
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstNpc;
 import consts.ConstTranhNgocNamek;

@@ -2,7 +2,7 @@ package jdbc.daos;
 
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 import jdbc.DBConnecter;
 import org.json.simple.JSONArray;

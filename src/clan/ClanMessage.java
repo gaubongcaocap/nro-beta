@@ -3,7 +3,7 @@ package clan;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 public class ClanMessage {

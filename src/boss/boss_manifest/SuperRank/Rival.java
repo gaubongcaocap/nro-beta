@@ -3,7 +3,7 @@ package boss.boss_manifest.SuperRank;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.BossData;

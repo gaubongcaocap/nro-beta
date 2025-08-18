@@ -2,7 +2,7 @@ package event.event_manifest;
 
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 
 import consts.ConstNpc;

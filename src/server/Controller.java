@@ -3,7 +3,7 @@ package server;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import boss.Boss;
 import boss.BossManager;

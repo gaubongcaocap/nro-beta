@@ -3,7 +3,7 @@ package matches;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import matches.pvp.TraThu;
 import matches.pvp.ThachDau;

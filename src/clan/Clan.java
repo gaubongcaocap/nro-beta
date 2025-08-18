@@ -3,7 +3,7 @@ package clan;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstTask;
 import jdbc.DBConnecter;

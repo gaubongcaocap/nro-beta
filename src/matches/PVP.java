@@ -3,7 +3,7 @@ package matches;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import consts.ConstPlayer;

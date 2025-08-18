@@ -1,6 +1,6 @@
 
 /*
- * Copyright by EMTI
+ * Copyright by NTD
  */
 package minigame.RockPaperScissors;
 

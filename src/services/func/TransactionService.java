@@ -3,7 +3,7 @@ package services.func;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import EMTI.Functions;
 import Bot.Bot;

@@ -3,7 +3,7 @@ package models.SnakeWay;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import EMTI.Functions;
 import boss.boss_manifest.SnakeWay.SAIBAMEN;

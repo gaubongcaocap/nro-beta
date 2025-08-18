@@ -3,7 +3,7 @@ package skill;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import models.Template.SkillTemplate;

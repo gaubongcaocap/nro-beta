@@ -3,7 +3,7 @@ package intrinsic;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import services.IntrinsicService;

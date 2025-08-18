@@ -2,7 +2,7 @@ package models.Achievement;
 
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstAchievement;
 import item.Item;

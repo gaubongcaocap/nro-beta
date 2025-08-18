@@ -3,7 +3,7 @@ package boss.boss_manifest.SnakeWay;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import consts.ConstPlayer;

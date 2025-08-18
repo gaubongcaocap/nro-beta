@@ -3,7 +3,7 @@ package boss.boss_manifest.DeathOrAliveArena;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.BossID;

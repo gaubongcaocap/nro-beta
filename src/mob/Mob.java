@@ -3,7 +3,7 @@ package mob;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import services.InventoryService;
 import services.Service;

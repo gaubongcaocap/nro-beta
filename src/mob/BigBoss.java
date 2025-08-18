@@ -2,7 +2,7 @@ package mob;
 
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 
 import utils.TimeUtil;

@@ -3,7 +3,7 @@ package models.WorldMartialArtsTournament;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import EMTI.Functions;
 import consts.ConstPlayer;

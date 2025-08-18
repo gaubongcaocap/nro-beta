@@ -3,7 +3,7 @@ package jdbc.daos;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -713,6 +713,15 @@ public class PlayerDAO {
                         ? (ItemTime.TIME_EAT_MEAL3 - (System.currentTimeMillis() - player.itemTime.lastTimeEatMeal3))
                         : 0));
                 dataArray.add(player.itemTime.iconMeal3);
+                dataArray.add((player.itemTime.isDrinkBiaTiger
+                        ? (ItemTime.TIME_30P - (System.currentTimeMillis() - player.itemTime.lastTimeDrinkBiaTiger))
+                        : 0));
+                dataArray.add((player.itemTime.isDrinkBia333
+                        ? (ItemTime.TIME_30P - (System.currentTimeMillis() - player.itemTime.lastTimeDrinkBia333))
+                        : 0));
+                dataArray.add((player.itemTime.isDrinkHeniken
+                        ? (ItemTime.TIME_10P - (System.currentTimeMillis() - player.itemTime.lastTimeDrinkHeniken))
+                        : 0));
                 String itemTime = dataArray.toJSONString();
                 dataArray.clear();
 

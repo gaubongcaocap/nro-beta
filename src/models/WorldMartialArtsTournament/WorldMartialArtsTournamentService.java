@@ -3,7 +3,7 @@ package models.WorldMartialArtsTournament;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstNpc;
 import consts.ConstTournament;

@@ -1,7 +1,7 @@
 package player;
 
 /**
- * @build by EMTI
+ * @build by NTD
  */
 public class PointFusion {
 

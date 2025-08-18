@@ -3,7 +3,7 @@ package boss.boss_manifest.Training;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import boss.BossID;
 import boss.BossStatus;

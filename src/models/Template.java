@@ -3,7 +3,7 @@ package models;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import map.WayPoint;
 import skill.Skill;

@@ -3,7 +3,7 @@ package models.MajinBuu;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import java.util.ArrayList;

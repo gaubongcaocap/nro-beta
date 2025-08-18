@@ -3,7 +3,7 @@ package models.Training;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.Boss;

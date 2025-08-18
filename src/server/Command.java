@@ -1,7 +1,7 @@
 package server;
 
 /**
- * @author EMTI
+ * @author NTD
  */
 import Bot.*;
 import boss.AnTromManager;

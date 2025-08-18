@@ -13,7 +13,7 @@ import lombok.Getter;
 
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 public class CaptionManager {
 

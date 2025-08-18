@@ -3,7 +3,7 @@ package services.func;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import boss.BossID;
 import consts.ConstMap;

@@ -3,7 +3,7 @@ package boss;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 public class TrungThuEventManager extends BossManager {

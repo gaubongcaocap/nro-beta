@@ -3,7 +3,7 @@ package mob;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import network.Message;
 import player.Player;

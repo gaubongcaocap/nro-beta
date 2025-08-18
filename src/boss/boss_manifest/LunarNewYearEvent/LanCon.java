@@ -3,7 +3,7 @@ package boss.boss_manifest.LunarNewYearEvent;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.*;

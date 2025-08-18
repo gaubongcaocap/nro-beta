@@ -1,5 +1,5 @@
 /*
- * Copyright by EMTI
+ * Copyright by NTD
  */
 
 package player.badges;

@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 import models.Consign.ConsignShopService;
 import npc.Npc;

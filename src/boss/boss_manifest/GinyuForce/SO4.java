@@ -3,7 +3,7 @@ package boss.boss_manifest.GinyuForce;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.Boss;

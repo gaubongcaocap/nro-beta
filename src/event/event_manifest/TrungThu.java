@@ -3,7 +3,7 @@ package event.event_manifest;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.BossID;

@@ -3,7 +3,7 @@ package event.ievent;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 public interface IEvent {

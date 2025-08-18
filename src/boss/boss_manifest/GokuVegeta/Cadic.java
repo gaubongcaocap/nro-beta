@@ -73,8 +73,6 @@ public class Cadic extends Boss {
 
     @Override
     public void doneChatE() {
-        System.out.println(this.parentBoss);
-        System.out.println(this.parentBoss.bossAppearTogether);
         if (this.parentBoss == null || this.parentBoss.bossAppearTogether == null
                 || this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel] == null) {
             return;

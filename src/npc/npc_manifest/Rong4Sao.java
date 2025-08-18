@@ -2,7 +2,7 @@ package npc.npc_manifest;
 
 /**
  *
- * @author EMTI
+ * @author NTD
  */
 
 public class Rong4Sao extends Rong1Sao {

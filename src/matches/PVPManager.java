@@ -3,7 +3,7 @@ package matches;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import EMTI.Functions;
 import player.Player;

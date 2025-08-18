@@ -3,7 +3,7 @@ package npc;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import npc.npc_manifest.*;
 import boss.BossID;

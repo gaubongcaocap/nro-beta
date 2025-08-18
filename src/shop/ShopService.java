@@ -3,7 +3,7 @@ package shop;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstAchievement;
 import consts.ConstNpc;

@@ -3,7 +3,7 @@ package map;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import EMTI.Functions;
 import consts.ConstMap;

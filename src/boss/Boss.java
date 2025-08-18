@@ -3,7 +3,7 @@ package boss;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import consts.ConstPlayer;
 import item.Item;

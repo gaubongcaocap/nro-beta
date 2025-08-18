@@ -3,7 +3,7 @@ package models.SuperDivineWater;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import boss.boss_manifest.SuperDivineWater.Pocolo;
 import consts.ConstNpc;

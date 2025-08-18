@@ -3,7 +3,7 @@ package services.func;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import boss.Boss;
 import boss.BossID;
@@ -941,13 +941,34 @@ public class UseItem {
                             break;
                             case 1703://set tl kh
                                 UseItem.gI().Hopdothanlinh(pl, item);
-                                break;                                //Zalo: 0358124452                                //Name: EMTI 
+                                break;                                                                 
                             case 1704://set hd kh
                                 UseItem.gI().Hopdohuydiet(pl, item);
                                 break;    
                             case 1793://set hd kh
                                 ItemService.gI().setHoaThan(pl);
-                                break;                              //Zalo: 0358124452                                //Name: EMTI 
+                                break;      
+                            case 1794://Bia Tiger
+                                if (pl.itemTime.isDrinkBia333) {
+                                    Service.gI().sendThongBao(pl, "Chỉ được sử dụng 1 cái");
+                                    break;
+                                }
+                                useItemTime(pl, item);
+                                break;
+                            case 1796://Bia 333
+                                if (pl.itemTime.isDrinkBiaTiger) {
+                                    Service.gI().sendThongBao(pl, "Chỉ được sử dụng 1 cái");
+                                    break;
+                                }
+                                useItemTime(pl, item);
+                                break;
+                            case 1798://Bia Henkiken
+                                if (pl.itemTime.isDrinkBiaTiger || pl.itemTime.isDrinkBia333) {
+                                    Service.gI().sendThongBao(pl, "Chỉ được sử dụng 1 cái");
+                                    break;
+                                }
+                                useItemTime(pl, item);
+                                break;
                         }
                         break;
                 }
@@ -1435,6 +1456,18 @@ public class UseItem {
                 pl.itemTime.lastTimeUseMayDo2 = System.currentTimeMillis();
                 pl.itemTime.isUseMayDo2 = true;
                 break;
+            case 1794: // Tiger
+                pl.itemTime.lastTimeDrinkBiaTiger = System.currentTimeMillis();
+                pl.itemTime.isDrinkBiaTiger = true;
+                break;
+            case 1796: // 333
+                pl.itemTime.lastTimeDrinkBia333 = System.currentTimeMillis();
+                pl.itemTime.isDrinkBia333 = true;
+                break;
+            case 1798: // Heniken
+                pl.itemTime.lastTimeDrinkHeniken = System.currentTimeMillis();
+                pl.itemTime.isDrinkHeniken = true;
+                break;
             case 1999: // Đuôi khỉ
                 if (!pl.effectSkill.isMonkey) {
                     int timeMonkey = 120000; // 2 phút
@@ -1604,7 +1637,6 @@ public class UseItem {
             if (item.template.gender == pl.gender || item.template.gender == 3) {
                 String[] subName = item.template.name.split("");
                 byte level = Byte.parseByte(subName[subName.length - 1]);
-                System.out.println(level);
                 Skill curSkill = SkillUtil.getSkillByItemID(pl, item.template.id);
                 if(curSkill == null) {
                     Service.gI().sendThongBao(pl, "Không thể thực hiện");

@@ -6,7 +6,7 @@ import java.util.Random;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import boss.Boss;

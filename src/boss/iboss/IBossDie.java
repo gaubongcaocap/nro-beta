@@ -3,7 +3,7 @@ package boss.iboss;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import player.Player;

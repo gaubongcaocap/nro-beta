@@ -3,7 +3,7 @@ package models.The23rdMartialArtCongress;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import map.Zone;

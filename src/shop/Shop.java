@@ -3,7 +3,7 @@ package shop;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import player.Player;

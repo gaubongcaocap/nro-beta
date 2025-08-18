@@ -3,7 +3,7 @@ package server.io;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import network.KeyHandler;

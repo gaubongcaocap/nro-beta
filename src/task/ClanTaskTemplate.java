@@ -3,7 +3,7 @@ package task;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 public class ClanTaskTemplate {

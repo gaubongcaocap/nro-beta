@@ -3,7 +3,7 @@ package models.GiftCode;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import item.Item.ItemOption;
 import java.sql.Timestamp;

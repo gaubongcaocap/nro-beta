@@ -3,7 +3,7 @@ package models.TreasureUnderSea;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import item.Item;

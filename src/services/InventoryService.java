@@ -3,7 +3,7 @@ package services;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import item.Item;
 import item.Item.ItemOption;

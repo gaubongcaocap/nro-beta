@@ -3,7 +3,7 @@ package models.GiftCode;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import jdbc.DBConnecter;
 import player.Player;

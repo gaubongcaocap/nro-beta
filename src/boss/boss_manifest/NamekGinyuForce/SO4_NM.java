@@ -3,7 +3,7 @@ package boss.boss_manifest.NamekGinyuForce;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import boss.Boss;
 import boss.BossID;

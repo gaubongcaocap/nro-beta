@@ -1,7 +1,7 @@
 package npc.npc_manifest;
 
 /**
- * @author EMTI
+ * @author NTD
  */
 
 import java.sql.Connection;

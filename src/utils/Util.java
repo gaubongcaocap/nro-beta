@@ -3,7 +3,7 @@ package utils;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 import boss.BossManager;
 import consts.cn;

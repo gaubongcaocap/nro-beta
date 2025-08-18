@@ -3,7 +3,7 @@ package models.BlackBallWar;
 /*
  *
  *
- * @author EMTI
+ * @author NTD
  */
 
 import item.Item;
